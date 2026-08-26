@@ -26,8 +26,7 @@ export default function Home() {
         <section className="home-hero" aria-label="Site introduction">
           <img className="home-hero__image" src="/brand/hero-banner.webp" alt="Adrentuary in a glowing green cosmic world" />
           <div className="home-hero__shade" />
-          <div className="home-hero__content">
-            <p className="kicker">Welcome to my little corner of the universe</p>
+          <div className="home-hero__content home-hero__content--right">
             <p className="home-hero__intro">Guides, blogs, and useful tools built for immersive games&mdash;and for the people who love getting delightfully lost in them.</p>
             <div className="button-row">
               <Link className="button button--primary" href="/resources">Explore resources <span aria-hidden="true">↗</span></Link>
