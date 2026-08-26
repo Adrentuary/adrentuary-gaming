@@ -37,7 +37,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <Link href="/resources">Explore resources</Link>
           <a href="https://www.giftful.com/adrentuary" target="_blank" rel="noreferrer">Wishlist</a>
-          <a href="https://ko-fi.com/adrentuary" target="_blank" rel="noreferrer">Ko-fi</a>
+          <a href="https://ko-fi.com/adrentuary" target="_blank" rel="noreferrer">Donate</a>
         </div>
       </div>
       <div className="global-footer__legal">

@@ -97,7 +97,6 @@ export default function Home() {
           <div className="resource-grid">
             {resourceCards.map(card => (
               <article className="resource-card" key={card.title}>
-                <span className="resource-card__number">{card.number}</span>
                 <h3>{card.title}</h3>
                 <p>{card.body}</p>
                 <Link href={card.href}>{card.label}<span aria-hidden="true">→</span></Link>
