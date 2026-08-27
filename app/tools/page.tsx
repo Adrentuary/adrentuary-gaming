@@ -9,6 +9,7 @@ export default function Tools(){return(
   <InteriorHero eyebrow="Custom utilities" title="Which tool would you like to use?" description="Enhance your gameplay with focused calculators and resources." image="/brand/pages/tools.webp"/>
   <AnimateIn>
   <section className="tool-grid interior-section">
+    <div className="tool-grid-inner">
     {tools.map((tool,i)=>(
       <article key={`${tool.title}-${i}`} className={!tool.live?'tool-card--muted':''}>
         <div className="tool-status"><span/>Status: {tool.status}</div>
@@ -18,6 +19,7 @@ export default function Tools(){return(
         {tool.live?<Link href={tool.href}>Launch tool <span>↗</span></Link>:<span className="tool-soon">Coming soon</span>}
       </article>
     ))}
+    </div>
   </section>
   </AnimateIn>
 </InteriorPage>

@@ -7,7 +7,7 @@ export default function Guides(){return(
 <InteriorPage>
   <InteriorHero eyebrow="Play smarter" title="Guides" description="Not sure where to start? Explore walkthroughs, collection guides, strategies, and resources handpicked to help you spend less time searching and more time playing." image="/brand/pages/guides-stars.webp"/>
   <section className="featured-guide interior-section">
-    <AnimateIn from="left"><div className="featured-guide__art"><img src="/brand/pages/guide-card.webp" alt="Toontown Corporate Clash guide artwork"/><img className="featured-guide__logo" src="/brand/pages/toontown-logo.webp" alt="Toontown Corporate Clash"/></div></AnimateIn>
+    <AnimateIn from="left"><div className="featured-guide__art"><img src="/brand/pages/guide-card.webp" alt="Toontown Corporate Clash guide artwork"/></div></AnimateIn>
     <AnimateIn delay={100}><div className="featured-guide__copy"><p className="kicker">Featured guide</p><h2>Toontown Corporate Clash: Personal Guide</h2><p>Navigate Toontown streets with helpful tips, locations, tasks, progression tracking, and everything you need along the way.</p><div className="button-row"><Link className="button button--ghost" href="/cog-distribution">Open Cog Distribution</Link></div></div></AnimateIn>
   </section>
   <section className="browse-games">
