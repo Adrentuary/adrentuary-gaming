@@ -2,7 +2,14 @@ import type {ReactNode} from 'react';
 import {SiteFooter,SiteHeader} from './SiteChrome';
 
 export function InteriorPage({children}: {children:ReactNode}) {
-  return <div className="site-page"><SiteHeader/><main className="interior-main">{children}</main><SiteFooter/></div>;
+  return (
+    <div className="site-page">
+      <video className="home-video-bg" src="/brand/twinkling-stars.mp4" autoPlay loop muted playsInline aria-hidden="true"/>
+      <SiteHeader/>
+      <main className="interior-main">{children}</main>
+      <SiteFooter/>
+    </div>
+  );
 }
 
 export function InteriorHero({eyebrow,title,description,image,children}: {eyebrow:string;title:string;description?:string;image?:string;children?:ReactNode}) {
