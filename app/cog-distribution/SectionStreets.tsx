@@ -20,6 +20,11 @@ const PAIRS = [
 ];
 
 function DistrictCard({ district }: { district: typeof STREETS[number] }) {
+  // Compute the max value per cog column (index 0–4) across all streets
+  const colMax = [0, 1, 2, 3, 4].map(ci =>
+    Math.max(...district.streets.map(s => s.cogs[ci]))
+  );
+
   return (
     <div
       className="tracker-card streets-card"
@@ -54,27 +59,24 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
             </tr>
           </thead>
           <tbody>
-            {district.streets.map(s => {
-              const maxVal = Math.max(...s.cogs);
-              return (
-                <tr key={s.location} className={s.isHQ ? 'st-hq-row' : ''}>
-                  <td className="col-street">{s.location}</td>
-                  <td className={`col-tunnel${s.isHQ ? ' st-hq-tunnel' : ''}`}>
-                    {s.tunnel}
+            {district.streets.map(s => (
+              <tr key={s.location}>
+                <td className="col-street">{s.location}</td>
+                <td className={`col-tunnel${s.isHQ ? ' st-hq-tunnel' : ''}`}>
+                  {s.tunnel}
+                </td>
+                <td className="col-sm">{s.levels}</td>
+                <td className="col-sm">{s.exe}</td>
+                {s.cogs.map((c, i) => (
+                  <td
+                    key={i}
+                    className={`col-sm col-cog-pct${c === colMax[i] && c > 0 ? ' st-max-pct' : ''}`}
+                  >
+                    {c}%
                   </td>
-                  <td className="col-sm">{s.levels}</td>
-                  <td className="col-sm">{s.exe}</td>
-                  {s.cogs.map((c, i) => (
-                    <td
-                      key={i}
-                      className={`col-sm col-cog-pct${c === maxVal && c > 0 ? ' st-max-pct' : ''}`}
-                    >
-                      {c}%
-                    </td>
-                  ))}
-                </tr>
-              );
-            })}
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

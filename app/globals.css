@@ -200,11 +200,9 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .col-cog-pct{text-align:center;width:44px}
 .cog-emblem{display:block;margin:0 auto;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
 .pg-emblem{object-fit:contain;flex-shrink:0}
-/* HQ tunnel row — slightly lighter than the card header */
-.st-hq-row td{background:color-mix(in srgb,var(--dc,#6b2f04) 60%,#0a100a)}
-.st-hq-row:hover td{background:color-mix(in srgb,var(--dc,#6b2f04) 70%,#0a100a)}
-.st-hq-tunnel{color:#fff !important;font-weight:700}
-/* highest % cell in each row */
-.st-max-pct{background:color-mix(in srgb,var(--dc,#6b2f04) 80%,#0a100a) !important;color:#fff !important;font-weight:800;border-radius:4px}
+/* HQ tunnel cell only — 40% lighter than the card's --dc color */
+.st-hq-tunnel{background:color-mix(in srgb,var(--dc,#6b2f04) 60%,#fff) !important;color:#fff !important;font-weight:700}
+/* highest % cell per column — no border-radius */
+.st-max-pct{background:color-mix(in srgb,var(--dc,#6b2f04) 80%,#0a100a) !important;color:#fff !important;font-weight:800}
 @media(max-width:900px){.streets-pair{grid-template-columns:1fr}}
 @media(max-width:700px){.tracker-tabs{gap:2px}.tracker-tab{padding:8px 11px;font-size:11px}.col-tunnel,.col-loc{display:none}.col-reward{min-width:120px;font-size:11px}.tracker-header{flex-direction:column}.tracker-header-meta{align-items:flex-start}}
