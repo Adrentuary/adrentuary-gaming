@@ -68,12 +68,17 @@ export function StreetShopModal({ data, onClose }: Props) {
                   <Image
                     src={`${data.shopsBase}/shop-owners/${selected.ownerImg}`}
                     alt={selected.owner ?? 'Shop owner'}
-                    width={160} height={160}
-                    className="ssm-owner-img" unoptimized
+                    width={76} height={76}
+                    className="ssm-owner-img"
+                    style={{ width: 76, height: 76, objectFit: 'cover', objectPosition: 'center top' }}
+                    unoptimized
                   />
                 ) : (
                   <Image src="/icons/misc/vacant-shop.png" alt="Vacant Shop"
-                    width={80} height={80} className="ssm-vacant-img" unoptimized />
+                    width={76} height={76}
+                    className="ssm-vacant-img"
+                    style={{ width: 76, height: 76, objectFit: 'contain' }}
+                    unoptimized />
                 )}
                 <div className="ssm-owner-info">
                   <span className="ssm-owner-name">{selected.owner ?? 'Vacant Shop'}</span>
