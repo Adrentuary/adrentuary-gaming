@@ -1,6 +1,10 @@
 'use client';
+import { useState } from 'react';
 import Image from 'next/image';
 import { STREETS } from './data-streets';
+import { STREET_SHOPS } from './data-street-shops';
+import type { StreetShopData } from './data-street-shops';
+import { StreetShopModal } from './StreetShopModal';
 
 // cog emblem images — order matches cogs[] array: SB, CB, LB, BB, BSB
 const COG_EMBLEMS = [
@@ -19,8 +23,11 @@ const PAIRS = [
   [STREETS[6], STREETS[7]], // AA + DDL
 ];
 
-function DistrictCard({ district }: { district: typeof STREETS[number] }) {
-  // Compute the max value per cog column (index 0–4) across all streets
+function DistrictCard({ district, onShopClick }: {
+  district: typeof STREETS[number];
+  onShopClick: (data: StreetShopData) => void;
+}) {
+  // Compute the max value per cog column (index 0-4) across all streets
   const colMax = [0, 1, 2, 3, 4].map(ci =>
     Math.max(...district.streets.map(s => s.cogs[ci]))
   );
@@ -30,7 +37,6 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
       className="tracker-card streets-card"
       style={{'--dc': district.color, '--da': district.accent} as React.CSSProperties}
     >
-      {/* header */}
       <div className="tracker-card-header">
         <Image
           src={`/icons/playground-emblems/${district.pgKey}.png`}
@@ -41,8 +47,6 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
         />
         <strong>{district.name}</strong>
       </div>
-
-      {/* table */}
       <div className="tracker-table-wrap">
         <table className="tracker-table">
           <thead>
@@ -59,26 +63,35 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
             </tr>
           </thead>
           <tbody>
-            {district.streets.map(s => (
-              <tr key={s.location}>
-                <td className="col-street">{s.location}</td>
-                <td className={`col-tunnel${s.isHQ ? ' st-hq-tunnel' : ''}`}>
-                  {s.tunnel}
-                </td>
-                <td className="col-sm">{s.levels}</td>
-                <td className="col-sm">{s.exe}</td>
-                {s.cogs.map((c, i) => {
-                  const isColMax = c === colMax[i] && c > 0;
-                  const isHQPct  = s.isHQ && isColMax;
-                  const cls = `col-sm col-cog-pct${isColMax ? ' st-max-pct' : ''}${isHQPct ? ' st-hq-pct' : ''}`;
-                  return (
-                    <td key={i} className={cls}>
-                      {c}%
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+            {district.streets.map(s => {
+              const shopKey = `${district.pgKey}|${s.location}`;
+              const shopData = STREET_SHOPS[shopKey] ?? null;
+              return (
+                <tr key={s.location}>
+                  <td className="col-street">
+                    {shopData ? (
+                      <button className="ssm-street-btn" onClick={() => onShopClick(shopData)}>
+                        {s.location}
+                        <span className="ssm-street-btn-hint">🏪</span>
+                      </button>
+                    ) : (
+                      s.location
+                    )}
+                  </td>
+                  <td className={`col-tunnel${s.isHQ ? ' st-hq-tunnel' : ''}`}>
+                    {s.tunnel}
+                  </td>
+                  <td className="col-sm">{s.levels}</td>
+                  <td className="col-sm">{s.exe}</td>
+                  {s.cogs.map((c, i) => {
+                    const isColMax = c === colMax[i] && c > 0;
+                    const isHQPct  = s.isHQ && isColMax;
+                    const cls = `col-sm col-cog-pct${isColMax ? ' st-max-pct' : ''}${isHQPct ? ' st-hq-pct' : ''}`;
+                    return <td key={i} className={cls}>{c}%</td>;
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -87,14 +100,31 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
 }
 
 export function SectionStreets() {
+  const [modalData, setModalData] = useState<StreetShopData | null>(null);
+
   return (
     <div className="tracker-section">
-      <p className="tracker-section-desc">Cog distribution per street. HQ tunnels are highlighted. Highest % per row is marked.</p>
+      <p className="tracker-section-desc">
+        Cog distribution per street. HQ tunnels are highlighted. Highest % per column is marked.
+        Streets with 🏪 have interactive shop maps.
+      </p>
       {PAIRS.map((pair, pi) => (
         <div key={pi} className="streets-pair">
-          {pair.map(d => <DistrictCard key={d.name} district={d} />)}
+          {pair.map(d => (
+            <DistrictCard
+              key={d.name}
+              district={d}
+              onShopClick={setModalData}
+            />
+          ))}
         </div>
       ))}
+      {modalData && (
+        <StreetShopModal
+          data={modalData}
+          onClose={() => setModalData(null)}
+        />
+      )}
     </div>
   );
 }
