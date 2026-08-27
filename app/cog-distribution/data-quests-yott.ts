@@ -1,0 +1,31 @@
+import type { QuestPlayground } from './data-quests-types';
+import { H, Q, S } from './data-quests-types';
+export const YOTT: QuestPlayground = {
+  name: 'Ye Olde Toontowne', icon: '👑', color: '#33205e', accent: '#9b70cc',
+  rows: [
+    H('Main Storyline'),
+    Q("Flippy's Plans"), Q('Ye Olde Basics'), Q('Ye Olde Cog Bash!'),
+    Q("Dongalf's Lessons"), Q('Ye Olde Missing Postage'), Q('Cog Flu'),
+    Q('Executing The Executives'), Q('Researching The Executed'),
+    Q('Ye Olde Restoration Project'), Q('The Secret In The Dungeon'),
+    Q('Trained and Ready','⭐ To Be Or Not To Be? – Pose | ⭐ Daffodil Gardens – Background'),
+    H('Sidetasks'),
+    S('Used To Be An Adventurer','⭐ Teleport Access','Noble Nook (Arrow to the Knee)'),
+    S('Dungeon Duty','Jellybeans & Experience','Doyle N. Trouble (The Dungeon)'),
+    S('Page Studying 101','Knight Outfit',"Knight Knoll (Arthur's Barns and Nobles)"),
+    S('Midlife Crisis','⭐ Transparent – Cheesy Effect | ⭐ Poetic – Nametag','Wizard Way (Middle Age Crisis Center)'),
+    S('Not-So-Tall Tales','⭐ Small Head – Cheesy Effect',"Knight Knoll (Troubadour's Tall Tales)"),
+    S('The Golden Penny','⭐ Casting Pose','Tumbies (Playground)'),
+    H('Kudos Rank-Up Quests'),
+    Q('1→2  Reinforced Training','+1 YOTT Gag XP Multiplier'),
+    Q('2→3  Box Machina','15% Gag Discount in YOTT | +1 YOTT CUMBALL Booster'),
+    Q('3→4  Daodragon Festival','⭐ The Daodragon – Nameplate | ⭐ Hearty Feast – Background'),
+    Q('4→5  At The Gate','⭐ At The Gate – Profile Pose'),
+    Q('5→6  Good Toons or Bad Toons?','30% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
+    Q('6→7  Unsweet Tooth','+2 YOTT Gag XP Multiplier'),
+    Q('7→8  Fishing Fiasco','⭐ Medieval – Nametag Font'),
+    Q('8→9  The Royal Grail','50% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
+    Q('9→10  Looming Lawbot','+1 Max Laff'),
+    Q('10+  +30 Gumballs'),
+  ],
+};

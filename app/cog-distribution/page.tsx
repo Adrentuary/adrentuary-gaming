@@ -1,28 +1,86 @@
 'use client';
-import {useEffect,useState} from 'react';
-import {SiteFooter,SiteHeader} from '../components/SiteChrome';
-type Row={location:string;tunnel:string;levels:string;exe:string;cogs:string[];highlight?:number};
-type District={name:string;icon:string;base:string;light:string;accent:string;rows:Row[]};
-const districts:District[]=[
-{name:'Toontown Central',icon:'/icons/toontown-central.png',base:'#6b2f04',light:'#a84802',accent:'#d86b10',rows:[
-{location:'Loopy Lane',tunnel:'Mezzo Melodyland',levels:'1 – 4',exe:'5%',cogs:['5%','5%','40%','30%','20%']},{location:'Punchline Place',tunnel:'Barnacle Boatyard',levels:'1 – 4',exe:'5%',cogs:['40%','40%','5%','5%','10%']},{location:'Silly Street',tunnel:'Ye Olde Toontowne',levels:'1 – 3',exe:'10%',cogs:['20%','20%','20%','20%','20%']},{location:'Wacky Way',tunnel:'Daffodil Gardens',levels:'1 – 4',exe:'5%',cogs:['5%','5%','20%','30%','40%']}]},
-{name:'Barnacle Boatyard',icon:'/icons/barnacle-boatyard.png',base:'#842407',light:'#a93309',accent:'#dc4a14',rows:[
-{location:'Anchor Avenue',tunnel:'Construction',levels:'2 – 5',exe:'10%',cogs:['55%','0%','0%','35%','10%']},{location:'Buccaneer Boulevard',tunnel:'Toontown Central',levels:'2 – 5',exe:'7.5%',cogs:['0%','0%','10%','80%','10%']},{location:'Lighthouse Lane',tunnel:'The Brrrgh',levels:'2 – 5',exe:'15%',cogs:['5%','5%','35%','0%','55%']},{location:'Seaweed Street',tunnel:'Acorn Acres',levels:'2 – 5',exe:'10%',cogs:['30%','60%','10%','0%','0%']}]},
-{name:'Ye Olde Toontowne',icon:'/icons/ye-olde-toontowne.png',base:'#33205e',light:'#704a9c',accent:'#9b70cc',rows:[
-{location:'Knight Knoll',tunnel:'Daffodil Gardens',levels:'3 – 6',exe:'10%',cogs:['45%','45%','5%','5%','0%']},{location:'Noble Nook',tunnel:'Toontown Central',levels:'3 – 5',exe:'10%',cogs:['0%','0%','10%','40%','50%']},{location:'Wizard Way',tunnel:'',levels:'3 – 6',exe:'12%',cogs:['5%','5%','70%','20%','0%']}]},
-{name:'Daffodil Gardens',icon:'/icons/daffodil-gardens.png',base:'#314600',light:'#547700',accent:'#9bd31a',rows:[
-{location:'Daisy Drive',tunnel:'Toontown Central',levels:'4 – 6',exe:'10%',cogs:['10%','10%','0%','15%','65%']},{location:'Petunia Place',tunnel:'Ye Olde Toontowne',levels:'4 – 7',exe:'7.5%',cogs:['5%','50%','45%','0%','0%']},{location:'Sunflower Street',tunnel:'Acorn Acres',levels:'4 – 7',exe:'10%',cogs:['10%','10%','10%','60%','10%']},{location:'Tulip Terrace',tunnel:'Sellbot HQ',levels:'4 – 7',exe:'15%',cogs:['80%','5%','5%','5%','5%'],highlight:0}]},
-{name:'Mezzo Melodyland',icon:'/icons/mezzo-melodyland.png',base:'#482052',light:'#8f439e',accent:'#bf62cb',rows:[
-{location:'Alto Avenue',tunnel:'Toontown Central',levels:'5 – 7',exe:'7.5%',cogs:['50%','25%','0%','0%','25%']},{location:'Baritone Boulevard',tunnel:'The Brrrgh',levels:'5 – 8',exe:'10%',cogs:['10%','40%','0%','0%','50%']},{location:'Soprano Street',tunnel:'Cashbot HQ',levels:'5 – 8',exe:'25%',cogs:['5%','80%','5%','5%','5%'],highlight:1},{location:'Tenor Terrace',tunnel:'Drowsy Dreamland',levels:'5 – 8',exe:'15%',cogs:['0%','0%','40%','40%','20%']}]},
-{name:'The Brrrgh',icon:'/icons/the-brrrgh.png',base:'#003a46',light:'#087e9e',accent:'#29b2dc',rows:[
-{location:'Arctic Avenue',tunnel:'Drowsy Dreamland',levels:'6 – 9',exe:'25%',cogs:['10%','5%','5%','10%','70%']},{location:'Polar Place',tunnel:'Lawbot HQ',levels:'6 – 9',exe:'25%',cogs:['5%','5%','80%','5%','5%'],highlight:2},{location:'Sleet Street',tunnel:'Mezzo Melodyland',levels:'6 – 9',exe:'20%',cogs:['60%','30%','0%','0%','10%']},{location:'Walrus Way',tunnel:'Barnacle Boatyard',levels:'6 – 8',exe:'20%',cogs:['0%','0%','5%','75%','20%']}]},
-{name:'Acorn Acres',icon:'/icons/acorn-acres.png',base:'#00451e',light:'#00752f',accent:'#20cf69',rows:[
-{location:'Almond Avenue',tunnel:'',levels:'7 – 10',exe:'20%',cogs:['20%','10%','10%','10%','50%']},{location:'Legume Lane',tunnel:'Daffodil Gardens',levels:'7 – 10',exe:'20%',cogs:['0%','40%','40%','20%','0%']},{location:'Peanut Place',tunnel:'Buccaneer Boulevard',levels:'7 – 10',exe:'20%',cogs:['30%','30%','30%','0%','10%']},{location:'Walnut Way',tunnel:'Bossbot HQ',levels:'7 – 10',exe:'20%',cogs:['5%','5%','5%','80%','5%'],highlight:3}]},
-{name:'Drowsy Dreamland',icon:'/icons/drowsy-dreamland.png',base:'#281c68',light:'#5b51ce',accent:'#9c91ef',rows:[
-{location:'Lullaby Lane',tunnel:'Mezzo Melodyland',levels:'8 – 10',exe:'25%',cogs:['40%','40%','5%','5%','10%']},{location:'Pajama Place',tunnel:'The Brrrgh',levels:'8 – 11',exe:'25%',cogs:['5%','5%','40%','40%','10%']},{location:'Twilight Terrace',tunnel:'Boardbot HQ',levels:'8 – 11',exe:'30%',cogs:['5%','5%','5%','5%','80%'],highlight:4}]}];
-const cogIcons=['/icons/type-1.png','/icons/type-2.png','/icons/type-3.png','/icons/type-4.png','/icons/type-5.png'];
-function Cell({children,label,className='',style}:{children:React.ReactNode;label:string;className?:string;style?:React.CSSProperties}){return <button type="button" onClick={()=>window.dispatchEvent(new CustomEvent('cellselect',{detail:label}))} className={`cell ${className}`} style={style}>{children}</button>}
-function DistrictBlock({district}: {district:District}){const exeMax=Math.max(...district.rows.map(row=>parseFloat(row.exe)));const cogMax=cogIcons.map((_,column)=>Math.max(...district.rows.map(row=>parseFloat(row.cogs[column]))));return <section className="district" style={{'--base':district.base,'--light':district.light,'--accent':district.accent} as React.CSSProperties}>
-<Cell label={`${district.name} icon`} className="district-icon"><img src={district.icon} alt="" /></Cell><Cell label={`${district.name} — Location heading`} className="head location">Location</Cell><Cell label={`${district.name} — Tunnel Direction heading`} className="head tunnel">Tunnel Direction</Cell><Cell label={`${district.name} — Levels heading`} className="head levels">Levels</Cell><Cell label={`${district.name} — EXE heading`} className="head exe">EXE</Cell>{cogIcons.map((icon,i)=><Cell key={i} label={`${district.name} — Cog type ${i+1} heading`} className="head cog-icon"><img src={icon} alt="" /></Cell>)}
-<Cell label={district.name} className="district-name"><span>{district.name}</span></Cell><div className="district-rows">{district.rows.map(row=><div className="data-row" key={row.location}><Cell label={`${row.location} — Location`} className="location">{row.location}</Cell>{row.tunnel?<Cell label={`${row.location} — Tunnel Direction: ${row.tunnel}`} className={`tunnel ${row.highlight!==undefined?'hq-highlight':''}`}>{row.tunnel}</Cell>:<span className="cell tunnel empty" aria-hidden="true"/>}<Cell label={`${row.location} — Levels: ${row.levels}`} className="levels">{row.levels}</Cell><Cell label={`${row.location} — EXE: ${row.exe}`} className={`exe ${parseFloat(row.exe)===exeMax?'column-max':''}`}>{row.exe}</Cell>{row.cogs.map((value,c)=><Cell key={c} label={`${row.location} — Cog type ${c+1}: ${value}`} className={`cog ${c===row.highlight?'hq-highlight':parseFloat(value)===cogMax[c]?'column-max':''}`}>{value}</Cell>)}</div>)}</div></section>}
-export default function CogDistribution(){const[selected,setSelected]=useState<string|null>(null);useEffect(()=>{const h=(e:Event)=>setSelected((e as CustomEvent<string>).detail);window.addEventListener('cellselect',h);return()=>window.removeEventListener('cellselect',h)},[]);useEffect(()=>{const h=(e:KeyboardEvent)=>e.key==='Escape'&&setSelected(null);window.addEventListener('keydown',h);return()=>window.removeEventListener('keydown',h)},[]);return <div className="site-page"><SiteHeader/><main className="chart-page"><header className="site-header"><div><p className="eyebrow">Interactive Toontown resource</p><h1>Cog Distribution</h1></div><p>Choose any populated cell to explore it.</p></header><div className="chart-shell"><div className="chart-columns"><div>{districts.slice(0,4).map(d=><DistrictBlock district={d} key={d.name}/>)}</div><div>{districts.slice(4).map(d=><DistrictBlock district={d} key={d.name}/>)}</div></div></div>{selected&&<div className="modal-wrap" role="presentation" onMouseDown={()=>setSelected(null)}><section className="modal" role="dialog" aria-modal="true" aria-labelledby="detail-title" onMouseDown={e=>e.stopPropagation()}><button className="close" onClick={()=>setSelected(null)} aria-label="Close details">×</button><p className="eyebrow">Selected cell</p><h2 id="detail-title">{selected}</h2><div className="placeholder"><span>Details coming next</span><p>This panel is ready for the information, links, images, or actions you want to display for this cell.</p></div></section></div>}</main><SiteFooter/></div>}
+import { useState } from 'react';
+import { SiteHeader, SiteFooter } from '../components/SiteChrome';
+import { useAuth } from '../components/AuthProvider';
+import { TrackerProvider, useTracker, TOON_COLORS } from './TrackerContext';
+import { SectionStreets } from './SectionStreets';
+import { SectionQuests } from './SectionQuests';
+import { SectionGags } from './SectionGags';
+import { SectionPromotions } from './SectionPromotions';
+import { SectionLeveling } from './SectionLeveling';
+import { SectionLaff } from './SectionLaff';
+import { SectionToons } from './SectionToons';
+
+type TabId = 'streets'|'quests'|'gags'|'promotions'|'leveling'|'laff'|'toons';
+const TABS: { id: TabId; label: string }[] = [
+  { id: 'streets',    label: '🗺️ Streets' },
+  { id: 'quests',     label: '📜 Quests' },
+  { id: 'gags',       label: '🎪 Gags' },
+  { id: 'promotions', label: '⚙️ Promotions' },
+  { id: 'leveling',   label: '📈 Leveling' },
+  { id: 'laff',       label: '❤️ Laff Boosts' },
+  { id: 'toons',      label: '🐾 Toons' },
+];
+
+function TrackerInner() {
+  const { user } = useAuth();
+  const { toonNames, setToonNames, saving, saveMsg, commitToonName } = useTracker();
+  const [activeTab, setActiveTab] = useState<TabId>('streets');
+  const [editingToon, setEditingToon] = useState<number|null>(null);
+
+  return (
+    <div className="site-page">
+      <SiteHeader />
+      <main className="tracker-page">
+        <header className="tracker-header">
+          <div>
+            <p className="eyebrow">Corporate Clash</p>
+            <h1>Personal Tracker</h1>
+          </div>
+          <div className="tracker-header-meta">
+            <div className="toon-legend">
+              {toonNames.map((name, i) => (
+                <button key={i} className="toon-legend-item" style={{'--tc': TOON_COLORS[i]} as React.CSSProperties}
+                  onClick={() => setEditingToon(editingToon === i ? null : i)}>
+                  <span className="toon-dot" />
+                  {editingToon === i
+                    ? <input autoFocus value={name}
+                        onChange={e => { const n=[...toonNames]; n[i]=e.target.value; setToonNames(n); }}
+                        onBlur={() => { commitToonName(i, toonNames); setEditingToon(null); }}
+                        onKeyDown={e => { if(e.key==='Enter'){commitToonName(i,toonNames);setEditingToon(null);}}}
+                        className="toon-name-input" maxLength={20} onClick={e => e.stopPropagation()} />
+                    : <span>{name}</span>}
+                </button>
+              ))}
+            </div>
+            {user
+              ? <span className="save-status">{saving ? 'Saving…' : saveMsg}</span>
+              : <span className="save-status save-status--warn">Log in to save progress</span>}
+          </div>
+        </header>
+        <nav className="tracker-tabs" aria-label="Tracker sections">
+          {TABS.map(t => (
+            <button key={t.id} className={`tracker-tab${activeTab===t.id?' tracker-tab--active':''}`}
+              onClick={() => setActiveTab(t.id)}>{t.label}</button>
+          ))}
+        </nav>
+        {activeTab === 'streets'    && <SectionStreets />}
+        {activeTab === 'quests'     && <SectionQuests />}
+        {activeTab === 'gags'       && <SectionGags />}
+        {activeTab === 'promotions' && <SectionPromotions />}
+        {activeTab === 'leveling'   && <SectionLeveling />}
+        {activeTab === 'laff'       && <SectionLaff />}
+        {activeTab === 'toons'      && <SectionToons />}
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+export default function TrackerPage() {
+  return (
+    <TrackerProvider>
+      <TrackerInner />
+    </TrackerProvider>
+  );
+}

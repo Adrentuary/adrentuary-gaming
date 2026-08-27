@@ -92,3 +92,32 @@ create policy "Avatar update for owner"
 create policy "Public avatar read"
   on storage.objects for select
   using (bucket_id = 'avatars');
+
+
+-- 5. TRACKER PROGRESS TABLE
+-- Stores the full Corporate Clash Personal Tracker progress per user
+-- as a single JSON blob (progress map + toon names)
+create table if not exists public.tracker_progress (
+  user_id    uuid primary key references auth.users(id) on delete cascade,
+  data       jsonb not null default '{}',
+  updated_at timestamptz default now()
+);
+
+alter table public.tracker_progress enable row level security;
+
+create policy "Users can view own tracker progress"
+  on public.tracker_progress for select
+  to authenticated
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own tracker progress"
+  on public.tracker_progress for insert
+  to authenticated
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own tracker progress"
+  on public.tracker_progress for update
+  to authenticated
+  using (auth.uid() = user_id);
+
+grant select, insert, update on public.tracker_progress to authenticated;

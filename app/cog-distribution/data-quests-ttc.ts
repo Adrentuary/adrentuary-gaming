@@ -1,0 +1,32 @@
+import type { QuestPlayground } from './data-quests-types';
+import { H, Q, S } from './data-quests-types';
+export const TTC: QuestPlayground = {
+  name: 'Toontown Central', icon: '🍦', color: '#5a2004', accent: '#d86b10',
+  rows: [
+    H('Main Storyline'),
+    Q('Welcome to Toontown!'), Q('Time for First Impressions'), Q('A Hairy Introduction'),
+    Q("Zit's Time to Pump Iron"), Q('Jokey Jam'), Q("Big Bumpin'"), Q('Sticky Situation'),
+    Q('The Numbers Mason …'), Q('Letter Rip!'), Q('A Taste Of Toontown'), Q('Gathering Gags'),
+    Q('Smart Minds Think Unalike'),
+    Q('Find the Rain','⭐ Upset – Profile Pose | ⭐ Barnacle Boatyard – Background'),
+    H('Sidetasks'),
+    S("Pete's Apology",'Teleport Access','Toontown School House'),
+    S('Trashcat Troubles','Trashcat Outfit','Travis (Playground)'),
+    S('Cream-Be-Gone','⭐ Invisible – Cheesy Effect','Loopy Lane (Vanishing Cream)'),
+    S('Fire Safety','Firefighter Outfit','Loopy Lane (The Kaboomery)'),
+    S('Monkey See Monkey Do','⭐ Zany – Nametag','Wacky Way (Building Beside Me is Lying to You)'),
+    S('New Toony Tourist','⭐ Selfie – Profile Pose','Tumbies (Playground)'),
+    S('Bugged Out Bughunter','Beta Tester Outfit','Bay T. Tester (Playground)'),
+    H('Kudos Rank-Up Quests'),
+    Q('1→2  Taking Out The Trash','+1 TTC Gag XP Multiplier'),
+    Q('2→3  Panic At the Discount','15% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    Q('3→4  Give and Cake','⭐ Congratulations – Background | ⭐ You Did It – Nameplate'),
+    Q('4→5  The Mysterious Duck','⭐ Become Duck – Profile Pose'),
+    Q('5→6  Easy As Pie In The Sky','30% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    Q('6→7  An Oldie but a Goodie','+2 TTC Gag XP Multiplier'),
+    Q('7→8  Double Coil and Trouble','⭐ Ice Cream – Nametag Font'),
+    Q('8→9  Scraping News','50% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    Q('9→10  Brainiacs in the Basement','+1 Max Laff'),
+    Q('10+  +20 Gumballs'),
+  ],
+};
