@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useAuth } from './AuthProvider';
 
 const navigation = [
   ['Home', '/'],
@@ -10,6 +12,8 @@ const navigation = [
 ] as const;
 
 export function SiteHeader() {
+  const { user, loading } = useAuth();
+
   return (
     <header className="global-header">
       <div className="global-header__inner">
@@ -20,7 +24,17 @@ export function SiteHeader() {
         <nav className="global-nav" aria-label="Primary navigation">
           {navigation.map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
         </nav>
-        <Link className="nav-support" href="/donate">Support</Link>
+        <div className="nav-right">
+          {!loading && (
+            user
+              ? <Link className="nav-account" href="/account" aria-label="Your account">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  <span>Account</span>
+                </Link>
+              : <Link className="nav-account" href="/login">Log in</Link>
+          )}
+          <Link className="nav-support" href="/donate">Support</Link>
+        </div>
       </div>
     </header>
   );

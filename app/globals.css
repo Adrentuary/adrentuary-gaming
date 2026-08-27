@@ -60,6 +60,58 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .resource-card a:hover,.tool-grid article>a:hover,.footer-links a:hover,.contact-copy>a:hover,.contact-copy a:hover,.resource-list a:hover,.featured-guide__copy a:hover,.post-card__copy>a:hover,.global-footer a:hover{color:#fff;text-shadow:0 0 8px rgba(164,247,143,1),0 0 22px rgba(164,247,143,.85),0 0 45px rgba(108,227,79,.6)}
 .wp-size-pill:hover{color:#fff;text-shadow:0 0 8px rgba(164,247,143,1),0 0 22px rgba(164,247,143,.85),0 0 45px rgba(108,227,79,.6)}
 
+/* ── Nav right (auth button + support) ── */
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-account{display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;transition:color .18s,border-color .18s,text-shadow .18s}
+.nav-account:hover,.nav-account:focus-visible{color:var(--green);border-color:var(--green);text-shadow:0 0 8px rgba(164,247,143,.6)}
+.nav-account svg{flex-shrink:0}
+
+/* ── Auth pages (login / signup) ── */
+.auth-page{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 88px);padding:60px 20px}
+.auth-card{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:48px 40px}
+.auth-card h1{margin:0 0 32px;font-size:clamp(28px,5vw,38px)}
+.auth-card .kicker{margin-bottom:10px}
+.auth-form{display:flex;flex-direction:column;gap:10px}
+.auth-form label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.auth-form input{background:#0b110b;border:1px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--ink);font:inherit;font-size:15px;transition:border-color .18s;outline:none}
+.auth-form input:focus{border-color:var(--green)}
+.auth-form input::placeholder{color:#4a5e49}
+.auth-form .button{margin-top:8px;width:100%;justify-content:center}
+.auth-error{margin:4px 0 0;color:#f87171;font-size:13px}
+.auth-alt{margin-top:24px;font-size:13px;color:var(--muted);text-align:center}
+.auth-alt a{color:var(--green);font-weight:700}
+.auth-alt a:hover{text-shadow:0 0 8px rgba(164,247,143,.6)}
+.auth-body{color:var(--muted);line-height:1.65;margin:0 0 24px}
+
+/* ── Account page ── */
+.account-page{padding:60px 20px 100px}
+.account-shell{width:min(1100px,100%);margin:auto;display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.account-sidebar{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;position:sticky;top:20px}
+.account-avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:12px}
+.account-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid var(--line)}
+.account-avatar--placeholder{display:flex;align-items:center;justify-content:center;background:#111d11;color:var(--muted)}
+.avatar-change-btn{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .18s,border-color .18s}
+.avatar-change-btn:hover{color:var(--green);border-color:var(--green)}
+.account-identity{text-align:center;display:flex;flex-direction:column;gap:4px}
+.account-identity strong{font-size:16px;color:var(--ink)}
+.account-identity span{font-size:12px;color:var(--muted)}
+.account-signout{background:none;border:1px solid #3a1414;border-radius:8px;padding:10px;color:#f87171;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .18s,border-color .18s}
+.account-signout:hover{background:#1a0808;border-color:#f87171}
+.account-content{display:flex;flex-direction:column;gap:32px}
+.account-section{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px 36px}
+.account-section h2{margin:0 0 24px;font-size:20px;font-weight:800}
+.account-form{display:flex;flex-direction:column;gap:10px}
+.account-form label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.account-form input{background:#0b110b;border:1px solid var(--line);border-radius:8px;padding:12px 14px;color:var(--ink);font:inherit;font-size:15px;transition:border-color .18s;outline:none;max-width:480px}
+.account-form input:focus{border-color:var(--green)}
+.account-form input::placeholder{color:#4a5e49}
+.form-footer{display:flex;align-items:center;gap:16px;margin-top:8px}
+.form-success{font-size:13px;color:#4ade80;font-weight:700}
+.form-error{font-size:13px;color:#f87171}
+.account-body{color:var(--muted);line-height:1.65;margin:0 0 20px;font-size:15px}
+@media(max-width:860px){.account-shell{grid-template-columns:1fr}.account-sidebar{position:static}}
+@media(max-width:500px){.auth-card{padding:32px 24px}.account-section{padding:24px 20px}}
+
 /* ── Scroll-driven animations ── */
 @keyframes ai-fade-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ai-slide-left{from{opacity:0;transform:translateX(-48px)}to{opacity:1;transform:translateX(0)}}
