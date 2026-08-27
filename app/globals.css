@@ -235,7 +235,27 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .ssm-shop-row-owner{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ssm-shop-arrow{color:var(--muted);font-size:16px;flex-shrink:0}
 .ssm-shop-row--active .ssm-shop-arrow{color:#4ade80}
-@media(max-width:640px){.ssm-body{grid-template-columns:1fr;grid-template-rows:auto 1fr}.ssm-map-panel{border-right:none;border-bottom:1px solid #1e2e1e;max-height:260px}.ssm-map-img{max-height:200px}}
+/* info panel — spans full width below the two columns */
+.ssm-info-panel{border-top:1px solid #1e2e1e;padding:16px 20px;display:flex;flex-direction:column;gap:10px;background:#0a100a;flex-shrink:0;overflow-y:auto;max-height:260px}
+.ssm-info-desc{margin:0;font-size:13px;color:var(--ink);line-height:1.6}
+.ssm-info-trivia{margin:0;font-size:12px;color:var(--muted);background:rgba(255,255,255,.04);border-left:3px solid #4ade80;padding:8px 12px;border-radius:0 6px 6px 0}
+.ssm-info-notasks{margin:0;font-size:12px;color:var(--muted);font-style:italic}
+.ssm-tasks{display:flex;flex-direction:column;gap:8px}
+.ssm-tasks-label{margin:0 0 4px;font-size:12px;color:var(--muted)}
+.ssm-task-block{border:1px solid #1e2e1e;border-radius:8px;overflow:hidden}
+.ssm-task-header{display:flex;align-items:center;gap:8px;width:100%;background:rgba(255,255,255,.04);border:none;padding:8px 12px;cursor:pointer;text-align:left;transition:background .12s}
+.ssm-task-header:hover{background:rgba(255,255,255,.08)}
+.ssm-task-name{font-size:13px;font-weight:800;color:var(--ink);flex:1}
+.ssm-task-type{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#4ade80;white-space:nowrap}
+.ssm-task-toggle{font-size:10px;color:var(--muted);flex-shrink:0}
+.ssm-task-body{padding:10px 14px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #1e2e1e}
+.ssm-task-steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.ssm-task-step{font-size:12px;color:var(--ink);line-height:1.5}
+.ssm-task-sub{font-size:11px;color:var(--muted);margin-top:2px;padding-left:12px}
+.ssm-task-reward{font-size:12px;color:#f59e0b;background:rgba(245,158,11,.08);border-radius:6px;padding:6px 10px}
+.ssm-task-wiki{font-size:11px;color:#5ab0e0;text-decoration:underline;align-self:flex-start}
+.ssm-task-wiki:hover{color:#7acfff}
+@media(max-width:640px){.ssm-body{grid-template-columns:1fr;grid-template-rows:auto 1fr}.ssm-map-panel{border-right:none;border-bottom:1px solid #1e2e1e;max-height:260px}.ssm-map-img{max-height:200px}.ssm-info-panel{max-height:200px}}
 /* HQ tunnel cell only — 40% lighter than the card's --dc color */
 .st-hq-tunnel{background:color-mix(in srgb,var(--dc,#6b2f04) 60%,#fff) !important;color:#fff !important;font-weight:700}
 /* highest % cell per column — no border-radius */

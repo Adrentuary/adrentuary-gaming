@@ -1,56 +1,40 @@
-// Street shop data — keyed by "PgKey/street-slug"
-// mapImg: path under /icons/streets/
-// shops: ordered list matching in-game street order
-
-export interface Shop {
-  name: string;
-  owner: string | null;         // null = Vacant Shop (no owner image)
-  ownerImg: string | null;      // filename in shop-owners/
-  mapImg: string;               // filename in shop-maps/
-}
-
-export interface StreetShopData {
-  streetName: string;
-  mainMap: string;              // full public path
-  shopsBase: string;            // base path for shop-maps + shop-owners
-  shops: Shop[];
-}
-
-// ── Toontown Central ──────────────────────────────────────────────────────────
+export interface TaskStep { text: string; sub?: string; }
+export interface ShopTask { name: string; type: string; wikiUrl: string; steps: TaskStep[]; reward: string; }
+export interface Shop { name: string; owner: string | null; ownerImg: string | null; mapImg: string; trivia?: string; tasks: ShopTask[]; }
+export interface StreetShopData { streetName: string; mainMap: string; shopsBase: string; shops: Shop[]; }
 
 const TTC_LOOPY: StreetShopData = {
-  streetName: 'Loopy Lane',
-  mainMap: '/icons/streets/Toontown-Central/Loopy-Lane/main-map.png',
-  shopsBase: '/icons/streets/Toontown-Central/Loopy-Lane',
+  streetName: `Loopy Lane`,
+  mainMap: `/icons/streets/Toontown-Central/Loopy-Lane/main-map.png`,
+  shopsBase: `/icons/streets/Toontown-Central/Loopy-Lane`,
   shops: [
-    { name: 'Seltzer Bottles and Cans',  owner: 'Sid Seltzer',          ownerImg: 'SidSeltzer.png',          mapImg: 'SeltzerBottlesAndCansMapLocation.png' },
-    { name: 'Vanishing Cream',           owner: 'Nona Seeya',           ownerImg: 'NonaSeeya.png',           mapImg: 'VanishingCreamMapLocation.png' },
-    { name: 'Used Firecrackers',         owner: 'Smokey Joe',           ownerImg: 'SmokeyJoe.png',           mapImg: 'UsedFirecrackersMapLocation.png' },
-    { name: 'The Meatball Shoppe',       owner: 'Papa Stahl',           ownerImg: 'PapaStahl.png',           mapImg: 'TheMeatballShoppeMapLocation.png' },
-    { name: 'Unnamed Shop',             owner: 'Sam Stain',            ownerImg: 'SamStain.webp',           mapImg: 'SamStainShopMapLocation.png' },
-    { name: 'Visible Ink',              owner: 'Inky Ivon',            ownerImg: 'InkyIvon.png',            mapImg: 'VisibleInkMaplocation.png' },
-    { name: 'The Kaboomery',            owner: 'Shorty Fuse',          ownerImg: 'ShortyFuse.png',          mapImg: 'TheKaboomeryMapLocation.png' },
-    { name: "Sidesplitter's Mending",   owner: 'Sasha Sidesplitter',   ownerImg: 'SashaSidesplitter.png',   mapImg: "Sidesplitter'sMendingMapLocation.png" },
-    { name: 'Crack Up Auto Repair',     owner: 'Lucy Tires',           ownerImg: 'LucyTires.png',           mapImg: 'CrackUpAutoRepairMapLocation.png' },
-    { name: 'Suction Cups and Saucers', owner: 'Clovinia Cling',       ownerImg: 'CloviniaCling.png',       mapImg: 'SuctionCupsAndSaucersMapLocation.png' },
-    { name: 'Jest for Laughs',          owner: 'Jester Chester',       ownerImg: 'JesterChester.png',       mapImg: 'JestForLaughsMapLocation.png' },
-    { name: 'Soup and Crack Ups',       owner: 'Sally Spittake',       ownerImg: 'SallySpittake.png',       mapImg: 'SoupAndCrackUpsMapLocation.png' },
-    { name: 'Bottled Cans',             owner: 'Weird Warren',         ownerImg: 'WeirdWarren.png',         mapImg: 'BottledCansMapLocation.png' },
-    { name: 'Cast-Iron Kites',          owner: 'Rick Rockhead',        ownerImg: 'RickRockhead.png',        mapImg: 'CastIronKitesMapLocation.png' },
-    { name: 'Kooky Cineplex',           owner: null,                   ownerImg: null,                      mapImg: 'KookyCineplexMapLocation.png' },
-    { name: 'Laughter Hours Cafe',      owner: 'Tee Hee',              ownerImg: 'TeeHee.png',              mapImg: 'LaughterHoursCafeMapLocation.png' },
-    { name: 'Chortle Cafe',             owner: 'Charlie Chortle',      ownerImg: 'CharlieChortle.png',      mapImg: 'ChortleCafeMapLocation.png' },
-    { name: 'Toontown Post Office',     owner: 'Postmaster Pete',      ownerImg: 'PostmasterPete.png',      mapImg: 'ToontownPostOfficeMapLocation.png' },
-    { name: 'Blue Glue Direct 2 You',   owner: 'Sticky Lou',           ownerImg: 'StickyLou.png',           mapImg: 'BlueGlueMapLocation.png' },
-    { name: 'Spaghetti and Goofballs',  owner: 'Chef Knucklehead',     ownerImg: 'ChefKnucklehead.png',     mapImg: 'SpaghettiAndGoofballsMapLocation.png' },
-    { name: "Wiseacre's Noisemakers",   owner: 'Will Wiseacre',        ownerImg: 'WillWiseacre.png',        mapImg: "Wiseacre'sNoisemakersMapLocation.png" },
-    { name: 'Movie Multiplex',          owner: null,                   ownerImg: null,                      mapImg: 'MovieMultiplexMapLocation.png' },
-    { name: '14 Karat Goldfish',        owner: 'Sharky Jones',         ownerImg: 'SharkyJones.png',         mapImg: '14KaratGoldfishMapLocation.png' },
-    { name: 'News for the Amused',      owner: 'Paige Arthur',         ownerImg: 'PaigeArthur.png',         mapImg: 'NewsForTheAmusedMapLocation.png' },
+    { name: `Seltzer Bottles and Cans`, owner: `Sid Seltzer`, ownerImg: `SidSeltzer.png`, mapImg: `SeltzerBottlesAndCansMapLocation.png`, tasks: [{ name: `Gathering Gags`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Toontown_Central_Tasks#Gathering_Gags`, steps: [{ text: `Visit Rancid Robert at Slip and Slide on Wacky Way (36 XP, 2 JBS)` }, { text: `Return to Rancid Robert at Slip and Slide on Wacky Way (36 XP, 2 JBS)`, sub: `Defeat 3 Cogs on Wacky Way` }, { text: `Visit Lord Lowden Clear at Toon HQ (36 XP, 2 JBS)` }, { text: `Visit Ma Putrid at House of Bad Pies on Silly Street (36 XP, 2 JBS)` }, { text: `Return to Ma Putrid at House of Bad Pies on Silly Street (36 XP, 2 JBS)`, sub: `Recover 3 Pencil Shavings from Pencil Pushers in Toontown Central` }, { text: `Visit Lord Lowden Clear at Toon HQ (36 XP, 2 JBS)` }, { text: `Visit Sid Seltzer at Seltzer Bottles and Cans on Loopy Lane (36 XP, 2 JBS)` }, { text: `Return to Sid Seltzer at Seltzer Bottles and Cans on Loopy Lane (36 XP, 2 JBS)`, sub: `Recover 3 Springs from The Cogs in Toontown Central` }, { text: `Visit Lord Lowden Clear at Toon HQ (356 XP, 22 JBS)` }], reward: `356 XP - 22 JBS (final step)` }] },
+    { name: `Vanishing Cream`, owner: `Nona Seeya`, ownerImg: `NonaSeeya.png`, mapImg: `VanishingCreamMapLocation.png`, tasks: [{ name: `Cream-Be-Gone`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Cream-Be-Gone`, steps: [{ text: `Visit Nona Seeya at Vanishing Cream on Loopy Lane` }, { text: `Return to Nona Seeya at Vanishing Cream on Loopy Lane`, sub: `Recover 5 Samples of Ink from The Lawbots Anywhere` }, { text: `Return to Nona Seeya at Vanishing Cream on Loopy Lane`, sub: `Go Fishing for 4 Bags of Salt Anywhere` }, { text: `Return to Nona Seeya at Vanishing Cream on Loopy Lane`, sub: `Recover 3 Plastic Containers from The Cogs Anywhere` }, { text: `Return to Nona Seeya at Vanishing Cream on Loopy Lane`, sub: `Defeat 10 Cogs Anywhere` }], reward: `516 XP - Invisible Toon Cheesy Effect` }] },
+    { name: `Used Firecrackers`, owner: `Smokey Joe`, ownerImg: `SmokeyJoe.png`, mapImg: `UsedFirecrackersMapLocation.png`, tasks: [] },
+    { name: `The Meatball Shoppe`, owner: `Papa Stahl`, ownerImg: `PapaStahl.png`, mapImg: `TheMeatballShoppeMapLocation.png`, trivia: `Originally named Loopy's Balls after YouTuber LoopyGoopyG, then Loopy's Meatballs, and finally renamed to The Meatball Shoppe in v1.0.13.`, tasks: [] },
+    { name: `Unnamed Shop`, owner: `Sam Stain`, ownerImg: `SamStain.webp`, mapImg: `SamStainShopMapLocation.png`, trivia: `This is the only unnamed shop in the game to possess an NPC.`, tasks: [] },
+    { name: `Visible Ink`, owner: `Inky Ivon`, ownerImg: `InkyIvon.png`, mapImg: `VisibleInkMaplocation.png`, tasks: [] },
+    { name: `The Kaboomery`, owner: `Shorty Fuse`, ownerImg: `ShortyFuse.png`, mapImg: `TheKaboomeryMapLocation.png`, tasks: [{ name: `Fire Safety`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Fire_Safety`, steps: [{ text: `Visit Shorty Fuse at The Kaboomery on Loopy Lane` }, { text: `Return to Shorty Fuse at The Kaboomery on Loopy Lane`, sub: `Recover 5 Igniters from The Cogs Anywhere` }, { text: `Return to Shorty Fuse at The Kaboomery on Loopy Lane`, sub: `Recover 5 Metal Casings from The Cogs Anywhere` }, { text: `Return to Shorty Fuse at The Kaboomery on Loopy Lane`, sub: `Recover 5 Metal Plates from The Cogs Anywhere` }], reward: `230 XP - Firefighter Outfit` }] },
+    { name: `Sidesplitter's Mending`, owner: `Sasha Sidesplitter`, ownerImg: `SashaSidesplitter.png`, mapImg: `Sidesplitter'sMendingMapLocation.png`, tasks: [] },
+    { name: `Crack Up Auto Repair`, owner: `Lucy Tires`, ownerImg: `LucyTires.png`, mapImg: `CrackUpAutoRepairMapLocation.png`, tasks: [] },
+    { name: `Suction Cups and Saucers`, owner: `Clovinia Cling`, ownerImg: `CloviniaCling.png`, mapImg: `SuctionCupsAndSaucersMapLocation.png`, tasks: [] },
+    { name: `Jest for Laughs`, owner: `Jester Chester`, ownerImg: `JesterChester.png`, mapImg: `JestForLaughsMapLocation.png`, tasks: [{ name: `An Oldie but a Goodie`, type: `Kudos Rank-Up Task (Rank 6->7)`, wikiUrl: `https://corporateclash.wiki.gg/wiki/An_Oldie_but_a_Goodie`, steps: [{ text: `Visit Jester Chester at Jest for Laughs on Loopy Lane` }, { text: `Visit Canary Coalmine at One-Liner Miners on Silly Street` }, { text: `Laugh at a Joke Anywhere` }, { text: `Return to Jester Chester at Jest for Laughs on Loopy Lane` }, { text: `Visit Lazy Hal at All Fun and Games Shop on Silly Street` }, { text: `Defeat 10 Level 4+ Cogs Anywhere` }, { text: `Return to Jester Chester at Jest for Laughs on Loopy Lane` }], reward: `675 XP - TTC Rank 7 - +2 TTC Gag XP Multiplier` }] },
+    { name: `Soup and Crack Ups`, owner: `Sally Spittake`, ownerImg: `SallySpittake.png`, mapImg: `SoupAndCrackUpsMapLocation.png`, tasks: [{ name: `Musical Monstrosity`, type: `Kudos Rank-Up Task (MML Rank 8->9)`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Musical_Monstrosity`, steps: [{ text: `Visit Wagner at Wagner's Vocational Violin Videos on Tenor Terrace` }, { text: `Visit Sally Spittake at Soup and Crack Ups on Loopy Lane` }, { text: `Defeat 10 Cold Callers Anywhere` }, { text: `Return to Sally Spittake at Soup and Crack Ups on Loopy Lane` }, { text: `Defeat a Cold Caller Anywhere` }, { text: `Return to Sally Spittake at Soup and Crack Ups on Loopy Lane` }, { text: `Visit Wagner at Wagner's Vocational Violin Videos on Tenor Terrace` }], reward: `5,673 XP - MML Rank 9 - 50% Cheaper Gags in MML - +1 MML G.U.M.B.A.L.L. Booster` }] },
+    { name: `Bottled Cans`, owner: `Weird Warren`, ownerImg: `WeirdWarren.png`, mapImg: `BottledCansMapLocation.png`, tasks: [] },
+    { name: `Cast-Iron Kites`, owner: `Rick Rockhead`, ownerImg: `RickRockhead.png`, mapImg: `CastIronKitesMapLocation.png`, tasks: [{ name: `Easy As Pie In The Sky`, type: `Kudos Rank-Up Task (Rank 5->6)`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Easy_As_Pie_In_The_Sky`, steps: [{ text: `Visit Ned Slinger at The Flying Pie on Punchline Place` }, { text: `Visit Rick Rockhead at Cast-Iron Kites on Loopy Lane` }, { text: `Defeat 8 Level 4+ Cogs Anywhere` }, { text: `Return to Rick Rockhead at Cast-Iron Kites on Loopy Lane` }, { text: `Visit Ned Slinger at The Flying Pie on Punchline Place` }, { text: `Defeat 5 Cogs in Toontown Central` }, { text: `Return to Ned Slinger at The Flying Pie on Punchline Place` }, { text: `Defeat 10 Cogs in Toontown Central` }, { text: `Return to Ned Slinger at The Flying Pie on Punchline Place` }], reward: `486 XP - TTC Rank 6 - 30% Cheaper Gags in TTC - +1 TTC G.U.M.B.A.L.L. Booster` }] },
+    { name: `Kooky Cineplex`, owner: null, ownerImg: null, mapImg: `KookyCineplexMapLocation.png`, tasks: [] },
+    { name: `Laughter Hours Cafe`, owner: `Tee Hee`, ownerImg: `TeeHee.png`, mapImg: `LaughterHoursCafeMapLocation.png`, tasks: [] },
+    { name: `Chortle Cafe`, owner: `Charlie Chortle`, ownerImg: `CharlieChortle.png`, mapImg: `ChortleCafeMapLocation.png`, trivia: `Chortle Cafe was briefly mentioned in the Spa Day blog post on the Corporate Clash website.`, tasks: [] },
+    { name: `Toontown Post Office`, owner: `Postmaster Pete`, ownerImg: `PostmasterPete.png`, mapImg: `ToontownPostOfficeMapLocation.png`, tasks: [{ name: `Letter Rip!`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Toontown_Central_Tasks#Letter_Rip!`, steps: [{ text: `Visit Postmaster Pete at Toontown Post Office on Loopy Lane (36 XP, 2 JBS)` }, { text: `Return to Postmaster Pete at Toontown Post Office on Loopy Lane (36 XP, 2 JBS)`, sub: `Recover 3 Stamps from The Cogs Anywhere` }, { text: `Visit Lord Lowden Clear at Toon HQ (316 XP, 22 JBS)` }], reward: `316 XP - 22 JBS (final step)` }] },
+    { name: `Blue Glue Direct 2 You`, owner: `Sticky Lou`, ownerImg: `StickyLou.png`, mapImg: `BlueGlueMapLocation.png`, tasks: [{ name: `Sticky Situation`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Toontown_Central_Tasks#Sticky_Situation`, steps: [{ text: `Visit Sticky Lou at Blue Glue on Loopy Lane (31 XP, 2 JBS)` }, { text: `Obtain A Reservation Ticket from Silent Simone at The Merry Mimes on Silly Street (31 XP, 2 JBS)` }, { text: `Deliver A Reservation Ticket to Sticky Lou at Blue Glue on Loopy Lane (31 XP, 2 JBS)` }, { text: `Return to Sticky Lou at Blue Glue on Loopy Lane (31 XP, 2 JBS)`, sub: `Recover An Unsticking Object from The Cogs in Toontown Central` }], reward: `31 XP per step - continuing mainline chain` }] },
+    { name: `Spaghetti and Goofballs`, owner: `Chef Knucklehead`, ownerImg: `ChefKnucklehead.png`, mapImg: `SpaghettiAndGoofballsMapLocation.png`, tasks: [{ name: `A Taste Of Toontown`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Toontown_Central_Tasks#A_Taste_Of_Toontown`, steps: [{ text: `Visit Chef Knucklehead at Spaghetti and Goofballs on Loopy Lane (36 XP, 2 JBS)` }, { text: `Return to Chef Knucklehead at Spaghetti and Goofballs on Loopy Lane (36 XP, 2 JBS)`, sub: `Recover 3 Noodles from The Cogs Anywhere` }, { text: `Visit Lord Lowden Clear at Toon HQ (36 XP, 2 JBS)` }], reward: `36 XP per step - continuing mainline chain` }] },
+    { name: `Wiseacre's Noisemakers`, owner: `Will Wiseacre`, ownerImg: `WillWiseacre.png`, mapImg: `Wiseacre'sNoisemakersMapLocation.png`, tasks: [] },
+    { name: `Movie Multiplex`, owner: null, ownerImg: null, mapImg: `MovieMultiplexMapLocation.png`, tasks: [] },
+    { name: `14 Karat Goldfish`, owner: `Sharky Jones`, ownerImg: `SharkyJones.png`, mapImg: `14KaratGoldfishMapLocation.png`, tasks: [] },
+    { name: `News for the Amused`, owner: `Paige Arthur`, ownerImg: `PaigeArthur.png`, mapImg: `NewsForTheAmusedMapLocation.png`, tasks: [{ name: `Scraping News`, type: `Kudos Rank-Up Task (Rank 8->9)`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Scraping_News`, steps: [{ text: `Visit Paige Arthur at News for the Amused on Loopy Lane` }, { text: `Recover 10 Memos from Level 4+ Cogs Anywhere` }, { text: `Return to Paige Arthur at News for the Amused on Loopy Lane` }, { text: `Recover A Memo from an Executive Cog Anywhere` }, { text: `Return to Paige Arthur at News for the Amused on Loopy Lane` }, { text: `Defeat A Sellbot Anywhere` }, { text: `Return to Paige Arthur at News for the Amused on Loopy Lane` }], reward: `946 XP - TTC Rank 9 - 50% Cheaper Gags in TTC - +1 TTC G.U.M.B.A.L.L. Booster` }] },
   ],
 };
 
-// ── Master lookup: key = "pgKey|streetName" ───────────────────────────────────
 export const STREET_SHOPS: Record<string, StreetShopData> = {
   'TTC|Loopy Lane': TTC_LOOPY,
 };
