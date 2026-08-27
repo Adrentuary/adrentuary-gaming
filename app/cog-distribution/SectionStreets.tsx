@@ -72,7 +72,6 @@ function DistrictCard({ district, onShopClick }: {
                     {shopData ? (
                       <button className="ssm-street-btn" onClick={() => onShopClick(shopData)}>
                         {s.location}
-                        <span className="ssm-street-btn-hint">🏪</span>
                       </button>
                     ) : (
                       s.location

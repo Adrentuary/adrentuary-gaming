@@ -82,7 +82,14 @@ export function StreetShopModal({ data, onClose }: Props) {
                   </>
                 ) : (
                   <>
-                    <div className="ssm-vacant-icon">🏚️</div>
+                    <Image
+                      src="/icons/misc/vacant-shop.png"
+                      alt="Vacant Shop"
+                      width={80}
+                      height={80}
+                      className="ssm-vacant-img"
+                      unoptimized
+                    />
                     <div className="ssm-owner-info">
                       <span className="ssm-owner-name">Vacant Shop</span>
                       <span className="ssm-owner-role">No shopkeeper</span>
@@ -93,9 +100,7 @@ export function StreetShopModal({ data, onClose }: Props) {
               </div>
             )}
 
-            {!selected && (
-              <p className="ssm-map-hint">← Click a shop to see its location</p>
-            )}
+
           </div>
 
           {/* Right: shop list */}
