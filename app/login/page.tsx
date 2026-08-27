@@ -1,18 +1,26 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '../../lib/supabase/client';
 import { SiteHeader, SiteFooter } from '../components/SiteChrome';
 import { useAuth } from '../components/AuthProvider';
 
 export default function LoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, loading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  // Show error if redirected here after a failed confirmation link
+  useEffect(() => {
+    if (searchParams.get('error') === 'confirmation_failed') {
+      setError('Email confirmation failed or link expired. Please try signing up again or contact support.');
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     if (!loading && user) router.replace('/account');
