@@ -34,9 +34,6 @@ export function SiteFooter() {
           <p className="kicker">Keep exploring</p>
           <h2>Guides, tools, and creative resources for gamers.</h2>
         </div>
-        <div className="footer-figure" aria-hidden="true">
-          <img src="/brand/pages/contact-figure.webp" alt="" />
-        </div>
         <div className="footer-links">
           <Link href="/resources">Explore resources</Link>
           <a href="https://www.giftful.com/adrentuary" target="_blank" rel="noreferrer">Wishlist</a>
