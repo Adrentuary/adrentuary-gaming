@@ -85,7 +85,9 @@ export function StreetShopModal({ data, onClose }: Props) {
                     src={`${data.shopsBase}/shops/${selected.shopImg}`}
                     alt={`${selected.name} exterior`}
                     width={120} height={76}
-                    className="ssm-shop-ext-img" unoptimized
+                    className="ssm-shop-ext-img"
+                    style={{ width: 120, height: 76, objectFit: 'cover', objectPosition: 'center top' }}
+                    unoptimized
                   />
                 )}
               </div>

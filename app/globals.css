@@ -219,7 +219,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .ssm-owner-panel{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#0d140d;border-top:1px solid #1e2e1e;flex-shrink:0;min-height:0}
 .ssm-owner-img{width:76px;height:76px;object-fit:cover;object-position:top;border-radius:8px;border:2px solid #2a3a2a;flex-shrink:0}
 .ssm-vacant-img{width:76px;height:76px;object-fit:contain;flex-shrink:0;opacity:.85}
-.ssm-shop-ext-img{margin-left:auto;height:76px;width:auto;max-width:130px;object-fit:cover;border-radius:8px;border:2px solid #2a3a2a;flex-shrink:0}
+.ssm-shop-ext-img{margin-left:auto;width:120px;height:76px;object-fit:cover;object-position:center top;border-radius:8px;border:2px solid #2a3a2a;flex-shrink:0;overflow:hidden}
 .ssm-owner-info{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ssm-owner-name{font-size:14px;font-weight:800;color:var(--ink)}
 .ssm-owner-role{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4ade80}
