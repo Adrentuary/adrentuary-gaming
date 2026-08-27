@@ -25,7 +25,7 @@ export function StreetShopModal({ data, onClose }: Props) {
     };
   }, [handleKey]);
 
-  const mapSrc = selected
+  const mapSrc = selected?.mapImg
     ? `${data.shopsBase}/shop-maps/${selected.mapImg}`
     : data.mainMap;
 
@@ -106,6 +106,24 @@ export function StreetShopModal({ data, onClose }: Props) {
 
           {/* Right: shop list */}
           <div className="ssm-shop-list">
+            {/* Fisherman card — shown at top of list when on main map */}
+            {!selected && data.fisherman && (
+              <div className="ssm-fisherman-card">
+                <div className="ssm-owner-img-wrap">
+                  <Image
+                    src={`${data.shopsBase}/fishing/${data.fisherman.img}`}
+                    alt={data.fisherman.name}
+                    fill
+                    className="ssm-owner-img"
+                    unoptimized
+                  />
+                </div>
+                <div className="ssm-owner-info">
+                  <span className="ssm-owner-name">{data.fisherman.name}</span>
+                  <span className="ssm-fisherman-role">Fisherman</span>
+                </div>
+              </div>
+            )}
             <p className="ssm-list-label">{data.shops.length} shops on {data.streetName}</p>
             {data.shops.map((shop, i) => (
               <button
