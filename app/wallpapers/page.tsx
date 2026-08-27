@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import Link from 'next/link';
 import {InteriorHero,InteriorPage} from '../components/Interior';
+import {AnimateIn} from '../components/AnimateIn';
 export const metadata:Metadata={title:'Wallpapers',description:'A library of high-quality gaming and sci-fi wallpapers from Adrentuary.'};
 
 const sizes=[
@@ -20,11 +21,11 @@ export default function Wallpapers(){return(
 
   {/* ── Recently Added ── */}
   <section className="interior-section wp-recent">
-    <p className="kicker">New additions</p>
-    <h2 className="wp-section-title">Recently Added</h2>
+    <AnimateIn from="left"><p className="kicker">New additions</p><h2 className="wp-section-title">Recently Added</h2></AnimateIn>
     <div className="wp-recent-grid">
-      {recent.map(item=>(
-        <div className="wp-card" key={item.title}>
+      {recent.map((item,i)=>(
+        <AnimateIn key={item.title} delay={i*80}>
+        <div className="wp-card">
           <div className="wp-card__thumb">
             <img src={item.image} alt={item.title}/>
             <div className="wp-card__shade"/>
@@ -36,6 +37,7 @@ export default function Wallpapers(){return(
             ))}
           </div>
         </div>
+        </AnimateIn>
       ))}
     </div>
   </section>
@@ -43,15 +45,16 @@ export default function Wallpapers(){return(
   {/* ── Browse by Game ── */}
   <section className="browse-games">
     <div className="interior-section">
-      <p className="kicker">Browse by game</p>
-      <h2>Browse by Game</h2>
-      <div className="game-tiles">
-        <Link href="/wallpapers/wizard101">
-          <img className="tile-bg" src="/brand/pages/wizard101-bg.png" alt=""/>
-          <div className="tile-shade"/>
-          <span>Wizard101</span>
-        </Link>
-      </div>
+      <AnimateIn from="left"><p className="kicker">Browse by game</p><h2>Browse by Game</h2></AnimateIn>
+      <AnimateIn delay={80}>
+        <div className="game-tiles">
+          <Link href="/wallpapers/wizard101">
+            <img className="tile-bg" src="/brand/pages/wizard101-bg.png" alt=""/>
+            <div className="tile-shade"/>
+            <span>Wizard101</span>
+          </Link>
+        </div>
+      </AnimateIn>
     </div>
   </section>
 

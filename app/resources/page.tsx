@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import Link from 'next/link';
 import {InteriorHero,InteriorPage} from '../components/Interior';
+import {AnimateIn} from '../components/AnimateIn';
 export const metadata:Metadata={title:'Resources',description:'Explore Adrentuary game guides, interactive tools, blog posts, and wallpapers.'};
 
 const resourceCards=[
@@ -14,13 +15,16 @@ export default function Resources(){return(
 <InteriorPage>
   <InteriorHero eyebrow="Adrentuary library" title="Explore our resources" description="Choose a destination and spend less time searching—and more time playing." image="/brand/pages/resources.webp"/>
   <section className="interior-section resource-intro" aria-labelledby="resources-title">
+    <AnimateIn from="left">
     <div className="section-heading">
       <p className="kicker">Choose your route</p>
       <h2 id="resources-title">A growing collection for curious players.</h2>
       <p>Pro tips for immersive titles, personal updates about gaming and art, and utilities that make play—and daily life—a little easier.</p>
     </div>
+    </AnimateIn>
+    <AnimateIn>
     <div className="resource-grid">
-      {resourceCards.map(card=>(
+      {resourceCards.map((card)=>(
         <article className="resource-card" key={card.title}>
           <h3>{card.title}</h3>
           <p>{card.body}</p>
@@ -28,6 +32,7 @@ export default function Resources(){return(
         </article>
       ))}
     </div>
+    </AnimateIn>
   </section>
 </InteriorPage>
 )}
