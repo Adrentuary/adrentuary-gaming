@@ -140,7 +140,7 @@ export default function AccountPage() {
                 <input id="username" type="text" value={profile.username} onChange={e => setProfile(p => ({ ...p, username: e.target.value }))} placeholder="Unique handle" maxLength={30} />
                 <div className="form-footer">
                   {saveMsg && <span className={saveMsg === 'Saved!' ? 'form-success' : 'form-error'}>{saveMsg}</span>}
-                  <button type="submit" className="button" disabled={saving}>{saving ? 'Saving…' : 'Save profile'}</button>
+                  <button type="submit" className="button button--primary" disabled={saving}>{saving ? 'Saving…' : 'Save profile'}</button>
                 </div>
               </form>
             </section>
@@ -151,7 +151,7 @@ export default function AccountPage() {
                 <input id="new_password" type="password" autoComplete="new-password" required minLength={8} value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="8+ characters" />
                 <div className="form-footer">
                   {pwMsg && <span className={pwMsg === 'Password updated!' ? 'form-success' : 'form-error'}>{pwMsg}</span>}
-                  <button type="submit" className="button" disabled={pwSaving || newPassword.length < 8}>{pwSaving ? 'Updating…' : 'Update password'}</button>
+                  <button type="submit" className="button button--primary" disabled={pwSaving || newPassword.length < 8}>{pwSaving ? 'Updating…' : 'Update password'}</button>
                 </div>
               </form>
             </section>
