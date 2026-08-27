@@ -220,7 +220,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .ssm-owner-img-wrap{position:relative;width:76px;height:76px;flex-shrink:0;border-radius:8px;border:2px solid #2a3a2a;overflow:hidden}
 .ssm-owner-img{object-fit:cover;object-position:center top}
 .ssm-vacant-img{object-fit:contain;opacity:.85}
-.ssm-shop-ext-wrap{position:relative;width:120px;height:76px;flex-shrink:0;border-radius:8px;border:2px solid #2a3a2a;overflow:hidden;margin-left:auto}
+.ssm-shop-ext-wrap{position:relative;width:76px;height:76px;flex-shrink:0;border-radius:8px;border:2px solid #2a3a2a;overflow:hidden;margin-left:auto}
 .ssm-shop-ext-img{object-fit:cover;object-position:center top}
 .ssm-owner-info{display:flex;flex-direction:column;gap:3px;min-width:0}
 .ssm-owner-name{font-size:14px;font-weight:800;color:var(--ink)}
