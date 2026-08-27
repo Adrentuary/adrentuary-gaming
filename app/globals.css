@@ -204,5 +204,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .st-hq-tunnel{background:color-mix(in srgb,var(--dc,#6b2f04) 60%,#fff) !important;color:#fff !important;font-weight:700}
 /* highest % cell per column — no border-radius */
 .st-max-pct{background:color-mix(in srgb,var(--dc,#6b2f04) 80%,#0a100a) !important;color:#fff !important;font-weight:800}
+/* HQ row's dominant % cell — matches the tunnel highlight color */
+.st-hq-pct{background:color-mix(in srgb,var(--dc,#6b2f04) 60%,#fff) !important;color:#fff !important;font-weight:800}
 @media(max-width:900px){.streets-pair{grid-template-columns:1fr}}
 @media(max-width:700px){.tracker-tabs{gap:2px}.tracker-tab{padding:8px 11px;font-size:11px}.col-tunnel,.col-loc{display:none}.col-reward{min-width:120px;font-size:11px}.tracker-header{flex-direction:column}.tracker-header-meta{align-items:flex-start}}

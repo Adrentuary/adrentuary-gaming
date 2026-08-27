@@ -67,14 +67,16 @@ function DistrictCard({ district }: { district: typeof STREETS[number] }) {
                 </td>
                 <td className="col-sm">{s.levels}</td>
                 <td className="col-sm">{s.exe}</td>
-                {s.cogs.map((c, i) => (
-                  <td
-                    key={i}
-                    className={`col-sm col-cog-pct${c === colMax[i] && c > 0 ? ' st-max-pct' : ''}`}
-                  >
-                    {c}%
-                  </td>
-                ))}
+                {s.cogs.map((c, i) => {
+                  const isColMax = c === colMax[i] && c > 0;
+                  const isHQPct  = s.isHQ && isColMax;
+                  const cls = `col-sm col-cog-pct${isColMax ? ' st-max-pct' : ''}${isHQPct ? ' st-hq-pct' : ''}`;
+                  return (
+                    <td key={i} className={cls}>
+                      {c}%
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>
