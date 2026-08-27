@@ -78,7 +78,7 @@ export function StreetShopModal({ data, onClose }: Props) {
                 <div className="ssm-owner-info">
                   <span className="ssm-owner-name">{selected.owner ?? 'Vacant Shop'}</span>
                   <span className="ssm-owner-role">{selected.owner ? 'Shopkeeper' : 'No shopkeeper'}</span>
-                  <span className="ssm-shop-name">{selected.name}</span>
+                  {selected.owner && <span className="ssm-shop-name">{selected.name}</span>}
                 </div>
               </div>
             )}
