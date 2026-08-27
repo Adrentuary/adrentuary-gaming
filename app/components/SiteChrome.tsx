@@ -34,6 +34,9 @@ export function SiteFooter() {
           <p className="kicker">Keep exploring</p>
           <h2>Guides, tools, and creative resources for gamers.</h2>
         </div>
+        <div className="footer-figure" aria-hidden="true">
+          <img src="/brand/pages/contact-figure.webp" alt="" />
+        </div>
         <div className="footer-links">
           <Link href="/resources">Explore resources</Link>
           <a href="https://www.giftful.com/adrentuary" target="_blank" rel="noreferrer">Wishlist</a>
@@ -41,8 +44,8 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="global-footer__legal">
-        <p>© 2026 Adrentuary Guides. All rights reserved.</p>
-        <p>Adrentuary Guides is an independent fan-created resource and is not affiliated with or endorsed by the developers or publishers of the games featured.</p>
+        <p>© 2026 Adrentuary Gaming. All rights reserved.</p>
+        <p>Adrentuary Gaming is an independent fan-created resource and is not affiliated with or endorsed by the developers or publishers of the games featured.</p>
       </div>
     </footer>
   );
