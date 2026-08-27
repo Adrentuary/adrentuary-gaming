@@ -80,6 +80,14 @@ export function StreetShopModal({ data, onClose }: Props) {
                   <span className="ssm-owner-role">{selected.owner ? 'Shopkeeper' : 'No shopkeeper'}</span>
                   <span className="ssm-shop-name">{selected.name}</span>
                 </div>
+                {selected.shopImg && (
+                  <Image
+                    src={`${data.shopsBase}/shops/${selected.shopImg}`}
+                    alt={`${selected.name} exterior`}
+                    width={120} height={76}
+                    className="ssm-shop-ext-img" unoptimized
+                  />
+                )}
               </div>
             )}
 
@@ -158,7 +166,7 @@ function TaskBlock({ task }: { task: ShopTask }) {
             {task.steps.map((step, si) => (
               <li key={si} className="ssm-task-step">
                 {step.text}
-                {step.sub && <div className="ssm-task-sub">↳ {step.sub}</div>}
+                {step.sub && <div className="ssm-task-sub">➔ {step.sub}</div>}
               </li>
             ))}
           </ol>
