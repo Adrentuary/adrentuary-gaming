@@ -11,8 +11,7 @@ const sizes=[
 ];
 
 const recent=[
-  {title:'Wizard101 — School of Magic',image:'/brand/pages/wizard101-bg.png',game:'wizard101'},
-  {title:'Toontown — Corporate Clash',image:'/brand/pages/toontown-bg.png',game:'toontown'},
+  {title:'Wizard101 — School of Magic',image:'/brand/pages/wizard101-bg.png',file:'wizard101-school-of-magic'},
 ];
 
 export default function Wallpapers(){return(
@@ -33,7 +32,7 @@ export default function Wallpapers(){return(
           </div>
           <div className="wp-card__sizes">
             {sizes.map(sz=>(
-              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.game}-${sz.slug}.png`} download>{sz.label}</a>
+              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.file}-${sz.slug}.png`} download>{sz.label}</a>
             ))}
           </div>
         </div>
@@ -47,11 +46,6 @@ export default function Wallpapers(){return(
       <p className="kicker">Browse by game</p>
       <h2>Browse by Game</h2>
       <div className="game-tiles">
-        <Link href="/wallpapers/toontown">
-          <img className="tile-bg" src="/brand/pages/toontown-bg.png" alt=""/>
-          <div className="tile-shade"/>
-          <span>Toontown: Corporate Clash</span>
-        </Link>
         <Link href="/wallpapers/wizard101">
           <img className="tile-bg" src="/brand/pages/wizard101-bg.png" alt=""/>
           <div className="tile-shade"/>
