@@ -1,14 +1,6 @@
 import Link from 'next/link';
 import {SiteFooter, SiteHeader} from './components/SiteChrome';
 
-
-const resourceCards = [
-  {number:'01',title:'Game guides',body:'Collection guides, checklists, locations, tips, and helpful resources designed to make completing your favorite games easier.',href:'/guides',label:'Explore guides'},
-  {number:'02',title:'Site tools',body:'Useful calculators and interactive resources built to make gaming, planning, and everyday tasks simpler.',href:'/tools',label:'Explore tools'},
-  {number:'03',title:'Blog posts',body:'Updates, gaming experiences, personal projects, accessibility, art, and ideas worth sharing.',href:'/blog',label:'Read the blog'},
-  {number:'04',title:'Wallpapers',body:'An exclusive collection of gaming-inspired wallpapers, original visual experiments, and high-resolution desktop art.',href:'/wallpapers',label:'Explore wallpapers'},
-];
-
 const gear = [
   'Predator Helios Neo 16',
   'Intel® Core™ Ultra 9 275HX',
@@ -87,24 +79,7 @@ export default function Home() {
         </section>
         </div>
 
-        <div className="home-section home-section--resources">
-        <section className="resource-intro section-shell" aria-labelledby="resources-title">
-          <div className="section-heading">
-            <p className="kicker">Choose your route</p>
-            <h2 id="resources-title">A growing collection for curious players.</h2>
-            <p>Pro tips for immersive titles, personal updates about gaming and art, and utilities that make play&mdash;and daily life&mdash;a little easier.</p>
-          </div>
-          <div className="resource-grid">
-            {resourceCards.map(card => (
-              <article className="resource-card" key={card.title}>
-                <h3>{card.title}</h3>
-                <p>{card.body}</p>
-                <Link href={card.href}>{card.label}<span aria-hidden="true">→</span></Link>
-              </article>
-            ))}
-          </div>
-        </section>
-        </div>
+
       </main>
       <SiteFooter />
     </div>

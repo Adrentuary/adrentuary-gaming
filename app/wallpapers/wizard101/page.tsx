@@ -10,7 +10,7 @@ const sizes=[
 ];
 
 const wallpapers=[
-  {title:'School of Magic',image:'/wallpapers/wizard101-preview.webp',file:'wizard101-school-of-magic'},
+  {title:'School of Magic',image:'/brand/pages/wizard101-bg.png',file:'wizard101-school-of-magic'},
 ];
 
 export default function Wizard101Wallpapers(){return(
@@ -29,7 +29,7 @@ export default function Wizard101Wallpapers(){return(
           </div>
           <div className="wp-card__sizes">
             {sizes.map(sz=>(
-              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.file}-${sz.slug}.jpg`} download>{sz.label}</a>
+              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.file}-${sz.slug}.png`} download>{sz.label}</a>
             ))}
           </div>
         </div>

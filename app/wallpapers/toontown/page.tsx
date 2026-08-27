@@ -10,7 +10,7 @@ const sizes=[
 ];
 
 const wallpapers=[
-  {title:'Corporate Clash',image:'/wallpapers/toontown-preview.webp',file:'toontown-corporate-clash'},
+  {title:'Corporate Clash',image:'/brand/pages/toontown-bg.png',file:'toontown-corporate-clash'},
 ];
 
 export default function ToontownWallpapers(){return(
@@ -29,7 +29,7 @@ export default function ToontownWallpapers(){return(
           </div>
           <div className="wp-card__sizes">
             {sizes.map(sz=>(
-              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.file}-${sz.slug}.jpg`} download>{sz.label}</a>
+              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.file}-${sz.slug}.png`} download>{sz.label}</a>
             ))}
           </div>
         </div>

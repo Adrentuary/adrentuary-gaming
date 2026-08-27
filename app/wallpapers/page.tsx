@@ -11,8 +11,8 @@ const sizes=[
 ];
 
 const recent=[
-  {title:'Wizard101 — School of Magic',image:'/wallpapers/wizard101-preview.webp',game:'wizard101'},
-  {title:'Toontown — Corporate Clash',image:'/wallpapers/toontown-preview.webp',game:'toontown'},
+  {title:'Wizard101 — School of Magic',image:'/brand/pages/wizard101-bg.png',game:'wizard101'},
+  {title:'Toontown — Corporate Clash',image:'/brand/pages/toontown-bg.png',game:'toontown'},
 ];
 
 export default function Wallpapers(){return(
@@ -33,7 +33,7 @@ export default function Wallpapers(){return(
           </div>
           <div className="wp-card__sizes">
             {sizes.map(sz=>(
-              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.game}-${sz.slug}.jpg`} download>{sz.label}</a>
+              <a key={sz.slug} className="wp-size-pill" href={`/wallpapers/${item.game}-${sz.slug}.png`} download>{sz.label}</a>
             ))}
           </div>
         </div>
