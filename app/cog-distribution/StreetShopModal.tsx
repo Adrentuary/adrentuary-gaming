@@ -65,20 +65,22 @@ export function StreetShopModal({ data, onClose }: Props) {
             {selected && (
               <div className="ssm-owner-panel">
                 {selected.ownerImg ? (
-                  <Image
-                    src={`${data.shopsBase}/shop-owners/${selected.ownerImg}`}
-                    alt={selected.owner ?? 'Shop owner'}
-                    width={76} height={76}
-                    className="ssm-owner-img"
-                    style={{ width: 76, height: 76, objectFit: 'cover', objectPosition: 'center top' }}
-                    unoptimized
-                  />
+                  <div className="ssm-owner-img-wrap">
+                    <Image
+                      src={`${data.shopsBase}/shop-owners/${selected.ownerImg}`}
+                      alt={selected.owner ?? 'Shop owner'}
+                      fill
+                      className="ssm-owner-img"
+                      unoptimized
+                    />
+                  </div>
                 ) : (
-                  <Image src="/icons/misc/vacant-shop.png" alt="Vacant Shop"
-                    width={76} height={76}
-                    className="ssm-vacant-img"
-                    style={{ width: 76, height: 76, objectFit: 'contain' }}
-                    unoptimized />
+                  <div className="ssm-owner-img-wrap">
+                    <Image src="/icons/misc/vacant-shop.png" alt="Vacant Shop"
+                      fill
+                      className="ssm-vacant-img"
+                      unoptimized />
+                  </div>
                 )}
                 <div className="ssm-owner-info">
                   <span className="ssm-owner-name">{selected.owner ?? 'Vacant Shop'}</span>
@@ -86,14 +88,15 @@ export function StreetShopModal({ data, onClose }: Props) {
                   <span className="ssm-shop-name">{selected.name}</span>
                 </div>
                 {selected.shopImg && (
-                  <Image
-                    src={`${data.shopsBase}/shops/${selected.shopImg}`}
-                    alt={`${selected.name} exterior`}
-                    width={120} height={76}
-                    className="ssm-shop-ext-img"
-                    style={{ width: 120, height: 76, objectFit: 'cover', objectPosition: 'center top' }}
-                    unoptimized
-                  />
+                  <div className="ssm-shop-ext-wrap">
+                    <Image
+                      src={`${data.shopsBase}/shops/${selected.shopImg}`}
+                      alt={`${selected.name} exterior`}
+                      fill
+                      className="ssm-shop-ext-img"
+                      unoptimized
+                    />
+                  </div>
                 )}
               </div>
             )}
