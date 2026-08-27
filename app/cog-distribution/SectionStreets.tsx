@@ -105,7 +105,7 @@ export function SectionStreets() {
     <div className="tracker-section">
       <p className="tracker-section-desc">
         Cog distribution per street. HQ tunnels are highlighted. Highest % per column is marked.
-        Streets with 🏪 have interactive shop maps.
+        Click a street name to explore its shops, owners, and tasks. More streets being added over time.
       </p>
       {PAIRS.map((pair, pi) => (
         <div key={pi} className="streets-pair">
