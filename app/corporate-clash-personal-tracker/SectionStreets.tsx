@@ -50,17 +50,15 @@ function DistrictCard({ district, onShopClick, onTitleClick }: {
           height={28}
           className="pg-emblem"
         />
-        {PG_HAS_INFO.has(district.pgKey) ? (
+        <strong>{district.name}</strong>
+        {PG_HAS_INFO.has(district.pgKey) && (
           <button
-            className="pgm-title-btn"
+            className="pgm-title-btn pgm-title-btn--right"
             onClick={() => onTitleClick(district.pgKey)}
             title={`View ${district.name} info`}
           >
-            <strong>{district.name}</strong>
-            <span className="pgm-title-btn-badge" aria-hidden="true">Playground Info</span>
+            <span className="pgm-title-btn-badge">Playground Info</span>
           </button>
-        ) : (
-          <strong>{district.name}</strong>
         )}
       </div>
       <div className="tracker-table-wrap">
