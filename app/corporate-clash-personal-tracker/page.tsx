@@ -10,16 +10,18 @@ import { SectionPromotions } from './SectionPromotions';
 import { SectionLeveling } from './SectionLeveling';
 import { SectionLaff } from './SectionLaff';
 import { SectionToons } from './SectionToons';
+import { SectionCollections } from './SectionCollections';
 
-type TabId = 'streets'|'quests'|'gags'|'promotions'|'leveling'|'laff'|'toons';
+type TabId = 'streets'|'quests'|'gags'|'promotions'|'leveling'|'laff'|'collections'|'toons';
 const TABS: { id: TabId; label: string }[] = [
-  { id: 'streets',    label: '🗺️ Streets' },
-  { id: 'quests',     label: '📜 Quests' },
-  { id: 'gags',       label: '🎪 Gags' },
-  { id: 'promotions', label: '⚙️ Promotions' },
-  { id: 'leveling',   label: '📈 Leveling' },
-  { id: 'laff',       label: '❤️ Laff Boosts' },
-  { id: 'toons',      label: '🐾 Toons' },
+  { id: 'streets',     label: '🗺️ Streets' },
+  { id: 'quests',      label: '📜 Quests' },
+  { id: 'gags',        label: '🎪 Gags' },
+  { id: 'promotions',  label: '⚙️ Promotions' },
+  { id: 'leveling',    label: '📈 Leveling' },
+  { id: 'laff',        label: '❤️ Laff Boosts' },
+  { id: 'collections', label: '🏆 Collections' },
+  { id: 'toons',       label: '🐾 Toons' },
 ];
 
 function TrackerInner() {
@@ -73,8 +75,9 @@ function TrackerInner() {
         {activeTab === 'gags'       && <SectionGags />}
         {activeTab === 'promotions' && <SectionPromotions />}
         {activeTab === 'leveling'   && <SectionLeveling />}
-        {activeTab === 'laff'       && <SectionLaff />}
-        {activeTab === 'toons'      && <SectionToons />}
+        {activeTab === 'laff'        && <SectionLaff />}
+        {activeTab === 'collections' && <SectionCollections />}
+        {activeTab === 'toons'       && <SectionToons />}
       </main>
       <SiteFooter />
     </div>
