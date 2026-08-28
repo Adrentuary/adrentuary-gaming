@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {InteriorHero,InteriorPage} from '../components/Interior';
 import {AnimateIn} from '../components/AnimateIn';
 export const metadata:Metadata={title:'Tools',description:'Custom-built calculators and interactive resources from Adrentuary Gaming.'};
-const tools=[{status:'Optimized',title:'Wizard101 Pet Calculator',body:'Optimize your pet hatching and training cycles with a dedicated stat-calculation workspace.',href:'/w101-pet-stat-calculator',live:true},{status:'In development',title:'New tool',body:'More focused gaming utilities are on the way.',href:'#',live:false},{status:'In development',title:'New tool',body:'More focused gaming utilities are on the way.',href:'#',live:false}];
+const tools=[{status:'Live',title:'Corporate Clash Personal Tracker',body:'Navigate Toontown streets with helpful tips, locations, tasks, progression tracking, and everything you need along the way.',href:'/corporate-clash-personal-tracker',live:true},{status:'Optimized',title:'Wizard101 Pet Calculator',body:'Optimize your pet hatching and training cycles with a dedicated stat-calculation workspace.',href:'/w101-pet-stat-calculator',live:true},{status:'In development',title:'New tool',body:'More focused gaming utilities are on the way.',href:'#',live:false}];
 export default function Tools(){return(
 <InteriorPage>
   <InteriorHero eyebrow="Custom utilities" title="Which tool would you like to use?" description="Enhance your gameplay with focused calculators and resources." image="/brand/pages/tools.webp"/>

@@ -158,7 +158,7 @@ export default function AccountPage() {
             <section className="account-section">
               <h2>Guide progress</h2>
               <p className="account-body">Your saved guide progress will appear here once you start using interactive guides.</p>
-              <Link className="button button--ghost" href="/cog-distribution">Open Cog Distribution</Link>
+              <Link className="button button--ghost" href="/corporate-clash-personal-tracker">Open Corporate Clash Personal Tracker</Link>
             </section>
           </div>
         </div>

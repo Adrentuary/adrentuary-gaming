@@ -5,6 +5,10 @@ import { STREETS } from './data-streets';
 import { STREET_SHOPS } from './data-street-shops';
 import type { StreetShopData } from './data-street-shops';
 import { StreetShopModal } from './StreetShopModal';
+import { PlaygroundInfoModal } from './PlaygroundInfoModal';
+
+// Playgrounds that have an info popup available
+const PG_HAS_INFO = new Set(['TTC']);
 
 // cog emblem images — order matches cogs[] array: SB, CB, LB, BB, BSB
 const COG_EMBLEMS = [
@@ -23,9 +27,10 @@ const PAIRS = [
   [STREETS[6], STREETS[7]], // AA + DDL
 ];
 
-function DistrictCard({ district, onShopClick }: {
+function DistrictCard({ district, onShopClick, onTitleClick }: {
   district: typeof STREETS[number];
   onShopClick: (data: StreetShopData) => void;
+  onTitleClick: (pgKey: string) => void;
 }) {
   // Compute the max value per cog column (index 0-4) across all streets
   const colMax = [0, 1, 2, 3, 4].map(ci =>
@@ -45,7 +50,18 @@ function DistrictCard({ district, onShopClick }: {
           height={28}
           className="pg-emblem"
         />
-        <strong>{district.name}</strong>
+        {PG_HAS_INFO.has(district.pgKey) ? (
+          <button
+            className="pgm-title-btn"
+            onClick={() => onTitleClick(district.pgKey)}
+            title={`View ${district.name} info`}
+          >
+            <strong>{district.name}</strong>
+            <span className="pgm-title-btn-icon" aria-hidden="true">ℹ</span>
+          </button>
+        ) : (
+          <strong>{district.name}</strong>
+        )}
       </div>
       <div className="tracker-table-wrap">
         <table className="tracker-table">
@@ -100,12 +116,13 @@ function DistrictCard({ district, onShopClick }: {
 
 export function SectionStreets() {
   const [modalData, setModalData] = useState<StreetShopData | null>(null);
+  const [pgInfoKey, setPgInfoKey] = useState<string | null>(null);
 
   return (
     <div className="tracker-section">
       <p className="tracker-section-desc">
-        Cog distribution per street. HQ tunnels are highlighted. Highest % per column is marked.
-        Click a street name to explore its shops, owners, and tasks. More streets being added over time.
+        Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked.
+        Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info.
       </p>
       {PAIRS.map((pair, pi) => (
         <div key={pi} className="streets-pair">
@@ -114,6 +131,7 @@ export function SectionStreets() {
               key={d.name}
               district={d}
               onShopClick={setModalData}
+              onTitleClick={setPgInfoKey}
             />
           ))}
         </div>
@@ -122,6 +140,12 @@ export function SectionStreets() {
         <StreetShopModal
           data={modalData}
           onClose={() => setModalData(null)}
+        />
+      )}
+      {pgInfoKey && (
+        <PlaygroundInfoModal
+          pgKey={pgInfoKey}
+          onClose={() => setPgInfoKey(null)}
         />
       )}
     </div>
