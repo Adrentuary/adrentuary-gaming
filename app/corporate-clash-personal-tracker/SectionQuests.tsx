@@ -34,13 +34,14 @@ export function SectionQuests() {
   pg.rows.forEach((row, ri) => {
     if (row.isHeader) {
       currentSection = row.headerLabel ?? '';
-      const isOpen = !collapsed.has(currentSection);
+      const sectionLabel = currentSection; // capture for closure
+      const isOpen = !collapsed.has(sectionLabel);
       renderedRows.push(
         <tr key={`h-${ri}`} className="quest-section-header quest-section-header--toggle">
           <td colSpan={4 + toonNames.length}>
             <button
               className="quest-collapse-btn"
-              onClick={() => toggleSection(currentSection)}
+              onClick={() => toggleSection(sectionLabel)}
               aria-expanded={isOpen}
             >
               <span className="quest-collapse-arrow">{isOpen ? '▾' : '▸'}</span>
@@ -50,7 +51,7 @@ export function SectionQuests() {
         </tr>
       );
     } else {
-      if (collapsed.has(currentSection)) return;
+      if (collapsed.has(currentSection)) return; // currentSection is always the last-seen header — correct
       const key = `q:${pg.name}:${row.name}`;
       const allDone = isAllDone(key);
       renderedRows.push(
