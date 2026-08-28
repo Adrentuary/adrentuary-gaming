@@ -5,7 +5,7 @@ import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
-import { ResetPanel } from './ResetPanel';
+import { QuestResetDrawer } from './QuestResetDrawer';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
 const LS_KEY = 'cc-quest-collapsed';
@@ -143,6 +143,7 @@ export function SectionQuests() {
 
   return (
     <div className="tracker-section">
+      <QuestResetDrawer />
       <nav className="sub-tabs">
         {QUESTS.map((q,i) => (
           <button key={q.name} className={`sub-tab${tab===i?' sub-tab--active':''}`} onClick={() => handleTabChange(i)}>
@@ -155,7 +156,6 @@ export function SectionQuests() {
         <div className="tracker-card-header">
           <span className="dc-icon">{pg.icon}</span>
           <strong>{pg.name}</strong>
-          <ResetPanel prefix={`q:${pg.name}:`} label="Reset section:" />
         </div>
         <div className="tracker-table-wrap">
           <table className="tracker-table">
