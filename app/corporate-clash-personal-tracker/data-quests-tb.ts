@@ -2,7 +2,7 @@ import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const TB: QuestPlayground = {
   name: 'The Brrrgh', icon: '❄️', color: '#00263a', accent: '#29b2dc',
-  mainColor: '#1dbcef', kudosHighColor: '#299abf',
+  mainColor: '#20c8f0', kudosHighColor: '#e87030',
   rows: [
     H('Main Storyline'),
     Q('Rocky Joins The Battle'), Q('Ye Olde Wizard'), Q("Home's Where the Wizard's At?"),

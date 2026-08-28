@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { AccountTrackerReset } from '../corporate-clash-personal-tracker/AccountTrackerReset';
 import { createClient } from '../../lib/supabase/client';
 import { SiteHeader, SiteFooter } from '../components/SiteChrome';
 import { useAuth } from '../components/AuthProvider';
@@ -157,8 +158,9 @@ export default function AccountPage() {
             </section>
             <section className="account-section">
               <h2>Guide progress</h2>
-              <p className="account-body">Your saved guide progress will appear here once you start using interactive guides.</p>
-              <Link className="button button--ghost" href="/corporate-clash-personal-tracker">Open Corporate Clash Personal Tracker</Link>
+              <p className="account-body">Reset your Corporate Clash Personal Tracker progress by toon, or wipe everything at once.</p>
+              <AccountTrackerReset />
+              <Link className="button button--ghost" style={{marginTop:'16px',display:'inline-flex'}} href="/corporate-clash-personal-tracker">Open Tracker</Link>
             </section>
           </div>
         </div>

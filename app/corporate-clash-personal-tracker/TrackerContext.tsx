@@ -18,6 +18,12 @@ interface Ctx {
   saving: boolean;
   saveMsg: string;
   commitToonName: (i: number, names: string[]) => void;
+  /** Clear progress for one toon across ALL keys */
+  resetToon: (toon: ToonIndex) => void;
+  /** Clear progress for ALL toons across ALL keys */
+  resetAll: () => void;
+  /** Clear progress for keys matching a prefix (e.g. 'q:Toontown Central:') — per toon or all */
+  resetSection: (prefix: string, toon: ToonIndex | 'all') => void;
 }
 const TrackerCtx = createContext<Ctx | null>(null);
 
@@ -83,8 +89,45 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     if (user) save(progress, names);
   };
 
+  const resetToon = useCallback((toon: ToonIndex) => {
+    setProgress(prev => {
+      const next: Progress = {};
+      for (const key of Object.keys(prev)) {
+        const arr = [...prev[key]] as boolean[];
+        arr[toon] = false;
+        next[key] = arr;
+      }
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
+  const resetAll = useCallback(() => {
+    const next: Progress = {};
+    setProgress(next);
+    if (user) save(next, toonNames);
+  }, [user, toonNames, save]);
+
+  const resetSection = useCallback((prefix: string, toon: ToonIndex | 'all') => {
+    setProgress(prev => {
+      const next = { ...prev };
+      for (const key of Object.keys(next)) {
+        if (!key.startsWith(prefix)) continue;
+        if (toon === 'all') {
+          next[key] = [false, false, false, false];
+        } else {
+          const arr = [...next[key]] as boolean[];
+          arr[toon] = false;
+          next[key] = arr;
+        }
+      }
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
   return (
-    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName }}>
+    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, resetToon, resetAll, resetSection }}>
       {children}
     </TrackerCtx.Provider>
   );

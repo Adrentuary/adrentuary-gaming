@@ -2,7 +2,7 @@ import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const TTC: QuestPlayground = {
   name: 'Toontown Central', icon: '🍦', color: '#5a2004', accent: '#d86b10',
-  mainColor: '#cd6c39', kudosHighColor: '#ab5c1b',
+  mainColor: '#e8731a', kudosHighColor: '#4a90d9',
   rows: [
     H('Main Storyline'),
     Q('Welcome to Toontown!'), Q('Time for First Impressions'), Q('A Hairy Introduction'),

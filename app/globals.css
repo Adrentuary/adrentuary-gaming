@@ -144,7 +144,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .tracker-section{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 .tracker-section-desc{margin:0;color:var(--muted);font-size:14px}
 .tracker-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden;--dc:#1a2a1a;--da:#4ade80}
-.tracker-card-header{display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08)}
+.tracker-card-header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
 .tracker-card-header strong{font-size:16px;font-weight:800}
 .dc-icon{font-size:20px;line-height:1}
 .tracker-table-wrap{overflow-x:auto}
@@ -159,6 +159,18 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .col-toon{width:64px;text-align:center}
 .col-reward{min-width:200px;font-size:12px;color:var(--muted)}
 .col-loc{min-width:160px;font-size:11px;color:#5a6e5a}
+/* ── Reset panel ── */
+.reset-panel{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+.reset-panel-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.reset-panel-btns{display:flex;gap:5px;flex-wrap:wrap}
+.reset-btn{padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:var(--tc,var(--muted));font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s,color .12s}
+.reset-btn:hover{border-color:var(--tc,#aaa);background:rgba(255,255,255,.08)}
+.reset-btn--all{color:#f87171;border-color:rgba(248,113,113,.3)}
+.reset-btn--all:hover{border-color:#f87171;background:rgba(248,113,113,.1)}
+.reset-btn--confirm{background:rgba(var(--tc-raw,248,113,113),.18);border-color:var(--tc,#f87171);color:var(--tc,#f87171);animation:pulse-confirm .4s ease}
+.reset-btn--cancel{color:var(--muted);border-color:rgba(255,255,255,.2)}
+.reset-btn--cancel:hover{border-color:#aaa;color:var(--ink)}
+@keyframes pulse-confirm{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 .quest-section-header td{background:color-mix(in srgb,var(--da) 20%,#080c08);color:var(--da);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:0}
 .quest-section-header--toggle td{padding:0}
 .quest-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:7px 12px;color:var(--da);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .12s}
@@ -192,11 +204,11 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .all-btn--done{background:color-mix(in srgb,var(--da,#4ade80) 20%,transparent);border-color:var(--da,#4ade80);color:var(--da,#4ade80)}
 .all-btn--sm{width:22px;height:18px;border-radius:4px;font-size:10px;margin-top:2px}
 .row-all-done td{background:color-mix(in srgb,var(--da,#4ade80) 10%,#080c08)!important}
-.row-quest-done td{background:color-mix(in srgb,var(--qrc,#4ade80) 18%,#080c08)!important}
-.quest-row--main td{background:color-mix(in srgb,var(--qmc,#cd6c39) 6%,#080c08)}
-.quest-row--side td{background:color-mix(in srgb,var(--qmc,#cd6c39) 4%,#080c08)}
-.quest-row--kudos-low td{background:color-mix(in srgb,var(--qmc,#cd6c39) 6%,#080c08)}
-.quest-row--kudos-high td{background:color-mix(in srgb,var(--qhc,#ab5c1b) 6%,#080c08)}
+.row-quest-done td{background:color-mix(in srgb,var(--qrc,#4ade80) 22%,#080c08)!important}
+.quest-row--main td{background:color-mix(in srgb,var(--qmc,#e8731a) 9%,#080c08)}
+.quest-row--side td{background:color-mix(in srgb,var(--qmc,#e8731a) 5%,#080c08)}
+.quest-row--kudos-low td{background:color-mix(in srgb,var(--qmc,#e8731a) 9%,#080c08)}
+.quest-row--kudos-high td{background:color-mix(in srgb,var(--qhc,#4a90d9) 9%,#080c08)}
 .promo-level-group--done{background:color-mix(in srgb,var(--da,#4ade80) 14%,#0d140d);border-color:color-mix(in srgb,var(--da,#4ade80) 40%,transparent)}
 /* ── Laff section grouping ── */
 .laff-group-divider td{background:color-mix(in srgb,var(--da,#5ab0e0) 22%,#080e08);color:var(--da,#5ab0e0);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-top:2px solid color-mix(in srgb,var(--da,#5ab0e0) 30%,transparent)}

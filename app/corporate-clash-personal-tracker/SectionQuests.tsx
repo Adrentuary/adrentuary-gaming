@@ -5,6 +5,7 @@ import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
+import { ResetPanel } from './ResetPanel';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
 const LS_KEY = 'cc-quest-collapsed';
@@ -47,11 +48,20 @@ export function SectionQuests() {
     const all = loadCollapsed(); setCollapsed(new Set(all[QUESTS[i].name] ?? [])); setTab(i);
   };
 
-  const sectionRowKeys = (sType: QuestSectionType) =>
-    pg.rows.filter(r => !r.isHeader && r.sectionType === sType).map(r => `q:${pg.name}:${r.name}`);
+  // For progression: main rows form one pool, ALL kudos rows (low+high) form one unified pool
+  const progKeys = (sType: QuestSectionType): string[] => {
+    if (sType === 'kudos-low' || sType === 'kudos-high') {
+      return pg.rows
+        .filter(r => !r.isHeader && (r.sectionType === 'kudos-low' || r.sectionType === 'kudos-high'))
+        .map(r => `q:${pg.name}:${r.name}`);
+    }
+    return pg.rows
+      .filter(r => !r.isHeader && r.sectionType === sType)
+      .map(r => `q:${pg.name}:${r.name}`);
+  };
 
   const handleProgressClick = useCallback((key: string, toon: ToonIndex, sType: QuestSectionType) => {
-    const keys = sectionRowKeys(sType); const idx = keys.indexOf(key);
+    const keys = progKeys(sType); const idx = keys.indexOf(key);
     if (idx === -1) { toggle(key, toon); return; }
     const done = !!(progress[key]?.[toon]);
     if (!done) { for (let i = 0; i <= idx; i++) { if (!progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
@@ -59,7 +69,7 @@ export function SectionQuests() {
   }, [pg, progress, toggle]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleProgressAll = useCallback((key: string, sType: QuestSectionType) => {
-    const keys = sectionRowKeys(sType); const idx = keys.indexOf(key);
+    const keys = progKeys(sType); const idx = keys.indexOf(key);
     if (idx === -1) { toggleAll(key); return; }
     const allDone = isAllDone(key);
     ([0,1,2,3] as ToonIndex[]).forEach(toon => {
@@ -142,7 +152,11 @@ export function SectionQuests() {
       </nav>
       <div className="tracker-card"
         style={{'--dc':pg.color,'--da':pg.accent,'--qmc':pg.mainColor,'--qhc':pg.kudosHighColor} as React.CSSProperties}>
-        <div className="tracker-card-header"><span className="dc-icon">{pg.icon}</span><strong>{pg.name}</strong></div>
+        <div className="tracker-card-header">
+          <span className="dc-icon">{pg.icon}</span>
+          <strong>{pg.name}</strong>
+          <ResetPanel prefix={`q:${pg.name}:`} label="Reset section:" />
+        </div>
         <div className="tracker-table-wrap">
           <table className="tracker-table">
             <thead><tr>
