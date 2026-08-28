@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const YOTT: QuestPlayground = {
   name: 'Ye Olde Toontowne', icon: '👑', color: '#33205e', accent: '#9b70cc',
+  mainColor: '#b786e7', kudosHighColor: '#895cb6',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Plans"), Q('Ye Olde Basics'), Q('Ye Olde Cog Bash!'),
@@ -17,15 +18,15 @@ export const YOTT: QuestPlayground = {
     S('Not-So-Tall Tales','⭐ Small Head – Cheesy Effect',"Knight Knoll (Troubadour's Tall Tales)"),
     S('The Golden Penny','⭐ Casting Pose','Tumbies (Playground)'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Reinforced Training','+1 YOTT Gag XP Multiplier'),
-    Q('2→3  Box Machina','15% Gag Discount in YOTT | +1 YOTT CUMBALL Booster'),
-    Q('3→4  Daodragon Festival','⭐ The Daodragon – Nameplate | ⭐ Hearty Feast – Background'),
-    Q('4→5  At The Gate','⭐ At The Gate – Profile Pose'),
-    Q('5→6  Good Toons or Bad Toons?','30% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
-    Q('6→7  Unsweet Tooth','+2 YOTT Gag XP Multiplier'),
-    Q('7→8  Fishing Fiasco','⭐ Medieval – Nametag Font'),
-    Q('8→9  The Royal Grail','50% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
-    Q('9→10  Looming Lawbot','+1 Max Laff'),
-    Q('10+  +30 Gumballs'),
+    KL('1→2  Reinforced Training','+1 YOTT Gag XP Multiplier'),
+    KL('2→3  Box Machina','15% Gag Discount in YOTT | +1 YOTT CUMBALL Booster'),
+    KL('3→4  Daodragon Festival','⭐ The Daodragon – Nameplate | ⭐ Hearty Feast – Background'),
+    KL('4→5  At The Gate','⭐ At The Gate – Profile Pose'),
+    KL('5→6  Good Toons or Bad Toons?','30% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
+    KH('6→7  Unsweet Tooth','+2 YOTT Gag XP Multiplier'),
+    KH('7→8  Fishing Fiasco','⭐ Medieval – Nametag Font'),
+    KH('8→9  The Royal Grail','50% Cheaper Gags in YOTT | +1 YOTT CUMBALL Booster'),
+    KH('9→10  Looming Lawbot','+1 Max Laff'),
+    KH('10+  +30 Gumballs'),
   ],
 };

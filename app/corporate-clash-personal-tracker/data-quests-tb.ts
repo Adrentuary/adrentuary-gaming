@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const TB: QuestPlayground = {
   name: 'The Brrrgh', icon: '❄️', color: '#00263a', accent: '#29b2dc',
+  mainColor: '#1dbcef', kudosHighColor: '#299abf',
   rows: [
     H('Main Storyline'),
     Q('Rocky Joins The Battle'), Q('Ye Olde Wizard'), Q("Home's Where the Wizard's At?"),
@@ -29,15 +30,15 @@ export const TB: QuestPlayground = {
     Q('Memo Mishap (Styster – Lvl 12)','Barrister Promotion | ⭐ Crocheting – Nameplate'),
     Q('Fashion Fiasco (Barrister – Lvl 14)','Lawbot Overclocked Mode Laff Point (3/3) | Lawbot Suit Switching'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Tour De Brrrgh','+1 TB Gag XP Multiplier'),
-    Q('2→3  Slippery Circuit!','15% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
-    Q("3→4  Paula's Parent Present Party",'⭐ Doodlesidding – Background | ⭐ Scarf – Nameplate'),
-    Q("4→5  I'm Melting, I'm Melting!",'⭐ Fire Hands – Profile Pose'),
-    Q('5→6  Snowglobal Emergency!','30% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
-    Q('6→7  Art for Auntie','+2 TB Gag XP Multiplier'),
-    Q('7→8  Soup Served Sad','⭐ Comical – Nametag Font'),
-    Q('8→9  Keeping Cool','50% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
-    Q('9→10  Joining The System','+1 Max Laff'),
-    Q('10+  +50 Gumballs'),
+    KL('1→2  Tour De Brrrgh','+1 TB Gag XP Multiplier'),
+    KL('2→3  Slippery Circuit!','15% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
+    KL("3→4  Paula's Parent Present Party",'⭐ Doodlesidding – Background | ⭐ Scarf – Nameplate'),
+    KL("4→5  I'm Melting, I'm Melting!",'⭐ Fire Hands – Profile Pose'),
+    KL('5→6  Snowglobal Emergency!','30% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
+    KH('6→7  Art for Auntie','+2 TB Gag XP Multiplier'),
+    KH('7→8  Soup Served Sad','⭐ Comical – Nametag Font'),
+    KH('8→9  Keeping Cool','50% Cheaper Gags in TB | +1 TB CUMBALL Booster'),
+    KH('9→10  Joining The System','+1 Max Laff'),
+    KH('10+  +50 Gumballs'),
   ],
 };

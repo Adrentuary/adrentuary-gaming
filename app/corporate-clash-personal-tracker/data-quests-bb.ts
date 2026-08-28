@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const BB: QuestPlayground = {
   name: 'Barnacle Boatyard', icon: '⭐', color: '#5a1a05', accent: '#dc4a14',
+  mainColor: '#ce390e', kudosHighColor: '#b33c1b',
   rows: [
     H('Main Storyline'),
     Q('Oh, Barnacles!'), Q('Butter Flippers'), Q("Someone's Been Drinking Saltwater …"),
@@ -18,15 +19,15 @@ export const BB: QuestPlayground = {
     S('First Mate Makeover','⭐ Wonky – Nametag',"Buccaneer Blvd (Blackbeard's Beauty Parlor)"),
     S('Swimming Kiwi','⭐ Diving – Profile Pose','Tumbies (Playground)'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Are You Squidding Me?','+1 BB Gag Exp. Multiplier'),
-    Q('2→3  Sandcastle Savings','15% Cheaper BB Gags | +1 BB CUMBALL Booster'),
-    Q('3→4  Silverware Sting','⭐ On The Dock – Background | ⭐ Sandcastles – Nameplate'),
-    Q('4→5  Salt, Pepper, Paprika','⭐ Treasure – Profile Pose'),
-    Q('5→6  Stopping the Scuttlebutt','30% Cheaper Gags in BB | +1 BB CUMBALL Booster'),
-    Q('6→7  Huge Oppor-tuna-ty','+2 BB Gag XP Multiplier'),
-    Q('7→8  7th Layer Wrapping Paper','⭐ Pirate – Nametag Font'),
-    Q('8→9  Barbarian Barbara','50% Cheaper Gags in BB | +1 BB GUMBALL Booster'),
-    Q('9→10  A Misty Mystery','+1 Max Laff'),
-    Q('10+  +25 Gumballs'),
+    KL('1→2  Are You Squidding Me?','+1 BB Gag Exp. Multiplier'),
+    KL('2→3  Sandcastle Savings','15% Cheaper BB Gags | +1 BB CUMBALL Booster'),
+    KL('3→4  Silverware Sting','⭐ On The Dock – Background | ⭐ Sandcastles – Nameplate'),
+    KL('4→5  Salt, Pepper, Paprika','⭐ Treasure – Profile Pose'),
+    KL('5→6  Stopping the Scuttlebutt','30% Cheaper Gags in BB | +1 BB CUMBALL Booster'),
+    KH('6→7  Huge Oppor-tuna-ty','+2 BB Gag XP Multiplier'),
+    KH('7→8  7th Layer Wrapping Paper','⭐ Pirate – Nametag Font'),
+    KH('8→9  Barbarian Barbara','50% Cheaper Gags in BB | +1 BB GUMBALL Booster'),
+    KH('9→10  A Misty Mystery','+1 Max Laff'),
+    KH('10+  +25 Gumballs'),
   ],
 };

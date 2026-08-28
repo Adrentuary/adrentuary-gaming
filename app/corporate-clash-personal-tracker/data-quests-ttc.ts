@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const TTC: QuestPlayground = {
   name: 'Toontown Central', icon: '🍦', color: '#5a2004', accent: '#d86b10',
+  mainColor: '#cd6c39', kudosHighColor: '#ab5c1b',
   rows: [
     H('Main Storyline'),
     Q('Welcome to Toontown!'), Q('Time for First Impressions'), Q('A Hairy Introduction'),
@@ -18,15 +19,15 @@ export const TTC: QuestPlayground = {
     S('New Toony Tourist','⭐ Selfie – Profile Pose','Tumbies (Playground)'),
     S('Bugged Out Bughunter','Beta Tester Outfit','Bay T. Tester (Playground)'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Taking Out The Trash','+1 TTC Gag XP Multiplier'),
-    Q('2→3  Panic At the Discount','15% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
-    Q('3→4  Give and Cake','⭐ Congratulations – Background | ⭐ You Did It – Nameplate'),
-    Q('4→5  The Mysterious Duck','⭐ Become Duck – Profile Pose'),
-    Q('5→6  Easy As Pie In The Sky','30% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
-    Q('6→7  An Oldie but a Goodie','+2 TTC Gag XP Multiplier'),
-    Q('7→8  Double Coil and Trouble','⭐ Ice Cream – Nametag Font'),
-    Q('8→9  Scraping News','50% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
-    Q('9→10  Brainiacs in the Basement','+1 Max Laff'),
-    Q('10+  +20 Gumballs'),
+    KL('1→2  Taking Out The Trash','+1 TTC Gag XP Multiplier'),
+    KL('2→3  Panic At the Discount','15% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    KL('3→4  Give and Cake','⭐ Congratulations – Background | ⭐ You Did It – Nameplate'),
+    KL('4→5  The Mysterious Duck','⭐ Become Duck – Profile Pose'),
+    KL('5→6  Easy As Pie In The Sky','30% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    KH('6→7  An Oldie but a Goodie','+2 TTC Gag XP Multiplier'),
+    KH('7→8  Double Coil and Trouble','⭐ Ice Cream – Nametag Font'),
+    KH('8→9  Scraping News','50% Cheaper Gags in TTC | +1 TTC CUMBALL Booster'),
+    KH('9→10  Brainiacs in the Basement','+1 Max Laff'),
+    KH('10+  +20 Gumballs'),
   ],
 };

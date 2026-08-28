@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const DG: QuestPlayground = {
   name: 'Daffodil Gardens', icon: '🌸', color: '#1f3200', accent: '#9bd31a',
+  mainColor: '#9dc81c', kudosHighColor: '#69943a',
   rows: [
     H('Main Storyline'),
     Q('Trained and Ready'), Q('The Zucchini'), Q('The Rose'), Q('Wilted Sunflowers'),
@@ -19,15 +20,15 @@ export const DG: QuestPlayground = {
     S('Greener Thumbs','⭐ Green Toon – Cheesy Effect','Tulip Terrace (Green Bean Jeans)'),
     S('Wedding Planner','⭐ Running – Profile Pose','Tumbies (Playground)'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Forecast Fallacy','+1 DC Gag XP Multiplier'),
-    Q('2→3  Ant Stop Me Now','15% Cheaper Gags in DC | +1 DC CUMBALL Booster'),
-    Q('3→4  Groovy Paintings','⭐ Tranquil Fountain – Background | ⭐ Gardening – Nameplate'),
-    Q('4→5  Ringing the Right Bell','⭐ Elegance – Profile Pose'),
-    Q('5→6  Floral Fisticuffs','30% Cheaper Gags in DG | +1 DG CUMBALL Booster'),
-    Q('6→7  Top-Notch Tuft Toons','+2 DG Gag XP Multiplier'),
-    Q('7→8  Quaking and Breaking','⭐ Calligraphy – Nametag Font'),
-    Q('8→9  Miss-ting Mail','50% Cheaper Gags in DG | +1 DG CUMBALL Booster'),
-    Q('9→10  The Couch Slouch','+1 Max Laff'),
-    Q('10+  +35 Gumballs'),
+    KL('1→2  Forecast Fallacy','+1 DC Gag XP Multiplier'),
+    KL('2→3  Ant Stop Me Now','15% Cheaper Gags in DC | +1 DC CUMBALL Booster'),
+    KL('3→4  Groovy Paintings','⭐ Tranquil Fountain – Background | ⭐ Gardening – Nameplate'),
+    KL('4→5  Ringing the Right Bell','⭐ Elegance – Profile Pose'),
+    KL('5→6  Floral Fisticuffs','30% Cheaper Gags in DG | +1 DG CUMBALL Booster'),
+    KH('6→7  Top-Notch Tuft Toons','+2 DG Gag XP Multiplier'),
+    KH('7→8  Quaking and Breaking','⭐ Calligraphy – Nametag Font'),
+    KH('8→9  Miss-ting Mail','50% Cheaper Gags in DG | +1 DG CUMBALL Booster'),
+    KH('9→10  The Couch Slouch','+1 Max Laff'),
+    KH('10+  +35 Gumballs'),
   ],
 };

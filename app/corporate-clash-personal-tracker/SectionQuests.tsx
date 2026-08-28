@@ -1,74 +1,128 @@
-'use client';
-import { useState } from 'react';
+﻿'use client';
+import { useState, useEffect, useCallback } from 'react';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
-import type { QuestPlayground } from './data-quests-types';
+import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
+const LS_KEY = 'cc-quest-collapsed';
+
+function loadCollapsed(): Record<string, string[]> {
+  if (typeof window === 'undefined') return {};
+  try { return JSON.parse(localStorage.getItem(LS_KEY) ?? '{}'); } catch { return {}; }
+}
+function saveCollapsed(data: Record<string, string[]>) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch { /* ignore */ }
+}
+function rowClass(t: QuestSectionType | undefined): string {
+  if (t === 'main') return 'quest-row--main';
+  if (t === 'side') return 'quest-row--side';
+  if (t === 'kudos-low') return 'quest-row--kudos-low';
+  if (t === 'kudos-high') return 'quest-row--kudos-high';
+  return '';
+}
 
 export function SectionQuests() {
-  const { toonNames, toggleAll, isAllDone } = useTracker();
+  const { toonNames, progress, toggle, toggleAll, isAllDone } = useTracker();
   const [tab, setTab] = useState(0);
   const pg = QUESTS[tab];
 
-  // Build section keys from header rows so we can track collapsed state
-  const sectionKeys = pg.rows
-    .filter(r => r.isHeader)
-    .map(r => r.headerLabel ?? '');
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
+    const all = loadCollapsed();
+    return new Set(all[pg.name] ?? []);
+  });
+  useEffect(() => {
+    const all = loadCollapsed(); all[pg.name] = [...collapsed]; saveCollapsed(all);
+  }, [collapsed, pg.name]);
 
-  const toggleSection = (label: string) => {
+  const toggleSection = useCallback((label: string) => {
     setCollapsed(prev => {
-      const next = new Set(prev);
-      if (next.has(label)) next.delete(label);
-      else next.add(label);
-      return next;
+      const next = new Set(prev); next.has(label) ? next.delete(label) : next.add(label); return next;
     });
+  }, []);
+
+  const handleTabChange = (i: number) => {
+    const all = loadCollapsed(); setCollapsed(new Set(all[QUESTS[i].name] ?? [])); setTab(i);
   };
 
-  // Build rows with section awareness
+  const sectionRowKeys = (sType: QuestSectionType) =>
+    pg.rows.filter(r => !r.isHeader && r.sectionType === sType).map(r => `q:${pg.name}:${r.name}`);
+
+  const handleProgressClick = useCallback((key: string, toon: ToonIndex, sType: QuestSectionType) => {
+    const keys = sectionRowKeys(sType); const idx = keys.indexOf(key);
+    if (idx === -1) { toggle(key, toon); return; }
+    const done = !!(progress[key]?.[toon]);
+    if (!done) { for (let i = 0; i <= idx; i++) { if (!progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
+    else        { for (let i = idx; i < keys.length; i++) { if (progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
+  }, [pg, progress, toggle]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleProgressAll = useCallback((key: string, sType: QuestSectionType) => {
+    const keys = sectionRowKeys(sType); const idx = keys.indexOf(key);
+    if (idx === -1) { toggleAll(key); return; }
+    const allDone = isAllDone(key);
+    ([0,1,2,3] as ToonIndex[]).forEach(toon => {
+      if (!allDone) { for (let i = 0; i <= idx; i++) { if (!progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
+      else          { for (let i = idx; i < keys.length; i++) { if (progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
+    });
+  }, [pg, progress, toggle, toggleAll, isAllDone]); // eslint-disable-line react-hooks/exhaustive-deps
+
   let currentSection = '';
+  let currentSectionType: QuestSectionType | undefined;
   const renderedRows: React.ReactNode[] = [];
+
   pg.rows.forEach((row, ri) => {
     if (row.isHeader) {
       currentSection = row.headerLabel ?? '';
-      const sectionLabel = currentSection; // capture for closure
+      if (currentSection === 'Main Storyline') currentSectionType = 'main';
+      else if (currentSection === 'Sidetasks') currentSectionType = 'side';
+      else if (currentSection === 'Kudos Rank-Up Quests') currentSectionType = 'kudos-low';
+      else currentSectionType = 'main';
+      const sectionLabel = currentSection;
       const isOpen = !collapsed.has(sectionLabel);
       renderedRows.push(
         <tr key={`h-${ri}`} className="quest-section-header quest-section-header--toggle">
           <td colSpan={4 + toonNames.length}>
-            <button
-              className="quest-collapse-btn"
-              onClick={() => toggleSection(sectionLabel)}
-              aria-expanded={isOpen}
-            >
-              <span className="quest-collapse-arrow">{isOpen ? '▾' : '▸'}</span>
+            <button className="quest-collapse-btn" onClick={() => toggleSection(sectionLabel)} aria-expanded={isOpen}>
+              <span className="quest-collapse-arrow">{isOpen ? '▼' : '▶'}</span>
               {row.headerLabel}
             </button>
           </td>
         </tr>
       );
     } else {
-      if (collapsed.has(currentSection)) return; // currentSection is always the last-seen header — correct
+      if (collapsed.has(currentSection)) return;
       const key = `q:${pg.name}:${row.name}`;
       const allDone = isAllDone(key);
+      const sType = row.sectionType ?? currentSectionType;
+      const isProg = sType === 'main' || sType === 'kudos-low' || sType === 'kudos-high';
+      const rowColor = sType === 'kudos-high' ? pg.kudosHighColor : pg.mainColor;
       renderedRows.push(
-        <tr key={`r-${ri}`} className={allDone ? 'row-all-done' : ''}>
+        <tr key={`r-${ri}`}
+          className={`${rowClass(sType)}${allDone ? ' row-quest-done' : ''}`}
+          style={allDone ? {'--qrc': rowColor} as React.CSSProperties : undefined}>
           <td className="col-main">{row.name}</td>
           <td className="col-reward">{row.reward}</td>
           <td className="col-loc">{row.location}</td>
           {([0,1,2,3] as ToonIndex[]).map(t => (
             <td key={t} className="col-toon">
-              <CheckBtn id={key} toon={t} label={`${row.name} – ${toonNames[t]}`} />
+              {isProg ? (
+                <button
+                  className={`check-btn${progress[key]?.[t] ? ' check-btn--done' : ''}`}
+                  style={progress[key]?.[t] ? {'--tc': TOON_COLORS[t]} as React.CSSProperties : {}}
+                  onClick={() => handleProgressClick(key, t, sType!)}
+                  aria-label={`${row.name} - ${toonNames[t]}`}
+                >&#10003;</button>
+              ) : (
+                <CheckBtn id={key} toon={t} label={`${row.name} - ${toonNames[t]}`} />
+              )}
             </td>
           ))}
           <td className="col-all">
             <button
-              className={`all-btn${allDone?' all-btn--done':''}`}
-              onClick={() => toggleAll(key)}
-              aria-label={`Mark all toons: ${row.name}`}
+              className={`all-btn${allDone ? ' all-btn--done' : ''}`}
+              onClick={() => isProg ? handleProgressAll(key, sType!) : toggleAll(key)}
               title={allDone ? 'Unmark all' : 'Mark all toons'}
             >{allDone ? '★' : '☆'}</button>
           </td>
@@ -76,15 +130,6 @@ export function SectionQuests() {
       );
     }
   });
-
-  // Reset collapsed when switching tabs
-  const handleTabChange = (i: number) => {
-    setTab(i);
-    setCollapsed(new Set());
-  };
-
-  // Suppress unused sectionKeys warning
-  void sectionKeys;
 
   return (
     <div className="tracker-section">
@@ -95,7 +140,8 @@ export function SectionQuests() {
           </button>
         ))}
       </nav>
-      <div className="tracker-card" style={{'--dc':pg.color,'--da':pg.accent} as React.CSSProperties}>
+      <div className="tracker-card"
+        style={{'--dc':pg.color,'--da':pg.accent,'--qmc':pg.mainColor,'--qhc':pg.kudosHighColor} as React.CSSProperties}>
         <div className="tracker-card-header"><span className="dc-icon">{pg.icon}</span><strong>{pg.name}</strong></div>
         <div className="tracker-table-wrap">
           <table className="tracker-table">
@@ -106,12 +152,11 @@ export function SectionQuests() {
               {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
               <th className="col-all">All</th>
             </tr></thead>
-            <tbody>
-              {renderedRows}
-            </tbody>
+            <tbody>{renderedRows}</tbody>
           </table>
         </div>
       </div>
     </div>
   );
 }
+

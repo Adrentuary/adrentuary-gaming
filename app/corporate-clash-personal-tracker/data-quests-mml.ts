@@ -1,7 +1,8 @@
 import type { QuestPlayground } from './data-quests-types';
-import { H, Q, S } from './data-quests-types';
+import { H, Q, S, KL, KH } from './data-quests-types';
 export const MML: QuestPlayground = {
   name: 'Mezzo Melodyland', icon: '🎵', color: '#3a1545', accent: '#bf62cb',
+  mainColor: '#d067ec', kudosHighColor: '#aa4ac3',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Been Expecting You",'',''), Q('Can Anybody Find Mae …','',''),
@@ -20,15 +21,15 @@ export const MML: QuestPlayground = {
     S('Got You Covered!','⭐ Fancy – Nametag','Alto Avenue (Pitch Perfect Roofing)'),
     S('Piano Player','⭐ Presenting – Profile Pose','Tumbies (Playground)'),
     H('Kudos Rank-Up Quests'),
-    Q('1→2  Networking?','+1 MML Gag XP Multiplier'),
-    Q('2→3  Banker Besties','15% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
-    Q('3→4  Rocked Out','⭐ Rock Concert – Background | ⭐ Fires n Flames – Nameplate'),
-    Q('4→5  Cookie Conundrum','⭐ Pick Up The Phone – Profile Pose'),
-    Q('5→6  Fools Brass','30% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
-    Q('6→7  Bach in Business','+2 MML Gag XP Multiplier'),
-    Q('7→8  Phonic Phraudulence','⭐ Playful – Nametag Font'),
-    Q('8→9  Musical Monstrosity','50% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
-    Q("9→10  Let's Dance!",'+1 Max Laff'),
-    Q('10+  +40 Gumballs'),
+    KL('1→2  Networking?','+1 MML Gag XP Multiplier'),
+    KL('2→3  Banker Besties','15% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
+    KL('3→4  Rocked Out','⭐ Rock Concert – Background | ⭐ Fires n Flames – Nameplate'),
+    KL('4→5  Cookie Conundrum','⭐ Pick Up The Phone – Profile Pose'),
+    KL('5→6  Fools Brass','30% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
+    KH('6→7  Bach in Business','+2 MML Gag XP Multiplier'),
+    KH('7→8  Phonic Phraudulence','⭐ Playful – Nametag Font'),
+    KH('8→9  Musical Monstrosity','50% Cheaper Gags in MML | +1 MML CUMBALL Booster'),
+    KH("9→10  Let's Dance!",'+1 Max Laff'),
+    KH('10+  +40 Gumballs'),
   ],
 };
