@@ -191,10 +191,10 @@ export const COLLECTIONS: CollectionSection[] = [
       I('R.I.D.D.L.E','Background','Awarded after completing the Crossword Crisis Directive (Pettifogger to Level 7)'),
       I('Paint Mixer','Background','Overclocked Find the Foreman (April Toons 2022 / MAYpril Toons 2023)'),
       I('Sellbot HQ','Background','Awarded for reaching the Tier 8 Sellbot Suit'),
+      I('Bossbot HQ','Background','Awarded for reaching the Tier 8 Bossbot Suit'),
+      I('Lawbot HQ','Background','Awarded for reaching the Tier 8 Lawbot Suit'),
       I('Cashbot HQ','Background','Awarded for reaching the Tier 8 Cashbot Suit'),
-      I('Cashbot HQ','Nameplate','Awarded for reaching the Tier 8 Lawbot Suit'),
-      I('Cashbot HQ','Misc','Awarded for reaching the Tier 8 Bossbot Suit'),
-      I('Turning It Up To 11','Background','Awarded for maxing out the Sound Bar during a C.L.O. Battle'),
+      I('Turning It Up To 11','Nameplate','Awarded for maxing out the Sound Bar during a C.L.O. Battle'),
     ],
   },
   {
@@ -264,7 +264,7 @@ export const COLLECTIONS: CollectionSection[] = [
       I('Candy','Nameplate','Awarded after using the 2020 Summer code "fireworks"'),
       I('Prepare for Launch','Nameplate','Awarded after using the 2020 Summer code "fireworks"'),
       I('Pink Slip','Nameplate','Awarded for completing a Sky Clan task during the Mayday event'),
-      I('6 Pink Slip Collectibles','Misc','Awarded for getting 6 Pink Slip Pieces during Break The Law'),
+      I('6 Pink Slip Collectibles','Cheesy Effect','Awarded for getting 6 Pink Slip Pieces during Break The Law'),
     ],
   },
 ];
