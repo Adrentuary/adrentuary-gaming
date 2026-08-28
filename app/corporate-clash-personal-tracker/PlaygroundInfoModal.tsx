@@ -95,9 +95,9 @@ export function PlaygroundInfoModal({ pgKey, onClose }: Props) {
 
   return (
     <div className="pgm-backdrop" onClick={onClose}>
-      <div className="pgm-box" onClick={e => e.stopPropagation()}>
+      <div className="pgm-box" style={{ '--pgm-accent': data.color } as React.CSSProperties} onClick={e => e.stopPropagation()}>
 
-        <div className="pgm-header" style={{ '--pgm-accent': data.color } as React.CSSProperties}>
+        <div className="pgm-header">
           <Image src={data.emblem} alt={data.name} width={40} height={40} className="pgm-emblem" unoptimized />
           <div className="pgm-header-text">
             <h2 className="pgm-title">{data.name}</h2>

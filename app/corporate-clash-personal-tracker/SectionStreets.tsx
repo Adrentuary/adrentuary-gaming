@@ -57,7 +57,7 @@ function DistrictCard({ district, onShopClick, onTitleClick }: {
             title={`View ${district.name} info`}
           >
             <strong>{district.name}</strong>
-            <span className="pgm-title-btn-icon" aria-hidden="true">ℹ</span>
+            <span className="pgm-title-btn-badge" aria-hidden="true">Playground Info</span>
           </button>
         ) : (
           <strong>{district.name}</strong>
