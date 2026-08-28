@@ -30,11 +30,10 @@ export default function AllTools(){return(
               {gameTools.map((tool,i)=>(
                 <article key={i}>
                   <div className="tool-status"><span/>Status: {tool.status}</div>
-                  <p className="tool-number">0{TOOLS.indexOf(tool)+1}</p>
                   <h2>{tool.title}</h2>
-                  <p>{tool.body}</p>
+                  <p className="tool-body">{tool.body}</p>
                   {tool.live
-                    ?<Link href={tool.href}>Launch tool <span>↗</span></Link>
+                    ?<Link href={tool.href} className="tool-launch-btn">Launch tool <span>↗</span></Link>
                     :<span className="tool-soon">Coming soon</span>
                   }
                 </article>

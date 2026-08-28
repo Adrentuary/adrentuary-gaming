@@ -23,10 +23,9 @@ export default function Tools(){
     {visible.map((tool,i)=>(
       <article key={`${tool.title}-${i}`}>
         <div className="tool-status"><span/>Status: {tool.status}</div>
-        <p className="tool-number">0{i+1}</p>
         <h2>{tool.title}</h2>
-        <p>{tool.body}</p>
-        <Link href={tool.href}>Launch tool <span>↗</span></Link>
+        <p className="tool-body">{tool.body}</p>
+        <Link href={tool.href} className="tool-launch-btn">Launch tool <span>↗</span></Link>
       </article>
     ))}
     </div>
