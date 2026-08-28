@@ -12,7 +12,6 @@ const TYPE_ICONS: Record<string, string> = {
   'Nametag': '✍️',
   'Profile Pose': '🧍',
   'Cheesy Effect': '🧀',
-  'Misc': '📦',
 };
 
 const TYPE_COLORS: Record<string, string> = {
@@ -21,7 +20,6 @@ const TYPE_COLORS: Record<string, string> = {
   'Nametag':      '#001a30',
   'Profile Pose': '#002a14',
   'Cheesy Effect':'#2a1a00',
-  'Misc':         '#1a1a1a',
 };
 
 const TYPE_ACCENTS: Record<string, string> = {
@@ -30,7 +28,6 @@ const TYPE_ACCENTS: Record<string, string> = {
   'Nametag':      '#40a0e0',
   'Profile Pose': '#40c070',
   'Cheesy Effect':'#e0a030',
-  'Misc':         '#888888',
 };
 
 export function SectionCollections() {

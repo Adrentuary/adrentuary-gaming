@@ -268,5 +268,5 @@ export const COLLECTIONS: CollectionSection[] = [
     ],
   },
 ];
-export const COLLECTION_TYPES = ['Background','Nameplate','Nametag','Profile Pose','Cheesy Effect','Misc'] as const;
+export const COLLECTION_TYPES = ['Background','Nameplate','Nametag','Profile Pose','Cheesy Effect'] as const;
 export type CollectionType = typeof COLLECTION_TYPES[number];
