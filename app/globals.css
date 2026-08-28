@@ -181,16 +181,43 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .promo-cost{font-size:11px;font-weight:700;color:var(--ink);text-align:center;line-height:1.3}
 .promo-toon-checks{display:flex;gap:3px;margin-top:4px}
 .toons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
+/* ── All-toons button + row highlight ── */
+.col-all{width:38px;text-align:center}
+.all-btn{width:28px;height:28px;border-radius:6px;border:1px solid #3a4e3a;background:none;color:#3a4e3a;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;justify-content:center}
+.all-btn:hover{border-color:var(--da,#4ade80);color:var(--da,#4ade80)}
+.all-btn--done{background:color-mix(in srgb,var(--da,#4ade80) 20%,transparent);border-color:var(--da,#4ade80);color:var(--da,#4ade80)}
+.all-btn--sm{width:22px;height:18px;border-radius:4px;font-size:10px;margin-top:2px}
+.row-all-done td{background:color-mix(in srgb,var(--da,#4ade80) 10%,#080c08)!important}
+.promo-level-group--done{background:color-mix(in srgb,var(--da,#4ade80) 14%,#0d140d);border-color:color-mix(in srgb,var(--da,#4ade80) 40%,transparent)}
+/* ── Laff section grouping ── */
+.laff-group-divider td{background:color-mix(in srgb,var(--da,#5ab0e0) 22%,#080e08);color:var(--da,#5ab0e0);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-top:2px solid color-mix(in srgb,var(--da,#5ab0e0) 30%,transparent)}
+.laff-toon-progress{display:inline-block;margin:0 10px;font-size:12px;font-weight:700}
 .toon-card{background:#0a100a;border:2px solid var(--tc,#4ade80);border-radius:14px;overflow:hidden}
 .toon-card-header{background:color-mix(in srgb,var(--tc,#4ade80) 18%,#080c08);padding:14px 18px;display:flex;align-items:center;gap:10px}
 .toon-card-dot{width:12px;height:12px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
 .toon-name-btn{background:none;border:none;color:var(--ink);font:inherit;font-size:15px;font-weight:800;cursor:pointer;padding:0}
 .toon-name-btn:hover{color:var(--tc,#4ade80)}
-.toon-stats{padding:14px 18px;display:flex;flex-direction:column;gap:10px}
+.toon-stats{padding:14px 18px;display:flex;flex-direction:column;gap:8px}
 .toon-stat-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .toon-stat-row span{color:var(--muted)}
 .toon-stat-row strong{color:var(--ink);font-size:18px;font-weight:900}
 .tracker-card-sub{font-size:12px;font-weight:500;color:var(--muted);margin-left:auto}
+/* ── Toon card enhanced stats ── */
+.toon-stat-section-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;padding-bottom:4px;border-bottom:1px solid #1a2a1a}
+.toon-gag-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.toon-gag-cell{display:flex;flex-direction:column;background:color-mix(in srgb,var(--gcolor,#888) 12%,#0a100a);border:1px solid color-mix(in srgb,var(--gcolor,#888) 25%,transparent);border-radius:6px;padding:5px 8px}
+.toon-gag-track{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:color-mix(in srgb,var(--gcolor,#888) 80%,#fff)}
+.toon-gag-val{font-size:11px;font-weight:700;color:var(--ink);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toon-promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.toon-promo-cell{display:flex;flex-direction:column;background:color-mix(in srgb,var(--pcolor,#888) 12%,#0a100a);border:1px solid color-mix(in srgb,var(--pcolor,#888) 25%,transparent);border-radius:6px;padding:5px 8px}
+.toon-promo-suit{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:color-mix(in srgb,var(--pcolor,#888) 80%,#fff)}
+.toon-promo-val{font-size:12px;font-weight:800;color:var(--ink);margin-top:2px}
+.toon-laff-grid{display:flex;flex-direction:column;gap:2px}
+.toon-laff-group-label{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.toon-laff-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;color:var(--muted)}
+.toon-laff-row span:last-child{font-weight:700;color:var(--ink)}
+.toon-laff-done{color:var(--tc,#4ade80)}
+.toon-laff-done span:last-child{color:var(--tc,#4ade80)}
 .tracker-section-divider td{background:color-mix(in srgb,var(--da,#5ab0e0) 12%,#0a100a);color:var(--da,#5ab0e0);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px}
 .tracker-section-header td{background:color-mix(in srgb,var(--da,#5ab0e0) 8%,#0a100a);color:var(--muted);font-size:12px;padding:7px 12px;border-top:1px solid rgba(255,255,255,.06)}
 /* ── Streets tab ──────────────────────────────────────────── */

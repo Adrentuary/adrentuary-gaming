@@ -41,13 +41,17 @@ function TrackerInner() {
             <div className="toon-legend">
               {toonNames.map((name, i) => (
                 <button key={i} className="toon-legend-item" style={{'--tc': TOON_COLORS[i]} as React.CSSProperties}
-                  onClick={() => setEditingToon(editingToon === i ? null : i)}>
+                  onClick={() => { if(editingToon !== i) setEditingToon(i); }}
+                  onKeyDown={e => { if(editingToon === i) e.stopPropagation(); }}>
                   <span className="toon-dot" />
                   {editingToon === i
                     ? <input autoFocus value={name}
                         onChange={e => { const n=[...toonNames]; n[i]=e.target.value; setToonNames(n); }}
                         onBlur={() => { commitToonName(i, toonNames); setEditingToon(null); }}
-                        onKeyDown={e => { if(e.key==='Enter'){commitToonName(i,toonNames);setEditingToon(null);}}}
+                        onKeyDown={e => {
+                          e.stopPropagation();
+                          if(e.key==='Enter'){commitToonName(i,toonNames);setEditingToon(null);}
+                        }}
                         className="toon-name-input" maxLength={20} onClick={e => e.stopPropagation()} />
                     : <span>{name}</span>}
                 </button>

@@ -12,7 +12,9 @@ interface Ctx {
   toonNames: string[];
   setToonNames: (n: string[]) => void;
   toggle: (key: string, toon: ToonIndex) => void;
+  toggleAll: (key: string) => void;
   isDone: (key: string, toon: ToonIndex) => boolean;
+  isAllDone: (key: string) => boolean;
   saving: boolean;
   saveMsg: string;
   commitToonName: (i: number, names: string[]) => void;
@@ -64,13 +66,25 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
 
   const isDone = (key: string, toon: ToonIndex) => !!(progress[key]?.[toon]);
 
+  const isAllDone = (key: string) => [0,1,2,3].every(t => !!(progress[key]?.[t]));
+
+  const toggleAll = useCallback((key: string) => {
+    setProgress(prev => {
+      const arr: boolean[] = prev[key] ? [...prev[key]] : [false,false,false,false];
+      const allDone = arr.every(Boolean);
+      const next = { ...prev, [key]: [!allDone,!allDone,!allDone,!allDone] };
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
   const commitToonName = (i: number, names: string[]) => {
     setToonNames(names);
     if (user) save(progress, names);
   };
 
   return (
-    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, isDone, saving, saveMsg, commitToonName }}>
+    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName }}>
       {children}
     </TrackerCtx.Provider>
   );

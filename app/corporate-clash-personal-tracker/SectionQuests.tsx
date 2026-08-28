@@ -9,7 +9,7 @@ import { CheckBtn } from './CheckBtn';
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
 
 export function SectionQuests() {
-  const { toonNames } = useTracker();
+  const { toonNames, toggleAll, isAllDone } = useTracker();
   const [tab, setTab] = useState(0);
   const pg = QUESTS[tab];
   return (
@@ -30,17 +30,19 @@ export function SectionQuests() {
               <th className="col-reward">Reward</th>
               <th className="col-loc">Location</th>
               {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
+              <th className="col-all">All</th>
             </tr></thead>
             <tbody>
               {pg.rows.map((row,ri) => {
                 if (row.isHeader) return (
                   <tr key={ri} className="quest-section-header">
-                    <td colSpan={3+toonNames.length}>{row.headerLabel}</td>
+                    <td colSpan={4+toonNames.length}>{row.headerLabel}</td>
                   </tr>
                 );
                 const key = `q:${pg.name}:${row.name}`;
+                const allDone = isAllDone(key);
                 return (
-                  <tr key={ri}>
+                  <tr key={ri} className={allDone ? 'row-all-done' : ''}>
                     <td className="col-main">{row.name}</td>
                     <td className="col-reward">{row.reward}</td>
                     <td className="col-loc">{row.location}</td>
@@ -49,6 +51,14 @@ export function SectionQuests() {
                         <CheckBtn id={key} toon={t} label={`${row.name} – ${toonNames[t]}`} />
                       </td>
                     ))}
+                    <td className="col-all">
+                      <button
+                        className={`all-btn${allDone?' all-btn--done':''}`}
+                        onClick={() => toggleAll(key)}
+                        aria-label={`Mark all toons: ${row.name}`}
+                        title={allDone ? 'Unmark all' : 'Mark all toons'}
+                      >{allDone ? '★' : '☆'}</button>
+                    </td>
                   </tr>
                 );
               })}

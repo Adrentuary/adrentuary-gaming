@@ -5,7 +5,7 @@ import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
 
 export function SectionLeveling() {
-  const { toonNames } = useTracker();
+  const { toonNames, toggleAll, isAllDone } = useTracker();
   return (
     <div className="tracker-section">
       <div className="tracker-card" style={{'--dc':'#1a2540','--da':'#7b6cf0'} as React.CSSProperties}>
@@ -23,12 +23,14 @@ export function SectionLeveling() {
               {toonNames.map((n,i) => (
                 <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>
               ))}
+              <th className="col-all">All</th>
             </tr></thead>
             <tbody>
               {LEVELING_REWARDS.map((row, ri) => {
                 const key = `lv:${row.level}`;
+                const allDone = isAllDone(key);
                 return (
-                  <tr key={ri}>
+                  <tr key={ri} className={allDone ? 'row-all-done' : ''}>
                     <td className="col-sm">{row.level}</td>
                     <td className="col-sm">{row.laff}</td>
                     <td className="col-sm">{row.xp.toLocaleString()}</td>
@@ -38,6 +40,14 @@ export function SectionLeveling() {
                         <CheckBtn id={key} toon={t} label={`${toonNames[t]}: Level ${row.level}`} />
                       </td>
                     ))}
+                    <td className="col-all">
+                      <button
+                        className={`all-btn${allDone?' all-btn--done':''}`}
+                        onClick={() => toggleAll(key)}
+                        title={allDone ? 'Unmark all' : 'Mark all toons'}
+                        aria-label={`Mark all toons: Level ${row.level}`}
+                      >{allDone ? '★' : '☆'}</button>
+                    </td>
                   </tr>
                 );
               })}

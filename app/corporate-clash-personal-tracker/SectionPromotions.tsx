@@ -6,7 +6,7 @@ import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
 
 export function SectionPromotions() {
-  const { toonNames } = useTracker();
+  const { toonNames, toggleAll, isAllDone } = useTracker();
   const [tab, setTab] = useState(0);
   const suit = PROMOTIONS[tab];
   return (
@@ -24,8 +24,9 @@ export function SectionPromotions() {
             <div className="promo-levels">
               {cog.levels.map(lv => {
                 const key = `p:${suit.name}:${cog.name}:${lv.level}`;
+                const allDone = isAllDone(key);
                 return (
-                  <div key={lv.level} className="promo-level-group">
+                  <div key={lv.level} className={`promo-level-group${allDone?' promo-level-group--done':''}`}>
                     <div className="promo-level-label">Lvl {lv.level}</div>
                     <div className="promo-cost">{lv.cost === 'MAXED' ? '🏆 MAXED' : `${lv.cost}`}</div>
                     <div className="promo-toon-checks">
@@ -33,6 +34,12 @@ export function SectionPromotions() {
                         <CheckBtn key={t} id={key} toon={t} small label={`${toonNames[t]}: ${cog.name} Lvl ${lv.level}`} />
                       ))}
                     </div>
+                    <button
+                      className={`all-btn all-btn--sm${allDone?' all-btn--done':''}`}
+                      onClick={() => toggleAll(key)}
+                      title={allDone ? 'Unmark all' : 'Mark all toons'}
+                      aria-label={`Mark all toons: ${cog.name} Lvl ${lv.level}`}
+                    >{allDone ? '★' : '☆'}</button>
                   </div>
                 );
               })}
