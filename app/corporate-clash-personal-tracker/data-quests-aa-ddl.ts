@@ -2,7 +2,7 @@ import type { QuestPlayground } from './data-quests-types';
 import { H, Q, KL, KH } from './data-quests-types';
 export const AA: QuestPlayground = {
   name: 'Acorn Acres', icon: '🌰', color: '#003a18', accent: '#20cf69',
-  mainColor: '#20d860', kudosHighColor: '#e8a020',
+  mainColor: '#40ff80', kudosHighColor: '#ffb030',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Message"), Q('First Draft Pick'), Q('Enlisting In The Army'),
@@ -10,7 +10,7 @@ export const AA: QuestPlayground = {
 };
 export const DDL: QuestPlayground = {
   name: 'Drowsy Dreamland', icon: '💤', color: '#1a1060', accent: '#7b68ee',
-  mainColor: '#9890ff', kudosHighColor: '#f0a030',
+  mainColor: '#a890ff', kudosHighColor: '#ffb040',
   rows: [
     H('Kudos Rank-Up Quests'),
     KL('4→5  Make Your Bed And Lie In It','⭐ Naptime – Profile Pose'),

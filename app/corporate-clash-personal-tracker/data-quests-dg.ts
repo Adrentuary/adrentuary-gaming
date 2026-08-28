@@ -2,7 +2,7 @@ import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const DG: QuestPlayground = {
   name: 'Daffodil Gardens', icon: '🌸', color: '#1f3200', accent: '#9bd31a',
-  mainColor: '#7ec820', kudosHighColor: '#e06090',
+  mainColor: '#80e030', kudosHighColor: '#ff70b0',
   rows: [
     H('Main Storyline'),
     Q('Trained and Ready'), Q('The Zucchini'), Q('The Rose'), Q('Wilted Sunflowers'),

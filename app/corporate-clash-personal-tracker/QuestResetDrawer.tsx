@@ -5,45 +5,54 @@ import type { ToonIndex } from './TrackerContext';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 
 const PLAYGROUNDS = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
+const CONFIRM_WORD = 'RESET';
 
 type Target = ToonIndex | 'all';
-interface ConfirmState { pg: string | 'ALL'; toon: Target }
+interface ArmedState { pg: string | 'ALL'; toon: Target }
 
 export function QuestResetDrawer() {
   const { toonNames, resetToon, resetAll, resetSection } = useTracker();
   const [open, setOpen] = useState(false);
-  const [confirm, setConfirm] = useState<ConfirmState | null>(null);
+  const [armed, setArmed] = useState<ArmedState | null>(null);
+  const [typed, setTyped] = useState('');
+  const [done, setDone] = useState<string | null>(null);
 
-  const request = (pg: string | 'ALL', toon: Target) => {
-    // If same button clicked again = confirmed
-    if (confirm?.pg === pg && confirm?.toon === toon) {
-      if (pg === 'ALL') {
-        toon === 'all' ? resetAll() : resetToon(toon as ToonIndex);
-      } else {
-        resetSection(`q:${pg}:`, toon);
-      }
-      setConfirm(null);
-    } else {
-      setConfirm({ pg, toon });
-    }
+  const arm = (pg: string | 'ALL', toon: Target) => {
+    setArmed({ pg, toon });
+    setTyped('');
+    setDone(null);
   };
 
-  const cancel = () => setConfirm(null);
+  const cancel = () => { setArmed(null); setTyped(''); };
 
-  const toonLabel = (t: Target) =>
-    t === 'all' ? 'All Toons' : toonNames[t as ToonIndex];
+  const confirmed = typed.trim().toUpperCase() === CONFIRM_WORD;
+
+  const execute = () => {
+    if (!confirmed || !armed) return;
+    const { pg, toon } = armed;
+    const label = toon === 'all' ? 'All Toons' : toonNames[toon as ToonIndex];
+    if (pg === 'ALL') {
+      toon === 'all' ? resetAll() : resetToon(toon as ToonIndex);
+      setDone(`Reset ${label} across all playgrounds.`);
+    } else {
+      resetSection(`q:${pg}:`, toon);
+      setDone(`Reset ${label} in ${pg}.`);
+    }
+    setArmed(null);
+    setTyped('');
+  };
 
   const toonColor = (t: Target): React.CSSProperties =>
     t === 'all' ? {} : { '--tc': TOON_COLORS[t as ToonIndex] } as React.CSSProperties;
 
-  const isConfirming = (pg: string | 'ALL', t: Target) =>
-    confirm?.pg === pg && confirm?.toon === t;
+  const isArmed = (pg: string | 'ALL', t: Target) =>
+    armed?.pg === pg && armed?.toon === t;
 
   return (
     <div className="quest-reset-drawer">
       <button
         className={`quest-reset-toggle${open ? ' quest-reset-toggle--open' : ''}`}
-        onClick={() => { setOpen(o => !o); setConfirm(null); }}
+        onClick={() => { setOpen(o => !o); setArmed(null); setTyped(''); setDone(null); }}
         aria-expanded={open}
       >
         <span className="quest-reset-toggle-icon">⚠</span>
@@ -54,7 +63,7 @@ export function QuestResetDrawer() {
       {open && (
         <div className="quest-reset-body">
           <p className="quest-reset-desc">
-            Click a toon button once to <strong>arm</strong> it, then click again to <strong>confirm</strong> the reset. Click Cancel to abort.
+            Select a toon button to arm it, then type <strong>{CONFIRM_WORD}</strong> and click Reset to confirm.
           </p>
 
           {/* Per-playground rows */}
@@ -64,24 +73,21 @@ export function QuestResetDrawer() {
                 {pg.icon} {pg.name}
               </span>
               <div className="quest-reset-row-btns">
-                {([0,1,2,3] as ToonIndex[]).map(t => {
-                  const armed = isConfirming(pg.name, t);
-                  return (
-                    <button
-                      key={t}
-                      className={`reset-btn${armed ? ' reset-btn--armed' : ''}`}
-                      style={toonColor(t)}
-                      onClick={() => request(pg.name, t)}
-                    >
-                      {armed ? `Confirm reset ${toonNames[t]}?` : toonNames[t]}
-                    </button>
-                  );
-                })}
+                {([0,1,2,3] as ToonIndex[]).map(t => (
+                  <button
+                    key={t}
+                    className={`reset-btn${isArmed(pg.name, t) ? ' reset-btn--armed' : ''}`}
+                    style={toonColor(t)}
+                    onClick={() => arm(pg.name, t)}
+                  >
+                    {toonNames[t]}
+                  </button>
+                ))}
                 <button
-                  className={`reset-btn reset-btn--all${isConfirming(pg.name, 'all') ? ' reset-btn--armed' : ''}`}
-                  onClick={() => request(pg.name, 'all')}
+                  className={`reset-btn reset-btn--all${isArmed(pg.name, 'all') ? ' reset-btn--armed' : ''}`}
+                  onClick={() => arm(pg.name, 'all')}
                 >
-                  {isConfirming(pg.name, 'all') ? 'Confirm reset All?' : 'All Toons'}
+                  All Toons
                 </button>
               </div>
             </div>
@@ -93,37 +99,60 @@ export function QuestResetDrawer() {
               ⚠ Reset ALL Playgrounds
             </span>
             <div className="quest-reset-row-btns">
-              {([0,1,2,3] as ToonIndex[]).map(t => {
-                const armed = isConfirming('ALL', t);
-                return (
-                  <button
-                    key={t}
-                    className={`reset-btn${armed ? ' reset-btn--armed' : ''}`}
-                    style={toonColor(t)}
-                    onClick={() => request('ALL', t)}
-                  >
-                    {armed ? `Confirm reset ${toonNames[t]}?` : toonNames[t]}
-                  </button>
-                );
-              })}
+              {([0,1,2,3] as ToonIndex[]).map(t => (
+                <button
+                  key={t}
+                  className={`reset-btn${isArmed('ALL', t) ? ' reset-btn--armed' : ''}`}
+                  style={toonColor(t)}
+                  onClick={() => arm('ALL', t)}
+                >
+                  {toonNames[t]}
+                </button>
+              ))}
               <button
-                className={`reset-btn reset-btn--all${isConfirming('ALL', 'all') ? ' reset-btn--armed' : ''}`}
-                onClick={() => request('ALL', 'all')}
+                className={`reset-btn reset-btn--all${isArmed('ALL', 'all') ? ' reset-btn--armed' : ''}`}
+                onClick={() => arm('ALL', 'all')}
               >
-                {isConfirming('ALL', 'all') ? 'Confirm reset ALL?' : 'All Toons'}
+                All Toons
               </button>
             </div>
           </div>
 
-          {confirm && (
-            <div className="quest-reset-confirm-bar">
-              <span>
-                Resetting <strong>{toonLabel(confirm.toon)}</strong>
-                {confirm.pg === 'ALL' ? ' across ALL playgrounds' : ` in ${confirm.pg}`} — click the highlighted button again to confirm.
-              </span>
-              <button className="reset-btn reset-btn--cancel" onClick={cancel}>Cancel</button>
+          {/* Typed confirmation panel */}
+          {armed && (
+            <div className="acct-danger-confirm">
+              <p className="acct-danger-confirm-msg">
+                You are about to reset{' '}
+                <strong>
+                  {armed.toon === 'all' ? 'All Toons' : toonNames[armed.toon as ToonIndex]}
+                </strong>
+                {armed.pg === 'ALL' ? ' across ALL playgrounds' : ` in ${armed.pg}`}.{' '}
+                Type <strong>{CONFIRM_WORD}</strong> below to confirm.
+              </p>
+              <div className="acct-danger-confirm-row">
+                <input
+                  className="acct-danger-input"
+                  type="text"
+                  value={typed}
+                  onChange={e => setTyped(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter' && confirmed) execute(); if (e.key === 'Escape') cancel(); }}
+                  placeholder={`Type ${CONFIRM_WORD} to confirm`}
+                  autoFocus
+                  spellCheck={false}
+                />
+                <button
+                  className="acct-danger-go-btn"
+                  onClick={execute}
+                  disabled={!confirmed}
+                >
+                  Reset
+                </button>
+                <button className="acct-danger-cancel-btn" onClick={cancel}>Cancel</button>
+              </div>
             </div>
           )}
+
+          {done && <p className="acct-danger-done">{done}</p>}
         </div>
       )}
     </div>
