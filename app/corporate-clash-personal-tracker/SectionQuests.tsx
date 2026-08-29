@@ -28,7 +28,7 @@ function rowClass(t: QuestSectionType | undefined): string {
 }
 
 export function SectionQuests() {
-  const { toonNames, progress, toggle, toggleAll, isAllDone } = useTracker();
+  const { toonNames, progress, toggle, toggleAll, isAllDone, setProgressBatch } = useTracker();
   const [tab, setTab] = useState(0);
   const pg = QUESTS[tab];
 
@@ -63,22 +63,37 @@ export function SectionQuests() {
   };
 
   const handleProgressClick = useCallback((key: string, toon: ToonIndex, sType: QuestSectionType) => {
-    const keys = progKeys(sType); const idx = keys.indexOf(key);
+    const keys = progKeys(sType);
+    const idx = keys.indexOf(key);
     if (idx === -1) { toggle(key, toon); return; }
     const done = !!(progress[key]?.[toon]);
-    if (!done) { for (let i = 0; i <= idx; i++) { if (!progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
-    else        { for (let i = idx; i < keys.length; i++) { if (progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
-  }, [pg, progress, toggle]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!done) {
+      // Mark 0..idx done, leave idx+1..end as-is (they may already be done)
+      const toMark = keys.slice(0, idx + 1).map(k => ({ key: k, toon }));
+      setProgressBatch(toMark, []);
+    } else {
+      // Unmark idx..end — clicking a checked item removes it and all after it
+      const toUnmark = keys.slice(idx).map(k => ({ key: k, toon }));
+      setProgressBatch([], toUnmark);
+    }
+  }, [pg, progress, toggle, setProgressBatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleProgressAll = useCallback((key: string, sType: QuestSectionType) => {
-    const keys = progKeys(sType); const idx = keys.indexOf(key);
+    const keys = progKeys(sType);
+    const idx = keys.indexOf(key);
     if (idx === -1) { toggleAll(key); return; }
     const allDone = isAllDone(key);
-    ([0,1,2,3] as ToonIndex[]).forEach(toon => {
-      if (!allDone) { for (let i = 0; i <= idx; i++) { if (!progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
-      else          { for (let i = idx; i < keys.length; i++) { if (progress[keys[i]]?.[toon]) toggle(keys[i], toon); } }
-    });
-  }, [pg, progress, toggle, toggleAll, isAllDone]); // eslint-disable-line react-hooks/exhaustive-deps
+    const toons = [0, 1, 2, 3] as ToonIndex[];
+    if (!allDone) {
+      // Mark all toons for 0..idx
+      const toMark = keys.slice(0, idx + 1).flatMap(k => toons.map(t => ({ key: k, toon: t })));
+      setProgressBatch(toMark, []);
+    } else {
+      // Unmark all toons for idx..end
+      const toUnmark = keys.slice(idx).flatMap(k => toons.map(t => ({ key: k, toon: t })));
+      setProgressBatch([], toUnmark);
+    }
+  }, [pg, progress, toggleAll, isAllDone, setProgressBatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   let currentSection = '';
   let currentSectionType: QuestSectionType | undefined;

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿'use client';
+﻿﻿﻿﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
@@ -6,7 +6,7 @@ import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
 export function SectionGags() {
-  const { toonNames, toggle, isDone, setDoneMany } = useTracker();
+  const { toonNames, isDone, setProgressBatch } = useTracker();
 
   return (
     <div className="tracker-section">
@@ -68,17 +68,25 @@ export function SectionGags() {
                             const key = `g:${track.name}:${g}:min`;
                             const done = isDone(key, t);
                             const handleMinClick = () => {
+                              const toDone: { key: string; toon: ToonIndex }[] = [];
+                              const toUndone: { key: string; toon: ToonIndex }[] = [];
                               if (!done) {
-                                const entries: { key: string; toon: ToonIndex }[] = [];
                                 for (let i = 0; i < gi; i++) {
-                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
-                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                  toDone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  toDone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
                                 }
-                                entries.push({ key: `g:${track.name}:${track.gags[gi]}:min`, toon: t });
-                                setDoneMany(entries);
+                                toDone.push({ key: `g:${track.name}:${track.gags[gi]}:min`, toon: t });
+                                for (let i = gi; i < track.gags.length; i++) {
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                  if (i > gi) toUndone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                }
                               } else {
-                                toggle(key, t);
+                                for (let i = gi; i < track.gags.length; i++) {
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                }
                               }
+                              setProgressBatch(toDone, toUndone);
                             };
                             return (
                               <button key={t}
@@ -111,16 +119,24 @@ export function SectionGags() {
                             const key = `g:${track.name}:${g}:max`;
                             const done = isDone(key, t);
                             const handleMaxClick = () => {
+                              const toDone: { key: string; toon: ToonIndex }[] = [];
+                              const toUndone: { key: string; toon: ToonIndex }[] = [];
                               if (!done) {
-                                const entries: { key: string; toon: ToonIndex }[] = [];
                                 for (let i = 0; i <= gi; i++) {
-                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
-                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                  toDone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  toDone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
                                 }
-                                setDoneMany(entries);
+                                for (let i = gi + 1; i < track.gags.length; i++) {
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                }
                               } else {
-                                toggle(key, t);
+                                for (let i = gi; i < track.gags.length; i++) {
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  toUndone.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                }
                               }
+                              setProgressBatch(toDone, toUndone);
                             };
                             return (
                               <button key={t}

@@ -20,6 +20,10 @@ interface Ctx {
   commitToonName: (i: number, names: string[]) => void;
   /** Set multiple keys to true for a toon in one batch */
   setDoneMany: (entries: { key: string; toon: ToonIndex }[]) => void;
+  /** Set multiple keys to false for a toon in one batch */
+  setUndoneMany: (entries: { key: string; toon: ToonIndex }[]) => void;
+  /** Set a list of keys to done=true and another list to done=false atomically in one state update */
+  setProgressBatch: (done: { key: string; toon: ToonIndex }[], undone: { key: string; toon: ToonIndex }[]) => void;
   /** Clear progress for one toon across ALL keys */
   resetToon: (toon: ToonIndex) => void;
   /** Clear progress for ALL toons across ALL keys */
@@ -104,6 +108,40 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     });
   }, [user, toonNames, save]);
 
+  const setUndoneMany = useCallback((entries: { key: string; toon: ToonIndex }[]) => {
+    setProgress(prev => {
+      const next = { ...prev };
+      for (const { key, toon } of entries) {
+        const arr: boolean[] = next[key] ? [...next[key]] : [false,false,false,false];
+        arr[toon] = false;
+        next[key] = arr;
+      }
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
+  const setProgressBatch = useCallback((
+    done: { key: string; toon: ToonIndex }[],
+    undone: { key: string; toon: ToonIndex }[]
+  ) => {
+    setProgress(prev => {
+      const next = { ...prev };
+      for (const { key, toon } of done) {
+        const arr: boolean[] = next[key] ? [...next[key]] : [false,false,false,false];
+        arr[toon] = true;
+        next[key] = arr;
+      }
+      for (const { key, toon } of undone) {
+        const arr: boolean[] = next[key] ? [...next[key]] : [false,false,false,false];
+        arr[toon] = false;
+        next[key] = arr;
+      }
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
   const resetToon = useCallback((toon: ToonIndex) => {
     setProgress(prev => {
       const next: Progress = {};
@@ -142,7 +180,7 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   }, [user, toonNames, save]);
 
   return (
-    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, setDoneMany, resetToon, resetAll, resetSection }}>
+    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, setDoneMany, setUndoneMany, setProgressBatch, resetToon, resetAll, resetSection }}>
       {children}
     </TrackerCtx.Provider>
   );
