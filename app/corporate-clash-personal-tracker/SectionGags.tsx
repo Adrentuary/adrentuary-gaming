@@ -1,4 +1,4 @@
-'use client';
+﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
@@ -43,7 +43,8 @@ export function SectionGags() {
                 <tr className="gag-ss-gag-row">
                   <td className="gag-ss-label-hdr" />
                   {track.gags.map((g, gi) => (
-                    <td key={gi} className="gag-ss-gag-cell">
+                    <td key={gi} className="gag-ss-gag-cell"
+                      colSpan={gi === track.gags.length - 1 ? 2 : 1}>
                       <Image src={`/icons/gags/small/${track.trackKey}/${g}.png`}
                         alt={g} width={44} height={44} className="gag-ss-small-icon" />
                       <div className="gag-ss-gag-name">{g}</div>
@@ -59,17 +60,29 @@ export function SectionGags() {
                     </div>
                   </td>
                   {track.gags.map((g, gi) => (
-                    <td key={gi} className="gag-ss-minmax-cell">
+                    <td key={gi} className="gag-ss-minmax-cell"
+                      colSpan={gi === track.gags.length - 1 ? 2 : 1}>
                       <div className="gag-ss-minmax-inner">
                         <div className="gag-ss-check-group">
                           {([0,1,2,3] as ToonIndex[]).map(t => {
                             const key = `g:${track.name}:${g}:min`;
                             const done = isDone(key, t);
+                            const handleMinClick = () => {
+                              if (!done) {
+                                const entries: { key: string; toon: ToonIndex }[] = [];
+                                for (let i = 0; i <= gi; i++) {
+                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                }
+                                setDoneMany(entries);
+                              } else {
+                                toggle(key, t);
+                              }
+                            };
                             return (
                               <button key={t}
                                 className={`gag-ss-chk${done ? " gag-ss-chk--done gag-ss-chk--min-done" : ""}`}
                                 style={done ? {"--tc": TOON_COLORS[t]} as React.CSSProperties : {}}
-                                onClick={() => toggle(key, t)}
+                                onClick={handleMinClick}
                                 aria-label={`${toonNames[t]}: ${track.name} - ${g} (Min)`}>✓</button>
                             );
                           })}
@@ -88,7 +101,8 @@ export function SectionGags() {
                     </div>
                   </td>
                   {track.gags.map((g, gi) => (
-                    <td key={gi} className="gag-ss-minmax-cell">
+                    <td key={gi} className="gag-ss-minmax-cell"
+                      colSpan={gi === track.gags.length - 1 ? 2 : 1}>
                       <div className="gag-ss-minmax-inner">
                         <div className="gag-ss-check-group">
                           {([0,1,2,3] as ToonIndex[]).map(t => {
@@ -134,7 +148,8 @@ export function SectionGags() {
                       {stat.label}
                     </td>
                     {stat.values.map((v, vi) => (
-                      <td key={vi} className={`gag-ss-stat-val gag-ss-stat-val--${stat.type ?? "label"}`}>{v ?? "—"}</td>
+                      <td key={vi} className={`gag-ss-stat-val gag-ss-stat-val--${stat.type ?? "label"}`}
+                        colSpan={vi === stat.values.length - 1 ? 2 : 1}>{v ?? "—"}</td>
                     ))}
                   </tr>
                 ))}
