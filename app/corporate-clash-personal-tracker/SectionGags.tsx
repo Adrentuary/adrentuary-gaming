@@ -1,6 +1,7 @@
 ﻿﻿﻿﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
+import { GagResetDrawer } from './GagResetDrawer';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -15,6 +16,7 @@ export function SectionGags() {
         status="Section design and interactive features are currently under development."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
+      <GagResetDrawer />
       {GAG_TRACKS.map(track => (
         <div key={track.name} className="gag-card"
           style={{"--gc": track.color, "--gh": track.headerColor, "--gl": track.labelColor} as React.CSSProperties}>
