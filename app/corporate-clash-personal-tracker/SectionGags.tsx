@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿'use client';
+﻿﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
@@ -70,9 +70,11 @@ export function SectionGags() {
                             const handleMinClick = () => {
                               if (!done) {
                                 const entries: { key: string; toon: ToonIndex }[] = [];
-                                for (let i = 0; i <= gi; i++) {
+                                for (let i = 0; i < gi; i++) {
                                   entries.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
                                 }
+                                entries.push({ key: `g:${track.name}:${track.gags[gi]}:min`, toon: t });
                                 setDoneMany(entries);
                               } else {
                                 toggle(key, t);
