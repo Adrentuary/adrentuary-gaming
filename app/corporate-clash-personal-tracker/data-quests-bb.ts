@@ -2,7 +2,6 @@ import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const BB: QuestPlayground = {
   name: 'Barnacle Boatyard', icon: '⭐', color: '#5a1a05', accent: '#dc4a14',
-  mainColor: '#ff6050', kudosHighColor: '#40d8ff',
   rows: [
     H('Main Storyline'),
     Q('Oh, Barnacles!'), Q('Butter Flippers'), Q("Someone's Been Drinking Saltwater …"),

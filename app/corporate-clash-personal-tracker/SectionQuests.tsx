@@ -107,11 +107,10 @@ export function SectionQuests() {
       const allDone = isAllDone(key);
       const sType = row.sectionType ?? currentSectionType;
       const isProg = sType === 'main' || sType === 'kudos-low' || sType === 'kudos-high';
-      const rowColor = sType === 'kudos-high' ? pg.kudosHighColor : pg.mainColor;
       renderedRows.push(
         <tr key={`r-${ri}`}
           className={`${rowClass(sType)}${allDone ? ' row-quest-done' : ''}`}
-          style={allDone ? {'--qrc': rowColor} as React.CSSProperties : undefined}>
+          style={allDone ? {'--qrc': 'var(--dc)'} as React.CSSProperties : undefined}>
           <td className="col-main">{row.name}</td>
           <td className="col-reward">{row.reward}</td>
           <td className="col-loc">{row.location}</td>
@@ -152,7 +151,7 @@ export function SectionQuests() {
         ))}
       </nav>
       <div className="tracker-card"
-        style={{'--dc':pg.color,'--da':pg.accent,'--qmc':pg.mainColor,'--qhc':pg.kudosHighColor} as React.CSSProperties}>
+        style={{'--dc':pg.color,'--da':pg.accent} as React.CSSProperties}>
         <div className="tracker-card-header">
           <span className="dc-icon">{pg.icon}</span>
           <strong>{pg.name}</strong>

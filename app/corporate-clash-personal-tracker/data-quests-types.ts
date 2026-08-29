@@ -12,10 +12,6 @@ export interface QuestRow {
 
 export interface QuestPlayground {
   name: string; icon: string; color: string; accent: string;
-  /** Row highlight color for main/sidetask/kudos-low rows */
-  mainColor: string;
-  /** Row highlight color for kudos 6→7+ rows */
-  kudosHighColor: string;
   rows: QuestRow[];
 }
 

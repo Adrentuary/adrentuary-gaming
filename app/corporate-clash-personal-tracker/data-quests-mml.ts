@@ -1,8 +1,7 @@
 import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const MML: QuestPlayground = {
-  name: 'Mezzo Melodyland', icon: '🎵', color: '#3a1545', accent: '#bf62cb',
-  mainColor: '#e050ff', kudosHighColor: '#40ffb8',
+  name: 'Mezzo Melodyland', icon: '🎵', color: '#482052', accent: '#bf62cb',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Been Expecting You",'',''), Q('Can Anybody Find Mae …','',''),
