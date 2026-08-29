@@ -1,4 +1,6 @@
 'use client';
+import { useState } from 'react';
+import Image from 'next/image';
 import { LAFF_BOOSTS } from './data-laff';
 import type { LaffBoostEntry } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
@@ -18,6 +20,20 @@ const GROUP_LABELS: Record<string, string> = {
   'Bossbot Promotions': 'Promotions',
 };
 
+// Playground icons for Kudos section milestones
+const KUDOS_PG_ICONS: Record<string, {icon: string; img: string; name: string}> = {
+  '1→2 Taking Out The Trash':      { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '2→3 Panic At the Discount':     { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '3→4 Give and Cake':             { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '4→5 The Mysterious Duck':       { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '5→6 Easy As Pie In The Sky':    { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '6→7 An Oldie but a Goodie':     { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '7→8 Double Coil and Trouble':   { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '8→9 Scraping News':             { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '9→10 Brainiacs in the Basement':{ icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+  '10+ +20 Gumballs':              { icon: '🍦', img: '/icons/playground-emblems/TTC.png', name: 'Toontown Central' },
+};
+
 // Total counts per section for the progress display
 const SECTION_TOTALS: Record<string, number> = {
   'Kudos Ranking': 8,
@@ -31,13 +47,29 @@ const SECTION_TOTALS: Record<string, number> = {
   'Bossbot Promotions': 6,
 };
 
+const PG_ICON_MAP: Record<string, {emoji: string; img: string}> = {
+  'Toontown Central': { emoji: '🍦', img: '/icons/playground-emblems/TTC.png' },
+  'Barnacle Boatyard': { emoji: '⚓', img: '/icons/playground-emblems/BB.png' },
+  'Ye Olde Toontowne': { emoji: '👑', img: '/icons/playground-emblems/YOTT.png' },
+  'Daffodil Gardens': { emoji: '🌸', img: '/icons/playground-emblems/DG.png' },
+  'Mezzo Melodyland': { emoji: '🎵', img: '/icons/playground-emblems/MML.png' },
+  'The Brrrgh': { emoji: '❄️', img: '/icons/playground-emblems/TB.png' },
+  'Acorn Acres': { emoji: '🌰', img: '/icons/playground-emblems/AA.png' },
+  'Drowsy Dreamland': { emoji: '💤', img: '/icons/playground-emblems/DDL.png' },
+};
+const LAFF_GROUPS = ['Kudos', 'Activities', 'Promotions'];
+
 export function SectionLaff() {
   const { toonNames, isDone, toggleAll, isAllDone } = useTracker();
+  const [openGroups, setOpenGroups] = useState<Set<string>>(new Set(LAFF_GROUPS));
   const renderedSections = new Set<string>();
   const renderedGroups = new Set<string>();
-  const colCount = 3 + toonNames.length + 1; // note + source + laff + toons + all
+  const colCount = 3 + toonNames.length + 1;
 
-  // Count how many entries each toon has done in a section
+  const toggleGroup = (g: string) => setOpenGroups(prev => {
+    const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next;
+  });
+
   const getSectionCount = (section: string, toon: ToonIndex): number =>
     LAFF_BOOSTS.filter(e => !e.isHeader && e.section === section)
       .filter(e => isDone(`lb:${e.section}:${(e as {note:string}).note}:${(e as {source:string}).source}`, toon)).length;
@@ -45,89 +77,56 @@ export function SectionLaff() {
   return (
     <div className="tracker-section">
       <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>
-        <div className="tracker-card-header">
-          <strong>Laff Boosts</strong>
-          <span className="tracker-card-sub">Max Laff: 150</span>
-        </div>
+        <div className="tracker-card-header"><strong>Laff Boosts</strong><span className="tracker-card-sub">Max Laff: 150</span></div>
         <div className="tracker-table-wrap">
           <table className="tracker-table">
             <thead><tr>
-              <th className="col-sm">Milestone</th>
-              <th className="col-main">Source</th>
-              <th className="col-sm">+Laff</th>
-              {toonNames.map((n,i) => (
-                <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>
-              ))}
+              <th className="col-sm">Milestone</th><th className="col-main">Source</th><th className="col-sm">+Laff</th>
+              {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
               <th className="col-all">All</th>
             </tr></thead>
             <tbody>
               {LAFF_BOOSTS.map((entry: LaffBoostEntry, ri) => {
-                if (entry.isHeader) {
-                  const total = SECTION_TOTALS[entry.section] ?? '?';
-                  return (
-                    <tr key={`hdr-${ri}`} className="tracker-section-header">
-                      <td colSpan={colCount} style={{textAlign:'center'}}>
-                        {toonNames.map((n,i) => {
-                          const count = getSectionCount(entry.section, i as ToonIndex);
-                          const done = count === total;
-                          return (
-                            <span key={i} className="laff-toon-progress" style={{color: TOON_COLORS[i]}}>
-                              {n}: {done ? '✔ COMPLETED' : `${count}/${total}`}
-                            </span>
-                          );
-                        })}
-                      </td>
-                    </tr>
-                  );
-                }
-
-                const rows: React.ReactNode[] = [];
+                if (entry.isHeader) return null;
                 const group = GROUP_LABELS[entry.section] ?? entry.section;
-
-                // Render group separator (Kudos / Activities / Promotions)
+                const rows: React.ReactNode[] = [];
                 if (!renderedGroups.has(group)) {
                   renderedGroups.add(group);
-                  rows.push(
-                    <tr key={`grp-${group}`} className="laff-group-divider">
-                      <td colSpan={colCount}>{group}</td>
-                    </tr>
-                  );
+                  const isOpen = openGroups.has(group);
+                  rows.push(<tr key={`grp-${group}`} className="laff-group-divider"><td colSpan={colCount}>
+                    <button className="laff-collapse-btn" onClick={() => toggleGroup(group)}>
+                      <span className="quest-collapse-arrow">{isOpen ? '▼' : '▶'}</span>{group}
+                    </button></td></tr>);
                 }
-
-                // Render section sub-header within group
+                if (!openGroups.has(group)) return rows.length ? rows : null;
                 if (!renderedSections.has(entry.section)) {
                   renderedSections.add(entry.section);
-                  if (group !== 'Kudos') {
-                    rows.push(
-                      <tr key={`sec-${entry.section}`} className="tracker-section-divider">
-                        <td colSpan={colCount}>{entry.section}</td>
-                      </tr>
-                    );
-                  }
+                  const total = SECTION_TOTALS[entry.section] ?? '?';
+                  const pgKey = entry.section.replace(' Promotions','').replace(' Ranking','');
+                  const pg = group === 'Kudos' ? PG_ICON_MAP[pgKey] : null;
+                  rows.push(<tr key={`sec-${entry.section}`} className="laff-section-header"><td colSpan={colCount}>
+                    <span className="laff-section-title">
+                      {pg && <><Image src={pg.img} alt={pgKey} width={16} height={16} className="laff-pg-icon" unoptimized /><span style={{marginLeft:4}}>{pg.emoji}</span></>}
+                      {entry.section}
+                    </span>
+                    <span className="laff-section-progress">
+                      {toonNames.map((n,i) => {
+                        const c=getSectionCount(entry.section,i as ToonIndex),done=c===total;
+                        return <span key={i} className="laff-toon-progress" style={{color:TOON_COLORS[i]}}>{n}: {done?'✔ Completed':`${c}/${total}`}</span>;
+                      })}
+                    </span></td></tr>);
                 }
-
                 const key = `lb:${entry.section}:${entry.note}:${entry.source}`;
                 const allDone = isAllDone(key);
-                rows.push(
-                  <tr key={ri} className={allDone ? 'row-all-done' : ''}>
-                    <td className="col-sm">{entry.note}</td>
-                    <td className="col-main">{entry.source}</td>
-                    <td className="col-sm">+{entry.laff}</td>
-                    {([0,1,2,3] as ToonIndex[]).map(t => (
-                      <td key={t} className="col-toon">
-                        <CheckBtn id={key} toon={t} label={`${toonNames[t]}: ${entry.section} ${entry.note}`} />
-                      </td>
-                    ))}
-                    <td className="col-all">
-                      <button
-                        className={`all-btn${allDone?' all-btn--done':''}`}
-                        onClick={() => toggleAll(key)}
-                        title={allDone ? 'Unmark all' : 'Mark all toons'}
-                        aria-label={`Mark all: ${entry.section} ${entry.note}`}
-                      >{allDone ? '★' : '☆'}</button>
-                    </td>
-                  </tr>
-                );
+                rows.push(<tr key={ri} className={allDone ? 'row-all-done' : ''}>
+                  <td className="col-sm">{entry.note}</td>
+                  <td className="col-main">{entry.source}</td>
+                  <td className="col-sm">+{entry.laff}</td>
+                  {([0,1,2,3] as ToonIndex[]).map(t => (
+                    <td key={t} className="col-toon"><CheckBtn id={key} toon={t} label={`${toonNames[t]}: ${entry.section} ${entry.note}`} /></td>
+                  ))}
+                  <td className="col-all"><button className={`all-btn${allDone?' all-btn--done':''}`} onClick={() => toggleAll(key)} title={allDone?'Unmark all':'Mark all toons'}>{allDone?'★':'☆'}</button></td>
+                </tr>);
                 return rows;
               })}
             </tbody>

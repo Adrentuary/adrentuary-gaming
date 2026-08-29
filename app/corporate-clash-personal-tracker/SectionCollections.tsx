@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { COLLECTIONS, COLLECTION_TYPES } from './data-collections';
 import type { CollectionType } from './data-collections';
 import { useTracker } from './TrackerContext';
@@ -15,11 +16,11 @@ const TYPE_ICONS: Record<string, string> = {
 };
 
 const TYPE_COLORS: Record<string, string> = {
-  'Background':   '#3a2800',
-  'Nameplate':    '#2a1800',
-  'Nametag':      '#001a30',
-  'Profile Pose': '#002a14',
-  'Cheesy Effect':'#2a1a00',
+  'Background':   '#0A100A',
+  'Nameplate':    '#0A100A',
+  'Nametag':      '#0A100A',
+  'Profile Pose': '#0A100A',
+  'Cheesy Effect':'#0A100A',
 };
 
 const TYPE_ACCENTS: Record<string, string> = {
@@ -102,7 +103,10 @@ export function SectionCollections() {
                             return (
                               <div key={key} className={`coll-item-card${allDone?' coll-item-card--done':''}`}>
                                 <div className="coll-item-name">{item.name}</div>
-                                <div className="coll-item-img-placeholder" />
+                                {item.img
+                                  ? <div className="coll-item-img-wrap"><Image src={item.img} alt={item.name} width={130} height={72} className="coll-item-img" unoptimized /></div>
+                                  : <div className="coll-item-img-placeholder" />
+                                }
                                 <div className="coll-item-how">{item.how}</div>
                                 <div className="coll-item-checks">
                                   {([0,1,2,3] as ToonIndex[]).map(t => (

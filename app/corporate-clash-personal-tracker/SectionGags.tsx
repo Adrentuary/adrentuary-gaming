@@ -4,12 +4,6 @@ import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
-// Zone boundary: which gag column index (0-based) each zone START sits above.
-// TTC: cols 0-1, BB: col 2, YOTT: between 3-4 (show above col 3 right-border),
-// DG: between 4-5, MML: col 5, TB: col 6, DDL: col 7
-// We render one zone cell per gag column; a zone spans until the next boundary.
-// zone col-spans: TTC→2, BB→1, YOTT→1, DG→1, MML→1, TB→1, DDL→1  (matches data-gags)
-
 export function SectionGags() {
   const { toonNames, toggle, isDone } = useTracker();
   return (
@@ -29,7 +23,10 @@ export function SectionGags() {
                   <td className="gag-ss-label-hdr" rowSpan={2} />
                   {RECOMMENDED_ZONES.map((z, zi) => (
                     <td key={zi} colSpan={z.span} className="gag-ss-zone-cell"
-                      style={{background: z.color, color: z.accent}}>{z.name}</td>
+                      style={{background: z.color, color: z.accent}}>
+                      <span className="gag-ss-zone-icon">{z.icon}</span>
+                      <span className="gag-ss-zone-name">{z.name}</span>
+                    </td>
                   ))}
                 </tr>
                 <tr className="gag-ss-gag-row">
@@ -56,40 +53,52 @@ export function SectionGags() {
                 </tr>
                 <tr className="gag-ss-tnum-row">
                   <td className="gag-ss-label-hdr gag-ss-tnum-label">
-                    <div className="gag-ss-tnum-group">
-                      {([0,1,2,3] as ToonIndex[]).map(t => (
-                        <span key={t} className="gag-ss-tnum" style={{color: TOON_COLORS[t]}}>{t+1}</span>
-                      ))}
+                    <div className="gag-ss-tnum-col">
+                      <span className="gag-ss-tnum-heading gag-ss-tnum-heading--min">Min</span>
+                      <div className="gag-ss-tnum-group">
+                        {([0,1,2,3] as ToonIndex[]).map(t => (
+                          <span key={t} className="gag-ss-tnum" style={{color: TOON_COLORS[t]}}>{t+1}</span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="gag-ss-tnum-group">
-                      {([0,1,2,3] as ToonIndex[]).map(t => (
-                        <span key={t} className="gag-ss-tnum" style={{color: TOON_COLORS[t]}}>{t+1}</span>
-                      ))}
+                    <div className="gag-ss-tnum-col">
+                      <span className="gag-ss-tnum-heading gag-ss-tnum-heading--max">Max</span>
+                      <div className="gag-ss-tnum-group">
+                        {([0,1,2,3] as ToonIndex[]).map(t => (
+                          <span key={t} className="gag-ss-tnum" style={{color: TOON_COLORS[t]}}>{t+1}</span>
+                        ))}
+                      </div>
                     </div>
                   </td>
                   {track.gags.map((g) => (
                     <td key={g} className="gag-ss-tnum-cell">
-                      <div className="gag-ss-check-group">
-                        {([0,1,2,3] as ToonIndex[]).map(t => {
-                          const key = `g:${track.name}:${g}:min`;
-                          const done = isDone(key, t);
-                          return (<button key={t}
-                            className={`gag-ss-chk${done?' gag-ss-chk--done':''}`}
-                            style={done?{'--tc':TOON_COLORS[t]} as React.CSSProperties:{}}
-                            onClick={() => toggle(key, t)}
-                            aria-label={`${toonNames[t]}: ${track.name} – ${g} (Min)`}>✓</button>);
-                        })}
-                      </div>
-                      <div className="gag-ss-check-group gag-ss-check-group--max">
-                        {([0,1,2,3] as ToonIndex[]).map(t => {
-                          const key = `g:${track.name}:${g}:max`;
-                          const done = isDone(key, t);
-                          return (<button key={t}
-                            className={`gag-ss-chk${done?' gag-ss-chk--done':''}`}
-                            style={done?{'--tc':TOON_COLORS[t]} as React.CSSProperties:{}}
-                            onClick={() => toggle(key, t)}
-                            aria-label={`${toonNames[t]}: ${track.name} – ${g} (Max)`}>✓</button>);
-                        })}
+                      <div className="gag-ss-chk-pair">
+                        <div className="gag-ss-chk-col gag-ss-chk-col--min">
+                          <div className="gag-ss-check-group">
+                            {([0,1,2,3] as ToonIndex[]).map(t => {
+                              const key = `g:${track.name}:${g}:min`;
+                              const done = isDone(key, t);
+                              return (<button key={t}
+                                className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--min-done':''}`}
+                                style={done?{'--tc':TOON_COLORS[t]} as React.CSSProperties:{}}
+                                onClick={() => toggle(key, t)}
+                                aria-label={`${toonNames[t]}: ${track.name} – ${g} (Min)`}>✓</button>);
+                            })}
+                          </div>
+                        </div>
+                        <div className="gag-ss-chk-col gag-ss-chk-col--max">
+                          <div className="gag-ss-check-group">
+                            {([0,1,2,3] as ToonIndex[]).map(t => {
+                              const key = `g:${track.name}:${g}:max`;
+                              const done = isDone(key, t);
+                              return (<button key={t}
+                                className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--max-done':''}`}
+                                style={done?{'--tc':TOON_COLORS[t]} as React.CSSProperties:{}}
+                                onClick={() => toggle(key, t)}
+                                aria-label={`${toonNames[t]}: ${track.name} – ${g} (Max)`}>✓</button>);
+                            })}
+                          </div>
+                        </div>
                       </div>
                     </td>
                   ))}
@@ -97,11 +106,16 @@ export function SectionGags() {
               </thead>
               <tbody>
                 {track.stats.map((stat, si) => (
-                  <tr key={si} className="gag-ss-stat-row">
+                  <tr key={si} className={`gag-ss-stat-row${stat.prestige?' gag-ss-stat-row--prestige':''}`}>
                     {si === 0 && (
                       <td className="gag-ss-track-cell gag-ss-track-cell--stat" rowSpan={track.stats.length} />
                     )}
-                    <td className="gag-ss-stat-label">{stat.label}</td>
+                    <td className="gag-ss-stat-label">
+                      {stat.prestige && (
+                        <Image src="/icons/gags/PrestigeStar.webp" alt="Prestige" width={14} height={14} className="gag-ss-prestige-star" unoptimized />
+                      )}
+                      {stat.label}
+                    </td>
                     {stat.values.map((v, vi) => (
                       <td key={vi} className={`gag-ss-stat-val gag-ss-stat-val--${stat.type??'label'}`}>{v??'—'}</td>
                     ))}

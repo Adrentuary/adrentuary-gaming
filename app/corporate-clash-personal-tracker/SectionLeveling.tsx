@@ -1,11 +1,46 @@
 'use client';
+import { useCallback } from 'react';
 import { LEVELING_REWARDS } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
-import { CheckBtn } from './CheckBtn';
 
 export function SectionLeveling() {
-  const { toonNames, toggleAll, isAllDone } = useTracker();
+  const { toonNames, progress, toggle, toggleAll, isAllDone } = useTracker();
+
+  const allKeys = LEVELING_REWARDS.map(r => `lv:${r.level}`);
+
+  const handleLevelClick = useCallback((key: string, toon: ToonIndex) => {
+    const idx = allKeys.indexOf(key);
+    if (idx === -1) { toggle(key, toon); return; }
+    const done = !!(progress[key]?.[toon]);
+    if (!done) {
+      for (let i = 0; i <= idx; i++) {
+        if (!progress[allKeys[i]]?.[toon]) toggle(allKeys[i], toon);
+      }
+    } else {
+      for (let i = idx; i < allKeys.length; i++) {
+        if (progress[allKeys[i]]?.[toon]) toggle(allKeys[i], toon);
+      }
+    }
+  }, [allKeys, progress, toggle]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleLevelAll = useCallback((key: string) => {
+    const idx = allKeys.indexOf(key);
+    if (idx === -1) { toggleAll(key); return; }
+    const allDone = isAllDone(key);
+    ([0,1,2,3] as ToonIndex[]).forEach(toon => {
+      if (!allDone) {
+        for (let i = 0; i <= idx; i++) {
+          if (!progress[allKeys[i]]?.[toon]) toggle(allKeys[i], toon);
+        }
+      } else {
+        for (let i = idx; i < allKeys.length; i++) {
+          if (progress[allKeys[i]]?.[toon]) toggle(allKeys[i], toon);
+        }
+      }
+    });
+  }, [allKeys, progress, toggle, toggleAll, isAllDone]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="tracker-section">
       <div className="tracker-card" style={{'--dc':'#1a2540','--da':'#7b6cf0'} as React.CSSProperties}>
@@ -37,13 +72,18 @@ export function SectionLeveling() {
                     <td className="col-main">{row.reward}</td>
                     {([0,1,2,3] as ToonIndex[]).map(t => (
                       <td key={t} className="col-toon">
-                        <CheckBtn id={key} toon={t} label={`${toonNames[t]}: Level ${row.level}`} />
+                        <button
+                          className={`check-btn${progress[key]?.[t] ? ' check-btn--done' : ''}`}
+                          style={progress[key]?.[t] ? {'--tc': TOON_COLORS[t]} as React.CSSProperties : {}}
+                          onClick={() => handleLevelClick(key, t)}
+                          aria-label={`${toonNames[t]}: Level ${row.level}`}
+                        >&#10003;</button>
                       </td>
                     ))}
                     <td className="col-all">
                       <button
                         className={`all-btn${allDone?' all-btn--done':''}`}
-                        onClick={() => toggleAll(key)}
+                        onClick={() => handleLevelAll(key)}
                         title={allDone ? 'Unmark all' : 'Mark all toons'}
                         aria-label={`Mark all toons: Level ${row.level}`}
                       >{allDone ? '★' : '☆'}</button>
