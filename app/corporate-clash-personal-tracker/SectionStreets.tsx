@@ -121,6 +121,7 @@ export function SectionStreets() {
     <div className="tracker-section">
       <SectionNote
         description="Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked. Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info."
+        status="Interactive sections are currently being developed for Barnacle Boatyard, Ye Olde Toontowne, Daffodil Gardens, Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
       {PAIRS.map((pair, pi) => (

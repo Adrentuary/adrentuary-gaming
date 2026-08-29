@@ -14,6 +14,7 @@ export function SectionPromotions() {
     <div className="tracker-section">
       <SectionNote
         description="Cog suit promotion costs for each department. Select a suit type using the tabs below. Track which promotions each toon has completed across all cog levels."
+        status="Section design and interactive features are currently under development."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
       <nav className="sub-tabs">

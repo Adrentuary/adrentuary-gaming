@@ -2,16 +2,18 @@ import React from 'react';
 
 interface Props {
   description: string;
+  status: string;
   lastUpdated: string;
 }
 
-export function SectionNote({ description, lastUpdated }: Props) {
+export function SectionNote({ description, status, lastUpdated }: Props) {
   return (
     <div className="section-note">
       <p className="section-note-desc">{description}</p>
       <p className="section-note-status">
         <strong>Section Status:</strong>{' '}
-        Everything in this section is currently up to date. Notice something incorrect or outdated?{' '}
+        {status}{' '}
+        Notice something incorrect or outdated?{' '}
         Let us know by filling out our{' '}
         <a href="https://adrentuary-gaming.vercel.app/contact" target="_blank" rel="noopener noreferrer">
           contact form

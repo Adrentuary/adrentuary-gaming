@@ -11,6 +11,7 @@ export function SectionGags() {
     <div className="tracker-section">
       <SectionNote
         description="Gag XP requirements and recommended training zones per track. Min columns show the minimum XP needed to unlock the next tier; Max columns show the XP cap for that tier. Prestige rows are marked with a star."
+        status="Section design and interactive features are currently under development."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
       {GAG_TRACKS.map(track => (

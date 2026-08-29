@@ -146,6 +146,7 @@ export function SectionQuests() {
     <div className="tracker-section">
       <SectionNote
         description="Track quest completion across all 8 playgrounds for each of your toons. Main storyline, sidetasks, and Kudos rank-up quests are all included. Checking a row auto-marks all previous rows for that toon."
+        status="Everything in this section is currently up to date."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
       <QuestResetDrawer />
