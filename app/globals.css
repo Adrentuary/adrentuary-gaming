@@ -84,6 +84,11 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .auth-alt a{color:var(--green);font-weight:700}
 .auth-alt a:hover{text-shadow:0 0 8px rgba(164,247,143,.6)}
 .auth-body{color:var(--muted);line-height:1.65;margin:0 0 24px}
+.auth-forgot-row{display:flex;justify-content:flex-end;margin-top:-2px}
+.auth-forgot-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .15s}
+.auth-forgot-link:hover{color:var(--green)}
+.auth-inline-btn{background:none;border:none;padding:0;color:var(--green);font:inherit;font-size:inherit;cursor:pointer;text-decoration:underline}
+.auth-inline-btn:hover{opacity:.8}
 
 /* ── Account page ── */
 .account-page{padding:60px 20px 100px}
@@ -111,6 +116,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .form-success{font-size:13px;color:#4ade80;font-weight:700}
 .form-error{font-size:13px;color:#f87171}
 .account-body{color:var(--muted);line-height:1.65;margin:0 0 20px;font-size:15px}
+.account-reset-notice{display:flex;align-items:flex-start;gap:10px;background:#0d1f0d;border:1px solid #2a4a2a;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:14px;color:#a4f78f;line-height:1.5}
+.account-reset-notice__icon{font-size:18px;flex-shrink:0;margin-top:1px}
 @media(max-width:860px){.account-shell{grid-template-columns:1fr}.account-sidebar{position:static}}
 @media(max-width:500px){.auth-card{padding:32px 24px}.account-section{padding:24px 20px}}
 

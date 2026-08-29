@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { AccountTrackerReset } from '../corporate-clash-personal-tracker/AccountTrackerReset';
 import { createClient } from '../../lib/supabase/client';
@@ -13,8 +13,10 @@ interface Profile {
   avatar_url: string | null;
 }
 
-export default function AccountPage() {
+function AccountContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isPasswordReset = searchParams.get('reset') === '1';
   const { user, loading } = useAuth();
   const [profile, setProfile] = useState<Profile>({ username: '', display_name: '', avatar_url: null });
   const [profileLoading, setProfileLoading] = useState(true);
@@ -25,6 +27,7 @@ export default function AccountPage() {
   const [pwSaving, setPwSaving] = useState(false);
   const [avatarUploading, setAvatarUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const pwSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!loading && !user) router.replace('/login');
@@ -43,6 +46,15 @@ export default function AccountPage() {
         setProfileLoading(false);
       });
   }, [user]);
+
+  // If the user arrived via a password-reset link, scroll to the password section
+  useEffect(() => {
+    if (isPasswordReset && pwSectionRef.current) {
+      setTimeout(() => {
+        pwSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 400);
+    }
+  }, [isPasswordReset, profileLoading]);
 
   async function saveProfile(e: React.FormEvent) {
     e.preventDefault();
@@ -145,8 +157,14 @@ export default function AccountPage() {
                 </div>
               </form>
             </section>
-            <section className="account-section">
+            <section className="account-section" ref={pwSectionRef}>
               <h2>Change password</h2>
+              {isPasswordReset && (
+                <div className="account-reset-notice" role="status">
+                  <span className="account-reset-notice__icon">🔑</span>
+                  <span>You&apos;re logged in via a password reset link. Please set a new password below.</span>
+                </div>
+              )}
               <form onSubmit={changePassword} className="account-form">
                 <label htmlFor="new_password">New password</label>
                 <input id="new_password" type="password" autoComplete="new-password" required minLength={8} value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="8+ characters" />
@@ -167,5 +185,13 @@ export default function AccountPage() {
       </main>
       <SiteFooter />
     </div>
+  );
+}
+
+export default function AccountPage() {
+  return (
+    <Suspense fallback={<div className="site-page"><SiteHeader /><main className="auth-page"><div className="auth-card"><p className="kicker">Loading…</p></div></main><SiteFooter /></div>}>
+      <AccountContent />
+    </Suspense>
   );
 }

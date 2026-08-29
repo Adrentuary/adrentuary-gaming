@@ -30,7 +30,9 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      // Successfully confirmed — redirect to account page (or wherever 'next' points)
+      // Successfully confirmed or password-reset — redirect to 'next' destination.
+      // Password reset links pass next=/account?reset=1 so the account page
+      // knows to prompt the user to set a new password.
       return NextResponse.redirect(`${origin}${next}`);
     }
   }

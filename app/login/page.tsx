@@ -66,6 +66,11 @@ function LoginForm() {
             onChange={e => setPassword(e.target.value)}
             placeholder="••••••••"
           />
+          <div className="auth-forgot-row">
+            <Link href={`/forgot-password${email ? `?email=${encodeURIComponent(email)}` : ''}`} className="auth-forgot-link">
+              Forgot password?
+            </Link>
+          </div>
           {error && <p className="auth-error" role="alert">{error}</p>}
           <button type="submit" className="button" disabled={submitting}>
             {submitting ? 'Logging in…' : 'Log in'}
