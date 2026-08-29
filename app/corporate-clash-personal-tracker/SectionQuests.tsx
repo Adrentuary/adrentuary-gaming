@@ -1,5 +1,6 @@
 ﻿'use client';
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
@@ -153,7 +154,13 @@ export function SectionQuests() {
       <div className="tracker-card"
         style={{'--dc':pg.color,'--da':pg.accent} as React.CSSProperties}>
         <div className="tracker-card-header">
-          <span className="dc-icon">{pg.icon}</span>
+          <Image
+            src={`/icons/playground-emblems/${pg.pgKey}.png`}
+            alt={pg.name}
+            width={28}
+            height={28}
+            className="pg-emblem"
+          />
           <strong>{pg.name}</strong>
         </div>
         <div className="tracker-table-wrap">

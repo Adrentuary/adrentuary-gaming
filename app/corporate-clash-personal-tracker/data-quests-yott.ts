@@ -1,7 +1,7 @@
 import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const YOTT: QuestPlayground = {
-  name: 'Ye Olde Toontowne', icon: '👑', color: '#33205e', accent: '#9b70cc',
+  name: 'Ye Olde Toontowne', icon: '👑', pgKey: 'YOTT', color: '#33205e', accent: '#9b70cc',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Plans"), Q('Ye Olde Basics'), Q('Ye Olde Cog Bash!'),

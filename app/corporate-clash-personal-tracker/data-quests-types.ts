@@ -11,7 +11,7 @@ export interface QuestRow {
 }
 
 export interface QuestPlayground {
-  name: string; icon: string; color: string; accent: string;
+  name: string; icon: string; pgKey: string; color: string; accent: string;
   rows: QuestRow[];
 }
 

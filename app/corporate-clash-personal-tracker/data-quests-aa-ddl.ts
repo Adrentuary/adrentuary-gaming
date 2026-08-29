@@ -1,7 +1,7 @@
 import type { QuestPlayground } from './data-quests-types';
 import { H, Q, S, KL, KH } from './data-quests-types';
 export const AA: QuestPlayground = {
-  name: 'Acorn Acres', icon: '🌰', color: '#00451e', accent: '#20cf69',
+  name: 'Acorn Acres', icon: '🌰', pgKey: 'AA', color: '#00451e', accent: '#20cf69',
   rows: [
     H('Main Storyline'),
     Q("Flippy's Message"), Q('First Draft Pick'), Q('Enlisting In The Army'),
@@ -31,7 +31,7 @@ export const AA: QuestPlayground = {
   ],
 };
 export const DDL: QuestPlayground = {
-  name: 'Drowsy Dreamland', icon: '💤', color: '#1a1060', accent: '#7b68ee',
+  name: 'Drowsy Dreamland', icon: '💤', pgKey: 'DDL', color: '#1a1060', accent: '#7b68ee',
   rows: [
     H('Main Storyline'),
     Q('The Star of The Show'), Q('But Wait, There\'s More?'), Q('The DiMML Doctor'),
