@@ -23,6 +23,7 @@ function AccountContent() {
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [pwMsg, setPwMsg] = useState('');
   const [pwSaving, setPwSaving] = useState(false);
   const [avatarUploading, setAvatarUploading] = useState(false);
@@ -73,17 +74,34 @@ function AccountContent() {
   async function changePassword(e: React.FormEvent) {
     e.preventDefault();
     if (!user) return;
+    // Client-side match check before hitting Supabase
+    if (newPassword !== confirmPassword) {
+      setPwMsg('Passwords do not match.');
+      return;
+    }
     setPwSaving(true);
     setPwMsg('');
     const supabase = createClient();
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     setPwSaving(false);
     if (error) {
-      setPwMsg(error.message);
+      // Translate Supabase's technical error into plain language
+      if (error.message.toLowerCase().includes('different from the old password') ||
+          error.message.toLowerCase().includes('same password')) {
+        setPwMsg('That\'s the same as your current password. Please choose a new one.');
+      } else {
+        setPwMsg(error.message);
+      }
     } else {
       setNewPassword('');
+      setConfirmPassword('');
       setPwMsg('Password updated!');
-      setTimeout(() => setPwMsg(''), 3000);
+      // If arriving from reset link, clean up the URL after success
+      if (isPasswordReset) {
+        setTimeout(() => router.replace('/account'), 1500);
+      } else {
+        setTimeout(() => setPwMsg(''), 3000);
+      }
     }
   }
 
@@ -167,10 +185,38 @@ function AccountContent() {
               )}
               <form onSubmit={changePassword} className="account-form">
                 <label htmlFor="new_password">New password</label>
-                <input id="new_password" type="password" autoComplete="new-password" required minLength={8} value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="8+ characters" />
+                <input
+                  id="new_password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  minLength={8}
+                  value={newPassword}
+                  onChange={e => { setNewPassword(e.target.value); setPwMsg(''); }}
+                  placeholder="8+ characters"
+                />
+                <label htmlFor="confirm_password">Confirm new password</label>
+                <input
+                  id="confirm_password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  minLength={8}
+                  value={confirmPassword}
+                  onChange={e => { setConfirmPassword(e.target.value); setPwMsg(''); }}
+                  placeholder="Re-enter your new password"
+                />
+                {confirmPassword.length > 0 && newPassword !== confirmPassword && (
+                  <p className="form-error" style={{ margin: '0' }}>Passwords do not match.</p>
+                )}
                 <div className="form-footer">
                   {pwMsg && <span className={pwMsg === 'Password updated!' ? 'form-success' : 'form-error'}>{pwMsg}</span>}
-                  <button type="submit" className="button button--primary" disabled={pwSaving || newPassword.length < 8}>{pwSaving ? 'Updating…' : 'Update password'}</button>
+                  <button
+                    type="submit"
+                    className="button button--primary"
+                    disabled={pwSaving || newPassword.length < 8 || confirmPassword.length < 8 || newPassword !== confirmPassword}>
+                    {pwSaving ? 'Updating…' : 'Update password'}
+                  </button>
                 </div>
               </form>
             </section>
