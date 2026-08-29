@@ -217,9 +217,9 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .quest-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:7px 12px;color:var(--da);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .12s}
 .quest-collapse-btn:hover{background:color-mix(in srgb,var(--da) 10%,transparent)}
 .quest-collapse-arrow{font-size:10px;flex-shrink:0;transition:transform .15s}
-.check-btn{width:36px;height:28px;border-radius:6px;border:1px solid #2a3a2a;background:none;color:transparent;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;justify-content:center}
-.check-btn:hover{border-color:#4a5e4a;color:#4a5e4a}
-.check-btn--done{background:var(--tc,#4ade80);border-color:var(--tc,#4ade80);color:#000}
+.check-btn{width:36px;height:28px;border-radius:6px;border:1px solid #3a4a3a;background:none;color:transparent;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;justify-content:center}
+.check-btn:hover{border-color:#6a7e6a;color:#6a7e6a}
+.check-btn--done{background:var(--tc,#4ade80);border-color:var(--tc,#4ade80);color:#fff}
 .check-btn--sm{width:26px;height:22px;border-radius:4px;font-size:11px}
 .gag-table .col-gag{width:80px;text-align:center}
 .col-toon-label{min-width:80px;font-weight:700;font-size:13px}
@@ -257,7 +257,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .col-all{width:38px;text-align:center}
 .all-btn{width:28px;height:28px;border-radius:6px;border:1px solid #3a4e3a;background:none;color:#3a4e3a;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;justify-content:center}
 .all-btn:hover{border-color:var(--da,#4ade80);color:var(--da,#4ade80)}
-.all-btn--done{background:color-mix(in srgb,var(--da,#4ade80) 20%,transparent);border-color:var(--da,#4ade80);color:var(--da,#4ade80)}
+.all-btn--done{background:var(--da,#4ade80);border-color:var(--da,#4ade80);color:#fff}
 .all-btn--sm{width:22px;height:18px;border-radius:4px;font-size:10px;margin-top:2px}
 .row-all-done td{background:color-mix(in srgb,var(--da,#4ade80) 10%,#080c08)!important}
 .row-quest-done td{background:color-mix(in srgb,var(--qrc,#4ade80) 32%,#080c08)!important}
@@ -266,7 +266,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .quest-row--kudos-low td{background:color-mix(in srgb,var(--qmc,#ff9040) 12%,#080c08)}
 .quest-row--kudos-high td{background:color-mix(in srgb,var(--qhc,#7090ff) 22%,#080c08)}
 /* Kudos high (5→6+): checked button is 30% lighter than main color */
-.quest-row--kudos-high .check-btn--done{background:color-mix(in srgb,var(--tc,#4ade80) 70%,#fff)!important;border-color:color-mix(in srgb,var(--tc,#4ade80) 70%,#fff)!important;color:#000!important}
+.quest-row--kudos-high .check-btn--done{background:var(--tc,#4ade80)!important;border-color:var(--tc,#4ade80)!important;color:#fff!important}
 /* Kudos high: unchecked keeps same unchecked look as regular rows */
 .promo-level-group--done{background:color-mix(in srgb,var(--da,#4ade80) 14%,#0d140d);border-color:color-mix(in srgb,var(--da,#4ade80) 40%,transparent)}
 /* ── Laff section grouping ── */
