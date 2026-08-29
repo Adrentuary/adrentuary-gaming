@@ -265,7 +265,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .quest-row--side td{background:color-mix(in srgb,var(--qmc,#ff9040) 7%,#080c08)}
 .quest-row--kudos-low td{background:color-mix(in srgb,var(--qmc,#ff9040) 12%,#080c08)}
 .quest-row--kudos-high td{background:color-mix(in srgb,var(--qhc,#7090ff) 22%,#080c08)}
-/* Kudos high (5→6+): checked button is 30% lighter than main color */
+/* Kudos high (6→7+): checked button uses full toon color, white checkmark */
 .quest-row--kudos-high .check-btn--done{background:var(--tc,#4ade80)!important;border-color:var(--tc,#4ade80)!important;color:#fff!important}
 /* Kudos high: unchecked keeps same unchecked look as regular rows */
 .promo-level-group--done{background:color-mix(in srgb,var(--da,#4ade80) 14%,#0d140d);border-color:color-mix(in srgb,var(--da,#4ade80) 40%,transparent)}
