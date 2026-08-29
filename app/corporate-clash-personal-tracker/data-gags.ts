@@ -25,7 +25,7 @@ export const GAG_XP_MIN = ['0','20','100','500','2,000','5,000','9,000','14,000'
 export const GAG_XP_MAX = ['20','100','500','2,000','5,000','9,000','14,000','20,000'];
 
 export const RECOMMENDED_ZONES = [
-  { name: 'Toontown Central', color: '#5a2004', accent: '#d86b10', pgKey: 'TTC', },
+  { name: 'Toontown Central', color: '#5a2004', accent: '#d86b10', pgKey: 'TTC', span: 2 },
   { name: 'Barnacle Boatyard', color: '#2a1a04', accent: '#c8890a', pgKey: 'BB',  },
   { name: 'Ye Olde Toontowne', color: '#2a0d2a', accent: '#9b4fb0', pgKey: 'YOTT', },
   { name: 'Daffodil Gardens',  color: '#1a2a08', accent: '#6ea830', pgKey: 'DG',  },

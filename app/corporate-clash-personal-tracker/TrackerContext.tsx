@@ -18,6 +18,8 @@ interface Ctx {
   saving: boolean;
   saveMsg: string;
   commitToonName: (i: number, names: string[]) => void;
+  /** Set multiple keys to true for a toon in one batch */
+  setDoneMany: (entries: { key: string; toon: ToonIndex }[]) => void;
   /** Clear progress for one toon across ALL keys */
   resetToon: (toon: ToonIndex) => void;
   /** Clear progress for ALL toons across ALL keys */
@@ -89,6 +91,19 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     if (user) save(progress, names);
   };
 
+  const setDoneMany = useCallback((entries: { key: string; toon: ToonIndex }[]) => {
+    setProgress(prev => {
+      const next = { ...prev };
+      for (const { key, toon } of entries) {
+        const arr: boolean[] = next[key] ? [...next[key]] : [false,false,false,false];
+        arr[toon] = true;
+        next[key] = arr;
+      }
+      if (user) save(next, toonNames);
+      return next;
+    });
+  }, [user, toonNames, save]);
+
   const resetToon = useCallback((toon: ToonIndex) => {
     setProgress(prev => {
       const next: Progress = {};
@@ -127,7 +142,7 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   }, [user, toonNames, save]);
 
   return (
-    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, resetToon, resetAll, resetSection }}>
+    <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, setDoneMany, resetToon, resetAll, resetSection }}>
       {children}
     </TrackerCtx.Provider>
   );

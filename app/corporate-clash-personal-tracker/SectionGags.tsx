@@ -6,7 +6,8 @@ import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
 export function SectionGags() {
-  const { toonNames, toggle, isDone } = useTracker();
+  const { toonNames, toggle, isDone, setDoneMany } = useTracker();
+
   return (
     <div className="tracker-section">
       <SectionNote
@@ -26,11 +27,12 @@ export function SectionGags() {
                       alt={track.name} width={60} height={60} className="gag-ss-large-icon" />
                     <span className="gag-ss-track-name">{track.name}</span>
                   </td>
-                  <td className="gag-ss-label-hdr gag-ss-zone-label-cell" rowSpan={2}>
+                  <td className="gag-ss-label-hdr gag-ss-zone-label-cell">
                     <span className="gag-ss-zone-label-text">Recommended<br/>Zone</span>
                   </td>
                   {RECOMMENDED_ZONES.map((z, zi) => (
-                    <td key={zi} className="gag-ss-zone-cell"
+                    <td key={zi} colSpan={(z as {span?:number}).span ?? 1}
+                      className="gag-ss-zone-cell"
                       style={{background: z.color, color: z.accent}}>
                       <Image src={`/icons/playground-emblems/${z.pgKey}.png`}
                         alt={z.name} width={28} height={28} className="gag-ss-zone-emblem" unoptimized />
@@ -39,6 +41,7 @@ export function SectionGags() {
                   ))}
                 </tr>
                 <tr className="gag-ss-gag-row">
+                  <td className="gag-ss-label-hdr" />
                   {track.gags.map((g, gi) => (
                     <td key={gi} className="gag-ss-gag-cell">
                       <Image src={`/icons/gags/small/${track.trackKey}/${g}.png`}
@@ -62,11 +65,13 @@ export function SectionGags() {
                           {([0,1,2,3] as ToonIndex[]).map(t => {
                             const key = `g:${track.name}:${g}:min`;
                             const done = isDone(key, t);
-                            return (<button key={t}
-                              className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--min-done':''}`}
-                              style={done?{"--tc":TOON_COLORS[t]} as React.CSSProperties:{}}
-                              onClick={() => toggle(key, t)}
-                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Min)`}>✓</button>);
+                            return (
+                              <button key={t}
+                                className={`gag-ss-chk${done ? " gag-ss-chk--done gag-ss-chk--min-done" : ""}`}
+                                style={done ? {"--tc": TOON_COLORS[t]} as React.CSSProperties : {}}
+                                onClick={() => toggle(key, t)}
+                                aria-label={`${toonNames[t]}: ${track.name} - ${g} (Min)`}>✓</button>
+                            );
                           })}
                         </div>
                         <span className="gag-ss-xp-text gag-ss-xp-text--min">Min - {track.xpMin[gi]} XP</span>
@@ -89,11 +94,25 @@ export function SectionGags() {
                           {([0,1,2,3] as ToonIndex[]).map(t => {
                             const key = `g:${track.name}:${g}:max`;
                             const done = isDone(key, t);
-                            return (<button key={t}
-                              className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--max-done':''}`}
-                              style={done?{"--tc":TOON_COLORS[t]} as React.CSSProperties:{}}
-                              onClick={() => toggle(key, t)}
-                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Max)`}>✓</button>);
+                            const handleMaxClick = () => {
+                              if (!done) {
+                                const entries: { key: string; toon: ToonIndex }[] = [];
+                                for (let i = 0; i <= gi; i++) {
+                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:min`, toon: t });
+                                  entries.push({ key: `g:${track.name}:${track.gags[i]}:max`, toon: t });
+                                }
+                                setDoneMany(entries);
+                              } else {
+                                toggle(key, t);
+                              }
+                            };
+                            return (
+                              <button key={t}
+                                className={`gag-ss-chk${done ? " gag-ss-chk--done gag-ss-chk--max-done" : ""}`}
+                                style={done ? {"--tc": TOON_COLORS[t]} as React.CSSProperties : {}}
+                                onClick={handleMaxClick}
+                                aria-label={`${toonNames[t]}: ${track.name} - ${g} (Max)`}>✓</button>
+                            );
                           })}
                         </div>
                         <span className="gag-ss-xp-text gag-ss-xp-text--max">Max - {track.xpMax[gi]} XP</span>
@@ -104,7 +123,7 @@ export function SectionGags() {
               </thead>
               <tbody>
                 {track.stats.map((stat, si) => (
-                  <tr key={si} className={`gag-ss-stat-row${stat.prestige?' gag-ss-stat-row--prestige':''}`}>
+                  <tr key={si} className={`gag-ss-stat-row${stat.prestige ? " gag-ss-stat-row--prestige" : ""}`}>
                     {si === 0 && (
                       <td className="gag-ss-track-cell gag-ss-track-cell--stat" rowSpan={track.stats.length} />
                     )}
@@ -115,7 +134,7 @@ export function SectionGags() {
                       {stat.label}
                     </td>
                     {stat.values.map((v, vi) => (
-                      <td key={vi} className={`gag-ss-stat-val gag-ss-stat-val--${stat.type??'label'}`}>{v??'\u2014'}</td>
+                      <td key={vi} className={`gag-ss-stat-val gag-ss-stat-val--${stat.type ?? "label"}`}>{v ?? "—"}</td>
                     ))}
                   </tr>
                 ))}
