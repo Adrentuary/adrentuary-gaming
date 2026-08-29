@@ -1,4 +1,4 @@
-﻿// --- Stat row types
+// --- Stat row types
 export type StatRowType = 'label' | 'values-neg' | 'values-pos';
 
 export interface StatRow {
@@ -25,14 +25,14 @@ export const GAG_XP_MIN = ['0','20','100','500','2,000','5,000','9,000','14,000'
 export const GAG_XP_MAX = ['20','100','500','2,000','5,000','9,000','14,000','20,000'];
 
 export const RECOMMENDED_ZONES = [
-  { name: 'Toontown Central', color: '#5a2004', accent: '#d86b10', pgKey: 'TTC', span: 2 },
-  { name: 'Barnacle Boatyard', color: '#2a1a04', accent: '#c8890a', pgKey: 'BB',  span: 1 },
-  { name: 'Ye Olde Toontowne', color: '#2a0d2a', accent: '#9b4fb0', pgKey: 'YOTT', span: 1 },
-  { name: 'Daffodil Gardens',  color: '#1a2a08', accent: '#6ea830', pgKey: 'DG',  span: 1 },
-  { name: 'Mezzo Melodyland',  color: '#1a0a2a', accent: '#7c54d0', pgKey: 'MML', span: 1 },
-  { name: 'The Brrrgh',        color: '#082030', accent: '#4ab8d8', pgKey: 'TB',  span: 1 },
-  { name: 'Acorn Acres',       color: '#1a1005', accent: '#a07830', pgKey: 'AA',  span: 1 },
-  { name: 'Drowsy Dreamland',  color: '#1a0a30', accent: '#6060d0', pgKey: 'DDL', span: 1 },
+  { name: 'Toontown Central', color: '#5a2004', accent: '#d86b10', pgKey: 'TTC', },
+  { name: 'Barnacle Boatyard', color: '#2a1a04', accent: '#c8890a', pgKey: 'BB',  },
+  { name: 'Ye Olde Toontowne', color: '#2a0d2a', accent: '#9b4fb0', pgKey: 'YOTT', },
+  { name: 'Daffodil Gardens',  color: '#1a2a08', accent: '#6ea830', pgKey: 'DG',  },
+  { name: 'Mezzo Melodyland',  color: '#1a0a2a', accent: '#7c54d0', pgKey: 'MML', },
+  { name: 'The Brrrgh',        color: '#082030', accent: '#4ab8d8', pgKey: 'TB',  },
+  { name: 'Acorn Acres',       color: '#1a1005', accent: '#a07830', pgKey: 'AA',  },
+  { name: 'Drowsy Dreamland',  color: '#1a0a30', accent: '#6060d0', pgKey: 'DDL', },
 ];
 
 // --- Track definitions

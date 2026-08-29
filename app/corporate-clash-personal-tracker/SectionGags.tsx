@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
@@ -30,7 +30,7 @@ export function SectionGags() {
                     <span className="gag-ss-zone-label-text">Recommended<br/>Zone</span>
                   </td>
                   {RECOMMENDED_ZONES.map((z, zi) => (
-                    <td key={zi} colSpan={z.span} className="gag-ss-zone-cell"
+                    <td key={zi} className="gag-ss-zone-cell"
                       style={{background: z.color, color: z.accent}}>
                       <Image src={`/icons/playground-emblems/${z.pgKey}.png`}
                         alt={z.name} width={28} height={28} className="gag-ss-zone-emblem" unoptimized />
@@ -66,7 +66,7 @@ export function SectionGags() {
                               className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--min-done':''}`}
                               style={done?{"--tc":TOON_COLORS[t]} as React.CSSProperties:{}}
                               onClick={() => toggle(key, t)}
-                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Min)`}>\u2713</button>);
+                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Min)`}>✓</button>);
                           })}
                         </div>
                         <span className="gag-ss-xp-text gag-ss-xp-text--min">Min - {track.xpMin[gi]} XP</span>
@@ -93,7 +93,7 @@ export function SectionGags() {
                               className={`gag-ss-chk${done?' gag-ss-chk--done gag-ss-chk--max-done':''}`}
                               style={done?{"--tc":TOON_COLORS[t]} as React.CSSProperties:{}}
                               onClick={() => toggle(key, t)}
-                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Max)`}>\u2713</button>);
+                              aria-label={`${toonNames[t]}: ${track.name} - ${g} (Max)`}>✓</button>);
                           })}
                         </div>
                         <span className="gag-ss-xp-text gag-ss-xp-text--max">Max - {track.xpMax[gi]} XP</span>
