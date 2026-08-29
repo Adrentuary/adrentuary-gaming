@@ -147,7 +147,8 @@ export function SectionQuests() {
       <nav className="sub-tabs">
         {QUESTS.map((q,i) => (
           <button key={q.name} className={`sub-tab${tab===i?' sub-tab--active':''}`} onClick={() => handleTabChange(i)}>
-            {q.icon} {q.name}
+            <Image src={`/icons/playground-emblems/${q.pgKey}.png`} alt={q.name} width={16} height={16} className="sub-tab-emblem" />
+            {q.name}
           </button>
         ))}
       </nav>
