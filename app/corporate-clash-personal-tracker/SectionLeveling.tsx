@@ -1,5 +1,6 @@
 'use client';
 import { useCallback } from 'react';
+import { SectionNote } from './SectionNote';
 import { LEVELING_REWARDS } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -43,6 +44,10 @@ export function SectionLeveling() {
 
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="Character level rewards from 2 through 85. Clicking a level auto-marks all previous levels for that toon. Rewards include laff boosts, gag access, and other progression milestones."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       <div className="tracker-card" style={{'--dc':'#1a2540','--da':'#7b6cf0'} as React.CSSProperties}>
         <div className="tracker-card-header">
           <strong>Leveling Rewards</strong>

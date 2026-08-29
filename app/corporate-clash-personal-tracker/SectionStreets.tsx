@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import { SectionNote } from './SectionNote';
 import { STREETS } from './data-streets';
 import { STREET_SHOPS } from './data-street-shops';
 import type { StreetShopData } from './data-street-shops';
@@ -118,10 +119,10 @@ export function SectionStreets() {
 
   return (
     <div className="tracker-section">
-      <p className="tracker-section-desc">
-        Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked.
-        Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info.
-      </p>
+      <SectionNote
+        description="Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked. Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       {PAIRS.map((pair, pi) => (
         <div key={pi} className="streets-pair">
           {pair.map(d => (

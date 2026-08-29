@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { SectionNote } from './SectionNote';
 import { GAG_TRACKS } from './data-gags';
 import { PROMOTIONS } from './data-promotions';
 import { LEVELING_REWARDS, LAFF_BOOSTS } from './data-laff';
@@ -66,7 +67,10 @@ export function SectionToons() {
 
   return (
     <div className="tracker-section">
-      <p className="tracker-section-desc">Click a toon name to rename it.</p>
+      <SectionNote
+        description="A per-toon overview of your progress across all sections. Shows quest completion by playground, gag track progress, promotion levels, leveling milestones, and laff boosts. Click a toon name to rename it."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       <div className="toons-grid-2x2">
         {([0,1,2,3] as ToonIndex[]).map(t => (
           <div key={t} className="toon-card" style={{'--tc':TOON_COLORS[t]} as React.CSSProperties}>

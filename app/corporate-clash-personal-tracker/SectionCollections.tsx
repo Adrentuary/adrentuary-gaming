@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import { SectionNote } from './SectionNote';
 import { COLLECTIONS, COLLECTION_TYPES } from './data-collections';
 import type { CollectionType } from './data-collections';
 import { useTracker } from './TrackerContext';
@@ -40,6 +41,10 @@ export function SectionCollections() {
 
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="Collectible items available in Corporate Clash, including profile backgrounds, nameplates, profile poses, cheesy effects, nametag fonts, and outfits. Filter by type using the buttons below."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       {/* Filter bar */}
       <div className="coll-filter-bar">
         <button className={`coll-filter-btn${filter==='All'?' coll-filter-btn--active':''}`}

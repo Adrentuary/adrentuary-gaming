@@ -1,6 +1,7 @@
 ﻿'use client';
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { SectionNote } from './SectionNote';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
@@ -143,6 +144,10 @@ export function SectionQuests() {
 
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="Track quest completion across all 8 playgrounds for each of your toons. Main storyline, sidetasks, and Kudos rank-up quests are all included. Checking a row auto-marks all previous rows for that toon."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       <QuestResetDrawer />
       <nav className="sub-tabs">
         {QUESTS.map((q,i) => (

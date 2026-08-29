@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import { SectionNote } from './SectionNote';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -8,6 +9,10 @@ export function SectionGags() {
   const { toonNames, toggle, isDone } = useTracker();
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="Gag XP requirements and recommended training zones per track. Min columns show the minimum XP needed to unlock the next tier; Max columns show the XP cap for that tier. Prestige rows are marked with a star."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       {GAG_TRACKS.map(track => (
         <div key={track.name} className="gag-card"
           style={{'--gc': track.color, '--gh': track.headerColor, '--gl': track.labelColor} as React.CSSProperties}>

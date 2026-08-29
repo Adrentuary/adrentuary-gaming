@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { SectionNote } from './SectionNote';
 import { PROMOTIONS } from './data-promotions';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -11,6 +12,10 @@ export function SectionPromotions() {
   const suit = PROMOTIONS[tab];
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="Cog suit promotion costs for each department. Select a suit type using the tabs below. Track which promotions each toon has completed across all cog levels."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       <nav className="sub-tabs">
         {PROMOTIONS.map((s,i) => (
           <button key={s.name} className={`sub-tab${tab===i?' sub-tab--active':''}`} onClick={() => setTab(i)}>{s.name}</button>

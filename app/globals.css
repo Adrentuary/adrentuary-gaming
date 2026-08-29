@@ -143,6 +143,14 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .tracker-tab--active{color:var(--green);border-bottom-color:var(--green)}
 .tracker-section{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 .tracker-section-desc{margin:0;color:var(--muted);font-size:14px}
+/* ── Section note ── */
+.section-note{background:#0a100a;border:1px solid #1e2e1e;border-radius:10px;padding:14px 18px;display:flex;flex-direction:column;gap:6px}
+.section-note-desc{margin:0;color:var(--muted);font-size:13px;line-height:1.6}
+.section-note-status{margin:0;color:var(--muted);font-size:13px;line-height:1.6;padding-top:6px;border-top:1px solid #1e2e1e}
+.section-note-status strong{color:var(--ink)}
+.section-note-status a{color:var(--green);font-weight:600;text-decoration:none}
+.section-note-status a:hover{text-decoration:underline}
+.section-note-updated{margin:0;color:#4a5e4a;font-size:11px;font-style:italic}
 .tracker-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden;--dc:#1a2a1a;--da:#4ade80}
 .tracker-card-header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
 .tracker-card-header strong{font-size:16px;font-weight:800}

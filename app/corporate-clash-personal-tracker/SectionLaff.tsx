@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Image from 'next/image';
+import { SectionNote } from './SectionNote';
 import { LAFF_BOOSTS } from './data-laff';
 import type { LaffBoostEntry } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
@@ -76,6 +77,10 @@ export function SectionLaff() {
 
   return (
     <div className="tracker-section">
+      <SectionNote
+        description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, and promotions. Max laff is 150. Sections can be collapsed using the dropdown arrows."
+        lastUpdated="September 9th, 2026 4:21 PM"
+      />
       <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>
         <div className="tracker-card-header"><strong>Laff Boosts</strong><span className="tracker-card-sub">Max Laff: 150</span></div>
         <div className="tracker-table-wrap">
