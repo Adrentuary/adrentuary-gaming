@@ -9,7 +9,7 @@ import { StreetShopModal } from './StreetShopModal';
 import { PlaygroundInfoModal } from './PlaygroundInfoModal';
 
 // Playgrounds that have an info popup available
-const PG_HAS_INFO = new Set(['TTC']);
+const PG_HAS_INFO = new Set(['TTC', 'BB']);
 
 // cog emblem images — order matches cogs[] array: SB, CB, LB, BB, BSB
 const COG_EMBLEMS = [
@@ -121,7 +121,7 @@ export function SectionStreets() {
     <div className="tracker-section">
       <SectionNote
         description="Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked. Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info."
-        status="Interactive sections are currently being developed for Barnacle Boatyard, Ye Olde Toontowne, Daffodil Gardens, Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
+        status="Interactive sections are currently being developed for Ye Olde Toontowne, Daffodil Gardens, Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
         lastUpdated="September 9th, 2026 4:21 PM"
       />
       {PAIRS.map((pair, pi) => (

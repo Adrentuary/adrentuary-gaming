@@ -45,12 +45,35 @@ const PG_DATA: Record<string, PlaygroundData> = {
     ],
     maxBuildingsPerStreet: 3,
   },
+  BB: {
+    name: 'Barnacle Boatyard',
+    pgKey: 'BB',
+    emblem: '/icons/playground-emblems/BB.png',
+    color: '#dc4a14',
+    streetManager: 'Deep Diver',
+    streetManagerImg: '/icons/streets/Barnacle-Boatyard/DeepDiver.png',
+    streetManagerRole: 'Barnacle Boatyard Street Manager',
+    facts: [
+      "Barnacle Boatyard's Street Manager is the Deep Diver.",
+      '2-3 Story Cog Buildings can be found on a street.',
+      'A maximum of 5 Cog Buildings are allowed on a street at any given time.',
+      'Cog Invasions of Cogs ranging from Tiers 1-3 will affect Barnacle Boatyard.',
+    ],
+    streets: [
+      { name: 'Anchor Avenue',      minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Buccaneer Boulevard', minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Lighthouse Lane',    minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Seaweed Street',     minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+    ],
+    maxBuildingsPerStreet: 5,
+  },
 };
 
 const HIGHLIGHTS = [
-  'Street Manager', 'Duck Shuffler',
+  'Street Manager', 'Duck Shuffler', 'Deep Diver',
   'Cog Buildings', 'Cog Invasions',
-  '1–3 Story', '1–2 Story',
+  '1–3 Story', '1–2 Story', '2-3 Story',
+  'Tiers 1-3',
 ];
 
 function HighlightedText({ text }: { text: string }) {
