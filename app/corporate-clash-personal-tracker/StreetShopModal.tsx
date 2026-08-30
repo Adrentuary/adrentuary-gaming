@@ -149,7 +149,7 @@ export function StreetShopModal({ data, onClose }: Props) {
             {/* Description */}
             <p className="ssm-info-desc">
               <strong>{selected.name}</strong> is a shop located on{' '}
-              <strong>{data.streetName}</strong> in <strong>Toontown Central</strong>.{' '}
+              <strong>{data.streetName}</strong> in <strong>{data.neighborhood ?? 'Toontown Central'}</strong>.{' '}
               {selected.owner
                 ? <>This shop is owned by <strong>{selected.owner}</strong>.</>
                 : <>This shop has no shopkeeper.</>}

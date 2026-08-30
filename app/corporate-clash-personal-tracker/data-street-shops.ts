@@ -2,7 +2,7 @@
 export interface ShopTask { name: string; type: string; wikiUrl: string; steps: TaskStep[]; reward: string; }
 export interface Fisherman { name: string; img: string; }
 export interface Shop { name: string; owner: string | null; ownerImg: string | null; mapImg: string | null; shopImg: string | null; role?: string; trivia?: string; tasks: ShopTask[]; }
-export interface StreetShopData { streetName: string; mainMap: string; shopsBase: string; fisherman?: Fisherman; shops: Shop[]; }
+export interface StreetShopData { streetName: string; neighborhood?: string; mainMap: string; shopsBase: string; fisherman?: Fisherman; shops: Shop[]; }
 
 export const STREET_SHOPS: Record<string, StreetShopData> = {};
 
@@ -139,3 +139,139 @@ const TTC_WACKY: StreetShopData = {
   ],
 };
 STREET_SHOPS[`TTC|Wacky Way`] = TTC_WACKY;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// BARNACLE BOATYARD
+// ─────────────────────────────────────────────────────────────────────────────
+
+const BB_ANCHOR: StreetShopData = {
+  streetName: `Anchor Avenue`,
+  neighborhood: `Barnacle Boatyard`,
+  mainMap: `/icons/streets/Barnacle-Boatyard/Anchor-Avenue/anchor-avenue-main-map.png`,
+  shopsBase: `/icons/streets/Barnacle-Boatyard/Anchor-Avenue`,
+  fisherman: { name: `Fisherman Freshie`, img: `FreshieBoatyard.png` },
+  shops: [
+    { name: `Gone Fishin'`, owner: null, ownerImg: null, mapImg: `GoneFishin'MapLocation.png`, shopImg: `GoneFishin'.png`, tasks: [] },
+    { name: `Seaside Seasaws`, owner: `Sir C. Saw`, ownerImg: `Sir_C._Saw.png`, mapImg: `SeasideSeasawsMapLocation.png`, shopImg: `SeasideSeasaws.png`, tasks: [] },
+    { name: `Be Pacific! Customer Support`, owner: `Helpful Harry`, ownerImg: `HelpfulHarry.png`, mapImg: `BePacificMapLocation.png`, shopImg: `BePacific.png`, tasks: [] },
+    { name: `I Sea Seafood`, owner: `Chef Shea`, ownerImg: `ChefShea.png`, mapImg: `ISeaSeafoodMapLocation.png`, shopImg: `ISeaSeafood.png`, tasks: [] },
+    { name: `School of Fish Tutoring`, owner: `Professor Pearl`, ownerImg: `ProfessorPearl.png`, mapImg: `SchoolofFishMapLocation.png`, shopImg: `SchoolofFish.png`, tasks: [{ name: `First Day of School!`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#First_Day_of_School!`, steps: [{ text: `Visit Professor Pearl at School of Fish Tutoring on Anchor Avenue (242 XP, 8 JBS)` }, { text: `Return to Professor Pearl at School of Fish Tutoring on Anchor Avenue (242 XP, 8 JBS)`, sub: `Recover 3 Pencils from Pencil Pushers Anywhere` }, { text: `Return to Professor Pearl at School of Fish Tutoring on Anchor Avenue (242 XP, 8 JBS)`, sub: `Recover 2 Books from The Lawbots Anywhere` }, { text: `Visit Dover at Toon HQ (1696 XP, 58 JBS)` }], reward: `1696 XP - 58 JBS (final step)` }] },
+    { name: `Goggle Defoggers`, owner: `Greggory Goggles`, ownerImg: `GreggoryGoggles.png`, mapImg: `GoggleDefoggersMapLocation.png`, shopImg: `GoggleDefoggers.png`, tasks: [] },
+    { name: `Island, You Land! Airplanes`, owner: `N.D. Skye`, ownerImg: `N.D.Skye.png`, mapImg: `Island,YouLand!MapLocation.png`, shopImg: `Island,YouLand!.png`, tasks: [] },
+    { name: `Seacastle Contractors`, owner: `Crafty Clyde`, ownerImg: `CraftyClyde.png`, mapImg: `SeacastleContractorsMapLocation.png`, shopImg: `SeacastleContractors.png`, tasks: [] },
+    { name: `Manatee Shirts`, owner: `T. Shirley`, ownerImg: `T.Shirley.png`, mapImg: `ManateeShirtsMapLocation.png`, shopImg: `ManateeShirts.png`, tasks: [] },
+    { name: `Burger King Crabs`, owner: `Prince Beef`, ownerImg: `PrinceBeef.png`, mapImg: `BurgerKingCrabsMapLocation.png`, shopImg: `BurgerKingCrabs.png`, tasks: [] },
+    { name: `Sailor Don't Sail!`, owner: `Captain Cheesy`, ownerImg: `CaptainCheesy.png`, mapImg: `SailorDon'tSail!MapLocation.png`, shopImg: `SailorDon'tSail!.png`, tasks: [] },
+    { name: `Salty Sandy's Seriously Salty Seafood Shop`, owner: `Sandy Seasalt`, ownerImg: `SandySeasalt.png`, mapImg: `SaltySandy'sSeriouslySaltySeafoodShopMapLocation.png`, shopImg: `SaltySandy'sSeriouslySaltySeafoodShop.png`, tasks: [] },
+    { name: `Fish and Chips on Ships`, owner: `Chef Chip`, ownerImg: `ChefChip.png`, mapImg: `FishandChipsonShipsMapLocation.png`, shopImg: `FishandChipsonShips.png`, tasks: [] },
+    { name: `Pelican Package Company`, owner: `Postmaster Paul`, ownerImg: `PostmasterPaulBoatyard.png`, mapImg: `PelicanPackageCompanyMapLocation.png`, shopImg: `PelicanPackageCompany.png`, tasks: [] },
+    { name: `Sad Vacant Building`, owner: null, ownerImg: null, mapImg: `SadVacantBuildingMapLocation.png`, shopImg: `SadVacantBuilding.png`, tasks: [] },
+    { name: `Swordfish Armor and Weaponry`, owner: `A.R. Ming`, ownerImg: `A.R.Ming.png`, mapImg: `SwordfishArmorandWeaponryMapLocation.png`, shopImg: `SwordfishArmorandWeaponry.png`, tasks: [] },
+    { name: `Flounder and Sink Ship Repair`, owner: `Ree Pare`, ownerImg: `ReePare.png`, mapImg: `FlounderandSinkShipRepairMapLocation.png`, shopImg: `FlounderandSinkShipRepair.png`, tasks: [] },
+    { name: `The Salty Spit-toon`, owner: `Reg`, ownerImg: `Reg.png`, mapImg: `TheSaltySpit-toonMapLocation.png`, shopImg: `TheSaltySpit-toon.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`BB|Anchor Avenue`] = BB_ANCHOR;
+
+const BB_BUCCANEER: StreetShopData = {
+  streetName: `Buccaneer Boulevard`,
+  neighborhood: `Barnacle Boatyard`,
+  mainMap: `/icons/streets/Barnacle-Boatyard/Buccaneer-Boulevard/buccaneer-boulevard-main-map.png`,
+  shopsBase: `/icons/streets/Barnacle-Boatyard/Buccaneer-Boulevard`,
+  fisherman: { name: `Fisherman Barney`, img: `Barney.png` },
+  shops: [
+    { name: `Used Life Preservers`, owner: `Gary Glubglub`, ownerImg: `GaryGlubglub.png`, mapImg: `UsedLifePreserversMapLocation.png`, shopImg: `UsedLifePreservers.png`, tasks: [] },
+    { name: `Salmon Chanted Evening Formal Wear`, owner: `Fishy Frank`, ownerImg: `FishyFrank.png`, mapImg: `SalmonChantedEveningFormalWearMapLocation.png`, shopImg: `SalmonChantedEveningFormalWear.png`, tasks: [] },
+    { name: `Poop Deck Gym`, owner: `Cal Estenicks`, ownerImg: `CalEstenicks.png`, mapImg: `PoopDeckGymMapLocation.png`, shopImg: `PoopDeckGym.png`, tasks: [] },
+    { name: `Wet Suit Dry Cleaners`, owner: `Mrs. Starch`, ownerImg: `Mrs.Starch.png`, mapImg: `WetSuitDryCleanersMapLocation.png`, shopImg: `WetSuitDryCleaners.png`, tasks: [] },
+    { name: `Bait and Switches Electrical Shop`, owner: `Electra Eel`, ownerImg: `ElectraEel.png`, mapImg: `BaitAndSwitchElectricalShopMapLocation.png`, shopImg: `BaitAndSwitchElectricalShop.png`, tasks: [] },
+    { name: `Hook's Clock Repair`, owner: `Admiral Hook`, ownerImg: `AdmiralHook.png`, mapImg: `Hook'sClockRepairMapLocation.png`, shopImg: `Hook'sClockRepair.png`, tasks: [{ name: `Big Binnacle Bash`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Big_Binnacle_Bash`, steps: [{ text: `Visit Billy Budd at Billy Budd's Big Bargain Binnacle Barn (364 XP, 12 JBS)` }, { text: `Go Fishing for A Binnacle on Lighthouse Lane` }, { text: `Return to Billy Budd at Billy Budd's Big Bargain Binnacle Barn (364 XP, 12 JBS)` }, { text: `Visit Admiral Hook at Hook's Clock Repair on Buccaneer Boulevard (364 XP, 12 JBS)` }, { text: `Return to Admiral Hook at Hook's Clock Repair (1819 XP, 62 JBS)`, sub: `Defeat 3 Level 3+ Cogs in Barnacle Boatyard` }], reward: `1819 XP - 62 JBS (step 5)` }] },
+    { name: `From Fore to Aft`, owner: `Salty Stan`, ownerImg: `SaltyStan.png`, mapImg: `FromForeToAftMapLocation.png`, shopImg: `FromForeToAft.png`, tasks: [{ name: `Big Binnacle Bash`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Big_Binnacle_Bash`, steps: [{ text: `Visit Salty Stan at From Fore to Aft on Buccaneer Boulevard (163 XP, 6 JBS)` }, { text: `Return to Salty Stan at From Fore to Aft (163 XP, 6 JBS)`, sub: `Recover 4 Spare Parts from The Cogs in Barnacle Boatyard` }, { text: `Visit Wade at Toon HQ (2270 XP, 77 JBS)` }], reward: `2270 XP - 77 JBS (final step)` }] },
+    { name: `Luff 'N Stuff`, owner: `Lisa Luff`, ownerImg: `LisaLuff.png`, mapImg: `Luff'NStuffMapLocation.png`, shopImg: `Luff'NStuff.png`, tasks: [] },
+    { name: `Every Little Bait`, owner: `Charlie Chum`, ownerImg: `CharlieChum.png`, mapImg: `EveryLittleBaitMapLocation.png`, shopImg: `EveryLittleBait.png`, tasks: [] },
+    { name: `Piano Tuna Works for Scale`, owner: `Eileen Overboard`, ownerImg: `EileenOverboard.png`, mapImg: `PianoTunaWorksForScaleMapLocation.png`, shopImg: `PianoTunaWorksForScale.png`, tasks: [] },
+    { name: `Billy Budd's Big Bargain Binnacle Barn`, owner: `Billy Budd`, ownerImg: `BillyBudd.png`, mapImg: `BillyBudd'sBigBargainBinnacleBarnMapLocation.png`, shopImg: `BillyBudd'sBigBargainBinnacleBarn.png`, tasks: [] },
+    { name: `Dime & Quarterdeck Bank`, owner: `Captain Carl`, ownerImg: `CaptainCarl.png`, mapImg: `Dime&QuarterdeckBankMapLocation.png`, shopImg: `Dime&QuarterdeckBank.png`, tasks: [] },
+    { name: `Squid Pro Quo Attorneys at Law`, owner: `Sheila Squid, Atty`, ownerImg: `SheilaSquidAtty.png`, mapImg: `SquidProQuoAttorneysAtLawMapLocation.png`, shopImg: `SquidProQuoAttorneysAtLaw.png`, tasks: [] },
+    { name: `Trim the Nail Boutique`, owner: null, ownerImg: null, mapImg: `TrimTheNailBoutiqueMapLocation.png`, shopImg: `TrimTheNailBoutique.png`, tasks: [] },
+    { name: `Yacht's All, Folks!`, owner: `Captain Yucks`, ownerImg: `CaptainYucks.png`, mapImg: `Yacht'sAll,FolksMapLocation.png`, shopImg: `Yacht'sAll,Folks.png`, tasks: [] },
+    { name: `Blackbeard's Beauty Parlor`, owner: `Choppy McDougal`, ownerImg: `ChoppyMcDougal.png`, mapImg: `Blackbeard'sBeautyParlorMapLocation.png`, shopImg: `Blackbeard'sBeautyParlor.png`, tasks: [] },
+    { name: `Out to See Optics`, owner: `Doctor Squall`, ownerImg: `DoctorSquall.png`, mapImg: `OutToSeeOpticsMapLocation.png`, shopImg: `OutToSeeOptics.png`, tasks: [{ name: `I Can See Clearly Now...`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#I_Can_See_Clearly_Now`, steps: [{ text: `Visit Greggory Goggles at Goggle Defoggers on Anchor Avenue (107 XP, 4 JBS)` }, { text: `Deliver A Telescope to Doctor Squall at Out to See Optics (107 XP, 4 JBS)` }, { text: `Obtain Some Shoes from Flappy Docksplinter at Soles Repaired While U Wait (107 XP, 4 JBS)` }, { text: `Deliver Some Shoes to Doctor Squall at Out to See Optics (107 XP, 4 JBS)` }, { text: `Visit Barnacle Bessie at The Lighthouse on Lighthouse Lane (1599 XP, 54 JBS)` }], reward: `1599 XP - 54 JBS (final step)` }] },
+    { name: `Soles Repaired While U Wait`, owner: `Flappy Docksplinter`, ownerImg: `FlappyDocksplinter.png`, mapImg: `SolesRepairedWhileUWaitMapLocation.png`, shopImg: `SolesRepairedWhileUWait.png`, tasks: [] },
+    { name: `Disembark! Tree Surgeons`, owner: `Linda Landlubber`, ownerImg: `LindaLandlubber.png`, mapImg: `Disembark!TreeSurgeonsMapLocation.png`, shopImg: `Disembark!TreeSurgeons.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`BB|Buccaneer Boulevard`] = BB_BUCCANEER;
+
+const BB_LIGHTHOUSE: StreetShopData = {
+  streetName: `Lighthouse Lane`,
+  neighborhood: `Barnacle Boatyard`,
+  mainMap: `/icons/streets/Barnacle-Boatyard/Lighthouse-Lane/lighthouse-lane-main-map.png`,
+  shopsBase: `/icons/streets/Barnacle-Boatyard/Lighthouse-Lane`,
+  fisherman: { name: `Fisherman Shane`, img: `Shane.png` },
+  shops: [
+    { name: `Lost and Flounder`, owner: `Fred Flounder`, ownerImg: `FredFlounder.png`, mapImg: `LostAndFlounderMapLocation.png`, shopImg: `LostAndFlounder.png`, tasks: [{ name: `Butter Flippers`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Butter_Flippers`, steps: [{ text: `Visit Fred Flounder at Lost and Flounder (178 XP, 7 JBS)` }, { text: `Return to Fred Flounder (178 XP, 7 JBS)`, sub: `Recover 3 Lost Items from The Cogs in Barnacle Boatyard` }, { text: `Return to Fred Flounder (1425 XP, 57 JBS)`, sub: `Recover A Lost and Found Box from The Cogs` }, { text: `Visit Wade at Toon HQ (288 XP, 10 JBS)` }], reward: `1425 XP - 57 JBS (step 3)` }] },
+    { name: `Seagull Statue Store`, owner: `Cindy Splat`, ownerImg: `CindySplat.png`, mapImg: `SeagullStatueStoreMapLocation.png`, shopImg: `SeagullStatueStore.png`, tasks: [] },
+    { name: `Kelp Around the House`, owner: `Shelly Seaweed`, ownerImg: `ShellySeaweed.png`, mapImg: `KelpAroundTheHouseMapLocation.png`, shopImg: `KelpAroundTheHouse.png`, tasks: [] },
+    { name: `Nautical But Nice`, owner: `Seafoam`, ownerImg: `Seafoam.png`, mapImg: `NauticalButNiceMapLocation.png`, shopImg: `NauticalButNice.png`, tasks: [] },
+    { name: `Melville's Massive Mizzenmast Mart`, owner: `Melville`, ownerImg: `Melville.png`, mapImg: `Melville'sMassiveMizzenmastMartMapLocation.png`, shopImg: `Melville'sMassiveMizzenmastMart.png`, tasks: [] },
+    { name: `Tackle Box Lunches`, owner: `Ted Tackle`, ownerImg: `TedTackle.png`, mapImg: `TackleBoxLunchesMapLocation.png`, shopImg: `TackleBoxLunches.png`, tasks: [] },
+    { name: `Mussel Beach Gymnasium`, owner: `Svetlana`, ownerImg: `Svetlana.png`, mapImg: `MusselBeachGymnasiumMapLocation.png`, shopImg: `MusselBeachGymnasium.png`, tasks: [] },
+    { name: `Cap Size Hat Store`, owner: `Topsy Turvey`, ownerImg: `TopsyTurvey.png`, mapImg: `CapSizeHatStoreMapLocation.png`, shopImg: `CapSizeHatStore.png`, tasks: [{ name: `Someone's Been Drinking Saltwater...`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks`, steps: [{ text: `Visit Ahab at Ahab's Prefab Sea Crab Center on Seaweed Street (288 XP, 10 JBS)` }, { text: `Return to Ahab (288 XP, 10 JBS)`, sub: `Defeat 6 Cogs in Barnacle Boatyard` }, { text: `Visit Topsy Turvey at Cap Size Hat Store (288 XP, 10 JBS)` }, { text: `Return to Topsy Turvey (1727 XP, 60 JBS, Pirate Hat)`, sub: `Recover Some Suit Thread from Double Talkers Anywhere` }, { text: `Visit Wade at Toon HQ (242 XP, 8 JBS)` }], reward: `1727 XP - 60 JBS - Pirate Hat` }] },
+    { name: `Keel Deals`, owner: `Ethan Keel`, ownerImg: `EthanKeel.png`, mapImg: `KeelDealsMapLocation.png`, shopImg: `KeelDeals.png`, tasks: [] },
+    { name: `Knots So Fast`, owner: `William Wake`, ownerImg: `WilliamWake.png`, mapImg: `KnotsSoFastMapLocation.png`, shopImg: `KnotsSoFast.png`, tasks: [] },
+    { name: `Rusty Buckets`, owner: `Rusty Ralph`, ownerImg: `RustyRalph.png`, mapImg: `RustyBucketsMapLocation.png`, shopImg: `RustyBuckets.png`, tasks: [] },
+    { name: `Anchor Management`, owner: `Doctor Drift`, ownerImg: `DoctorDrift.png`, mapImg: `AnchorManagementMapLocation.png`, shopImg: `AnchorManagement.png`, tasks: [] },
+    { name: `What's Canoe With You?`, owner: `Wilma Wobble`, ownerImg: `WilmaWobble.png`, mapImg: `What'sCanoeWithYouMapLocation.png`, shopImg: `What'sCanoeWithYou.png`, tasks: [] },
+    { name: `Pier Pressure Plumbing`, owner: `Paula Pylon`, ownerImg: `PaulaPylon.png`, mapImg: `PierPressurePlumbingMapLocation.png`, shopImg: `PierPressurePlumbing.png`, tasks: [] },
+    { name: `The Yo Ho Stop and Go`, owner: `Captain Jack Harrow`, ownerImg: `CaptainJackHarrow.png`, mapImg: `TheYoHoStopAndGoMapLocation.png`, shopImg: `TheYoHoStopAndGo.png`, tasks: [] },
+    { name: `What's Up, Dock?`, owner: `Davey Drydock`, ownerImg: `DaveyDrydock.png`, mapImg: `What'sUpDockMapLocation.png`, shopImg: `What'sUpDock.png`, tasks: [] },
+    { name: `The Lighthouse`, owner: `Barnacle Bessie`, ownerImg: `BarnacleBessie.png`, mapImg: `TheLighthouseMapLocation.png`, shopImg: `TheLighthouse.png`, tasks: [{ name: `Oh, Barnacles!`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Oh,_Barnacles!`, steps: [{ text: `Visit Flippy at Toon Hall in Toontown Central (178 XP, 7 JBS)` }, { text: `Visit Barnacle Bessie at The Lighthouse (178 XP, 7 JBS)` }, { text: `Visit River at Toon HQ (178 XP, 7 JBS)` }, { text: `Visit Wade at Toon HQ (178 XP, 7 JBS)` }], reward: `178 XP - 7 JBS per step` }] },
+    { name: `This Transom Man Custom-Tailored Suits`, owner: `Porter Hole`, ownerImg: `PorterHole.png`, mapImg: `ThisTransomManMapLocation.png`, shopImg: `ThisTransomMan.png`, tasks: [] },
+    { name: `Docker's Diner`, owner: `Dinah Docker`, ownerImg: `DinahDocker.png`, mapImg: `Docker'sDinerMapLocation.png`, shopImg: `Docker'sDiner.png`, tasks: [] },
+    { name: `Seven Seas Cafe`, owner: `Ted Calm`, ownerImg: `TedCalm.png`, mapImg: `SevenSeasCafeMapLocation.png`, shopImg: `SevenSeasCafe.png`, tasks: [] },
+    { name: `Hook, Line, and Sinker Prank Shop`, owner: `Whoopie Cushion`, ownerImg: `WhoopieCushion.png`, mapImg: `HookLineAndSinkerPrankShopMapLocation.png`, shopImg: `HookLineAndSinkerPrankShop.png`, tasks: [] },
+    { name: `King Neptoon's Cannery`, owner: `Stinky Ned`, ownerImg: `StinkyNed.png`, mapImg: `KingNeptoon'sCanneryMapLocation.png`, shopImg: `KingNeptoon'sCannery.png`, tasks: [] },
+    { name: `Dog Paddles`, owner: `Ned Setter`, ownerImg: `NedSetter.png`, mapImg: `DogPaddlesMapLocation.png`, shopImg: `DogPaddles.png`, tasks: [] },
+    { name: `The Clam Bake Diner`, owner: `Pearl Diver`, ownerImg: `PearlDiver.png`, mapImg: `TheClamBakeDinerMapLocation.png`, shopImg: `TheClamBakeDiner.png`, tasks: [] },
+    { name: `Wholly Mackerel! Fish Market`, owner: `Felicia Chips`, ownerImg: `FeliciaChips.png`, mapImg: `WhollyMackerelMapLocation.png`, shopImg: `WhollyMackerel.png`, tasks: [] },
+    { name: `Claggart's Clever Clovis Closet`, owner: `Claggart`, ownerImg: `Claggart.png`, mapImg: `Claggart'sCleverClovisClosetMapLocation.png`, shopImg: `Claggart'sCleverClovisCloset.png`, tasks: [] },
+    { name: `Rudderly Ridiculous!`, owner: `Rudy Rudder`, ownerImg: `RudyRudder.png`, mapImg: `RudderlyRidiculousMapLocation.png`, shopImg: `RudderlyRidiculous.png`, tasks: [] },
+    { name: `Alice's Ballast Palace`, owner: `Alice`, ownerImg: `Alice.png`, mapImg: `Alice'sBallastPalaceMapLocation.png`, shopImg: `Alice'sBallastPalace.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`BB|Lighthouse Lane`] = BB_LIGHTHOUSE;
+
+const BB_SEAWEED: StreetShopData = {
+  streetName: `Seaweed Street`,
+  neighborhood: `Barnacle Boatyard`,
+  mainMap: `/icons/streets/Barnacle-Boatyard/Seaweed-Street/seaweed-street-main-map.png`,
+  shopsBase: `/icons/streets/Barnacle-Boatyard/Seaweed-Street`,
+  fisherman: { name: `Fisherman Reed`, img: `FishermanReed.png` },
+  shops: [
+    { name: `That's a Moray!`, owner: `Emily Eel`, ownerImg: `EmilyEel.png`, mapImg: `That'sAMorayMapLocation.png`, shopImg: `That'sAMoray.png`, tasks: [] },
+    { name: `Squid's Seaweed`, owner: `Sid Squid`, ownerImg: `SidSquid.png`, mapImg: `Squid'sSeaweedMapLocation.png`, shopImg: `Squid'sSeaweed.png`, tasks: [] },
+    { name: `Good Luck Horseshoe Crabs`, owner: `Coral Reef`, ownerImg: `CoralReef.png`, mapImg: `GoodLuckHorseshoeCrabsMapLocation.png`, shopImg: `GoodLuckHorseshoeCrabs.png`, tasks: [] },
+    { name: `All for Nautical`, owner: `Shep Ahoy`, ownerImg: `ShepAhoy.png`, mapImg: `AllForNauticalMapLocation.png`, shopImg: `AllForNautical.png`, tasks: [] },
+    { name: `The Reel Deal`, owner: `Blisters McKee`, ownerImg: `BlistersMcKee.png`, mapImg: `TheReelDealMapLocation.png`, shopImg: `TheReelDeal.png`, tasks: [] },
+    { name: `Duck's Back Water Company`, owner: `Carla Canal`, ownerImg: `CarlaCanal.png`, mapImg: `DucksBackWaterCompanyMapLocation.png`, shopImg: `DucksBackWaterCompany.png`, tasks: [] },
+    { name: `Run Aground Taxi Service`, owner: `Brian Beachead`, ownerImg: `BrianBeachead.png`, mapImg: `RunAgroundTaxiServiceMapLocation.png`, shopImg: `RunAgroundTaxiService.png`, tasks: [] },
+    { name: `Be More Pacific Ocean Notions`, owner: `Pacific Tim`, ownerImg: `PacificTim.png`, mapImg: `BeMorePacificOceanNotionsMapLocation.png`, shopImg: `BeMorePacificOceanNotions.png`, tasks: [] },
+    { name: `This Oar That`, owner: `Heave Ho`, ownerImg: `HeaveHo.png`, mapImg: `ThisOarThatMapLocation.png`, shopImg: `ThisOarThat.png`, tasks: [] },
+    { name: `Mermaid Swimwear`, owner: `Cyren`, ownerImg: `Cyren.png`, mapImg: `MermaidSwimwearMapLocation.png`, shopImg: `MermaidSwimwear.png`, tasks: [] },
+    { name: `Art's Smart Chart Mart`, owner: `Art`, ownerImg: `Art.png`, mapImg: `Art'sSmartChartMartMapLocation.png`, shopImg: `Art'sSmartChartMart.png`, tasks: [] },
+    { name: `Reel 'Em Inn`, owner: `Rod Reel`, ownerImg: `RodReel.png`, mapImg: `Reel'EmInMapLocation.png`, shopImg: `Reel'EmIn.png`, tasks: [] },
+    { name: `Able-Bodied Gym`, owner: `Rocky Shores`, ownerImg: `RockyShores.png`, mapImg: `Able-BodiedGymMapLocation.png`, shopImg: `Able-BodiedGym.png`, tasks: [] },
+    { name: `Deep-Sea Diner`, owner: `Dinah Down`, ownerImg: `DinahDown.png`, mapImg: `Deep-SeaDinerMapLocation.png`, shopImg: `Deep-SeaDiner.png`, tasks: [] },
+    { name: `Barnacle Bargains`, owner: `Barnacle Barbara`, ownerImg: `BarnacleBarbara.png`, mapImg: `BarnacleBargainsMapLocation.png`, shopImg: `BarnacleBargains.png`, tasks: [] },
+    { name: `Windjammers and Jellies`, owner: `Gusty Kate`, ownerImg: `GustyKate.png`, mapImg: `WindjammersAndJelliesMapLocation.png`, shopImg: `WindjammersAndJellies.png`, tasks: [] },
+    { name: `Root Beer Afloats`, owner: `Bonzo Bilgepump`, ownerImg: `BonzoBilgepump.png`, mapImg: `RootBeerAfloatsMapLocation.png`, shopImg: `RootBeerAfloats.png`, tasks: [] },
+    { name: `Gifts With a Porpoise`, owner: `Dante Dolphin`, ownerImg: `DanteDolphin.png`, mapImg: `GiftsWithAPorpoiseMapLocation.png`, shopImg: `GiftsWithAPorpoise.png`, tasks: [] },
+    { name: `Peanut Butter and Jellyfish`, owner: `Toby Tonguestinger`, ownerImg: `TobyTonguestinger.png`, mapImg: `PeanutButterandJellyfishMapLocation.png`, shopImg: `PeanutButterandJellyfish.png`, tasks: [] },
+    { name: `Sails for Sale`, owner: `Wynn Bag`, ownerImg: `WynnBag.png`, mapImg: `SailsForSaleMapLocation.png`, shopImg: `SailsForSale.png`, tasks: [] },
+    { name: `Wok the Plank Chinese Food`, owner: `Gang Wei`, ownerImg: `GangWei.png`, mapImg: `WokThePlankChineseFoodMapLocation.png`, shopImg: `WokThePlankChineseFood.png`, tasks: [] },
+    { name: `Ahab's Prefab Sea Crab Center`, owner: `Ahab`, ownerImg: `Ahab.png`, mapImg: `Ahab'sPrefabSeaCrabCenterMapLocation.png`, shopImg: `Ahab'sPrefabSeaCrabCenter.png`, tasks: [{ name: `Someone's Been Drinking Saltwater...`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks`, steps: [{ text: `Visit Ahab at Ahab's Prefab Sea Crab Center on Seaweed Street (288 XP, 10 JBS)` }, { text: `Return to Ahab (288 XP, 10 JBS)`, sub: `Defeat 6 Cogs in Barnacle Boatyard` }, { text: `Visit Topsy Turvey at Cap Size Hat Store on Lighthouse Lane (288 XP, 10 JBS)` }], reward: `Continuing mainline chain` }] },
+    { name: `Buoys and Gulls Nursery School`, owner: `Professor Plank`, ownerImg: `ProfessorPlank.png`, mapImg: `BuoysAndGullsNurserySchoolMapLocation.png`, shopImg: `BuoysAndGullsNurserySchool.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`BB|Seaweed Street`] = BB_SEAWEED;
