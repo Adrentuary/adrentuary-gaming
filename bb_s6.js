@@ -1,0 +1,24 @@
+module.exports = `
+const BB_LIGHTHOUSE: StreetShopData = {
+  streetName: \`Lighthouse Lane\`, neighborhood: \`Barnacle Boatyard\`,
+  mainMap: \`/icons/streets/Barnacle-Boatyard/Lighthouse-Lane/lighthouse-lane-main-map.png\`,
+  shopsBase: \`/icons/streets/Barnacle-Boatyard/Lighthouse-Lane\`,
+  fisherman: { name: \`Fisherman Shane\`, img: \`Shane.png\` },
+  shops: [
+    { name: \`Lost and Flounder\`, owner: \`Fred Flounder\`, ownerImg: \`FredFlounder.png\`, mapImg: \`LostAndFlounderMapLocation.png\`, shopImg: \`LostAndFlounder.png\`, tasks: [{ name: \`Butter Flippers\`, type: \`Mainline Task\`, wikiUrl: \`https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Butter_Flippers\`, steps: [{ text: \`Visit Fred Flounder at Lost and Flounder on Lighthouse Lane (178 XP, 7 JBS)\`, sub: \`Recover 3 Lost Items from The Cogs in Barnacle Boatyard\` }, { text: \`Return to Fred Flounder at Lost and Flounder on Lighthouse Lane (178 XP, 7 JBS)\`, sub: \`Recover A Lost and Found Box from The Cogs in Barnacle Boatyard\` }, { text: \`Return to Fred Flounder at Lost and Flounder on Lighthouse Lane (1425 XP, 57 JBS)\` }, { text: \`Visit Wade at Toon HQ (288 XP, 10 JBS)\` }], reward: \`1425 XP - 57 JBS (step 3)\` }] },
+    { name: \`Seagull Statue Store\`, owner: \`Cindy Splat\`, ownerImg: \`CindySplat.png\`, mapImg: \`SeagullStatueStoreMapLocation.png\`, shopImg: \`SeagullStatueStore.png\`, tasks: [] },
+    { name: \`Kelp Around the House\`, owner: \`Shelly Seaweed\`, ownerImg: \`ShellySeaweed.png\`, mapImg: \`KelpAroundTheHouseMapLocation.png\`, shopImg: \`KelpAroundTheHouse.png\`, tasks: [] },
+    { name: \`Nautical But Nice\`, owner: \`Seafoam\`, ownerImg: \`Seafoam.png\`, mapImg: \`NauticalButNiceMapLocation.png\`, shopImg: \`NauticalButNice.png\`, tasks: [] },
+    { name: \`Melville's Massive Mizzenmast Mart\`, owner: \`Melville\`, ownerImg: \`Melville.png\`, mapImg: \`Melville'sMassiveMizzenmastMartMapLocation.png\`, shopImg: \`Melville'sMassiveMizzenmastMart.png\`, tasks: [TASK_CAPTAIN] },
+    { name: \`Tackle Box Lunches\`, owner: \`Ted Tackle\`, ownerImg: \`TedTackle.png\`, mapImg: \`TackleBoxLunchesMapLocation.png\`, shopImg: \`TackleBoxLunches.png\`, tasks: [] },
+    { name: \`Mussel Beach Gymnasium\`, owner: \`Svetlana\`, ownerImg: \`Svetlana.png\`, mapImg: \`MusselBeachGymnasiumMapLocation.png\`, shopImg: \`MusselBeachGymnasium.png\`, tasks: [] },
+    { name: \`Cap Size Hat Store\`, owner: \`Topsy Turvey\`, ownerImg: \`TopsyTurvey.png\`, mapImg: \`CapSizeHatStoreMapLocation.png\`, shopImg: \`CapSizeHatStore.png\`, tasks: [{ name: \`Someone's Been Drinking Saltwater...\`, type: \`Mainline Task\`, wikiUrl: \`https://corporateclash.wiki.gg/wiki/Barnacle_Boatyard_Tasks#Someone%27s_Been_Drinking_Saltwater...\`, steps: [{ text: \`Visit Ahab at Ahab's Prefab Sea Crab Center on Seaweed Street (288 XP, 10 JBS)\`, sub: \`Defeat 6 Cogs in Barnacle Boatyard\` }, { text: \`Return to Ahab at Ahab's Prefab Sea Crab Center on Seaweed Street (288 XP, 10 JBS)\` }, { text: \`Visit Topsy Turvey at the Cap Size Hat Store on Lighthouse Lane (288 XP, 10 JBS)\`, sub: \`Recover Some Suit Thread from Double Talkers Anywhere\` }, { text: \`Return to Topsy Turvey at the Cap Size Hat Store on Lighthouse Lane (1727 XP, 60 JBS, Pirate Hat)\` }, { text: \`Visit Wade at Toon HQ (242 XP, 8 JBS)\` }], reward: \`1727 XP - 60 JBS - Pirate Hat\` }] },
+    { name: \`Keel Deals\`, owner: \`Ethan Keel\`, ownerImg: \`EthanKeel.png\`, mapImg: \`KeelDealsMapLocation.png\`, shopImg: \`KeelDeals.png\`, tasks: [] },
+    { name: \`Knots So Fast\`, owner: \`William Wake\`, ownerImg: \`WilliamWake.png\`, mapImg: \`KnotsSoFastMapLocation.png\`, shopImg: \`KnotsSoFast.png\`, tasks: [] },
+    { name: \`Rusty Buckets\`, owner: \`Rusty Ralph\`, ownerImg: \`RustyRalph.png\`, mapImg: \`RustyBucketsMapLocation.png\`, shopImg: \`RustyBuckets.png\`, tasks: [] },
+    { name: \`Anchor Management\`, owner: \`Doctor Drift\`, ownerImg: \`DoctorDrift.png\`, mapImg: \`AnchorManagementMapLocation.png\`, shopImg: \`AnchorManagement.png\`, tasks: [] },
+    { name: \`What's Canoe With You?\`, owner: \`Wilma Wobble\`, ownerImg: \`WilmaWobble.png\`, mapImg: \`What'sCanoeWithYouMapLocation.png\`, shopImg: \`What'sCanoeWithYou.png\`, tasks: [] },
+    { name: \`Pier Pressure Plumbing\`, owner: \`Paula Pylon\`, ownerImg: \`PaulaPylon.png\`, mapImg: \`PierPressurePlumbingMapLocation.png\`, shopImg: \`PierPressurePlumbing.png\`, tasks: [] },
+    { name: \`The Yo Ho Stop and Go\`, owner: \`Captain Jack Harrow\`, ownerImg: \`CaptainJackHarrow.png\`, mapImg: \`TheYoHoStopAndGoMapLocation.png\`, shopImg: \`TheYoHoStopAndGo.png\`, tasks: [] },
+    { name: \`What's Up, Dock?\`, owner: \`Davey Drydock\`, ownerImg: \`DaveyDrydock.png\`, mapImg: \`What'sUpDockMapLocation.png\`, shopImg: \`What'sUpDock.png\`, tasks: [TASK_BOARDWALK] },
+`;
