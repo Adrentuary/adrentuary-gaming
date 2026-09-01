@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { LAFF_BOOSTS } from './data-laff';
@@ -62,7 +63,18 @@ const LAFF_GROUPS = ['Kudos', 'Activities', 'Promotions'];
 
 export function SectionLaff() {
   const { toonNames, isDone, toggleAll, isAllDone } = useTracker();
-  const [openGroups, setOpenGroups] = useState<Set<string>>(new Set(LAFF_GROUPS));
+  const STORAGE_KEY = 'laff-open-groups';
+  const [openGroups, setOpenGroups] = useState<Set<string>>(() => {
+    if (typeof window === 'undefined') return new Set(LAFF_GROUPS);
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return new Set(JSON.parse(saved));
+    } catch {}
+    return new Set(LAFF_GROUPS);
+  });
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...openGroups])); } catch {}
+  }, [openGroups]);
   const renderedSections = new Set<string>();
   const renderedGroups = new Set<string>();
   const colCount = 3 + toonNames.length + 1;
@@ -81,8 +93,14 @@ export function SectionLaff() {
         description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, and promotions. Max laff is 150. Sections can be collapsed using the dropdown arrows."
         status="Section design and interactive features are currently under development."
         lastUpdated="September 1st, 2026"
-        lastChanges="Initial laff boosts section added. All sources grouped by Kudos rankings, activities, and promotions. Collapsible sections."
+        lastChanges="Collapse state now saves to your profile. Section progress bars removed. Hover flicker on collapse buttons fixed. Account page banner added."
       />
+      <div className="tracker-account-banner">
+        <span className="tracker-account-banner-text">
+          To reset all toon progress across all sections, visit your{' '}
+          <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
+        </span>
+      </div>
       <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>
         <div className="tracker-card-header"><strong>Laff Boosts</strong><span className="tracker-card-sub">Max Laff: 150</span></div>
         <div className="tracker-table-wrap">
@@ -108,20 +126,6 @@ export function SectionLaff() {
                 if (!openGroups.has(group)) return rows.length ? rows : null;
                 if (!renderedSections.has(entry.section)) {
                   renderedSections.add(entry.section);
-                  const total = SECTION_TOTALS[entry.section] ?? '?';
-                  const pgKey = entry.section.replace(' Promotions','').replace(' Ranking','');
-                  const pg = group === 'Kudos' ? PG_ICON_MAP[pgKey] : null;
-                  rows.push(<tr key={`sec-${entry.section}`} className="laff-section-header"><td colSpan={colCount}>
-                    <span className="laff-section-title">
-                      {pg && <><Image src={pg.img} alt={pgKey} width={16} height={16} className="laff-pg-icon" unoptimized /><span style={{marginLeft:4}}>{pg.emoji}</span></>}
-                      {entry.section}
-                    </span>
-                    <span className="laff-section-progress">
-                      {toonNames.map((n,i) => {
-                        const c=getSectionCount(entry.section,i as ToonIndex),done=c===total;
-                        return <span key={i} className="laff-toon-progress" style={{color:TOON_COLORS[i]}}>{n}: {done?'✔ Completed':`${c}/${total}`}</span>;
-                      })}
-                    </span></td></tr>);
                 }
                 const key = `lb:${entry.section}:${entry.note}:${entry.source}`;
                 const allDone = isAllDone(key);

@@ -13,9 +13,9 @@ export function SectionGags() {
     <div className="tracker-section">
       <SectionNote
         description="Gag XP requirements and recommended training zones per track."
-        status="Section design and interactive features are currently under development."
+        status="Everything in this section is currently up to date."
         lastUpdated="September 1st, 2026"
-        lastChanges="Added per-track gag reset drawer with large gag icons. Clicking a lower gag level now automatically unchecks all higher levels."
+        lastChanges="Added per-track gag reset drawer with large gag icons. Clicking a lower gag level now automatically unchecks all higher levels. Status updated to up to date."
       />
       <GagResetDrawer />
       {GAG_TRACKS.map(track => (
