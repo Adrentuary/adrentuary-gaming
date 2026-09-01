@@ -60,17 +60,17 @@ function TrackerInner() {
                 </button>
               ))}
             </div>
+            <div className="tracker-account-banner">
+              <p className="tracker-account-banner-text">
+                To reset all toon progress across all sections,{' '}
+                visit your <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
+              </p>
+            </div>
             {user
               ? <span className="save-status">{saving ? 'Saving…' : saveMsg}</span>
               : <span className="save-status save-status--warn">Log in to save progress</span>}
           </div>
         </header>
-        <div className="tracker-account-banner">
-          <p className="tracker-account-banner-text">
-            To reset all toon progress across all sections,{' '}
-            visit your <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
-          </p>
-        </div>
         <nav className="tracker-tabs" aria-label="Tracker sections">
           {TABS.map(t => (
             <button key={t.id} className={`tracker-tab${activeTab===t.id?' tracker-tab--active':''}`}
