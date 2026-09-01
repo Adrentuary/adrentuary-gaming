@@ -4,9 +4,10 @@ interface Props {
   description: string;
   status: string;
   lastUpdated: string;
+  lastChanges: string;
 }
 
-export function SectionNote({ description, status, lastUpdated }: Props) {
+export function SectionNote({ description, status, lastUpdated, lastChanges }: Props) {
   return (
     <div className="section-note">
       <p className="section-note-desc">{description}</p>
@@ -19,7 +20,10 @@ export function SectionNote({ description, status, lastUpdated }: Props) {
           contact form
         </a>.
       </p>
-      <p className="section-note-updated">Last updated: {lastUpdated}</p>
+      <div className="section-note-footer">
+        <span className="section-note-updated">Last updated: {lastUpdated}</span>
+        <span className="section-note-changes">{lastChanges}</span>
+      </div>
     </div>
   );
 }

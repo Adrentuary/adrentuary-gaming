@@ -70,7 +70,8 @@ export function SectionToons() {
       <SectionNote
         description="A per-toon overview of your progress across all sections. Shows quest completion by playground, gag track progress, promotion levels, leveling milestones, and laff boosts. Click a toon name to rename it."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 9th, 2026 4:21 PM"
+        lastUpdated="September 1st, 2026"
+        lastChanges="Initial toon overview section added with per-toon quest, gag, promotion, leveling, and laff progress summaries. Toon renaming supported."
       />
       <div className="toons-grid-2x2">
         {([0,1,2,3] as ToonIndex[]).map(t => (

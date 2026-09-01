@@ -47,7 +47,8 @@ export function SectionLeveling() {
       <SectionNote
         description="Character level rewards from 2 through 85. Clicking a level auto-marks all previous levels for that toon. Rewards include laff boosts, gag access, and other progression milestones."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 9th, 2026 4:21 PM"
+        lastUpdated="September 1st, 2026"
+        lastChanges="Initial leveling section added. Levels 2–85 with full reward data. Clicking a level auto-marks all prior levels for that toon."
       />
       <div className="tracker-card" style={{'--dc':'#1a2540','--da':'#7b6cf0'} as React.CSSProperties}>
         <div className="tracker-card-header">

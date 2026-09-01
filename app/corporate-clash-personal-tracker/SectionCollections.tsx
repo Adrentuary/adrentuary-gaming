@@ -44,7 +44,8 @@ export function SectionCollections() {
       <SectionNote
         description="Collectible items available in Corporate Clash, including profile backgrounds, nameplates, profile poses, cheesy effects, nametag fonts, and outfits. Filter by type using the buttons below."
         status="Accurate information, section design, and interactive features are currently being developed and refined."
-        lastUpdated="September 9th, 2026 4:21 PM"
+        lastUpdated="September 1st, 2026"
+        lastChanges="Initial collections section added. Profile backgrounds, nameplates, poses, cheesy effects, nametag fonts, and outfits. Filter by type."
       />
       {/* Filter bar */}
       <div className="coll-filter-bar">
