@@ -29,13 +29,15 @@ const PG_DATA: Record<string, PlaygroundData> = {
     color: '#d86b10',
     streetManager: 'Duck Shuffler',
     streetManagerImg: '/icons/streets/Toontown-Central/DuckShuffler.png',
-    streetManagerRole: 'Toontown Central Street Manager',
+    streetManagerRole: 'Toontown Central Street Manager · Cashbot · Level 5 · 200 HP',
     facts: [
-      "Toontown Central's Street Manager is the Duck Shuffler.",
+      "Toontown Central's Street Manager is the Duck Shuffler — a Cashbot Regional Manager.",
+      'Toontown Central streets are fully immune to Cog Invasions.',
       '1–3 Story Cog Buildings can be found on a street.',
-      'On Silly Street, only 1–2 Story Cog Buildings can be found.',
+      'On Silly Street, only 1–2 Story Cog Buildings can be found (Cog levels 1–3 only).',
       'A maximum of 3 Cog Buildings are allowed on a street at any given time.',
-      'The streets of Toontown Central are immune to Cog Invasions.',
+      'TTC streets are commonly used when training low-level Gags.',
+      'TTC connects to Barnacle Boatyard, Ye Olde Toontowne, Daffodil Gardens, and Mezzo Melodyland.',
     ],
     streets: [
       { name: 'Silly Street',    minStory: '1 Story', maxStory: '2 Story (Tier 2)' },
@@ -52,12 +54,14 @@ const PG_DATA: Record<string, PlaygroundData> = {
     color: '#dc4a14',
     streetManager: 'Deep Diver',
     streetManagerImg: '/icons/streets/Barnacle-Boatyard/DeepDiver.png',
-    streetManagerRole: 'Barnacle Boatyard Street Manager',
+    streetManagerRole: 'Barnacle Boatyard Street Manager · Boardbot · Level 7 · 400 HP',
     facts: [
-      "Barnacle Boatyard's Street Manager is the Deep Diver.",
-      '2-3 Story Cog Buildings can be found on a street.',
+      "Barnacle Boatyard's Street Manager is the Deep Diver — a Boardbot Regional Manager.",
+      '2–3 Story Cog Buildings can be found on a street.',
       'A maximum of 5 Cog Buildings are allowed on a street at any given time.',
-      'Cog Invasions of Cogs ranging from Tiers 1-3 will affect Barnacle Boatyard.',
+      'Cog Invasions of Cogs ranging from Tiers 1–3 will affect Barnacle Boatyard.',
+      'Anchor Avenue is the only BB street with a Toon HQ (required for the BB taskline).',
+      'BB connects to Toontown Central (Punchline Place), The Brrrgh (Walrus Way), and Acorn Acres (Peanut Place).',
     ],
     streets: [
       { name: 'Anchor Avenue',      minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
@@ -70,10 +74,21 @@ const PG_DATA: Record<string, PlaygroundData> = {
 };
 
 const HIGHLIGHTS = [
+  // Manager names
   'Street Manager', 'Duck Shuffler', 'Deep Diver',
+  // Manager departments
+  'Cashbot Regional Manager', 'Boardbot Regional Manager',
+  // Building info
   'Cog Buildings', 'Cog Invasions',
-  '1–3 Story', '1–2 Story', '2-3 Story',
-  'Tiers 1-3',
+  '1–3 Story', '1–2 Story', '2–3 Story', '2-3 Story', 'Tiers 1-3', 'Tiers 1–3',
+  // Immunity
+  'fully immune',
+  // TTC connections
+  'Barnacle Boatyard', 'Ye Olde Toontowne', 'Daffodil Gardens', 'Mezzo Melodyland',
+  // TTC misc
+  'low-level Gags',
+  // BB misc
+  'Toon HQ', 'The Brrrgh', 'Acorn Acres',
 ];
 
 function HighlightedText({ text }: { text: string }) {
