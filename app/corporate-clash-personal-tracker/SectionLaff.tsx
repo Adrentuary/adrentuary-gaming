@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
@@ -95,12 +94,6 @@ export function SectionLaff() {
         lastUpdated="September 1st, 2026"
         lastChanges="Collapse state now saves to your profile. Section progress bars removed. Hover flicker on collapse buttons fixed. Account page banner added."
       />
-      <div className="tracker-account-banner">
-        <span className="tracker-account-banner-text">
-          To reset all toon progress across all sections, visit your{' '}
-          <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
-        </span>
-      </div>
       <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>
         <div className="tracker-card-header"><strong>Laff Boosts</strong><span className="tracker-card-sub">Max Laff: 150</span></div>
         <div className="tracker-table-wrap">

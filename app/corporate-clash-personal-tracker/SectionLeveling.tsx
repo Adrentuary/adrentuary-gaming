@@ -1,6 +1,5 @@
 'use client';
 import { useCallback } from 'react';
-import Link from 'next/link';
 import { SectionNote } from './SectionNote';
 import { LevelResetDrawer } from './LevelResetDrawer';
 import { LEVELING_REWARDS } from './data-laff';
@@ -53,12 +52,6 @@ export function SectionLeveling() {
         lastChanges="Added reset progress drawer. Added account page banner for full progress resets."
       />
       <LevelResetDrawer />
-      <div className="tracker-account-banner">
-        <span className="tracker-account-banner-text">
-          To reset all toon progress across all sections, visit your{' '}
-          <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
-        </span>
-      </div>
       <div className="tracker-card" style={{'--dc':'#1a2540','--da':'#7b6cf0'} as React.CSSProperties}>
         <div className="tracker-card-header">
           <strong>Leveling Rewards</strong>
