@@ -163,7 +163,7 @@ export function SectionQuests() {
         description="Track quest completion across all 8 playgrounds for each of your toons. Main storyline, sidetasks, and Kudos rank-up quests are all included. Checking a row auto-marks all previous rows for that toon."
         status="Everything in this section is currently up to date."
         lastUpdated="September 1st, 2026"
-        lastChanges="Added full TTC mainline & sidetask quest data. Quest reset drawer added with per-playground reset. Min-cascade fixed: checking a lower quest auto-unchecks all above it."
+        lastChanges="Added full TTC mainline and sidetask quest data. Quest reset drawer added with per-playground reset. Checking a lower quest now automatically unchecks all above it."
       />
       <QuestResetDrawer />
       <nav className="sub-tabs">
