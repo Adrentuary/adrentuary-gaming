@@ -15,7 +15,9 @@ interface PlaygroundData {
   color: string;
   streetManager: string;
   streetManagerImg: string;
-  streetManagerRole: string;
+  streetManagerTitle: string;
+  streetManagerDept: string;
+  streetManagerStats: string;
   facts: string[];
   streets: StreetBuildingInfo[];
   maxBuildingsPerStreet: number;
@@ -29,7 +31,9 @@ const PG_DATA: Record<string, PlaygroundData> = {
     color: '#d86b10',
     streetManager: 'Duck Shuffler',
     streetManagerImg: '/icons/streets/Toontown-Central/DuckShuffler.png',
-    streetManagerRole: 'Toontown Central Street Manager · Cashbot · Level 5 · 200 HP',
+    streetManagerTitle: 'Toontown Central Street Manager',
+    streetManagerDept: 'Cashbot',
+    streetManagerStats: 'Level 5 · 200 HP',
     facts: [
       "Toontown Central's Street Manager is the Duck Shuffler — a Cashbot Regional Manager.",
       'Toontown Central streets are fully immune to Cog Invasions.',
@@ -54,7 +58,9 @@ const PG_DATA: Record<string, PlaygroundData> = {
     color: '#dc4a14',
     streetManager: 'Deep Diver',
     streetManagerImg: '/icons/streets/Barnacle-Boatyard/DeepDiver.png',
-    streetManagerRole: 'Barnacle Boatyard Street Manager · Boardbot · Level 7 · 400 HP',
+    streetManagerTitle: 'Barnacle Boatyard Street Manager',
+    streetManagerDept: 'Boardbot',
+    streetManagerStats: 'Level 7 · 400 HP',
     facts: [
       "Barnacle Boatyard's Street Manager is the Deep Diver — a Boardbot Regional Manager.",
       '2–3 Story Cog Buildings can be found on a street.',
@@ -204,7 +210,9 @@ export function PlaygroundInfoModal({ pgKey, onClose }: Props) {
               </div>
               <div className="pgm-manager-info">
                 <span className="pgm-manager-name">{data.streetManager}</span>
-                <span className="pgm-manager-role">{data.streetManagerRole}</span>
+                <span className="pgm-manager-title">{data.streetManagerTitle}</span>
+                <span className="pgm-manager-dept">{data.streetManagerDept}</span>
+                <span className="pgm-manager-stats">{data.streetManagerStats}</span>
               </div>
             </div>
           </div>
