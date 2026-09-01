@@ -107,11 +107,21 @@ export function SectionCollections() {
                             const key = `c:${section.name}:${item.name}:${item.type}:${idx}`;
                             const toonsDone = ([0,1,2,3] as ToonIndex[]).map(t => !!(progress[key]?.[t]));
                             const allDone = toonsDone.every(Boolean);
+                            // Per-type image dimensions matching actual source pixels
+                            const imgDims: Record<string, [number,number]> = {
+                              'Background':    [192, 108],
+                              'Nameplate':     [220,  86],
+                              'Profile Pose':  [130, 130],
+                              'Cheesy Effect': [130, 130],
+                            };
+                            const [imgW, imgH] = imgDims[item.type] ?? [130, 72];
                             return (
-                              <div key={key} className={`coll-item-card${allDone?' coll-item-card--done':''}`}>
+                              <div key={key}
+                                className={`coll-item-card${allDone?' coll-item-card--done':''}`}
+                                data-type={item.type}>
                                 <div className="coll-item-name">{item.name}</div>
                                 {item.img
-                                  ? <div className="coll-item-img-wrap"><Image src={item.img} alt={item.name} width={130} height={72} className="coll-item-img" unoptimized /></div>
+                                  ? <div className="coll-item-img-wrap"><Image src={item.img} alt={item.name} width={imgW} height={imgH} className="coll-item-img" unoptimized /></div>
                                   : <div className="coll-item-img-placeholder" />
                                 }
                                 <div className="coll-item-how">{item.how}</div>
