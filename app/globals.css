@@ -236,8 +236,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .acct-danger-done{margin:12px 18px;font-size:13px;color:#86efac;font-weight:700}
 .quest-section-header td{background:color-mix(in srgb,var(--da) 20%,#080c08);color:var(--da);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:0}
 .quest-section-header--toggle td{padding:0}
-.quest-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:7px 12px;color:var(--da);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .12s}
-.quest-collapse-btn:hover{background:color-mix(in srgb,var(--da) 10%,transparent)}
+.quest-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:color-mix(in srgb,var(--da) 20%,#080c08);border:none;padding:7px 12px;color:var(--da);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:filter .12s}
+.quest-collapse-btn:hover{filter:brightness(1.18)}
 .quest-collapse-arrow{font-size:10px;flex-shrink:0;transition:transform .15s}
 .check-btn{width:36px;height:28px;border-radius:6px;border:1px solid #3a4a3a;background:none;color:transparent;font-size:14px;cursor:pointer;transition:background .12s,border-color .12s,color .12s;display:inline-flex;align-items:center;justify-content:center}
 .check-btn:hover{border-color:#6a7e6a;color:#6a7e6a}
