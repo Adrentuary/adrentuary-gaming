@@ -37,7 +37,7 @@ const PG_DATA: Record<string, PlaygroundData> = {
       'On Silly Street, only 1–2 Story Cog Buildings can be found (Cog levels 1–3 only).',
       'A maximum of 3 Cog Buildings are allowed on a street at any given time.',
       'TTC streets are commonly used when training low-level Gags.',
-      'TTC connects to Barnacle Boatyard, Ye Olde Toontowne, Daffodil Gardens, and Mezzo Melodyland.',
+      'TTC connects to Barnacle Boatyard (Punchline Place), Ye Olde Toontowne (Silly Street), Daffodil Gardens (Wacky Way), and Mezzo Melodyland (Loopy Lane).',
     ],
     streets: [
       { name: 'Silly Street',    minStory: '1 Story', maxStory: '2 Story (Tier 2)' },
