@@ -81,7 +81,7 @@ export function SectionCollections() {
                 <div className="coll-grid-hdr">
                   {activeTypes.map(type => {
                     const items = section.items.filter(i => i.type === type);
-                    if (items.length === 0 && filter !== 'All') return null;
+                    if (items.length === 0) return null;
                     return (
                       <div key={type} className="coll-type-hdr-cell"
                         style={{'--th-bg': TYPE_COLORS[type], '--th-acc': TYPE_ACCENTS[type]} as React.CSSProperties}>
@@ -96,14 +96,11 @@ export function SectionCollections() {
                 <div className="coll-grid-body">
                   {activeTypes.map(type => {
                     const items = section.items.filter(i => i.type === type);
-                    if (items.length === 0 && filter !== 'All') return null;
+                    if (items.length === 0) return null;
                     return (
                       <div key={type} className="coll-type-group"
                         style={{'--th-bg': TYPE_COLORS[type], '--th-acc': TYPE_ACCENTS[type]} as React.CSSProperties}>
-                        {items.length === 0 ? (
-                          <div className="coll-item-empty">—</div>
-                        ) : (
-                          items.map((item, idx) => {
+                        {items.map((item, idx) => {
                             const key = `c:${section.name}:${item.name}:${item.type}:${idx}`;
                             const toonsDone = ([0,1,2,3] as ToonIndex[]).map(t => !!(progress[key]?.[t]));
                             const allDone = toonsDone.every(Boolean);
@@ -137,8 +134,7 @@ export function SectionCollections() {
                                 </div>
                               </div>
                             );
-                          })
-                        )}
+                          })}
                       </div>
                     );
                   })}
