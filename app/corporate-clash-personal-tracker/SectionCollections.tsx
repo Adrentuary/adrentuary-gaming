@@ -9,11 +9,12 @@ import type { ToonIndex } from './TrackerContext';
 import { TOON_COLORS } from './TrackerContext';
 
 const TYPE_ICONS: Record<string, string> = {
-  'Background': '🖼️',
-  'Nameplate': '🏷️',
-  'Nametag': '✍️',
+  'Background':   '🖼️',
+  'Nameplate':    '🏷️',
+  'Nametag':      '✍️',
   'Profile Pose': '🧍',
-  'Cheesy Effect': '🧀',
+  'Cheesy Effect':'🧀',
+  'Emotion':      '😄',
 };
 
 const TYPE_COLORS: Record<string, string> = {
@@ -22,6 +23,7 @@ const TYPE_COLORS: Record<string, string> = {
   'Nametag':      '#0A100A',
   'Profile Pose': '#0A100A',
   'Cheesy Effect':'#0A100A',
+  'Emotion':      '#0A100A',
 };
 
 const TYPE_ACCENTS: Record<string, string> = {
@@ -30,6 +32,7 @@ const TYPE_ACCENTS: Record<string, string> = {
   'Nametag':      '#40a0e0',
   'Profile Pose': '#40c070',
   'Cheesy Effect':'#e0a030',
+  'Emotion':      '#e060c0',
 };
 
 export function SectionCollections() {
@@ -108,8 +111,10 @@ export function SectionCollections() {
                             const imgDims: Record<string, [number,number]> = {
                               'Background':    [192, 108],
                               'Nameplate':     [220,  86],
+                              'Nametag':       [220,  86],
                               'Profile Pose':  [130, 130],
                               'Cheesy Effect': [130, 130],
+                              'Emotion':       [130, 130],
                             };
                             const [imgW, imgH] = imgDims[item.type] ?? [130, 72];
                             return (

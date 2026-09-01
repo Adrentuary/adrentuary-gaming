@@ -554,9 +554,15 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* Profile Pose: contain, perfect square */
 .coll-item-card[data-type="Profile Pose"]  {--ci-img-h:130px}
 .coll-item-card[data-type="Profile Pose"]  .coll-item-img{object-fit:contain}
+/* Nametag: contain, same banner treatment as Nameplate */
+.coll-item-card[data-type="Nametag"]       {--ci-img-h:88px}
+.coll-item-card[data-type="Nametag"]       .coll-item-img{object-fit:contain}
 /* Cheesy Effect: contain, perfect square */
 .coll-item-card[data-type="Cheesy Effect"] {--ci-img-h:130px}
 .coll-item-card[data-type="Cheesy Effect"] .coll-item-img{object-fit:contain}
+/* Emotion: contain, square GIF */
+.coll-item-card[data-type="Emotion"]       {--ci-img-h:130px}
+.coll-item-card[data-type="Emotion"]       .coll-item-img{object-fit:contain}
 .gag-ss-stat-row td{border-bottom:1px solid rgba(255,255,255,.04)}
 .gag-ss-stat-row:first-of-type td{border-top:2px solid color-mix(in srgb,var(--gc,#4ade80) 20%,transparent)}
 .gag-ss-stat-label{font-size:10px;font-weight:700;font-style:italic;color:var(--gl,#4ade80);text-align:right;padding:4px 8px;white-space:nowrap;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-right:1px solid rgba(255,255,255,.08)}
@@ -588,8 +594,10 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* Per-type card widths and image heights */
 .coll-item-card[data-type="Background"]   {--ci-w:200px}
 .coll-item-card[data-type="Nameplate"]    {--ci-w:226px}
+.coll-item-card[data-type="Nametag"]      {--ci-w:226px}
 .coll-item-card[data-type="Profile Pose"] {--ci-w:134px}
 .coll-item-card[data-type="Cheesy Effect"]{--ci-w:134px}
+.coll-item-card[data-type="Emotion"]      {--ci-w:134px}
 .coll-item-name{font-size:11px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:5px}
 /* Image placeholder */
 .coll-item-img-placeholder{width:100%;height:var(--ci-img-h,72px);border-radius:5px;background:rgba(255,255,255,.04);border:1px dashed rgba(212,160,16,.4);margin-bottom:5px;position:relative;overflow:hidden}
