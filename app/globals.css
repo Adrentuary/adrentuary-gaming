@@ -574,6 +574,16 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* ── Collections Horizontal Layout ──────────────────────────── */
 .coll-sections{display:flex;flex-direction:column;gap:16px}
 .coll-card{margin-bottom:0}
+/* Collapsible section header — matches .tracker-card-header exactly, extends it as a button */
+.coll-section-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc,#1a2a1a);border:none;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;flex-wrap:wrap}
+.coll-section-header:hover{filter:brightness(1.13)}
+.coll-section-header strong{font-size:16px;font-weight:800}
+.coll-section-header--collapsed{border-bottom:none}
+/* Icon wrapper: fixed 24×24 box so any aspect ratio image stays tidy */
+.coll-section-icon-wrap{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.coll-section-icon{width:24px;height:24px;object-fit:contain;display:block}
+/* Arrow at the START (rendered before title in JSX) */
+.coll-section-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
 /* Scrollable wrapper inside each section card */
 .coll-grid-wrap{overflow-x:auto}
 /* Type column header row */
@@ -602,12 +612,13 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* Image placeholder */
 .coll-item-img-placeholder{width:100%;height:var(--ci-img-h,72px);border-radius:5px;background:rgba(255,255,255,.04);border:1px dashed rgba(212,160,16,.4);margin-bottom:5px;position:relative;overflow:hidden}
 .coll-item-img-placeholder::after{content:'📷';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:.25}
-.coll-item-how{font-size:9px;color:var(--muted);line-height:1.4;margin-bottom:4px}
+.coll-item-how{font-size:9px;color:var(--muted);line-height:1.5;margin-bottom:4px;display:flex;flex-direction:column;gap:6px}
 /* Toon check row */
 .coll-item-checks{display:flex;gap:3px;margin-top:4px;border-top:1px solid rgba(255,255,255,.06);padding-top:5px}
 .coll-chk{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.2);font-size:11px;font-weight:700;cursor:pointer;transition:all .12s;padding:0;flex:1}
 .coll-chk:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.5)}
 .coll-chk--done{background:color-mix(in srgb,var(--tc,#4ade80) 22%,transparent)!important;border-color:var(--tc,#4ade80)!important;color:var(--tc,#4ade80)!important}
+.coll-chk--all{border-color:rgba(255,255,255,.25);font-size:10px}
 
 /* Right column — street manager */
 .pgm-right{padding:20px;display:flex;flex-direction:column;gap:12px;background:color-mix(in srgb,var(--pgm-accent,#d86b10) 8%,#080e08)}

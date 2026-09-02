@@ -98,7 +98,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Crochet Lessons","Nameplate","Awarded for completing the Memo Mishap Directive",NP('Crochet.png')),
     I("Resistance Salute","Profile Pose","Awarded after defeating The Directors",PP('Pose-Resistance_Salute.png')),
   ]},
-  { name:"🎃 Halloween", icon:"🎃", color:"#2a0e00", accent:"#ff6600", items:[
+  { name:"Halloween", icon:"🎃", color:"#2a0e00", accent:"#ff6600", items:[
     I("The Golden Corridor","Background","Previously awarded for defeating Sads the Skelecog",BG('TheGoldenCorridorBackground.png')),
     I("Halloween Town","Background","Awarded during Halloween events",BG('HalloweenTown.png')),
     I("Halloween Night","Background","Awarded during Halloween events",BG('HalloweenNightBackground.png')),

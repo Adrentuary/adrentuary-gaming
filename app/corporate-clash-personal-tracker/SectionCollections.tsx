@@ -44,7 +44,7 @@ const SECTION_ICON_IMG: Record<string, string> = {
   'Cattlelog Purchases':                  '/icons/misc/DiceSticker.png',
   'G.U.M.B.A.L.L. Machine':              '/icons/misc/Gumballs.png',
   'Promotions / Directives / Overclocked':'/icons/misc/TTCC_Icon.png',
-  '🎃 Halloween':                         '/icons/misc/TTCC_Halloween.png',
+  'Halloween':                            '/icons/misc/TTCC_Halloween.png',
   'Toonsmas':                             '/icons/misc/TTCC_Toonsmas.png',
   'Toontown Central':                     '/icons/playground-emblems/TTC.png',
   'Barnacle Boatyard':                    '/icons/playground-emblems/BB.png',
@@ -113,11 +113,11 @@ export function SectionCollections() {
                 className={`tracker-card-header coll-section-header${isCollapsed?' coll-section-header--collapsed':''}`}
                 onClick={() => toggleCollapse(section.name)}
                 aria-expanded={!isCollapsed}>
+                <span className="coll-section-arrow">{isCollapsed ? '▶' : '▼'}</span>
                 {iconImg
-                  ? <Image src={iconImg} alt={section.name} width={22} height={22} className="coll-section-icon" unoptimized />
+                  ? <span className="coll-section-icon-wrap"><Image src={iconImg} alt={section.name} width={24} height={24} className="coll-section-icon" unoptimized /></span>
                   : <span className="dc-icon">{section.icon}</span>}
                 <strong>{section.name}</strong>
-                <span className="coll-section-arrow">{isCollapsed ? '▶' : '▼'}</span>
               </button>
               {!isCollapsed && (
                 <div className="coll-grid-wrap">
@@ -155,7 +155,7 @@ export function SectionCollections() {
                                   : <div className="coll-item-img-placeholder" />}
                                 <div className="coll-item-how">
                                   {howLines.map((line: string, li: number) => (
-                                    <span key={li}>{line}{li < howLines.length-1 && <><br /><br /></>}</span>
+                                    <span key={li}>{line}</span>
                                   ))}
                                 </div>
                                 <div className="coll-item-checks">
