@@ -1,8 +1,28 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { COLLECTIONS } from './data-collections';
+
+const SECTION_ICON_IMG: Record<string, string> = {
+  'Start of Game':                 '/icons/misc/TTCC_Icon.png',
+  'Activities':                    '/icons/misc/TTCC_Icon.png',
+  'Misc.':                         '/icons/misc/DiceSticker.png',
+  'Cattlelog Purchases':           '/icons/misc/DiceSticker.png',
+  'G.U.M.B.A.L.L. Machine':       '/icons/misc/Gumballs.png',
+  'Promotions & Directives':       '/icons/misc/TTCC_Icon.png',
+  'Halloween':                     '/icons/misc/TTCC_Halloween.png',
+  'Toonsmas':                      '/icons/misc/TTCC_Toonsmas.png',
+  'Toontown Central':              '/icons/playground-emblems/TTC.png',
+  'Barnacle Boatyard':             '/icons/playground-emblems/BB.png',
+  'Ye Olde Toontowne':             '/icons/playground-emblems/YOTT.png',
+  'Daffodil Gardens':              '/icons/playground-emblems/DG.png',
+  'Mezzo Melodyland':              '/icons/playground-emblems/MML.png',
+  'The Brrrgh':                    '/icons/playground-emblems/TB.png',
+  'Acorn Acres':                   '/icons/playground-emblems/AA.png',
+  'Drowsy Dreamland':              '/icons/playground-emblems/DDL.png',
+};
 
 const CONFIRM_WORD = 'RESET';
 type Target = ToonIndex | 'all';
@@ -60,7 +80,12 @@ export function CollectionsResetDrawer() {
 
           {COLLECTIONS.map(sec => (
             <div key={sec.name} className="quest-reset-row">
-              <span className="quest-reset-row-label">{sec.icon} {sec.name}</span>
+              <span className="quest-reset-row-label">
+                {SECTION_ICON_IMG[sec.name]
+                  ? <Image src={SECTION_ICON_IMG[sec.name]} alt={sec.name} width={16} height={16} style={{objectFit:'contain',verticalAlign:'middle',marginRight:5}} unoptimized />
+                  : null}
+                {sec.name}
+              </span>
               <div className="quest-reset-row-btns">
                 {([0,1,2,3] as ToonIndex[]).map(t => (
                   <button

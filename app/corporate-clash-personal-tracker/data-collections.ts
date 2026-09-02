@@ -86,7 +86,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Seltzer Bottle","Profile Pose","Purchasable from the G.U.M.B.A.L.L. Machine for 500 Gumballs",PP('Pose-Seltzer_Bottle.png')),
     I("Silent Treatment","Profile Pose","Purchasable from the G.U.M.B.A.L.L. Machine for 450 Gumballs",PP('Pose-Silent_Treatment.png')),
   ]},
-  { name:"Promotions / Directives / Overclocked", icon:"⚙️", color:"#1a1a1a", accent:"#aaaaaa", items:[
+  { name:"Promotions & Directives", icon:"⚙️", color:"#1a1a1a", accent:"#aaaaaa", items:[
     I("R.I.D.D.L.E","Background","Awarded from a special event",BG('Riddle.png')),
     I("Paint Mixer","Background","Awarded from a special event",BG('PaintMixerBackground.png')),
     I("Sellbot HQ","Background","Awarded for reaching the Sellbot HQ Playground",BG('SellbotHQBackground.png')),

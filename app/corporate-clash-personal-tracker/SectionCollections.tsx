@@ -43,7 +43,7 @@ const SECTION_ICON_IMG: Record<string, string> = {
   'Misc.':                                '/icons/misc/DiceSticker.png',
   'Cattlelog Purchases':                  '/icons/misc/DiceSticker.png',
   'G.U.M.B.A.L.L. Machine':              '/icons/misc/Gumballs.png',
-  'Promotions / Directives / Overclocked':'/icons/misc/TTCC_Icon.png',
+  'Promotions & Directives':'/icons/misc/TTCC_Icon.png',
   'Halloween':                            '/icons/misc/TTCC_Halloween.png',
   'Toonsmas':                             '/icons/misc/TTCC_Toonsmas.png',
   'Toontown Central':                     '/icons/playground-emblems/TTC.png',
