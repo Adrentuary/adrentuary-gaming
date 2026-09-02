@@ -1,13 +1,35 @@
 ﻿﻿﻿﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { SectionNote } from './SectionNote';
 import { GagResetDrawer } from './GagResetDrawer';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
+const LS_KEY = 'cc-gag-info-collapsed';
+
+function loadCollapsed(): Set<string> {
+  if (typeof window === 'undefined') return new Set();
+  try { return new Set(JSON.parse(localStorage.getItem(LS_KEY) ?? '[]')); }
+  catch { return new Set(); }
+}
+
 export function SectionGags() {
   const { toonNames, isDone, setProgressBatch } = useTracker();
+  const [collapsedInfo, setCollapsedInfo] = useState<Set<string>>(new Set());
+
+  useEffect(() => { setCollapsedInfo(loadCollapsed()); }, []);
+
+  const toggleInfo = (trackName: string) => {
+    setCollapsedInfo(prev => {
+      const next = new Set(prev);
+      if (next.has(trackName)) next.delete(trackName);
+      else next.add(trackName);
+      try { localStorage.setItem(LS_KEY, JSON.stringify([...next])); } catch {}
+      return next;
+    });
+  };
 
   return (
     <div className="tracker-section">
@@ -18,9 +40,16 @@ export function SectionGags() {
         lastChanges="Added per-track gag reset drawer with large gag icons. Clicking a lower gag level now automatically unchecks all higher levels. Status updated to up to date."
       />
       <GagResetDrawer />
-      {GAG_TRACKS.map(track => (
+      {GAG_TRACKS.map(track => {
+        const infoCollapsed = collapsedInfo.has(track.name);
+        return (
         <div key={track.name} className="gag-card"
           style={{"--gc": track.color, "--gh": track.headerColor, "--gl": track.labelColor} as React.CSSProperties}>
+          <button className="gag-info-toggle" onClick={() => toggleInfo(track.name)}
+            aria-expanded={!infoCollapsed}>
+            <span>Track Info</span>
+            <span className={`gag-info-toggle-chevron${infoCollapsed ? ' gag-info-toggle-chevron--closed' : ' gag-info-toggle-chevron--open'}`}>▼</span>
+          </button>
           <div className="gag-table-scroll">
             <table className="gag-ss-table">
               <thead>
@@ -156,7 +185,7 @@ export function SectionGags() {
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className={infoCollapsed ? 'gag-info-body--hidden' : ''}>
                 {track.stats.map((stat, si) => (
                   <tr key={si} className={`gag-ss-stat-row${stat.prestige ? " gag-ss-stat-row--prestige" : ""}`}>
                     {si === 0 && (
@@ -178,7 +207,8 @@ export function SectionGags() {
             </table>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

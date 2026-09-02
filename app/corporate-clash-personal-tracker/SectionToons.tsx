@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GAG_TRACKS } from './data-gags';
 import { PROMOTIONS } from './data-promotions';
@@ -95,7 +96,7 @@ export function SectionToons() {
                   const allDone=main.done===main.total&&side.done===side.total&&kudos.done===kudos.total&&main.total>0;
                   return (
                     <div key={pg.name} className={`toon-pg-quest-row${allDone?' toon-pg-quest-done':''}`}>
-                      <span className="toon-pg-icon">{pg.icon}</span>
+                      <Image src={`/icons/playground-emblems/${pg.pgKey}.png`} alt={pg.name} width={20} height={20} className="toon-pg-icon" unoptimized />
                       <div className="toon-pg-quest-detail">
                         <span className="toon-pg-name">{pg.name}</span>
                         {allDone
@@ -116,9 +117,15 @@ export function SectionToons() {
                 <div className="toon-gag-grid">
                   {GAG_TRACKS.map(tr => {
                     const complete=isGagTrackComplete(tr.name,tr.gags,t);
+                    const highGag = getHighestGag(tr.name, tr.gags, t);
                     return <div key={tr.name} className={`toon-gag-cell${complete?' toon-gag-complete':''}`} style={{'--gcolor':tr.color} as React.CSSProperties}>
-                      <span className="toon-gag-track">{tr.name}</span>
-                      <span className="toon-gag-val">{complete?'✔ Completed':getHighestGag(tr.name,tr.gags,t)}</span>
+                      <Image
+                        src={`/icons/gags/small/${tr.trackKey}/${complete ? tr.gags[tr.gags.length-1] : highGag !== '—' ? highGag : tr.gags[0]}.png`}
+                        alt={tr.name} width={24} height={24} className="toon-gag-icon" unoptimized />
+                      <div className="toon-gag-cell-text">
+                        <span className="toon-gag-track">{tr.name}</span>
+                        <span className="toon-gag-val">{complete?'✔ Completed':highGag}</span>
+                      </div>
                     </div>;
                   })}
                 </div>
