@@ -47,14 +47,14 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Pacesetter & Firestarter","Background","Awarded after using the code \"FIRESETTER\"",BG('Pacesetter&FirestarterBackground.png')),
     I("Game Show","Background","Defeating the High Roller 11 times",BG('GameShowBackground.png')),
     I("Duck Shuffler","Background","Awarded after defeating the Duck Shuffler",BG('DuckShufflerBackground.png')),
-    I("Event Electric","Background","Awarded during the Event Electric event",BG('EventElectricBackground.png')),
+
     I("Cybertoon","Background","Awarded after using the code \"CYBERTOONEXPLORER\"",BG('CybertoonBackground.png')),
     I("Pacesetter & Firestarter","Nameplate","Awarded after using the code \"FIRESETTER\"",NP('Pacesetter&FirestarterNameplate.png')),
     I("Game Show","Nameplate","Defeating the High Roller 13 times",NP('GameShowNameplate.png')),
     I("Green Duck Shuffler","Nameplate","Awarded after defeating the Duck Shuffler",NP('GreenDuckShufflerNameplate.png')),
     I("Red Duck Shuffler","Nameplate","Awarded after defeating the Duck Shuffler",NP('RedDuckShufflerNameplate.png')),
     I("Cybertoon","Nameplate","Awarded after using the code \"CYBERTOONEXPLORER\"",NP('CybertoonNameplate.png')),
-    I("Event Electric","Nameplate","Awarded during the Event Electric event",NP('EventElectricNameplate.png')),
+
     I("Birthday Bash","Nametag","Rewarded during Corporate Clash's 6th Anniversary event",NT('Birthday_Bash_Nametag.png')),
     I("Sad","Emotion","Available at start of game",EM('negative/Sad.gif')),
   ]},
@@ -81,7 +81,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Outback","Background","Awarded for Participating in the Outback Event OR purchasable at the G.U.M.B.A.L.L. Machine for 600 Gumballs",BG('OutbackBackground.png')),
     I("Outback","Nameplate","Awarded for completing the Outback Event OR purchasable at the G.U.M.B.A.L.L. Machine for 700 Gumballs",NP('OutbackNameplate.png')),
     I("Stars","Nameplate","Awarded for earning the Silver Star after completing 50 Floors of Cog Buildings OR purchasable at the G.U.M.B.A.L.L. Machine for 800 Gumballs",NP('Stars.png')),
-    I("50 Floors","Nameplate","Awarded for completing 50 Floors of Cog Buildings",NP('50FloorsNameplate.png')),
+
     I("Banana","Profile Pose","Purchasable from the G.U.M.B.A.L.L. Machine for 500 Gumballs",PP('Pose-Banana.png')),
     I("Gag Button","Profile Pose","Purchasable from the G.U.M.B.A.L.L. Machine for 500 Gumballs",PP('Pose-Gag_Button.png')),
     I("Megaphone","Profile Pose","Awarded after completing the Temperature Troubles Directive",PP('Pose-megaphone.png')),
@@ -108,7 +108,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Lazy Bones","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 100 Bones",NP('LazyBonesNameplate.png')),
     I("Spooky Bat","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 35 of each Shkrafting Material",NP('Spookybat.png')),
     I("Halloween Night","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 35 of each Shkrafting Material",NP('HalloweenNightNameplate.png')),
-    I("Halloween 2020","Nameplate","Awarded during the Halloween 2020 event",NP('HW2020nameplate.png')),
+
     I("Halloween Candy (Blue)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyBlue.png')),
     I("Halloween Candy (Green)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyGreen.png')),
     I("Halloween Candy (Magenta)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyMagenta.png')),
@@ -135,7 +135,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Wrapping","Nameplate","Awarded after completing the Presidential Appreciation Toontask during the Toonmas Event",NP('Wrappingpaper.png')),
     I("Tinsel","Nameplate","Earned as a drop from the Toonseltown Present Thief Game during the Toonsmas Event",NP('TinselNameplate.png')),
     I("Snowman Head","Cheesy Effect","Caroling during Toonsmas",CE('SnowmanHeadDouble.png')),
-    I("Toonseltown","Nameplate","Earned as a drop from the Toonseltown Present Thief Game during the Toonsmas Event",NP('ToonseltownNameplate.png')),
+
   ]},
   { name:"Toontown Central", icon:"🍦", color:"#5a2004", accent:"#d86b10", items:[
     I("Toontown Central","Background","Awarded for progressing to Toontown Central in the Taskline",BG('ToontownCentralBackground.png')),
@@ -145,7 +145,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Slippin'","Nameplate","Awarded for clicking the Banana in Toon Hall in Toontown Central",NP('SlippinNameplate.png')),
     I("You Did It","Nameplate","Awarded after completing the Give and Cake Kudos Rank-Up Task",NP('YouDidItNameplate.png')),
     I("Become Duck","Profile Pose","Awarded after reaching Toontown Central Kudos Rank 5",PP('Pose-Become_Duck.png')),
-    I("Become Duck Duck","Profile Pose","Awarded after reaching Toontown Central Kudos Rank 5",PP('BecomeDuckDuck.png')),
+    I("Become Duck (Ducks Only)","Profile Pose","Awarded after reaching Toontown Central Kudos Rank 5",PP('BecomeDuckDuck.png')),
     I("Ice Cream","Nametag","Rewarded for completing the Double Coil and Trouble Rank-Up Task (Kudos Rank 8, Toontown Central)",NT('Ice_Cream_Nametag.png')),
     I("Invisible","Cheesy Effect","Awarded from the Cream-Be-Gone sidetask in Toontown Central",CE('CE_invisible.png')),
     I("Selfie","Profile Pose","Awarded after completing the task New Toony Tourist",PP('Pose-selfie.png')),
@@ -197,7 +197,7 @@ export const COLLECTIONS: CollectionSection[] = [
   { name:"Mezzo Melodyland", icon:"🎵", color:"#482052", accent:"#bf62cb", items:[
     I("Mezzo Melodyland","Background","Awarded for progressing to Mezzo Melodyland in the Taskline",BG('MezzoBackground.png')),
     I("Mezzo Melodyland Sky","Background","Awarded for visiting Mezzo Melodyland",BG('MezzoMelodylandBackground.png')),
-    I("Mezzo Melodyland Clouds","Background","Awarded for visiting Mezzo Melodyland",BG('MezzoMelodylandSky.png')),
+
     I("Rock Concert","Background","Awarded after completing the Rocked Out Kudos Rank-Up Task",BG('RockConcertBackground.png')),
     I("Mezzo Melodyland","Nameplate","Awarded for jumping on a drum in Mezzo Melodyland ten times in a row",NP('MezzoMelodylandNameplate.png')),
     I("Fire n' Flames","Nameplate","Awarded after completing the Rocked Out Kudos Rank-Up Task",NP("FiresN'FlamesNameplate.png")),
@@ -268,7 +268,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("New Years Fireworks 2020","Nameplate","Awarded for attending the 2020 New Years Event (Unobtainable)",NP('2020Nameplate.png')),
     I("Easter 2020","Nameplate","Awarded for using the 2020 Easter Event code \"eggcellent\" (Unobtainable)",NP('Easter2020Nameplate.png')),
     I("Candy","Nameplate","Awarded for solving the 2018 Christmas ARG (Unobtainable)",NP('Candy.png')),
-    I("Christmas ARG 2018","Nameplate","Awarded for solving the 2018 Christmas ARG (Unobtainable)",NP('ChristmasARG2018.png')),
+
     I("Prepare for Launch","Nameplate","Awarded after using the 2020 Summer code \"fireworks\" (Unobtainable)",NP('PrepareForLaunchNameplate.png')),
     I("Pink Slip","Cheesy Effect","Awarded for getting 6 Pink Slip Pieces during Break The Law",CE('CE_Pinkslip.png')),
   ]},
