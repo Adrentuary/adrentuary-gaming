@@ -114,9 +114,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Halloween Candy (Magenta)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyMagenta.png')),
     I("Halloween Candy (Purple)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyPurple.png')),
     I("Halloween Candy (Red)","Nameplate","Available for purchase from Reid Stock during Halloween and April Toons for 20 of each Shkrafting Material",NP('HalloweenCandyRed.png')),
-    I("Flared Up Hallows","Cheesy Effect","Halloween event reward",CE('FlaredUpHallowsDouble.png')),
-    I("H2018 Pumpkin","Cheesy Effect","Halloween 2018 event reward",CE('H2018PumpkinDouble.png')),
-    I("H2019 Pumpkin","Cheesy Effect","Halloween 2019 event reward",CE('H2019PumpkinDouble.png')),
+
     I("No Arms","Cheesy Effect","Available during Halloween for 35 of each Shkrafting Material",CE('CE_noarms.png')),
     I("Scapegourd","Cheesy Effect","Shkrafting Shop (Lynn Decisive)",CE('ScapegourdDouble.png')),
     I("Sinking","Profile Pose","Available from Reid Stock during Halloween/April Toons for 35 of each Shkrafting Material",PP('Pose-sinking.png')),
@@ -124,8 +122,7 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Spooky","Nametag","Available in Elphabat's shop during Halloween events for 40 of every Shkrafting material",NT('Spooky_Nametag.png')),
     I("Spooky","Profile Pose","Awarded after completing Halloween Organizer (Unobtainable)",PP('Pose-spooky.png')),
     I("Stomped","Cheesy Effect","Shkrafting Shop (Lynn Decisive)",CE('CE_Stomped.png')),
-    I("William Pumpkin","Cheesy Effect","Halloween event reward",CE('WilliamPumpkinDouble.png')),
-    I("Yarr & Harr","Cheesy Effect","Halloween event reward",CE('Yarr&HarrDouble.png')),
+
     I("Zombie","Profile Pose","Awarded after completing Spooky Storyteller (Unobtainable)",PP('Pose-zombie.png')),
   ]},
   { name:"Toonsmas", icon:"🎄", color:"#0a2010", accent:"#40d070", items:[
@@ -270,6 +267,11 @@ export const COLLECTIONS: CollectionSection[] = [
     I("Candy","Nameplate","Awarded for solving the 2018 Christmas ARG (Unobtainable)",NP('Candy.png')),
 
     I("Prepare for Launch","Nameplate","Awarded after using the 2020 Summer code \"fireworks\" (Unobtainable)",NP('PrepareForLaunchNameplate.png')),
+    I("Pumpkin Head","Cheesy Effect","Awarded by Trick-or-Treating (Halloween 2018)",CE('H2018PumpkinDouble.png')),
+    I("Pumpkin Head","Cheesy Effect","Awarded by Trick-or-Treating (Halloween 2019)",CE('H2019PumpkinDouble.png')),
+    I("Pumpkin Behind the Carving","Cheesy Effect","Awarded by Trick-or-Treating (Halloween 2020)",CE('WilliamPumpkinDouble.png')),
+    I("Flared Up Hallows","Cheesy Effect","Awarded by Trick-or-Treating (Halloween 2021)",CE('FlaredUpHallowsDouble.png')),
+    I("Yarr & Harr","Cheesy Effect","Awarded by Trick-or-Treating (Halloween 2023-2025)",CE('Yarr&HarrDouble.png')),
     I("Pink Slip","Cheesy Effect","Awarded for getting 6 Pink Slip Pieces during Break The Law",CE('CE_Pinkslip.png')),
   ]},
 ];

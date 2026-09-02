@@ -1,0 +1,74 @@
+              {!isCollapsed && (
+                <div className="coll-grid-wrap">
+                  <div className="coll-grid-hdr">
+                    {activeTypes.map(type => {
+                      const items = section.items.filter(i => i.type === type);
+                      if (items.length === 0) return null;
+                      return (
+                        <div key={type} className="coll-type-hdr-cell"
+                          style={{'--th-bg': TYPE_COLORS[type], '--th-acc': TYPE_ACCENTS[type]} as React.CSSProperties}>
+                          <span className="coll-type-hdr-icon">{TYPE_ICONS[type]}</span>
+                          <span className="coll-type-hdr-name">{type}s</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="coll-grid-body">
+                    {activeTypes.map(type => {
+                      const items = section.items.filter(i => i.type === type);
+                      if (items.length === 0) return null;
+                      return (
+                        <div key={type} className="coll-type-group"
+                          style={{'--th-bg': TYPE_COLORS[type], '--th-acc': TYPE_ACCENTS[type]} as React.CSSProperties}>
+                          {items.map((item, idx) => {
+                            const key = `c:${section.name}:${item.name}:${item.type}:${idx}`;
+                            const toonsDone = ([0,1,2,3] as ToonIndex[]).map(t => !!(progress[key]?.[t]));
+                            const allDone = toonsDone.every(Boolean);
+                            const [imgW, imgH] = IMG_DIMS[item.type] ?? [130, 72];
+                            const howLines = item.how.split('\\n\\n');
+                            return (
+                              <div key={key} className={`coll-item-card${allDone?' coll-item-card--done':''}`} data-type={item.type}>
+                                <div className="coll-item-name">{item.name}</div>
+                                {item.img
+                                  ? <div className="coll-item-img-wrap"><Image src={item.img} alt={item.name} width={imgW} height={imgH} className="coll-item-img" unoptimized /></div>
+                                  : <div className="coll-item-img-placeholder" />}
+                                <div className="coll-item-how">
+                                  {howLines.map((line: string, li: number) => (
+                                    <span key={li}>{line}{li < howLines.length-1 && <><br /><br /></>}</span>
+                                  ))}
+                                </div>
+                                <div className="coll-item-checks">
+                                  {([0,1,2,3] as ToonIndex[]).map(t => (
+                                    <button key={t}
+                                      className={`coll-chk${toonsDone[t]?' coll-chk--done':''}`}
+                                      style={toonsDone[t]?{'--tc':TOON_COLORS[t]} as React.CSSProperties:{}}
+                                      onClick={() => toggle(key, t)}
+                                      aria-label={`${item.name} – ${toonNames[t]}`}
+                                    >{toonsDone[t]?'✓':'—'}</button>
+                                  ))}
+                                  <button
+                                    className={`coll-chk coll-chk--all${allDone?' coll-chk--done':''}`}
+                                    style={allDone?{'--tc':'#ffffff'} as React.CSSProperties:{}}
+                                    onClick={() => {
+                                      if (allDone) {([0,1,2,3] as ToonIndex[]).forEach(t=>{if(progress[key]?.[t])toggle(key,t);});}
+                                      else {([0,1,2,3] as ToonIndex[]).forEach(t=>{if(!progress[key]?.[t])toggle(key,t);});}
+                                    }}
+                                    title="Toggle all toons"
+                                  >{allDone?'✓':'★'}</button>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

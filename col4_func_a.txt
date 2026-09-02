@@ -1,0 +1,54 @@
+const IMG_DIMS: Record<string, [number,number]> = {
+  'Background':    [192, 108],
+  'Nameplate':     [220,  86],
+  'Nametag':       [220,  86],
+  'Profile Pose':  [130, 130],
+  'Cheesy Effect': [130, 130],
+  'Emotion':       [130, 130],
+};
+
+export function SectionCollections() {
+  const { toonNames, progress, toggle } = useTracker();
+  const [filter, setFilter] = useState<CollectionType | 'All'>('All');
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => loadCollapsed());
+  useEffect(() => { saveCollapsed(collapsed); }, [collapsed]);
+  const toggleCollapse = (name: string) => {
+    setCollapsed(prev => { const next = new Set(prev); next.has(name) ? next.delete(name) : next.add(name); return next; });
+  };
+  const activeTypes = filter === 'All' ? COLLECTION_TYPES : [filter] as CollectionType[];
+  return (
+    <div className="tracker-section">
+      <SectionNote
+        description="Collectible items in Corporate Clash: backgrounds, nameplates, nametags, profile poses, cheesy effects, and emotions. Filter by type below."
+        status="Accurate information, section design, and interactive features are currently being developed and refined."
+        lastUpdated="September 1st, 2026"
+        lastChanges="Reorganized sections with correct wiki unlock info. Cattlelog Purchases added. Collapsible sections persist. Section icons updated. A-Z sort for Nametags, Poses, Cheesy Effects, Emotions."
+      />
+      <CollectionsResetDrawer />
+      <div className="coll-filter-bar">
+        <button className={`coll-filter-btn${filter==='All'?' coll-filter-btn--active':''}`} onClick={() => setFilter('All')}>All</button>
+        {COLLECTION_TYPES.map(t => (
+          <button key={t} className={`coll-filter-btn${filter===t?' coll-filter-btn--active':''}`} onClick={() => setFilter(t as CollectionType)}>
+            {TYPE_ICONS[t]} {t}
+          </button>
+        ))}
+      </div>
+      <div className="coll-sections">
+        {COLLECTIONS.map(section => {
+          const hasAny = activeTypes.some(type => section.items.some(i => i.type === type));
+          if (!hasAny) return null;
+          const isCollapsed = collapsed.has(section.name);
+          const iconImg = SECTION_ICON_IMG[section.name];
+          return (
+            <div key={section.name} className="tracker-card coll-card"
+              style={{'--dc': section.color, '--da': section.accent} as React.CSSProperties}>
+              <button
+                className={`tracker-card-header coll-section-header${isCollapsed?' coll-section-header--collapsed':''}`}
+                onClick={() => toggleCollapse(section.name)}
+                aria-expanded={!isCollapsed}>
+                {iconImg
+                  ? <Image src={iconImg} alt={section.name} width={22} height={22} className="coll-section-icon" unoptimized />
+                  : <span className="dc-icon">{section.icon}</span>}
+                <strong>{section.name}</strong>
+                <span className="coll-section-arrow">{isCollapsed ? '▶' : '▼'}</span>
+              </button>
