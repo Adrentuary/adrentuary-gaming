@@ -1,4 +1,5 @@
 ﻿'use client';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { LAFF_BOOSTS } from './data-laff';
@@ -6,60 +7,55 @@ import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
 
-// Playground icon map keyed by full playground name
-const PG_ICON_MAP: Record<string, { img: string }> = {
-  'Toontown Central': { img: '/icons/playground-emblems/TTC.png' },
-  'Barnacle Boatyard': { img: '/icons/playground-emblems/BB.png' },
-  'Ye Olde Toontowne': { img: '/icons/playground-emblems/YOTT.png' },
-  'Daffodil Gardens':  { img: '/icons/playground-emblems/DG.png' },
-  'Mezzo Melodyland':  { img: '/icons/playground-emblems/MML.png' },
-  'The Brrrgh':        { img: '/icons/playground-emblems/TB.png' },
-  'Acorn Acres':       { img: '/icons/playground-emblems/AA.png' },
-  'Drowsy Dreamland':  { img: '/icons/playground-emblems/DDL.png' },
+// ── Constants ──────────────────────────────────────────────────────────────
+const PG_ICON_MAP: Record<string, string> = {
+  'Toontown Central': '/icons/playground-emblems/TTC.png',
+  'Barnacle Boatyard': '/icons/playground-emblems/BB.png',
+  'Ye Olde Toontowne': '/icons/playground-emblems/YOTT.png',
+  'Daffodil Gardens':  '/icons/playground-emblems/DG.png',
+  'Mezzo Melodyland':  '/icons/playground-emblems/MML.png',
+  'The Brrrgh':        '/icons/playground-emblems/TB.png',
+  'Acorn Acres':       '/icons/playground-emblems/AA.png',
+  'Drowsy Dreamland':  '/icons/playground-emblems/DDL.png',
 };
 
-// Top-level collapsible groups
-const LAFF_GROUPS = ['Kudos', 'Activities', 'Promotions', 'Directives'];
+const LAFF_DA  = '#5ab0e0';
+const LAFF_DC  = '#1a2a3a';
 
-// Which data sections belong to each group
-const GROUP_SECTIONS: Record<string, string[]> = {
-  'Kudos':      ['Kudos Ranking'],
-  'Activities': ['Fishing', 'Golfing', 'Racing', 'Trolly'],
-  'Promotions': ['Sellbot Promotions', 'Cashbot Promotions', 'Lowbot Promotions', 'Bossbot Promotions'],
-  'Directives': ['Directives'],
-};
-
-// Activity sub-sections get their own collapse toggle
 const ACTIVITY_SECTIONS = ['Fishing', 'Golfing', 'Racing', 'Trolly'];
+const PROMO_SECTIONS    = ['Sellbot Promotions', 'Cashbot Promotions', 'Lowbot Promotions', 'Bossbot Promotions'];
 
 const LAFF_COLLAPSED_KEY = 'laff';
+const ACT_KEY            = 'laff-act';
+
+// Keys for each progressive section (pre-computed for progressive click logic)
+function sectionKeys(section: string): string[] {
+  return LAFF_BOOSTS
+    .filter(e => !e.isHeader && e.section === section)
+    .map(e => {
+      if (e.isHeader) return '';
+      return `lb:${e.section}:${e.note}:${e.source}`;
+    });
+}
 
 export function SectionLaff() {
-  const { toonNames, toggleAll, isAllDone, collapsedUI, setCollapsedUI } = useTracker();
+  const { toonNames, progress, toggle, toggleAll, isAllDone, setProgressBatch, collapsedUI, setCollapsedUI } = useTracker();
 
-  // Top-level group open/closed (stored as closed set)
+  // ── Top-level collapse (each group = its own card, stored as closed set) ──
   const closedGroups = new Set<string>(collapsedUI[LAFF_COLLAPSED_KEY] ?? []);
-  const openGroups = new Set<string>(LAFF_GROUPS.filter(g => !closedGroups.has(g)));
-  const setOpenGroups = (updater: (prev: Set<string>) => Set<string>) => {
+  const isOpen = (g: string) => !closedGroups.has(g);
+  const toggleGroup = (g: string) => {
     setCollapsedUI(prev => {
-      const currentClosed = new Set<string>(prev[LAFF_COLLAPSED_KEY] ?? []);
-      const currentOpen = new Set<string>(LAFF_GROUPS.filter(g => !currentClosed.has(g)));
-      const nextOpen = updater(currentOpen);
-      const nextClosed = LAFF_GROUPS.filter(g => !nextOpen.has(g));
-      return { ...prev, [LAFF_COLLAPSED_KEY]: nextClosed };
+      const current = new Set<string>(prev[LAFF_COLLAPSED_KEY] ?? []);
+      current.has(g) ? current.delete(g) : current.add(g);
+      return { ...prev, [LAFF_COLLAPSED_KEY]: [...current] };
     });
   };
-  const colCount = 2 + toonNames.length + 1; // first-col + +Laff + toons + All
 
-  const toggleGroup = (g: string) => setOpenGroups(prev => {
-    const next = new Set(prev); next.has(g) ? next.delete(g) : next.add(g); return next;
-  });
-
-  // Activity sub-sections collapse (stored under a separate key)
-  const ACT_KEY = 'laff-activities';
-  const closedActivities = new Set<string>(collapsedUI[ACT_KEY] ?? []);
-  const openActivities = new Set<string>(ACTIVITY_SECTIONS.filter(s => !closedActivities.has(s)));
-  const toggleActivity = (s: string) => {
+  // ── Activity sub-collapses ─────────────────────────────────────────────────
+  const closedActs = new Set<string>(collapsedUI[ACT_KEY] ?? []);
+  const isActOpen  = (s: string) => !closedActs.has(s);
+  const toggleAct  = (s: string) => {
     setCollapsedUI(prev => {
       const current = new Set<string>(prev[ACT_KEY] ?? []);
       current.has(s) ? current.delete(s) : current.add(s);
@@ -67,123 +63,198 @@ export function SectionLaff() {
     });
   };
 
-  // Helper: render data rows for a given section
-  const renderRows = (section: string) =>
+  // ── Progressive click handler (Activities / Promotions / Directives) ──────
+  const handleProgClick = useCallback((key: string, toon: ToonIndex, section: string) => {
+    const keys = sectionKeys(section);
+    const idx  = keys.indexOf(key);
+    if (idx === -1) { toggle(key, toon); return; }
+    const done = !!(progress[key]?.[toon]);
+    if (!done) {
+      setProgressBatch(keys.slice(0, idx + 1).map(k => ({ key: k, toon })), []);
+    } else {
+      setProgressBatch([], keys.slice(idx).map(k => ({ key: k, toon })));
+    }
+  }, [progress, toggle, setProgressBatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleProgAll = useCallback((key: string, section: string) => {
+    const keys    = sectionKeys(section);
+    const idx     = keys.indexOf(key);
+    const toons   = [0, 1, 2, 3] as ToonIndex[];
+    const allDone = isAllDone(key);
+    if (idx === -1) { toggleAll(key); return; }
+    if (!allDone) {
+      setProgressBatch(keys.slice(0, idx + 1).flatMap(k => toons.map(t => ({ key: k, toon: t }))), []);
+    } else {
+      setProgressBatch([], keys.slice(idx).flatMap(k => toons.map(t => ({ key: k, toon: t }))));
+    }
+  }, [progress, toggleAll, isAllDone, setProgressBatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const colCount = 2 + toonNames.length + 1; // milestone + +Laff + toons + All
+
+
+  // ── Shared table header ────────────────────────────────────────────────────
+  const thead = (milestoneLabel: string) => (
+    <thead><tr>
+      <th className="col-main">{milestoneLabel}</th>
+      <th className="col-sm" style={{textAlign:'center'}}>+Laff</th>
+      {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
+      <th className="col-all">All</th>
+    </tr></thead>
+  );
+
+  // ── Kudos rows — individual (Sidetask-style), per-row per-toon independent ─
+  const kudosRows = LAFF_BOOSTS
+    .filter(e => !e.isHeader && e.section === 'Kudos Ranking')
+    .map((entry, ri) => {
+      if (entry.isHeader) return null;
+      const key     = `lb:${entry.section}:${entry.note}:${entry.source}:${entry.playground}`;
+      const allDone = isAllDone(key);
+      const pgImg   = entry.playground ? PG_ICON_MAP[entry.playground] : null;
+      return (
+        <tr key={`kudos-${ri}`} className={allDone ? 'row-all-done' : ''}>
+          <td className="col-main">
+            <span className="laff-pg-cell">
+              {pgImg && (
+                <span className="coll-section-icon-wrap laff-pg-icon-wrap">
+                  <Image src={pgImg} alt={entry.playground!} width={24} height={24} className="laff-pg-icon" unoptimized />
+                </span>
+              )}
+              <span>{entry.playground}</span>
+            </span>
+          </td>
+          <td className="col-sm" style={{textAlign:'center'}}>+{entry.laff}</td>
+          {([0,1,2,3] as ToonIndex[]).map(t => (
+            <td key={t} className="col-toon"><CheckBtn id={key} toon={t} label={`${toonNames[t]}: Kudos ${entry.playground}`} /></td>
+          ))}
+          <td className="col-all">
+            <button className={`all-btn${allDone?' all-btn--done':''}`} onClick={() => toggleAll(key)} title={allDone?'Unmark all':'Mark all toons'}>{allDone?'★':'☆'}</button>
+          </td>
+        </tr>
+      );
+    });
+
+  // ── Progressive rows — Activities / Promotions / Directives ────────────────
+  const progRows = (section: string) =>
     LAFF_BOOSTS
       .filter(e => !e.isHeader && e.section === section)
       .map((entry, ri) => {
         if (entry.isHeader) return null;
-        const key = `lb:${entry.section}:${entry.note}:${entry.source}`;
+        const key     = `lb:${entry.section}:${entry.note}:${entry.source}`;
         const allDone = isAllDone(key);
-        const pg = entry.playground ? PG_ICON_MAP[entry.playground] : null;
         return (
           <tr key={`${section}-${ri}`} className={allDone ? 'row-all-done' : ''}>
-            {section === 'Kudos Ranking' ? (
-              <td className="col-playground">
-                {pg && <Image src={pg.img} alt={entry.playground!} width={18} height={18} className="laff-pg-icon" style={{marginRight:8,verticalAlign:'middle'}} />}
-                <span>{entry.playground}</span>
-              </td>
-            ) : (
-              <td className="col-sm">{entry.note}</td>
-            )}
+            <td className="col-main">{entry.note}</td>
             <td className="col-sm" style={{textAlign:'center'}}>+{entry.laff}</td>
             {([0,1,2,3] as ToonIndex[]).map(t => (
-              <td key={t} className="col-toon"><CheckBtn id={key} toon={t} label={`${toonNames[t]}: ${entry.section} ${entry.note}`} /></td>
+              <td key={t} className="col-toon">
+                <button
+                  className={`check-btn${progress[key]?.[t] ? ' check-btn--done' : ''}`}
+                  style={progress[key]?.[t] ? {'--tc': TOON_COLORS[t]} as React.CSSProperties : {}}
+                  onClick={() => handleProgClick(key, t, section)}
+                  aria-label={`${toonNames[t]}: ${entry.section} ${entry.note}`}
+                >&#10003;</button>
+              </td>
             ))}
-            <td className="col-all"><button className={`all-btn${allDone?' all-btn--done':''}`} onClick={() => toggleAll(key)} title={allDone?'Unmark all':'Mark all toons'}>{allDone?'★':'☆'}</button></td>
+            <td className="col-all">
+              <button className={`all-btn${allDone?' all-btn--done':''}`} onClick={() => handleProgAll(key, section)} title={allDone?'Unmark all':'Mark all toons'}>{allDone?'★':'☆'}</button>
+            </td>
           </tr>
         );
       });
 
-  // Shared thead for standard groups
-  const standardThead = (
-    <thead><tr>
-      <th className="col-sm">Milestone</th>
-      <th className="col-sm" style={{textAlign:'center'}}>+Laff</th>
-      {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
-      <th className="col-all">All</th>
-    </tr></thead>
-  );
-  const kudosThead = (
-    <thead><tr>
-      <th className="col-playground">Playground</th>
-      <th className="col-sm" style={{textAlign:'center'}}>+Laff</th>
-      {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
-      <th className="col-all">All</th>
-    </tr></thead>
-  );
 
   return (
     <div className="tracker-section">
       <SectionNote
-        description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, promotions, and directives. Max laff is 150. Sections can be collapsed using the dropdown arrows."
+        description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, promotions, and directives. Max laff is 150. Each section can be collapsed independently."
         status="Section design and interactive features are currently under development."
         lastUpdated="September 5th, 2026 · 9:00 PM"
-        lastChanges="Rebuilt into 4 separate sections: Kudos, Activities, Promotions, Directives. Kudos shows playground icons and full names. Activity sub-sections are individually collapsible."
+        lastChanges="4 separate collapsible cards matching Collections/Gags style. Kudos rows are individually tracked per toon. Activities, Promotions, and Directives use progressive tracking — selecting a level auto-marks all previous levels for that toon."
       />
-      <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>
-        <div className="tracker-card-header"><strong>Laff Boosts</strong><span className="tracker-card-sub">Max Laff: 150</span></div>
+      <div className="laff-cards-list">
 
-        {/* KUDOS */}
-        <div className="laff-group-divider"><button className="laff-collapse-btn" onClick={() => toggleGroup('Kudos')}>
-          <span className="quest-collapse-arrow">{openGroups.has('Kudos') ? '▼' : '▶'}</span>Kudos
-        </button></div>
-        {openGroups.has('Kudos') && (
-          <div className="tracker-table-wrap"><table className="tracker-table">
-            {kudosThead}<tbody>{renderRows('Kudos Ranking')}</tbody>
-          </table></div>
-        )}
+        {/* ── KUDOS CARD ─────────────────────────────────────────────────────── */}
+        <div className="tracker-card coll-card" style={{'--dc':LAFF_DC,'--da':LAFF_DA} as React.CSSProperties}>
+          <button
+            className={`tracker-card-header coll-section-header${isOpen('Kudos')?'':' coll-section-header--collapsed'}`}
+            onClick={() => toggleGroup('Kudos')} aria-expanded={isOpen('Kudos')}>
+            <span className="coll-section-arrow">{isOpen('Kudos') ? '▼' : '▶'}</span>
+            <strong>Kudos</strong>
+          </button>
+          {isOpen('Kudos') && (
+            <div className="tracker-table-wrap"><table className="tracker-table">
+              {thead('Playground')}
+              <tbody>{kudosRows}</tbody>
+            </table></div>
+          )}
+        </div>
 
-        {/* ACTIVITIES */}
-        <div className="laff-group-divider"><button className="laff-collapse-btn" onClick={() => toggleGroup('Activities')}>
-          <span className="quest-collapse-arrow">{openGroups.has('Activities') ? '▼' : '▶'}</span>Activities
-        </button></div>
-        {openGroups.has('Activities') && (
-          <div className="tracker-table-wrap"><table className="tracker-table">
-            {standardThead}
-            <tbody>
-              {ACTIVITY_SECTIONS.map(act => {
-                const isOpen = openActivities.has(act);
-                return [
-                  <tr key={`act-${act}`} className="laff-section-header"><td colSpan={colCount} style={{padding:0}}>
-                    <button className="laff-collapse-btn laff-collapse-btn--sub" onClick={() => toggleActivity(act)}>
-                      <span className="quest-collapse-arrow">{isOpen ? '▼' : '▶'}</span>{act}
+        {/* ── ACTIVITIES CARD ────────────────────────────────────────────────── */}
+        <div className="tracker-card coll-card" style={{'--dc':LAFF_DC,'--da':LAFF_DA} as React.CSSProperties}>
+          <button
+            className={`tracker-card-header coll-section-header${isOpen('Activities')?'':' coll-section-header--collapsed'}`}
+            onClick={() => toggleGroup('Activities')} aria-expanded={isOpen('Activities')}>
+            <span className="coll-section-arrow">{isOpen('Activities') ? '▼' : '▶'}</span>
+            <strong>Activities</strong>
+          </button>
+          {isOpen('Activities') && (
+            <div className="tracker-table-wrap"><table className="tracker-table">
+              {thead('Milestone')}
+              <tbody>
+                {ACTIVITY_SECTIONS.map(act => [
+                  <tr key={`act-h-${act}`} className="laff-section-header"><td colSpan={colCount} style={{padding:0}}>
+                    <button className="laff-collapse-btn--sub" onClick={() => toggleAct(act)}>
+                      <span className="quest-collapse-arrow">{isActOpen(act) ? '▼' : '▶'}</span>{act}
                     </button>
                   </td></tr>,
-                  ...(isOpen ? renderRows(act) : []),
-                ];
-              })}
-            </tbody>
-          </table></div>
-        )}
+                  ...(isActOpen(act) ? progRows(act) : []),
+                ])}
+              </tbody>
+            </table></div>
+          )}
+        </div>
 
-        {/* PROMOTIONS */}
-        <div className="laff-group-divider"><button className="laff-collapse-btn" onClick={() => toggleGroup('Promotions')}>
-          <span className="quest-collapse-arrow">{openGroups.has('Promotions') ? '▼' : '▶'}</span>Promotions
-        </button></div>
-        {openGroups.has('Promotions') && (
-          <div className="tracker-table-wrap"><table className="tracker-table">
-            {standardThead}
-            <tbody>
-              {GROUP_SECTIONS['Promotions'].map(sec => [
-                <tr key={`promo-${sec}`} className="laff-section-header"><td colSpan={colCount}>
-                  <span className="laff-section-title">{sec}</span>
-                </td></tr>,
-                ...renderRows(sec),
-              ])}
-            </tbody>
-          </table></div>
-        )}
 
-        {/* DIRECTIVES */}
-        <div className="laff-group-divider"><button className="laff-collapse-btn" onClick={() => toggleGroup('Directives')}>
-          <span className="quest-collapse-arrow">{openGroups.has('Directives') ? '▼' : '▶'}</span>Directives
-        </button></div>
-        {openGroups.has('Directives') && (
-          <div className="tracker-table-wrap"><table className="tracker-table">
-            {standardThead}<tbody>{renderRows('Directives')}</tbody>
-          </table></div>
-        )}
+
+
+        {/* ── PROMOTIONS CARD ────────────────────────────────────────────────── */}
+        <div className="tracker-card coll-card" style={{'--dc':LAFF_DC,'--da':LAFF_DA} as React.CSSProperties}>
+          <button
+            className={`tracker-card-header coll-section-header${isOpen('Promotions')?'':' coll-section-header--collapsed'}`}
+            onClick={() => toggleGroup('Promotions')} aria-expanded={isOpen('Promotions')}>
+            <span className="coll-section-arrow">{isOpen('Promotions') ? '▼' : '▶'}</span>
+            <strong>Promotions</strong>
+          </button>
+          {isOpen('Promotions') && (
+            <div className="tracker-table-wrap"><table className="tracker-table">
+              {thead('Milestone')}
+              <tbody>
+                {PROMO_SECTIONS.map(sec => [
+                  <tr key={`promo-h-${sec}`} className="laff-section-header"><td colSpan={colCount}>
+                    <span className="laff-section-title">{sec}</span>
+                  </td></tr>,
+                  ...progRows(sec),
+                ])}
+              </tbody>
+            </table></div>
+          )}
+        </div>
+
+        {/* ── DIRECTIVES CARD ────────────────────────────────────────────────── */}
+        <div className="tracker-card coll-card" style={{'--dc':LAFF_DC,'--da':LAFF_DA} as React.CSSProperties}>
+          <button
+            className={`tracker-card-header coll-section-header${isOpen('Directives')?'':' coll-section-header--collapsed'}`}
+            onClick={() => toggleGroup('Directives')} aria-expanded={isOpen('Directives')}>
+            <span className="coll-section-arrow">{isOpen('Directives') ? '▼' : '▶'}</span>
+            <strong>Directives</strong>
+          </button>
+          {isOpen('Directives') && (
+            <div className="tracker-table-wrap"><table className="tracker-table">
+              {thead('Milestone')}
+              <tbody>{progRows('Directives')}</tbody>
+            </table></div>
+          )}
+        </div>
 
       </div>
     </div>

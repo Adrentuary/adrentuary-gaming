@@ -286,18 +286,15 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* All 4 toons done: use the playground's deep color as a tint — same style as Streets highlights */
 .row-quest-done td{background:color-mix(in srgb,var(--dc,#6b2f04) 55%,#0a100a)!important;color:#fff!important}
 .promo-level-group--done{background:color-mix(in srgb,var(--da,#4ade80) 14%,#0d140d);border-color:color-mix(in srgb,var(--da,#4ade80) 40%,transparent)}
-/* ── Laff section grouping ── */
-.laff-group-divider{background:color-mix(in srgb,var(--da,#5ab0e0) 22%,#080e08);border-top:2px solid color-mix(in srgb,var(--da,#5ab0e0) 30%,transparent)}
-.laff-toon-progress{display:inline-block;margin:0 8px;font-size:11px;font-weight:700}
-.laff-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:color-mix(in srgb,var(--da,#5ab0e0) 22%,#080e08);border:none;padding:7px 14px;color:var(--da,#5ab0e0);font:inherit;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:filter .12s}
-.laff-collapse-btn:hover{filter:brightness(1.18)}
-.laff-collapse-btn--sub{background:color-mix(in srgb,var(--da,#5ab0e0) 12%,#080c08);font-size:11px;font-weight:800;padding:6px 14px;border-top:1px solid rgba(255,255,255,.06)}
+/* ── Laff section ── */
+.laff-cards-list{display:flex;flex-direction:column;gap:16px}
+.laff-collapse-btn--sub{display:flex;align-items:center;gap:8px;width:100%;background:color-mix(in srgb,var(--da,#5ab0e0) 12%,#080c08);border:none;font:inherit;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--da,#5ab0e0);padding:6px 14px;cursor:pointer;text-align:left;transition:filter .12s;border-top:1px solid rgba(255,255,255,.06)}
 .laff-collapse-btn--sub:hover{filter:brightness(1.18)}
-.laff-section-header td{background:color-mix(in srgb,var(--da,#5ab0e0) 10%,#080c08);padding:5px 12px;border-top:1px solid rgba(255,255,255,.06)}
-.laff-section-title{font-size:11px;font-weight:800;color:var(--da,#5ab0e0);letter-spacing:.06em;display:inline-flex;align-items:center;gap:4px;margin-right:12px}
-.laff-section-progress{display:inline-flex;flex-wrap:wrap;gap:0}
-.laff-pg-icon{vertical-align:middle;border-radius:2px}
-.col-playground{min-width:180px;max-width:240px}
+.laff-section-header td{background:color-mix(in srgb,var(--da,#5ab0e0) 10%,#080c08);padding:0;border-top:1px solid rgba(255,255,255,.06)}
+.laff-section-title{display:block;font-size:11px;font-weight:800;color:var(--da,#5ab0e0);letter-spacing:.08em;text-transform:uppercase;padding:7px 14px}
+.laff-pg-cell{display:inline-flex;align-items:center;gap:10px}
+.laff-pg-icon-wrap{flex-shrink:0}
+.laff-pg-icon{display:block;object-fit:contain;width:24px;height:24px}
 .toon-card{background:#0a100a;border:2px solid var(--tc,#4ade80);border-radius:14px;overflow:hidden}
 .toon-card-header{background:color-mix(in srgb,var(--tc,#4ade80) 18%,#080c08);padding:14px 18px;display:flex;align-items:center;gap:10px}
 .toon-card-dot{width:12px;height:12px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
