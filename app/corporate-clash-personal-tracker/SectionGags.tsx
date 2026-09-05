@@ -100,7 +100,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
       { heading: 'Trap Mechanics', items: [
         {
           label: 'TRAPPED', labelColor: '#f87171',
-          rich: [p('A Trap Gag is placed in front of the Cog and stays there until a '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lure'), p(' Gag triggers it, or the Cog is defeated.')],
+          rich: [p('A Trap Gag is placed in front of the Cog and stays there until a '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lure'), p(' Gag triggers it, or the Cog is defeated.')],
           sub: [
             [p('Only '), b('one Trap'), p(' can be active on a Cog at a time. If multiple Traps are placed, only the '), b('strongest'), p(' is kept '), em('(ties go to the rightmost Toon\'s Trap)'), p('.')],
           ],
@@ -117,7 +117,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
           label: 'ACCURACY', labelColor: '#f87171',
           rich: [p('Trap itself never misses — but it requires a successful '), b('Lure'), p(' to trigger.')],
           sub: [
-            [p('Lure is '), g('+20% more accurate'), p(' when targeting a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a [Trap Gag]! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take -[#] damage."), cy(' Trapped'), p(' Cog, and triggering a Trap counts as '), b('two stuns'), p('.')],
+            [p('Lure is '), g('+20% more accurate'), p(' when targeting a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a Trap Gag! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take reduced damage."), cy(' Trapped'), p(' Cog, and triggering a Trap counts as '), b('two stuns'), p('.')],
           ],
         },
       ]},
@@ -140,12 +140,12 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
       { heading: 'Lure Mechanics', items: [
         {
           label: 'LURED', labelColor: '#4ade80',
-          rich: [p('A lured Cog gains the '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' debuff — they '), b('cannot attack'), p(' and take '), g('bonus damage'), p(' from Throw and Squirt. Cogs '), b('un-lure immediately'), p(' when hit by most Gags '), em('(Drop and Squirt Splash are exceptions)'), p(' and can attack the same round they un-lure.')],
+          rich: [p('A lured Cog gains the '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' debuff — they '), b('cannot attack'), p(' and take '), g('bonus damage'), p(' from Throw and Squirt. Cogs '), b('un-lure immediately'), p(' when hit by most Gags '), em('(Drop and Squirt Splash are exceptions)'), p(' and can attack the same round they un-lure.')],
           sub: [
-            [cy('Throw'), p(' and '), cy('Squirt'), p(' are '), g('guaranteed to hit'), p(' '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
-            [cy('Drop'), p(' and unsoaked '), cy('Zap'), p(' '), r('always miss'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
-            [cy('Sound'), p(' is '), g('guaranteed to hit'), p(' when '), b('all'), p(' Cogs in battle are '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p('.')],
-            [p('Lure '), b('cannot'), p(' be used on a Cog that is already '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p('.')],
+            [cy('Throw'), p(' and '), cy('Squirt'), p(' are '), g('guaranteed to hit'), p(' '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
+            [cy('Drop'), p(' and unsoaked '), cy('Zap'), p(' '), r('always miss'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
+            [cy('Sound'), p(' is '), g('guaranteed to hit'), p(' when '), b('all'), p(' Cogs in battle are '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p('.')],
+            [p('Lure '), b('cannot'), p(' be used on a Cog that is already '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p('.')],
           ],
         },
         {
@@ -154,7 +154,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         },
         {
           label: 'KNOCKBACK DAMAGE', labelColor: '#f97316',
-          rich: [p('Throw and Squirt deal '), cy('Knockback Damage'), p(' — a '), g('flat bonus'), p(' — when hitting a '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cog. Multiple Throw or Squirt Gags in one turn each add to this bonus.')],
+          rich: [p('Throw and Squirt deal '), cy('Knockback Damage'), p(' — a '), g('flat bonus'), p(' — when hitting a '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cog. Multiple Throw or Squirt Gags in one turn each add to this bonus.')],
           sub: [
             [cy('Knockback Damage'), p(" is included when calculating Throw and Squirt's "), b('Combo Damage'), p('.')],
           ],
@@ -163,8 +163,8 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
           label: 'ACCURACY', labelColor: '#f87171',
           rich: [p("Lure's "), cy('base accuracy'), p(' ranges from '), g('75% to 85%'), p(' depending on the Gag used.')],
           sub: [
-            [p('Targeting a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a [Trap Gag]! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take -[#] damage."), cy(' Trapped'), p(' Cog gives Lure '), g('+20% accuracy'), p(', and triggering the Trap counts as '), b('two stuns'), p('.')],
-            [p('On a miss, targeted Cog(s) deal '), icon('CogDamageDown', '/icons/gags/effects/CogDamageDown.webp', "This Cog will deal 25% less damage with their attacks."), r(' −25% damage'), p(' that turn. This does '), b('NOT'), p(' apply to Cogs with '), icon('LureResistance', '/icons/gags/effects/LureResistance.webp', "This Cog cannot be lured."), cy(' Lure Resistance'), p('.')],
+            [p('Targeting a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a Trap Gag! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take reduced damage."), cy(' Trapped'), p(' Cog gives Lure '), g('+20% accuracy'), p(', and triggering the Trap counts as '), b('two stuns'), p('.')],
+            [p('On a miss, targeted Cog(s) deal '), icon('CogDamageDown', '/icons/gags/effects/CogDamageDown.webp', "This Cog will deal 25% less damage with their attacks."), r(' −25% damage'), p(' that turn. This does '), b('NOT'), p(' apply to Cogs with '), icon('Lure Resistance', '/icons/gags/effects/LureResistance.webp', "This Cog cannot be lured."), cy(' Lure Resistance'), p('.')],
           ],
         },
         {
@@ -230,7 +230,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
           label: 'SPLASH DAMAGE', labelColor: '#f472b6',
           rich: [p('Squirt deals '), cy('Splash Damage'), p(' to Cogs adjacent to the target, dealing '), g("33% of the Gag's damage"), p(' per splash hit '), em('(rounded up)'), p('.')],
           sub: [
-            [p('Splash Damage does '), b('not'), p(' wake up '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
+            [p('Splash Damage does '), b('not'), p(' wake up '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
             [cy('Combo Damage'), p(' and '), cy('Lure Knockback'), p(' are '), b('NOT'), p(' factored into Splash Damage.')],
           ],
         },
@@ -311,14 +311,14 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         },
         {
           label: 'ENCORE', labelColor: '#facc15',
-          rich: [p('Each time Sound successfully hits, the user gains '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' on the '), b('following round'), p(', giving all their Gags a '), g('+10% damage boost'), p(' '), em('(rounded up)'), p('.')],
+          rich: [p('Each time Sound successfully hits, the user gains '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a damage effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' on the '), b('following round'), p(', giving all their Gags a '), g('+10% damage boost'), p(' '), em('(rounded up)'), p('.')],
           sub: [
             [cy('Encore'), p(' applies to '), b('any'), p(' Gag used that round — including Sound itself.')],
           ],
         },
         {
           label: 'WINDED', labelColor: '#a78bfa',
-          rich: [p('Using Sound while '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' is active inflicts '), icon('Winded', '/icons/gags/effects/Winded.webp', "Your SOUND Gags will deal -50% less damage."), cy(' Winded'), p(' for '), b('the next 2 rounds'), p(', causing Sound Gags to deal '), r('−50% damage'), p('.')],
+          rich: [p('Using Sound while '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a damage effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' is active inflicts '), icon('Winded', '/icons/gags/effects/Winded.webp', "Your SOUND Gags will deal -50% less damage."), cy(' Winded'), p(' for '), b('the next 2 rounds'), p(', causing Sound Gags to deal '), r('−50% damage'), p('.')],
           sub: [
             [cy('Encore'), p(' and '), cy('Winded'), p(' are only applied if Sound '), b('successfully hits'), p('.')],
           ],
@@ -331,7 +331,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
       { heading: 'Prestige', prestige: true, items: [
         {
           label: 'ENCORE', labelColor: '#facc15',
-          rich: [p("Prestige Sound's "), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' buff doubles to '), g('+20% damage boost'), p(' '), em('(up from +10%)'), p('.')],
+          rich: [p("Prestige Sound's "), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a damage effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' buff doubles to '), g('+20% damage boost'), p(' '), em('(up from +10%)'), p('.')],
         },
       ]},
     ],
@@ -348,7 +348,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         },
         {
           label: 'ACCURACY', labelColor: '#e5e7eb',
-          rich: [p('Drop has a '), cy('base accuracy'), p(' of only '), b('60%'), p('. Each Drop Gag rolls independently. Drop '), r('always misses'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
+          rich: [p('Drop has a '), cy('base accuracy'), p(' of only '), b('60%'), p('. Each Drop Gag rolls independently. Drop '), r('always misses'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take bonus damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
           sub: [
             [p("Drop's accuracy soft-caps at "), g('96%'), p(' '), em('(vs. 95% for all other tracks)'), p(' when using accuracy-boosting effects.')],
           ],
@@ -359,7 +359,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
           label: 'DEBUFF BOOST', labelColor: '#4ade80',
           rich: [p('Prestige Drop deals '), g('+10% damage'), p(' against Cogs with at least one debuff, '), g('plus +5% per additional debuff'), p(' '), em('(stacks additively, rounded down)'), p('.')],
           sub: [
-            [p('Applicable debuffs: '), icon('Dazed', '/icons/gags/effects/Dazed.webp', "This Cog is DAZED and will take extra damage from TRAP Gags."), cy(' Dazed'), p(' '), em('(Trap)'), p(', '), icon('Marked for Laugh', '/icons/gags/effects/MarkedForLaugh.webp', "This Cog is more vulnerable, and will take 10% more damage."), cy(' Marked for Laugh'), p(' '), em('(Throw)'), p(', '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' '), em('(Squirt)'), p(', '), icon('Sued', '/icons/gags/effects/Sued.webp', "This Cog cannot attack! Each Gag used against this Cog increases the effect duration by 1 round, up to a maximum of [2-4] rounds."), cy(' Sued'), p(', '), icon('Explosion Imminent!', '/icons/gags/effects/ExplosionImminent.webp', "If this Cog is Overcharged at the beginning of the round and then is destroyed, they will explode, dealing massive damage to everybody and will temporarily weaken Bellringer's healing."), cy(' Explosion Imminent!'), p(', '), icon('Red Thread', '/icons/gags/effects/RedThread.webp', "Bound by the red thread of fate! When their partner takes damage, they echo 300% of it!"), cy(' Red Thread'), p(', '), icon("Can't Dodge", '/icons/gags/effects/CantDodge.webp', "This Cog cannot dodge Gags."), cy(" Can't Dodge"), p(', '), icon('Frozen', '/icons/gags/effects/Frozen.webp', "Frozen Cogs have -25% reduced dodge chance, low ZAP effectiveness, and -10% damage reduction! Upon being destroyed, this Cog will SHATTER."), cy(' Frozen'), p(', '), icon('Aggrandize', '/icons/gags/effects/Aggrandize.webp', "This Cog will absorb 25%/50% of the damage taken to the Chainsaw Consultant."), cy(' Aggrandize'), p(', '), icon('Kickback', '/icons/gags/effects/Kickback.webp', "The Chainsaw Consultant will take +10%/30% more damage."), cy(' Kickback'), p('.')],
+            [p('Applicable debuffs: '), icon('Dazed', '/icons/gags/effects/Dazed.webp', "This Cog is DAZED and will take extra damage from TRAP Gags."), cy(' Dazed'), p(' '), em('(Trap)'), p(', '), icon('Marked for Laugh', '/icons/gags/effects/MarkedForLaugh.webp', "This Cog is more vulnerable, and will take 10% more damage."), cy(' Marked for Laugh'), p(' '), em('(Throw)'), p(', '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' '), em('(Squirt)'), p(', '), icon('Sued', '/icons/gags/effects/Sued.webp', "This Cog cannot attack! Each Gag used against this Cog increases the effect duration by 1 round, up to a maximum of 2 to 4 rounds."), cy(' Sued'), p(', '), icon('Explosion Imminent!', '/icons/gags/effects/ExplosionImminent.webp', "If this Cog is Overcharged at the beginning of the round and then is destroyed, they will explode, dealing massive damage to everybody and will temporarily weaken Bellringer's healing."), cy(' Explosion Imminent!'), p(', '), icon('Red Thread', '/icons/gags/effects/RedThread.webp', "Bound by the red thread of fate! When their partner takes damage, they echo 300% of it!"), cy(' Red Thread'), p(', '), icon("Can't Dodge", '/icons/gags/effects/CantDodge.webp', "This Cog cannot dodge Gags."), cy(" Can't Dodge"), p(', '), icon('Frozen', '/icons/gags/effects/Frozen.webp', "Frozen Cogs have -25% reduced dodge chance, low ZAP effectiveness, and -10% damage reduction! Upon being destroyed, this Cog will SHATTER."), cy(' Frozen'), p(', '), icon('Aggrandize', '/icons/gags/effects/Aggrandize.webp', "This Cog will absorb 25%/50% of the damage taken to the Chainsaw Consultant."), cy(' Aggrandize'), p(', '), icon('Kickback', '/icons/gags/effects/Kickback.webp', "The Chainsaw Consultant will take +10%/30% more damage."), cy(' Kickback'), p('.')],
           ],
         },
       ]},
