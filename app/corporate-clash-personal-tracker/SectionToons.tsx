@@ -179,12 +179,18 @@ export function SectionToons() {
                 <div className="toon-promo-grid">
                   {PROMOTIONS.map(suit => {
                     const promo = getHighestPromo(suit.name, t);
+                    const cogIcon = promo ? suit.cogs.find(c => c.name === promo.cog)?.icon : undefined;
                     return (
                       <div key={suit.name} className="toon-promo-cell" style={{'--pcolor':suit.accent} as React.CSSProperties}>
-                        <span className="toon-promo-suit">{suit.name}</span>
-                        {promo
-                          ? <><span className="toon-promo-val">{promo.cog}</span><span className="toon-promo-sublevel">Lvl {promo.level}</span></>
-                          : <span className="toon-promo-val">{'—'}</span>}
+                        <div className="toon-promo-text">
+                          <span className="toon-promo-suit">{suit.name}</span>
+                          {promo
+                            ? <><span className="toon-promo-val">{promo.cog}</span><span className="toon-promo-sublevel">Lvl {promo.level}</span></>
+                            : <span className="toon-promo-val">{'—'}</span>}
+                        </div>
+                        {cogIcon && (
+                          <Image src={cogIcon} alt={promo!.cog} width={36} height={36} className="toon-promo-icon" unoptimized />
+                        )}
                       </div>
                     );
                   })}
