@@ -57,13 +57,16 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   // Load from Supabase — keyed on user.id string so object reference changes don't cause missed loads
   const userId = user?.id ?? null;
   useEffect(() => {
-    if (authLoading) return;   // wait until auth is fully resolved
-    if (!userId) return;       // not logged in
+    console.log('[Tracker] load effect fired — authLoading:', authLoading, 'userId:', userId);
+    if (authLoading) return;
+    if (!userId) return;
     const supabase = createClient();
     supabase.from('tracker_progress').select('data').eq('user_id', userId).single()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
+        console.log('[Tracker] supabase response — error:', error, 'data:', data);
         if (data?.data) {
           const d = data.data as { progress?: Progress; toonNames?: string[]; collapsedUI?: CollapsedUI };
+          console.log('[Tracker] loading — progress keys:', Object.keys(d.progress ?? {}).length, 'collapsedUI:', d.collapsedUI);
           if (d.progress) setProgress(d.progress);
           if (d.toonNames) setToonNames(d.toonNames);
           if (d.collapsedUI) setCollapsedUIState(d.collapsedUI);
@@ -73,13 +76,15 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
 
   // save() always reads from refs — never stale
   const save = useCallback(async (p: Progress, names: string[], cui: CollapsedUI) => {
-    if (!user) return;
+    if (!user) { console.log('[Tracker] save() skipped — no user'); return; }
+    console.log('[Tracker] save() called — progress keys:', Object.keys(p).length, 'collapsedUI:', cui);
     setSaving(true);
     const supabase = createClient();
-    await supabase.from('tracker_progress').upsert(
+    const { error } = await supabase.from('tracker_progress').upsert(
       { user_id: user.id, data: { progress: p, toonNames: names, collapsedUI: cui }, updated_at: new Date().toISOString() },
       { onConflict: 'user_id' }
     );
+    console.log('[Tracker] save() upsert result — error:', error);
     setSaving(false);
     setSaveMsg('Saved!');
     setTimeout(() => setSaveMsg(''), 2000);
