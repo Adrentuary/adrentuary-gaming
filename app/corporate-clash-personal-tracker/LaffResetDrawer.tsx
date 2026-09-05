@@ -14,6 +14,9 @@ const LAFF_RESET_ROWS: { label: string; prefixes: string[] }[] = [
   { label: 'Directives',  prefixes: ['lb:Directives:'] },
 ];
 
+const ALL_PREFIXES = LAFF_RESET_ROWS.flatMap(r => r.prefixes);
+const ALL_LABEL    = 'All Sections';
+
 interface ArmedState { label: string; prefixes: string[]; toon: Target }
 
 export function LaffResetDrawer() {
@@ -86,6 +89,26 @@ export function LaffResetDrawer() {
               </div>
             </div>
           ))}
+
+          <div className="quest-reset-row quest-reset-row--all">
+            <span className="quest-reset-row-label quest-reset-row-label--danger">
+              ⚠ Reset ALL Sections
+            </span>
+            <div className="quest-reset-row-btns">
+              {([0, 1, 2, 3] as ToonIndex[]).map(t => (
+                <button
+                  key={t}
+                  className={`reset-btn${isArmed(ALL_LABEL, t) ? ' reset-btn--armed' : ''}`}
+                  style={toonColor(t)}
+                  onClick={() => arm(ALL_LABEL, ALL_PREFIXES, t)}
+                >{toonNames[t]}</button>
+              ))}
+              <button
+                className={`reset-btn reset-btn--all${isArmed(ALL_LABEL, 'all') ? ' reset-btn--armed' : ''}`}
+                onClick={() => arm(ALL_LABEL, ALL_PREFIXES, 'all')}
+              >All Toons</button>
+            </div>
+          </div>
 
           {armed && (
             <div className="acct-danger-confirm">
