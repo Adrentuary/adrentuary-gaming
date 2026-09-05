@@ -306,11 +306,17 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .toon-stat-row strong{color:var(--ink);font-size:18px;font-weight:900}
 .tracker-card-sub{font-size:12px;font-weight:500;color:var(--muted);margin-left:auto}
 /* ── Leveling groups ── */
-.lv-groups-list{display:flex;flex-direction:column;gap:16px}
-.lv-group-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc,#1a2540);border:none;cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;border-bottom:1px solid rgba(255,255,255,.08)}
-.lv-group-header:hover{filter:brightness(1.13)}
-.lv-group-header--collapsed{border-bottom:none}
-.lv-group-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
+.lv-section-header td{background:color-mix(in srgb,var(--da,#7b6cf0) 20%,#080c08);padding:0}
+.lv-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:transparent;border:none;padding:7px 12px;color:var(--da,#7b6cf0);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:filter .12s}
+.lv-collapse-btn:hover{filter:brightness(1.18)}
+.lv-collapse-arrow{font-size:10px;flex-shrink:0}
+/* Reward badges */
+.lv-reward{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px}
+.lv-reward-dot{color:var(--muted);margin:0 1px}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px;font-weight:600;border:1px solid currentColor}
+.lv-badge--blue{color:#38bdf8;border-color:#38bdf8;background:rgba(56,189,248,.08)}
+.lv-badge--green{color:#4ade80;border-color:#4ade80;background:rgba(74,222,128,.08)}
+.lv-badge--yellow{color:#fbbf24;border-color:#fbbf24;background:rgba(251,191,36,.08)}
 /* ── Toon card enhanced stats ── */
 .toon-stat-section-label{font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px;padding-bottom:4px;border-bottom:1px solid #1a2a1a}
 .toon-gag-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
