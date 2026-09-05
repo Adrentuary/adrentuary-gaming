@@ -443,14 +443,14 @@ export function SectionGags() {
         return (
         <div key={track.name} className="gag-card"
           style={{"--gc": track.color, "--gh": track.headerColor, "--gl": track.labelColor} as React.CSSProperties}>
-          {/* Top bar: track name label + card collapse button */}
-          <div className="gag-card-header">
-            <span className="gag-card-header-label">{track.name}</span>
-            <button className="gag-card-collapse-btn" onClick={() => toggleCard(track.name)}
-              aria-expanded={!cardCollapsed} aria-label={cardCollapsed ? `Expand ${track.name}` : `Collapse ${track.name}`}>
-              <span className="gag-info-toggle-chevron">{cardCollapsed ? '▶' : '▼'}</span>
-            </button>
-          </div>
+          {/* Top bar: full-width button matching Collections banner style */}
+          <button className={`gag-card-header${cardCollapsed ? ' gag-card-header--collapsed' : ''}`}
+            onClick={() => toggleCard(track.name)}
+            aria-expanded={!cardCollapsed} aria-label={cardCollapsed ? `Expand ${track.name}` : `Collapse ${track.name}`}>
+            <span className="gag-card-header-arrow">{cardCollapsed ? '▶' : '▼'}</span>
+            <Image src={`/icons/gags/large/${track.largeIcon}`} alt={track.name} width={24} height={24} className="gag-card-header-icon" unoptimized />
+            <strong className="gag-card-header-label">{track.name}</strong>
+          </button>
           {!cardCollapsed && <div className="gag-table-scroll">
             <table className="gag-ss-table">
               <thead>

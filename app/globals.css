@@ -443,13 +443,15 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pgm-table-note{margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic}
 
 /* ── Gags redesign ─────────────────────────────────────────────────── */
-.gag-cards-list{display:flex;flex-direction:column;gap:6px}
+.gag-cards-list{display:flex;flex-direction:column;gap:16px}
 .gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;overflow:clip}
-/* Gag card info-toggle bar */
-.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent)}
-.gag-card-header-label{color:var(--gl,#4ade80);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
-.gag-card-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gl,#4ade80);padding:2px 4px;line-height:1;transition:filter .12s}
-.gag-card-collapse-btn:hover{filter:brightness(1.4)}
+/* Gag card header — full-width button matching Collections banner style */
+.gag-card-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border:none;border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s}
+.gag-card-header:hover{filter:brightness(1.13)}
+.gag-card-header--collapsed{border-bottom:none}
+.gag-card-header-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
+.gag-card-header-icon{width:24px;height:24px;object-fit:contain;display:block;flex-shrink:0}
+.gag-card-header-label{font-size:16px;font-weight:800;color:var(--gl,#4ade80);flex:1}
 .gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:4px 10px;line-height:1.2;transition:filter .12s;text-align:center}
 .gag-details-collapse-btn:hover{filter:brightness(1.4)}
 .gag-info-toggle-chevron{font-size:10px;flex-shrink:0;display:block;margin:2px auto 0}
