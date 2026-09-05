@@ -434,6 +434,7 @@ export function SectionGags() {
         lastChanges="All 8 gag track Mechanics fully enriched: wiki-accurate rich text, colored labels, inline status-effect icons with hover tooltips across all tracks."
       />
       <GagResetDrawer />
+      <div className="gag-cards-list">
       {GAG_TRACKS.map(track => {
         const infoCollapsed  = collapsedInfo.has(track.name);
         const cardCollapsed  = collapsedCard.has(track.name);
@@ -658,6 +659,7 @@ export function SectionGags() {
         </div>
         );
       })}
+      </div>
     </div>
   );
 }

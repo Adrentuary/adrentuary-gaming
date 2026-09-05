@@ -443,9 +443,10 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pgm-table-note{margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic}
 
 /* ── Gags redesign ─────────────────────────────────────────────────── */
-.gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;margin-bottom:20px}
+.gag-cards-list{display:flex;flex-direction:column;gap:6px}
+.gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;overflow:clip}
 /* Gag card info-toggle bar */
-.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);border-radius:14px 14px 0 0}
+.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent)}
 .gag-card-header-label{color:var(--gl,#4ade80);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
 .gag-card-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gl,#4ade80);padding:2px 4px;line-height:1;transition:filter .12s}
 .gag-card-collapse-btn:hover{filter:brightness(1.4)}
@@ -456,7 +457,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gag-details-collapse-label{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;margin-bottom:1px}
 .gag-details-collapse-btn--mechanics{margin-top:6px}
 /* Mechanics panel */
-.gag-mechanics-panel{padding:14px 18px;border-top:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);background:color-mix(in srgb,var(--gc,#4ade80) 4%,#090d09);border-radius:0 0 14px 14px;overflow:visible}
+.gag-mechanics-panel{padding:14px 18px;border-top:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);background:color-mix(in srgb,var(--gc,#4ade80) 4%,#090d09)}
 .gag-mechanics-intro{margin:0 0 12px;font-size:12px;color:var(--muted);line-height:1.6}
 .gag-mechanics-section{margin-bottom:14px}
 .gag-mechanics-section:last-child{margin-bottom:0}
