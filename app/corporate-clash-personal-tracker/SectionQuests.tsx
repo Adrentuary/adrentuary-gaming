@@ -151,7 +151,7 @@ export function SectionQuests() {
       <SectionNote
         description="Track quest completion across all 8 playgrounds for each of your toons. Main storyline, sidetasks, and Kudos rank-up quests are all included. Checking a row auto-marks all previous rows for that toon."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026"
+        lastUpdated="September 5th, 2026 · 9:00 AM"
         lastChanges="Collapse state now persists to your account via Supabase. Full TTC mainline and sidetask quest data. Quest reset drawer with per-playground reset. Checking a lower quest auto-unchecks all above it."
       />
       <QuestResetDrawer />

@@ -307,7 +307,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .tracker-card-sub{font-size:12px;font-weight:500;color:var(--muted);margin-left:auto}
 /* ── Leveling groups ── */
 .lv-section-header td{background:color-mix(in srgb,var(--da,#7b6cf0) 20%,#080c08);padding:0}
-.lv-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:transparent;border:none;padding:7px 12px;color:var(--da,#7b6cf0);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:filter .12s}
+.lv-collapse-btn{display:flex;align-items:center;gap:8px;width:100%;background:color-mix(in srgb,var(--da,#7b6cf0) 20%,#080c08);border:none;padding:7px 12px;color:var(--da,#7b6cf0);font:inherit;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;text-align:left;transition:filter .12s}
 .lv-collapse-btn:hover{filter:brightness(1.18)}
 .lv-collapse-arrow{font-size:10px;flex-shrink:0}
 /* Reward badges */

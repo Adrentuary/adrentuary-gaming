@@ -430,8 +430,8 @@ export function SectionGags() {
       <SectionNote
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026"
-        lastChanges="All 8 gag track Mechanics fully enriched: wiki-accurate rich text, colored labels, inline status-effect icons with hover tooltips across all tracks."
+        lastUpdated="September 5th, 2026 · 4:00 PM"
+        lastChanges="All 8 gag track mechanics panels: wiki-accurate descriptions, colored labels, inline status icons with hover tooltips. Collections-style banners with gag icons."
       />
       <GagResetDrawer />
       <div className="gag-cards-list">

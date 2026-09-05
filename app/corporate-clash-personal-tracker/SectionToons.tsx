@@ -71,7 +71,7 @@ export function SectionToons() {
       <SectionNote
         description="A per-toon overview of your progress across all sections. Shows quest completion by playground, gag track progress, promotion levels, leveling milestones, and laff boosts. Click a toon name to rename it."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 5th, 2026"
+        lastUpdated="September 5th, 2026 · 12:00 PM"
         lastChanges="Playground emblem icons added to toon stat cards. Small gag icons added to gag track progress display."
       />
       <div className="toons-grid-2x2">

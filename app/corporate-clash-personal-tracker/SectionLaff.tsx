@@ -92,7 +92,7 @@ export function SectionLaff() {
       <SectionNote
         description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, and promotions. Max laff is 150. Sections can be collapsed using the dropdown arrows."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 5th, 2026"
+        lastUpdated="September 5th, 2026 · 10:00 AM"
         lastChanges="Collapse state now persists to your account via Supabase. Progress bars removed. Hover flicker on collapse buttons fixed. Account page banner added."
       />
       <div className="tracker-card" style={{'--dc':'#1a2a3a','--da':'#5ab0e0'} as React.CSSProperties}>

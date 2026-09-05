@@ -122,7 +122,7 @@ export function SectionStreets() {
       <SectionNote
         description="Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked. Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info."
         status="Interactive sections are currently being developed for Ye Olde Toontowne, Daffodil Gardens, Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
-        lastUpdated="September 1st, 2026"
+        lastUpdated="September 1st, 2026 · 5:00 PM"
         lastChanges="Added full BB street shop data (83 shops across 4 streets) with all mainline and sidetask info. Added BB and TTC Playground Info modals with street manager stats, Cog building tiers, invasion immunity, and neighborhood connections."
       />
       {PAIRS.map((pair, pi) => (
