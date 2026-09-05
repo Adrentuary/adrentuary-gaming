@@ -183,7 +183,7 @@ export function SectionLaff() {
     <div className="tracker-section">
       <SectionNote
         description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, promotions, and directives. Max laff is 150. Each section can be collapsed independently."
-        status="Section design and interactive features are currently under development."
+        status="Everything in this section is currently up to date."
         lastUpdated="September 5th, 2026 · 9:00 PM"
         lastChanges="Source column added to Kudos. Promotions sub-sections are now individually collapsible like Activities. Reset drawer added with per-section per-toon reset. Lawbot corrected from Lowbot."
       />

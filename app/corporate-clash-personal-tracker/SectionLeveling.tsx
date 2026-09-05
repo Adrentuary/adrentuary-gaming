@@ -25,11 +25,9 @@ function RewardBadges({ reward }: { reward: string }) {
         if (part === 'Training point') cls = 'lv-badge lv-badge--blue';
         else if (part.startsWith('Carry ') && part.endsWith('gags')) cls = 'lv-badge lv-badge--green';
         else if (part.startsWith('Carry ') && part.endsWith('jellybeans')) cls = 'lv-badge lv-badge--yellow';
-        return (
-          <span key={i}>
-            {cls ? <span className={cls}>{part}</span> : <span>{part}</span>}
-          </span>
-        );
+        return cls
+          ? <span key={i} className={cls}>{part}</span>
+          : <span key={i} style={{marginRight:2}}>{part}</span>;
       })}
     </span>
   );

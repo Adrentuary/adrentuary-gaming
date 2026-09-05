@@ -311,7 +311,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .lv-collapse-btn:hover{filter:brightness(1.18)}
 .lv-collapse-arrow{font-size:10px;flex-shrink:0}
 /* Reward badges */
-.lv-reward{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px}
+.lv-reward{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px}
 .lv-reward-dot{color:var(--muted);margin:0 1px}
 .lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px;font-weight:600;border:1px solid currentColor}
 .lv-badge--blue{color:#38bdf8;border-color:#38bdf8;background:rgba(56,189,248,.08)}
