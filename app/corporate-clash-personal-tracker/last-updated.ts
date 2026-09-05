@@ -4,7 +4,7 @@
 // All section files import from here — one place to maintain.
 
 export const LAST_UPDATED = {
-  laff:        'September 5th, 2026 · 12:33 PM',
+  laff:        'September 5th, 2026 · 12:41 PM',
   leveling:    'September 5th, 2026 · 12:33 PM',
   gags:        'September 5th, 2026 · 11:16 AM',
   quests:      'September 5th, 2026 · 11:16 AM',
