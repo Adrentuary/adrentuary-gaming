@@ -23,10 +23,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const supabase = createClient();
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
+    // getUser() validates the token server-side — more reliable than getSession() on refresh
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          setSession(session);
+          setUser(user);
+          setLoading(false);
+        });
+      } else {
+        setSession(null);
+        setUser(null);
+        setLoading(false);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(

@@ -63,13 +63,15 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     const supabase = createClient();
     supabase.from('tracker_progress').select('data').eq('user_id', userId).single()
       .then(({ data, error }) => {
-        console.log('[Tracker] supabase response — error:', error, 'data:', data);
+        console.log('[Tracker] supabase response — error:', JSON.stringify(error), 'raw data:', JSON.stringify(data));
         if (data?.data) {
           const d = data.data as { progress?: Progress; toonNames?: string[]; collapsedUI?: CollapsedUI };
-          console.log('[Tracker] loading — progress keys:', Object.keys(d.progress ?? {}).length, 'collapsedUI:', d.collapsedUI);
+          console.log('[Tracker] progress keys:', Object.keys(d.progress ?? {}).length, 'toonNames:', d.toonNames, 'collapsedUI keys:', Object.keys(d.collapsedUI ?? {}));
           if (d.progress) setProgress(d.progress);
           if (d.toonNames) setToonNames(d.toonNames);
           if (d.collapsedUI) setCollapsedUIState(d.collapsedUI);
+        } else {
+          console.log('[Tracker] no row found or data is empty');
         }
       });
   }, [userId, authLoading]);
