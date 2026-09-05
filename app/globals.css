@@ -308,6 +308,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .toon-name-btn{background:none;border:none;color:var(--ink);font:inherit;font-size:15px;font-weight:800;cursor:pointer;padding:0}
 .toon-name-btn:hover{color:var(--tc,#4ade80)}
 .toon-collapse-chevron{margin-left:auto;font-size:11px;color:var(--muted);flex-shrink:0}
+.toon-reset-drawer-wrap{border-top:1px solid rgba(255,255,255,.06)}
+.toon-reset-drawer-wrap .quest-reset-drawer{border:none;border-radius:0;margin-bottom:0}
 .toon-stats{padding:14px 18px;display:flex;flex-direction:column;gap:8px}
 .toon-stat-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .toon-stat-row span{color:var(--muted)}

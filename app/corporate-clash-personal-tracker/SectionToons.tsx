@@ -10,6 +10,8 @@ import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 import type { QuestPlayground } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
+import { ToonResetDrawer } from './ToonResetDrawer';
+import { ToonAllResetDrawer } from './ToonAllResetDrawer';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
 
@@ -212,10 +214,16 @@ export function SectionToons() {
                   );})()}
                 </div>
               </div>
-            </div>)}
+            </div>)}{/* end toon-body-3col */}
+            {isToonOpen(t) && (
+              <div className="toon-reset-drawer-wrap">
+                <ToonResetDrawer toon={t} />
+              </div>
+            )}
           </div>
         ))}
       </div>
+      <ToonAllResetDrawer />
     </div>
   );
 }

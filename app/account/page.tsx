@@ -2,7 +2,6 @@
 import { Suspense, useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { AccountTrackerReset } from '../corporate-clash-personal-tracker/AccountTrackerReset';
 import { createClient } from '../../lib/supabase/client';
 import { SiteHeader, SiteFooter } from '../components/SiteChrome';
 import { useAuth } from '../components/AuthProvider';
@@ -220,12 +219,7 @@ function AccountContent() {
                 </div>
               </form>
             </section>
-            <section className="account-section">
-              <h2>Guide progress</h2>
-              <p className="account-body">Reset your Corporate Clash Personal Tracker progress by toon, or wipe everything at once.</p>
-              <AccountTrackerReset />
-              <Link className="button button--ghost" style={{marginTop:'16px',display:'inline-flex'}} href="/corporate-clash-personal-tracker">Open Tracker</Link>
-            </section>
+
           </div>
         </div>
       </main>
