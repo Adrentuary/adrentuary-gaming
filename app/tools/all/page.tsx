@@ -1,8 +1,7 @@
 import type {Metadata} from 'next';
-import Link from 'next/link';
 import {InteriorHero,InteriorPage} from '../../components/Interior';
 import {AnimateIn} from '../../components/AnimateIn';
-import {TOOLS} from '../page';
+import {TOOLS,ToolCard} from '../page';
 
 export const metadata:Metadata={title:'All Tools',description:'Every custom-built calculator and interactive resource from Adrentuary Gaming.'};
 
@@ -28,15 +27,7 @@ export default function AllTools(){return(
             <h3 className="tools-all-game-label">{game}</h3>
             <div className="tool-grid-inner tool-grid-inner--row">
               {gameTools.map((tool,i)=>(
-                <article key={i}>
-                  <div className="tool-status"><span/>Status: {tool.status}</div>
-                  <h2>{tool.title}</h2>
-                  <p className="tool-body">{tool.body}</p>
-                  {tool.live
-                    ?<Link href={tool.href} className="tool-launch-btn">Launch tool <span>↗</span></Link>
-                    :<span className="tool-soon">Coming soon</span>
-                  }
-                </article>
+                <ToolCard key={i} tool={tool} i={i}/>
               ))}
             </div>
           </div>
