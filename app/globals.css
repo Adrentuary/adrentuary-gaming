@@ -443,9 +443,9 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pgm-table-note{margin:6px 0 0;font-size:11px;color:var(--muted);font-style:italic}
 
 /* ── Gags redesign ─────────────────────────────────────────────────── */
-.gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;margin-bottom:20px}
 /* Gag card info-toggle bar */
-.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent)}
+.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);border-radius:14px 14px 0 0}
 .gag-card-header-label{color:var(--gl,#4ade80);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
 .gag-card-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gl,#4ade80);padding:2px 4px;line-height:1;transition:filter .12s}
 .gag-card-collapse-btn:hover{filter:brightness(1.4)}
@@ -456,7 +456,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gag-details-collapse-label{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;margin-bottom:1px}
 .gag-details-collapse-btn--mechanics{margin-top:6px}
 /* Mechanics panel */
-.gag-mechanics-panel{padding:14px 18px;border-top:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);background:color-mix(in srgb,var(--gc,#4ade80) 4%,#090d09)}
+.gag-mechanics-panel{padding:14px 18px;border-top:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);background:color-mix(in srgb,var(--gc,#4ade80) 4%,#090d09);border-radius:0 0 14px 14px;overflow:visible}
 .gag-mechanics-intro{margin:0 0 12px;font-size:12px;color:var(--muted);line-height:1.6}
 .gag-mechanics-section{margin-bottom:14px}
 .gag-mechanics-section:last-child{margin-bottom:0}
@@ -472,7 +472,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* Inline icon + tooltip */
 .gag-mech-icon-wrap{position:relative;display:inline-flex;align-items:center;vertical-align:middle;cursor:pointer}
 .gag-mech-icon{display:inline-block;vertical-align:middle;margin:0 1px}
-.gag-mech-tooltip{visibility:hidden;opacity:0;pointer-events:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);z-index:100;min-width:180px;max-width:260px;background:#0f1a2e;border:1px solid #2a4a7a;border-radius:10px;padding:10px 14px 12px;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:opacity .15s,visibility .15s;white-space:normal;text-align:center}
+.gag-mech-tooltip{visibility:hidden;opacity:0;pointer-events:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);z-index:9999;min-width:180px;max-width:260px;background:#0f1a2e;border:1px solid #2a4a7a;border-radius:10px;padding:10px 14px 12px;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:opacity .15s,visibility .15s;white-space:normal;text-align:center}
 .gag-mech-icon-wrap:hover .gag-mech-tooltip{visibility:visible;opacity:1}
 .gag-mech-tooltip-icon{display:block;margin:0 auto 6px;width:28px;height:28px;object-fit:contain}
 .gag-mech-tooltip-name{font-size:13px;font-weight:800;color:#fff;margin:0 0 4px;display:block}
