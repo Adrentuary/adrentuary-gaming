@@ -11,5 +11,5 @@ export const LAST_UPDATED = {
   collections: 'September 5th, 2026 · 11:16 AM',
   promotions:  'September 5th, 2026 · 11:16 AM',
   streets:     'September 1st, 2026 · 5:00 PM',
-  toons:       'September 5th, 2026 · 11:16 AM',
+  toons:       'September 5th, 2026 · 3:00 PM',
 };

@@ -271,8 +271,12 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .toon-pg-icon{flex-shrink:0;display:block;object-fit:contain}
 .toon-pg-name{font-size:10px;font-weight:700;color:var(--ink);display:block}
 .toon-pg-quest-detail{display:flex;flex-direction:column;gap:1px;min-width:0}
-.toon-pg-quest-subs{display:flex;flex-wrap:wrap;gap:4px}
+.toon-pg-quest-subs{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .toon-pg-quest-subs span{font-size:9px;color:var(--muted)}
+.toon-q-pipe{color:#2a3a2a!important;font-size:9px;user-select:none}
+.toon-level-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:2px 0}
+.toon-level-row span{color:var(--muted)}
+.toon-level-row strong{color:var(--ink);font-size:18px;font-weight:900}
 .toon-q-done{color:#4ade80!important;font-weight:700}
 .toon-q-all-done{font-size:9px;font-weight:800;color:#4ade80}
 .toon-gag-complete .toon-gag-val{color:#4ade80!important;font-size:9px}
