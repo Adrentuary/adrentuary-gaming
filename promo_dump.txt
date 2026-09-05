@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useCallback, useState } from 'react';
 import Image from 'next/image';
 
@@ -399,7 +399,7 @@ function SellbotContent({ accent }: { accent: string }) {
             <div className="pim-info-block">
               <p className="pim-para pim-note" style={{marginBottom: 4}}>Best ways to stack Invoices fast:</p>
               <ul className="pim-list">
-                <li><SBHighlight text="Sellbot Factories are the fastest method — many Sellbots are defeated per run." /></li>
+                <li><SBHighlight text="Sellbot Factories are the fastest method â€” many Sellbots are defeated per run." /></li>
                 <li><SBHighlight text="Sellbot Cog Buildings also reward Invoices, but Invasions do not boost Merits inside buildings or facilities." /></li>
                 <li><SBHighlight text="Boost earnings with Merit Monday, Cog Invasions, and Boosters." /></li>
               </ul>
@@ -408,7 +408,7 @@ function SellbotContent({ accent }: { accent: string }) {
               <p className="pim-para pim-note" style={{marginBottom: 4}}>Milestone rewards:</p>
               <ul className="pim-list">
                 <li><SBHighlight text="Teleport access to Sellbot HQ is earned when a Toon reaches Mover and Shaker Level 5." /></li>
-                <li><SBHighlight text="A Laff Point is earned at Mr. Hollywood Levels 8, 15, 20, 30, 40, and 50 — totaling 6 additional Laff Points." /></li>
+                <li><SBHighlight text="A Laff Point is earned at Mr. Hollywood Levels 8, 15, 20, 30, 40, and 50 â€” totaling 6 additional Laff Points." /></li>
               </ul>
             </div>
           </div>
@@ -461,7 +461,7 @@ function SellbotContent({ accent }: { accent: string }) {
                 </div>
                 <div className="pim-dept-level-body">
                   <ul className="pim-list">
-                    <li><SBHighlight text="Reward: Boss Rewards — exclusive IOU note collectible" /></li>
+                    <li><SBHighlight text="Reward: Boss Rewards â€” exclusive IOU note collectible" /></li>
                     <li><SBHighlight text="Grants access to advanced Sellbot encounters" /></li>
                   </ul>
                 </div>
@@ -473,7 +473,7 @@ function SellbotContent({ accent }: { accent: string }) {
                 </div>
                 <div className="pim-dept-level-body">
                   <ul className="pim-list">
-                    <li><SBHighlight text="Reward: Boss Rewards — unlocks the Robber Baron encounter" /></li>
+                    <li><SBHighlight text="Reward: Boss Rewards â€” unlocks the Robber Baron encounter" /></li>
                     <li><SBHighlight text="Highest Sellbot Department Level milestone currently available" /></li>
                   </ul>
                 </div>
