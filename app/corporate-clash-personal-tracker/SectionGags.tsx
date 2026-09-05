@@ -197,7 +197,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
           label: 'MARKED FOR LAUGH', labelColor: '#f97316',
           rich: [p('Cogs hit by Throw take '), g('10% more damage'), p(' from other Gag Tracks and sources in the turn '), em('(rounded up)'), p('.')],
           sub: [
-            [icon('MarkedForLaugh', '/icons/gags/effects/MarkedForLaugh.webp', "Cogs take 10% more damage from other Gag Tracks and sources in the turn."), cy(' Marked for Laugh'), p(' is applied on hit and lasts for the remainder of the turn.')],
+            [icon('Marked for Laugh', '/icons/gags/effects/MarkedForLaugh.webp', "This Cog is more vulnerable, and will take 10% more damage."), cy(' Marked for Laugh'), p(' is applied on hit and lasts for the remainder of the turn.')],
           ],
         },
         {
@@ -303,28 +303,68 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
     ],
   },
   'Sound': {
-    intro: [p("Sound is a Support Gag that deals low damage and targets all Cogs in battle simultaneously. Its damage is not split — each Cog takes the full amount. It is the seventh track in the Gag order.")],
+    intro: [
+      cy('Sound'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Sound Gags are '), b('Support Gags'), p(' that deal low damage and target all Cogs present in battle. Sound is the seventh track in the Gag order, going after '), cy('Zap'), p(' and before '), cy('Drop'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Sound Mechanics', items: [
-        { label: 'AoE', rich: [p('Sound targets '), b('all Cogs in battle'), p('. Its damage is not split — each Cog takes the full amount regardless of how many are present.')] },
-        { label: 'Encore', rich: [p('When Sound hits, it grants the user the Encore buff on the following round. Encore gives Gags a '), g('10% damage boost'), p(' (rounded up). Encore works with any Gag, including Sound itself.')] },
-        { label: 'Winded', rich: [p("Using Sound while Encore is active inflicts Winded for the next two rounds. Winded reduces Sound's damage by "), g('50%'), p('.')], sub: [[p('Encore and Winded are only applied if Sound successfully hits.')]] },
-        { label: 'Accuracy', rich: [p('Sound has a base accuracy of '), g('95%'), p('.')] },
+        {
+          label: 'AoE', labelColor: '#e5e7eb',
+          rich: [p('Sound targets '), b('all Cogs in battle'), p('. Its damage is '), b('not split'), p(', meaning each Cog takes the full amount regardless of how many are in battle.')],
+        },
+        {
+          label: 'ENCORE', labelColor: '#facc15',
+          rich: [p('When Sound hits, it grants the user the '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' buff on '), b('the following round'), p('. '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' gives Gags a '), g('10% damage boost'), p(' '), em('(rounded up)'), p('.')],
+          sub: [
+            [icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' works with any Gag, including Sound itself.')],
+          ],
+        },
+        {
+          label: 'WINDED', labelColor: '#a78bfa',
+          rich: [p('Using Sound while '), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' is active inflicts '), icon('Winded', '/icons/gags/effects/Winded.webp', "Your SOUND Gags will deal -50% less damage."), cy(' Winded'), p(' for the '), b('next two rounds'), p('. '), icon('Winded', '/icons/gags/effects/Winded.webp', "Your SOUND Gags will deal -50% less damage."), cy(' Winded'), p(' '), r("reduces Sound's damage by 50%"), p('.')],
+          sub: [
+            [icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' and '), icon('Winded', '/icons/gags/effects/Winded.webp', "Your SOUND Gags will deal -50% less damage."), cy(' Winded'), p(' are only applied if Sound successfully hits.')],
+          ],
+        },
+        {
+          label: 'ACCURACY', labelColor: '#e5e7eb',
+          rich: [p('Sound has a '), cy('base accuracy'), p(' of '), b('95%'), p('.')],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Encore', rich: [p("Prestige Sound's Encore grants a "), g('20% damage boost'), p(" to the next Gag (increased from 10%).")] },
+        {
+          label: 'ENCORE', labelColor: '#facc15',
+          rich: [p("Prestige Sound's "), icon('Encore', '/icons/gags/effects/Encore.webp', "All Gags have a +[#]% effectiveness boost. By using SOUND again, you'll become Winded."), cy(' Encore'), p(' grants a '), g('20% damage boost'), p(' to the next Gag '), em('(increased from 10%)'), p('.')],
+        },
       ]},
     ],
   },
   'Drop': {
-    intro: [p('Drop is a Power Gag with low accuracy that deals heavy single-target damage to Cogs. It is the eighth and final track in the Gag order, going after Sound.')],
+    intro: [
+      cy('Drop'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Drop Gags are '), b('Power Gags'), p(' with low accuracy that deal heavy single-target damage to Cogs. Drop is the eighth and final track in the Gag order, going after '), cy('Sound'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Drop Mechanics', items: [
-        { label: 'Combo Damage', rich: [p('Using multiple Drop Gags on the same Cog applies Combo Damage — '), g('30% of total Drop damage'), p(' dealt (rounded up).')] },
-        { label: 'Accuracy', rich: [p('Drop has a base accuracy of '), g('60%'), p('. Drop Gags will always miss on Lured Cogs. Each Drop Gag rolls its accuracy individually.')], sub: [[p("Drop's accuracy soft-caps at "), g('96%'), p(" (vs 95% for other Gag Tracks) when using accuracy-boosting effects.")]] },
+        {
+          label: 'COMBO DAMAGE', labelColor: '#facc15',
+          rich: [p('Using multiple Drop Gags on the same Cog in a turn applies '), g('Combo Damage'), p('. Combo Damage deals '), g('30% of total Drop damage dealt'), p(' to the Cog '), em('(rounded up)'), p('.')],
+        },
+        {
+          label: 'ACCURACY', labelColor: '#e5e7eb',
+          rich: [p('Drop has a '), cy('base accuracy'), p(' of '), b('60%'), p('. Drop Gags will '), b('always miss'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs. Each Drop Gag rolls its accuracy individually.')],
+          sub: [
+            [p("Drop's accuracy soft-caps at "), g('96%'), p(' '), em('(vs 95% for other Gag Tracks)'), p(' when using accuracy-boosting effects.')],
+          ],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Debuff Boost', rich: [p('Prestige Drop deals '), g('10% more damage'), p(' (rounded down) towards Debuffed Cogs, '), g('+5% per additional debuff'), p(' (stacks additively).')], sub: [[p("Applicable debuffs: Dazed (Trap), Marked for Laugh (Throw), Soaked (Squirt), Sued, Explosion Imminent!, Red Thread, Can't Dodge, Frozen, Aggrandize, Kickback.")]] },
+        {
+          label: 'DEBUFF BOOST', labelColor: '#4ade80',
+          rich: [p('Prestige Drop deals '), g('10% more damage'), p(' '), em('(rounded down)'), p(' towards Debuffed Cogs, '), g('+5% per additional debuff'), p(' '), em('(stacks additively)'), p('.')],
+          sub: [
+            [p('Applicable debuffs: '), icon('Dazed', '/icons/gags/effects/Dazed.webp', "This Cog is DAZED and will take extra damage from TRAP Gags."), cy(' Dazed'), p(' '), em('(Trap)'), p(', '), icon('Marked for Laugh', '/icons/gags/effects/MarkedForLaugh.webp', "This Cog is more vulnerable, and will take 10% more damage."), cy(' Marked for Laugh'), p(' '), em('(Throw)'), p(', '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' '), em('(Squirt)'), p(', '), icon('Sued', '/icons/gags/effects/Sued.webp', "This Cog cannot attack! Each Gag used against this Cog increases the effect duration by 1 round, up to a maximum of [2-4] rounds."), cy(' Sued'), p(', '), icon('Explosion Imminent!', '/icons/gags/effects/ExplosionImminent.webp', "If this Cog is Overcharged at the beginning of the round and then is destroyed, they will explode, dealing massive damage to everybody and will temporarily weaken Bellringer's healing."), cy(' Explosion Imminent!'), p(', '), icon('Red Thread', '/icons/gags/effects/RedThread.webp', "Bound by the red thread of fate! When their partner takes damage, they echo 300% of it!"), cy(' Red Thread'), p(', '), icon("Can't Dodge", '/icons/gags/effects/CantDodge.webp', "This Cog cannot dodge Gags."), cy(" Can't Dodge"), p(', '), icon('Frozen', '/icons/gags/effects/Frozen.webp', "Frozen Cogs have -25% reduced dodge chance, low ZAP effectiveness, and -10% damage reduction! Upon being destroyed, this Cog will SHATTER."), cy(' Frozen'), p(', '), icon('Aggrandize', '/icons/gags/effects/Aggrandize.webp', "This Cog will absorb 25%/50% of the damage taken to the Chainsaw Consultant."), cy(' Aggrandize'), p(', '), icon('Kickback', '/icons/gags/effects/Kickback.webp', "The Chainsaw Consultant will take +10%/30% more damage."), cy(' Kickback'), p('.')],
+          ],
+        },
       ]},
     ],
   },
@@ -394,7 +434,7 @@ export function SectionGags() {
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
         lastUpdated="September 5th, 2026"
-        lastChanges="Throw, Squirt & Zap Mechanics fully enriched: wiki-accurate rich text, colored labels, inline status-effect icons (MarkedForLaugh, Soaked, Lured) with hover tooltips."
+        lastChanges="All 8 gag track Mechanics fully enriched: wiki-accurate rich text, colored labels, inline status-effect icons with hover tooltips across all tracks."
       />
       <GagResetDrawer />
       {GAG_TRACKS.map(track => {
