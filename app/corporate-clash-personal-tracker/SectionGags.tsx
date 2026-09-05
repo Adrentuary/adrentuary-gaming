@@ -12,7 +12,7 @@ const COLLAPSED_MECHANICS_KEY = 'gags-mechanics';  // collapses the mechanics pa
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type MechanicItem = { label: string; text: string; sub?: string[] };
-type MechanicSection = { heading: string; items: MechanicItem[] };
+type MechanicSection = { heading: string; prestige?: boolean; items: MechanicItem[] };
 type MechanicsEntry = { intro: string; sections: MechanicSection[] };
 
 // ─── Gag Mechanics Data (Part 1: Toon-Up, Trap, Lure) ────────────────────────
@@ -27,7 +27,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Cheer', text: 'Healing a Toon gives them the Cheer buff for the round — Cheer grants a 10% Gag accuracy increase.', sub: ['Cheer does not stack.', 'The Toon-Up user does not receive the Cheer buff.'] },
         { label: 'Accuracy', text: 'Toon-Up has perfect accuracy (100%) and will never miss.' },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Self-Heal', text: "Prestige Toon-Up heals the user for 45% of the Gag's total heal (increased from 25%)." },
         { label: 'Cheer', text: 'Cheer now lasts 2 rounds (increased from 1 round).' },
       ]},
@@ -42,7 +42,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Executive Bonus', text: 'Trap deals 30% more damage against Executive and Manager Cogs.' },
         { label: 'Accuracy', text: 'Trap cannot miss on its own — Lure must activate it. Lure gains a 20% accuracy boost when targeting a Trapped Cog, and luring a Trapped Cog counts as two stuns.' },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Damage Bonus', text: "Prestige Trap deals 15% more damage to any Cog. Stacks multiplicatively with the Executive/Manager bonus — 49.5% more damage total against Executives/Managers." },
       ]},
     ],
@@ -56,7 +56,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Knockback Damage', text: 'Using Throw or Squirt on a Lured Cog inflicts Knockback Damage — a flat damage bonus that stacks with multiple Throw/Squirt Gags in a turn. Knockback is factored into Throw and Squirt Combo Damage.' },
         { label: 'Accuracy', text: "Lure's base accuracy ranges from 75%–85% per Gag. Gains a 20% boost when luring a Trapped Cog.", sub: ['If Lure misses, targeted Cogs deal -25% less damage that turn.', 'Rounds Lured and Knockback Damage do NOT stack with multiple Lure Gags — highest values are used.'] },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Knockback Damage', text: 'Prestige Lure gains increased knockback damage:', sub: ['Single-target Lure Gags: +15% more knockback damage (rounded up).', 'Multi-target Lure Gags: +25% more knockback damage (rounded up).'] },
       ]},
     ],
@@ -69,7 +69,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Combo Damage', text: 'Using multiple Throw Gags on the same Cog applies Combo Damage — 20% of total Throw damage dealt (rounded up). Lure Knockback is factored into Throw Combo Damage.' },
         { label: 'Accuracy', text: 'Throw has a base accuracy of 80%.' },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Caramelize', text: 'Hitting a Cog with Throw gives the user a self-heal for 20% of the damage dealt (rounded up). Damage buffs and debuffs factor in; Lure Knockback and Combo Damage do not.' },
       ]},
     ],
@@ -83,7 +83,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Combo Damage', text: 'Using multiple Squirt Gags on the same Cog applies Combo Damage — 20% of total Squirt damage dealt (rounded up). Lure Knockback is factored in.', sub: ['Splash Damage is NOT factored in nor can it trigger Combo Damage.'] },
         { label: 'Accuracy', text: 'Squirt has a base accuracy of 95%.' },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Splash Damage', text: "Prestige Squirt's Splash Damage deals 75% of Squirt's damage (increased from 33%)." },
       ]},
     ],
@@ -96,7 +96,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Zap Jumps', text: "Zap Jumps to adjacent Soaked Cogs, damaging them. Can Jump up to 2 other Cogs. Jumps draw from a Damage Pool equal to 80% of Zap's base damage, split between Jumps.", sub: ['If Zap Jumps twice, each Jump deals 40% of base damage.', 'Zap Jumps always move left if possible, otherwise right (one direction only).', 'Zap Jumps will NOT chain across unsoaked Cogs or empty spaces.'] },
         { label: 'Accuracy', text: 'Zap has perfect accuracy (100%) against Soaked Cogs, but will always miss on unsoaked Cogs.', sub: ['If Squirt misses, Zap Gags targeting those Cogs are conserved (not consumed).'] },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Zap Jumps', text: "Prestige Zap Jump's Damage Pool is now 105% of Zap's base damage (up from 80%). If Zap Jumps twice, each Jump deals 52.5% of base damage." },
       ]},
     ],
@@ -110,7 +110,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Winded', text: "Using Sound while Encore is active inflicts Winded for the next two rounds. Winded reduces Sound's damage by 50%.", sub: ['Encore and Winded are only applied if Sound successfully hits.'] },
         { label: 'Accuracy', text: 'Sound has a base accuracy of 95%.' },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Encore', text: "Prestige Sound's Encore grants a 20% damage boost to the next Gag (increased from 10%)." },
       ]},
     ],
@@ -122,7 +122,7 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
         { label: 'Combo Damage', text: 'Using multiple Drop Gags on the same Cog applies Combo Damage — 30% of total Drop damage dealt (rounded up).' },
         { label: 'Accuracy', text: "Drop has a base accuracy of 60%. Drop Gags will always miss on Lured Cogs. Each Drop Gag rolls its accuracy individually.", sub: ["Drop's accuracy soft-caps at 96% (vs 95% for other Gag Tracks) when using accuracy-boosting effects."] },
       ]},
-      { heading: '⭐ Prestige', items: [
+      { heading: 'Prestige', prestige: true, items: [
         { label: 'Debuff Boost', text: 'Prestige Drop deals 10% more damage (rounded down) towards Debuffed Cogs, +5% per additional debuff (stacks additively).', sub: ["Applicable debuffs: Dazed (Trap), Marked for Laugh (Throw), Soaked (Squirt), Sued, Explosion Imminent!, Red Thread, Can't Dodge, Frozen, Aggrandize, Kickback."] },
       ]},
     ],
@@ -194,12 +194,12 @@ export function SectionGags() {
                     <span className="gag-ss-track-name">{track.name}</span>
                     <button className="gag-details-collapse-btn" onClick={() => toggleInfo(track.name)}
                       aria-expanded={!infoCollapsed} aria-label={infoCollapsed ? `Show ${track.name} details` : `Hide ${track.name} details`}>
-                      <span className="gag-details-collapse-label">{track.name} Details</span>
+                      <span className="gag-details-collapse-label">Details</span>
                       <span className="gag-info-toggle-chevron">{infoCollapsed ? '▶' : '▼'}</span>
                     </button>
                     <button className="gag-details-collapse-btn gag-details-collapse-btn--mechanics" onClick={() => toggleMechanics(track.name)}
                       aria-expanded={!mechCollapsed} aria-label={mechCollapsed ? `Show ${track.name} mechanics` : `Hide ${track.name} mechanics`}>
-                      <span className="gag-details-collapse-label">{track.name} Mechanics</span>
+                      <span className="gag-details-collapse-label">Mechanics</span>
                       <span className="gag-info-toggle-chevron">{mechCollapsed ? '▶' : '▼'}</span>
                     </button>
                   </td>
@@ -356,7 +356,15 @@ export function SectionGags() {
               <p className="gag-mechanics-intro">{mechanics.intro}</p>
               {mechanics.sections.map((sec, si) => (
                 <div key={si} className="gag-mechanics-section">
-                  <h4 className="gag-mechanics-heading">{sec.heading}</h4>
+                  <h4 className="gag-mechanics-heading">
+                    {sec.prestige ? (
+                      <span className="gag-mechanics-prestige-heading">
+                        <Image src="/icons/gags/PrestigeStar.webp" alt="Prestige" width={14} height={14} className="gag-mechanics-prestige-star" unoptimized />
+                        {sec.heading}
+                        <Image src="/icons/gags/PrestigeStar.webp" alt="" width={14} height={14} className="gag-mechanics-prestige-star" unoptimized />
+                      </span>
+                    ) : sec.heading}
+                  </h4>
                   <ul className="gag-mechanics-list">
                     {sec.items.map((item, ii) => (
                       <li key={ii} className="gag-mechanics-item">

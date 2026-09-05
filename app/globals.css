@@ -461,6 +461,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gag-mechanics-section{margin-bottom:14px}
 .gag-mechanics-section:last-child{margin-bottom:0}
 .gag-mechanics-heading{margin:0 0 8px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gl,#4ade80);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 20%,transparent);padding-bottom:4px}
+.gag-mechanics-prestige-heading{display:inline-flex;align-items:center;gap:6px}
+.gag-mechanics-prestige-star{display:inline-block;vertical-align:middle;flex-shrink:0}
 .gag-mechanics-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
 .gag-mechanics-item{font-size:12px;line-height:1.6;color:var(--ink)}
 .gag-mechanics-label{font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.05em;color:var(--gl,#4ade80)}
