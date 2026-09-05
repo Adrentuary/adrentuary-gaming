@@ -28,21 +28,36 @@ export function SectionPromotions() {
     });
   };
 
+  // Build a flat list of ALL level keys across every cog in the suit (in order)
+  const allSuitKeys = suit.cogs.flatMap(cog =>
+    cog.levels.map(lv => `p:${suit.name}:${cog.name}:${lv.level}`)
+  );
+
   const handleLvClick = useCallback((cogName: string, levels: Lv[], li: number, toon: ToonIndex) => {
-    const keys = levels.map(lv => `p:${suit.name}:${cogName}:${lv.level}`);
-    const done = !!(progress[keys[li]]?.[toon]);
-    if (!done) { for (let i=0;i<=li;i++)           { if(!progress[keys[i]]?.[toon]) toggle(keys[i],toon); } }
-    else       { for (let i=li;i<keys.length;i++)  { if( progress[keys[i]]?.[toon]) toggle(keys[i],toon); } }
-  }, [suit.name, progress, toggle]);
+    const clickedKey = `p:${suit.name}:${cogName}:${levels[li].level}`;
+    const globalIdx  = allSuitKeys.indexOf(clickedKey);
+    if (globalIdx === -1) return;
+    const done = !!(progress[clickedKey]?.[toon]);
+    if (!done) {
+      for (let i = 0; i <= globalIdx; i++)               { if (!progress[allSuitKeys[i]]?.[toon]) toggle(allSuitKeys[i], toon); }
+    } else {
+      for (let i = globalIdx; i < allSuitKeys.length; i++) { if  (progress[allSuitKeys[i]]?.[toon]) toggle(allSuitKeys[i], toon); }
+    }
+  }, [suit.name, suit.cogs, allSuitKeys, progress, toggle]);
 
   const handleLvAll = useCallback((cogName: string, levels: Lv[], li: number) => {
-    const keys = levels.map(lv => `p:${suit.name}:${cogName}:${lv.level}`);
-    const all  = isAllDone(keys[li]);
+    const clickedKey = `p:${suit.name}:${cogName}:${levels[li].level}`;
+    const globalIdx  = allSuitKeys.indexOf(clickedKey);
+    if (globalIdx === -1) return;
+    const all = isAllDone(clickedKey);
     ([0,1,2,3] as ToonIndex[]).forEach(toon => {
-      if (!all) { for (let i=0;i<=li;i++)          { if(!progress[keys[i]]?.[toon]) toggle(keys[i],toon); } }
-      else      { for (let i=li;i<keys.length;i++) { if( progress[keys[i]]?.[toon]) toggle(keys[i],toon); } }
+      if (!all) {
+        for (let i = 0; i <= globalIdx; i++)               { if (!progress[allSuitKeys[i]]?.[toon]) toggle(allSuitKeys[i], toon); }
+      } else {
+        for (let i = globalIdx; i < allSuitKeys.length; i++) { if  (progress[allSuitKeys[i]]?.[toon]) toggle(allSuitKeys[i], toon); }
+      }
     });
-  }, [suit.name, progress, toggle, isAllDone]);
+  }, [suit.name, suit.cogs, allSuitKeys, progress, toggle, isAllDone]);
 
 
   return (
