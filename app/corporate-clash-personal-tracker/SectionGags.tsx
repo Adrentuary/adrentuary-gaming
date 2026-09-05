@@ -187,43 +187,118 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
       ]},
     ],
   },
-    'Throw': {
-    intro: [p("Throw is a Power Gag that deals a decent amount of damage. It provides strong single-target damage when combined with other Throw Gags and Lure's Knockback bonus. It is the fourth track in the Gag order.")],
+  'Throw': {
+    intro: [
+      cy('Throw'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Throw Gags are '), b('Power Gags'), p(' that deal a decent amount of damage. Throw provides strong single-target damage when used with multiple other Throw Gags, and its effectiveness can be boosted greatly when used in conjunction with '), cy("Lure's"), p(' Knockback bonus. Throw is the fourth track in the Gag order, going after '), cy('Lure'), p(' and before '), cy('Squirt'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Throw Mechanics', items: [
-        { label: 'Marked for Laugh', rich: [p('Cogs hit by Throw take '), g('10% more damage'), p(' from other Gag Tracks and sources in the turn (rounded up).')] },
-        { label: 'Combo Damage', rich: [p('Using multiple Throw Gags on the same Cog applies Combo Damage — '), g('20% of total Throw damage'), p(' dealt (rounded up). Lure Knockback is factored into Throw Combo Damage.')] },
-        { label: 'Accuracy', rich: [p('Throw has a base accuracy of '), g('80%'), p('.')] },
+        {
+          label: 'MARKED FOR LAUGH', labelColor: '#f97316',
+          rich: [p('Cogs hit by Throw take '), g('10% more damage'), p(' from other Gag Tracks and sources in the turn '), em('(rounded up)'), p('.')],
+          sub: [
+            [icon('MarkedForLaugh', '/icons/gags/effects/MarkedForLaugh.webp', "Cogs take 10% more damage from other Gag Tracks and sources in the turn."), cy(' Marked for Laugh'), p(' is applied on hit and lasts for the remainder of the turn.')],
+          ],
+        },
+        {
+          label: 'COMBO DAMAGE', labelColor: '#facc15',
+          rich: [p('Using multiple Throw Gags on the same Cog in a turn applies '), g('Combo Damage'), p('. Combo Damage deals '), g('20% of total Throw damage dealt'), p(' to the Cog '), em('(rounded up)'), p('.')],
+          sub: [
+            [cy('Lure Knockback'), p(" is factored into Throw's "), g('Combo Damage'), p('.')],
+          ],
+        },
+        {
+          label: 'ACCURACY', labelColor: '#e5e7eb',
+          rich: [p('Throw has a '), cy('base accuracy'), p(' of '), b('80%'), p('.')],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Caramelize', rich: [p('Hitting a Cog with Throw gives the user a self-heal for '), g('20% the damage dealt'), p(' (rounded up). Damage buffs and debuffs factor in; Lure Knockback and Combo Damage do not.')] },
+        {
+          label: 'CARAMELIZE', labelColor: '#4ade80',
+          rich: [p('Hitting a Cog with Throw gives the user a '), g('self-heal'), p(' for '), g('20% the damage dealt'), p(' '), em('(rounded up)'), p('.')],
+          sub: [
+            [p('Damage buffs and debuffs '), em('(e.g. Throw IOUs, Damage Reduction)'), p(' factor into the self-heal. However, '), cy('Lure Knockback'), p(' and '), g('Combo Damage'), p(' '), b('do not'), p('.')],
+          ],
+        },
       ]},
     ],
   },
   'Squirt': {
-    intro: [p("Squirt is a Support Gag that deals moderate damage, can hit multiple Cogs, and inflicts the Soaked debuff. Soaked reduces Cog dodge chance and is required by Zap to function. It is the fifth track in the Gag order.")],
+    intro: [
+      cy('Squirt'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Squirt Gags are '), b('Support Gags'), p(' that deal moderate damage to Cogs, can hit multiple Cogs, and can inflict them with the Soaked debuff. This debuff reduces a Cog\'s dodge chance which can be useful in conjunction with other Gags, especially '), cy('Zap'), p(', which requires the debuff to function. Squirt is the fifth track in the Gag order, going after '), cy('Throw'), p(' and before '), cy('Zap'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Squirt Mechanics', items: [
-        { label: 'Splash Damage', rich: [p("Squirt deals Splash Damage to adjacent Cogs at "), g("33% of Squirt's damage"), p(" per hit (rounded up).")], sub: [[p('Splash Damage does not wake up Lured Cogs.')], [p('Combo Damage and Lure Knockback are NOT factored into Splash Damage.')]] },
-        { label: 'Soaked', rich: [p('Squirt applies the Soaked debuff for '), g('3–4 rounds'), p('. Soaked reduces Cog Defense by -10 and gives Zap perfect accuracy (100%).')], sub: [[p('Splash Damage also inflicts Soaked.')], [p('Zapping a Soaked Cog removes the debuff at end of turn.')]] },
-        { label: 'Combo Damage', rich: [p('Using multiple Squirt Gags on the same Cog applies Combo Damage — '), g('20% of total Squirt damage'), p(' dealt (rounded up). Lure Knockback is factored in.')], sub: [[p('Splash Damage is NOT factored in nor can it trigger Combo Damage.')]] },
-        { label: 'Accuracy', rich: [p('Squirt has a base accuracy of '), g('95%'), p('.')] },
+        {
+          label: 'SPLASH DAMAGE', labelColor: '#f472b6',
+          rich: [p('Squirt deals '), cy('Splash Damage'), p(' to adjacent Cogs. Splash Damage deals '), g("33% of Squirt's damage"), p(' per hit '), em('(rounded up)'), p('.')],
+          sub: [
+            [p('Splash Damage does not wake up '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy(' Lured'), p(' Cogs.')],
+            [g('Combo Damage'), p(' and '), cy('Lure Knockback'), p(' are '), b('NOT'), p(' factored into Splash Damage.')],
+          ],
+        },
+        {
+          label: 'SOAKED', labelColor: '#22d3ee',
+          rich: [p('Squirt applies the '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' debuff on Cogs for '), b('3\u20134 rounds'), p('. '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' reduces '), cy('Cog Defense'), p(' by '), r('-10'), p(' and gives Zap '), g('perfect accuracy'), p(' '), em('(100%)'), p('. '), cy('Splash Damage'), p(' also inflicts '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p('.')],
+          sub: [
+            [p('Zapping a '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' Cog removes the debuff at the end of the turn.')],
+          ],
+        },
+        {
+          label: 'COMBO DAMAGE', labelColor: '#facc15',
+          rich: [p('Using multiple Squirt Gags on the same Cog in a turn applies '), g('Combo Damage'), p('. Combo Damage deals '), g('20% of total Squirt damage dealt'), p(' to the Cog '), em('(rounded up)'), p('.')],
+          sub: [
+            [cy('Lure Knockback'), p(" is factored into Squirt's "), g('Combo Damage'), p('. However, '), cy('Splash Damage'), p(' is '), b('NOT'), p(' factored in nor can it trigger Combo Damage.')],
+          ],
+        },
+        {
+          label: 'ACCURACY', labelColor: '#e5e7eb',
+          rich: [p('Squirt has a '), cy('base accuracy'), p(' of '), b('95%'), p('.')],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Splash Damage', rich: [p("Prestige Squirt's Splash Damage deals "), g("75% of Squirt's damage"), p(" (increased from 33%).")] },
+        {
+          label: 'SPLASH DAMAGE', labelColor: '#f472b6',
+          rich: [p("Prestige Squirt's "), cy('Splash Damage'), p(' deals '), g("75% of Squirt's damage"), p(' '), em('(increased from 33%)'), p('.')],
+        },
       ]},
     ],
   },
   'Zap': {
-    intro: [p('Zap is a Power Gag dealing solid damage that can chain to up to 3 Cogs at once. Cogs must be Soaked (via Squirt) for Zap to hit. It is the sixth track in the Gag order.')],
+    intro: [
+      cy('Zap'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Zap Gags are '), b('Power Gags'), p(' dealing solid damage and can chain damage up to 3 Cogs at once. However, Cogs must be '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' for Zap to hit, which can only be applied via '), cy('Squirt Gags'), p('. Zap is the sixth track in the Gag order, going after '), cy('Squirt'), p(' and before '), cy('Sound'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Zap Mechanics', items: [
-        { label: 'Soaked Requirement', rich: [p('Zap can only hit Cogs who are Soaked (applied via Squirt Gags). Zapping a Soaked Cog removes the debuff at end of turn.')] },
-        { label: 'Zap Jumps', rich: [p("Zap Jumps to adjacent Soaked Cogs, damaging them. Can Jump up to 2 other Cogs. Jumps draw from a Damage Pool equal to "), g("80% of Zap's base damage"), p(", split between Jumps.")], sub: [[p('If Zap Jumps twice, each Jump deals 40% of base damage.')], [p('Zap Jumps always move left if possible, otherwise right (one direction only).')], [p('Zap Jumps will NOT chain across unsoaked Cogs or empty spaces.')]] },
-        { label: 'Accuracy', rich: [p('Zap has '), g('perfect accuracy (100%)'), p(' against Soaked Cogs, but will '), b('always miss'), p(' on unsoaked Cogs.')], sub: [[p('If Squirt misses, Zap Gags targeting those Cogs are conserved (not consumed).')]] },
+        {
+          label: 'SOAKED', labelColor: '#22d3ee',
+          rich: [p('Zap can only hit Cogs who are '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' '), em('(applied via Squirt Gags)'), p('. Zapping a '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' Cog removes the debuff at the end of the turn.')],
+        },
+        {
+          label: 'ZAP JUMPS', labelColor: '#facc15',
+          rich: [p('Zap will '), b('Jump'), p(' to adjacent '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' Cogs, damaging them. Zap can Jump up to '), b('2 other Cogs'), p(' in a row. Zap Jumps take from a '), g('Damage Pool'), p(':')],
+          sub: [
+            [g('Damage Pool'), p(': Zap Jumps deal '), g("80% of Zap's base damage"), p(' '), em('(rounded up)'), p(', split between the Jumps. If Zap Jumps twice, each Jump will deal '), g("40% of Zap's base damage"), p('.')],
+            [p('Zap Jumps will always move '), b('left'), p(' if possible; otherwise, they will move right. Zap Jumps will only move in one direction '), em('(i.e. the second Jump cannot change direction)'), p('.')],
+            [p('Zap Jumps will '), b('NOT'), p(' chain across unsoaked Cogs nor empty spaces '), em('(if a Cog was killed previously in the turn)'), p('.')],
+          ],
+        },
+        {
+          label: 'ACCURACY', labelColor: '#e5e7eb',
+          rich: [p('Zap has '), g('perfect accuracy'), p(' '), em('(100%)'), p(' against '), icon('Soaked', '/icons/gags/effects/Soaked.webp', "Soaked Cogs have a -10% dodge chance and are vulnerable to ZAP Gags. Removed if this Cog is hit by ZAP Gags."), cy(' Soaked'), p(' Cogs, but will '), r('always miss'), p(' on unsoaked Cogs.')],
+          sub: [
+            [p('If Squirt misses and Cogs are unsoaked, none of the Zap Gags in that turn will be used, conserving them '), em('(assuming they were targeted towards would-be Soaked Cogs)'), p('.')],
+          ],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Zap Jumps', rich: [p("Prestige Zap Jump's Damage Pool is now "), g("105% of Zap's base damage"), p(" (up from 80%). If Zap Jumps twice, each Jump deals 52.5% of base damage.")] },
+        {
+          label: 'ZAP JUMPS', labelColor: '#facc15',
+          rich: [p("Prestige Zap Jump's "), g('Damage Pool'), p(' is now '), g("105% of Zap's base damage"), p(' '), em('(increased from 80%)'), p('.')],
+          sub: [
+            [p('If Zap Jumps twice, each Jump will deal '), g("52.5% of Zap's base damage"), p('.')],
+          ],
+        },
       ]},
     ],
   },
@@ -319,7 +394,7 @@ export function SectionGags() {
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
         lastUpdated="September 5th, 2026"
-        lastChanges="Trap & Lure Mechanics fully enriched with rich text: colored labels, inline status-effect icons (Lured, Trapped, Dazed, CogDamageDown, LureResistance) with clean hover tooltips. Tooltip popup redesigned."
+        lastChanges="Throw, Squirt & Zap Mechanics fully enriched: wiki-accurate rich text, colored labels, inline status-effect icons (MarkedForLaugh, Soaked, Lured) with hover tooltips."
       />
       <GagResetDrawer />
       {GAG_TRACKS.map(track => {
