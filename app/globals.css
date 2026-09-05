@@ -463,6 +463,21 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gag-mechanics-heading{margin:0 0 8px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gl,#4ade80);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 20%,transparent);padding-bottom:4px}
 .gag-mechanics-prestige-heading{display:inline-flex;align-items:center;gap:6px}
 .gag-mechanics-prestige-star{display:inline-block;vertical-align:middle;flex-shrink:0}
+/* Rich text segments */
+.gag-mech-green{color:#4ade80;font-weight:600}
+.gag-mech-cyan{color:#22d3ee}
+.gag-mech-muted{color:var(--muted)}
+.gag-mech-italic{font-style:italic;color:var(--muted)}
+/* Inline icon + tooltip */
+.gag-mech-icon-wrap{position:relative;display:inline-flex;align-items:center;vertical-align:middle;cursor:pointer}
+.gag-mech-icon{display:inline-block;vertical-align:middle;margin:0 1px}
+.gag-mech-tooltip{visibility:hidden;opacity:0;pointer-events:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:100;min-width:200px;max-width:280px;background:#0f1a2e;border:1px solid #2a4a7a;border-radius:10px;padding:0;box-shadow:0 4px 24px rgba(0,0,0,.7);transition:opacity .15s,visibility .15s;white-space:normal;text-align:center}
+.gag-mech-icon-wrap:hover .gag-mech-tooltip{visibility:visible;opacity:1}
+.gag-mech-tooltip-header{background:repeating-linear-gradient(90deg,#c9a227 0px,#c9a227 18px,#d4af37 18px,#d4af37 36px);padding:8px 12px;border-radius:9px 9px 0 0;display:flex;align-items:center;justify-content:center;gap:8px;border-bottom:2px solid #a07c18}
+.gag-mech-tooltip-icon{flex-shrink:0;width:30px;height:30px;object-fit:contain}
+.gag-mech-tooltip-body{padding:8px 12px 10px;background:#0f1a2e;border-radius:0 0 10px 10px}
+.gag-mech-tooltip-name{font-size:13px;font-weight:800;color:#fff;margin:0 0 4px;display:block}
+.gag-mech-tooltip-desc{font-size:12px;color:#c8e6fa;margin:0;line-height:1.5}
 .gag-mechanics-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
 .gag-mechanics-item{font-size:12px;line-height:1.6;color:var(--ink)}
 .gag-mechanics-label{font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.05em;color:var(--gl,#4ade80)}
