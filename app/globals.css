@@ -818,9 +818,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pim-loc-table{width:100%;border-collapse:collapse;font-size:11px;min-width:220px}
 .pim-loc-th{padding:5px 10px;background:rgba(0,0,0,.4);font-weight:700;color:rgba(255,255,255,.65);text-align:left;border-bottom:1px solid rgba(255,255,255,.1)}
 .pim-loc-name{padding:5px 10px;font-weight:700;color:#fff;font-size:11px;border-bottom:1px solid rgba(255,255,255,.06)}
-.pim-loc-name--street{background:#26304a;color:#e8ecf7}
 .pim-loc-name--hq{background:color-mix(in srgb,var(--pgm-accent,#c0567a) 22%,#0d0a18);color:var(--pgm-accent,#c0567a)}
-.pim-loc-name--building{background:#131825;color:rgba(255,255,255,.82)}
+.pim-loc-name--building{background:#26304a;color:rgba(255,255,255,.88)}
 .pim-loc-val{padding:5px 10px;text-align:center;color:var(--ink,#e0dfe8);font-size:11px;border-bottom:1px solid rgba(255,255,255,.06)}
 .pim-loc-val--bold{font-weight:800;color:#ffecac}
 .pim-loc-row--bold td{background:rgba(255,200,80,.06)}
