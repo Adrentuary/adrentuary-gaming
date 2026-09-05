@@ -332,7 +332,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .toon-promo-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .toon-promo-cell{display:flex;flex-direction:column;background:color-mix(in srgb,var(--pcolor,#888) 12%,#0a100a);border:1px solid color-mix(in srgb,var(--pcolor,#888) 25%,transparent);border-radius:6px;padding:5px 8px}
 .toon-promo-suit{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:color-mix(in srgb,var(--pcolor,#888) 80%,#fff)}
-.toon-promo-val{font-size:12px;font-weight:800;color:var(--ink);margin-top:2px}
+.toon-promo-val{font-size:11px;font-weight:700;color:var(--ink);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toon-promo-sublevel{font-size:11px;font-weight:600;color:var(--muted);margin-top:1px}
 .toon-laff-grid{display:flex;flex-direction:column;gap:2px}
 .toon-laff-group-label{font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 .toon-laff-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;color:var(--muted)}
