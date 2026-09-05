@@ -84,7 +84,9 @@ export function CollectionsResetDrawer() {
                 {SECTION_ICON_IMG[sec.name]
                   ? <Image src={SECTION_ICON_IMG[sec.name]} alt={sec.name} width={16} height={16} style={{objectFit:'contain',verticalAlign:'middle',marginRight:5}} unoptimized />
                   : null}
-                {sec.name === 'Unobtainable' ? <><span>🔒</span>Unobtainable</> : sec.name}
+                {sec.name === 'Unobtainable'
+                  ? <><span style={{width:16,height:16,fontSize:14,lineHeight:'16px',display:'inline-flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>🔒</span>Unobtainable</>
+                  : sec.name}
               </span>
               <div className="quest-reset-row-btns">
                 {([0,1,2,3] as ToonIndex[]).map(t => (
