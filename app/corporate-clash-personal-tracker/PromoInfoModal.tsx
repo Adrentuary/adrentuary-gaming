@@ -73,20 +73,144 @@ const SB_SPECIAL = [
   { name:'Bellringer',                      tier:'Regional Manager', level:'13 (mgr)', dmg:'10-15',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Bellringer_CG.gif' },
   { name:'Prethinker',                      tier:'Regional Manager', level:'12 (mgr)', dmg:'10-19',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Prethinker_CG.gif' },
   { name:'Multislacker',                    tier:'Regional Manager', level:'24 (mgr)', dmg:'18-25',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Multislacker_CG.gif' },
-  { name:'Senior Vice President',           tier:'Boss',             level:'VP',       dmg:'Varies', img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-SeniorVicePresident_CG.gif' },
-  { name:'Robber Baron',                    tier:'Boss',             level:'???',      dmg:'???',    img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-RobberBaron_CG.gif' },
+  { name:'Senior Vice President',           tier:'Boss',             level:'VP',       dmg:'Varies', img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-VPGif.gif' },
 ];
 const SB_REMOVED = [
   { name:'Director of Public Relations', tier:'Manager', level:'Removed', dmg:'N/A', img:'/icons/promotions/Sellbot/corporate-ladder/removed/300px-DOPRGal.gif' },
 ];
 
 /* Detailed cog data: attacks, locations, invasions */
-interface AttackRow { name: string; target: 'Single Toon'|'All Toons'; levels: number[]; dmg: number[]; acc: number[]; freq: number; }
+interface AttackRow { name: string; target: 'Single Toon'|'All Toons'; levels: number[]; dmg: number[]; acc: number[]; freq: number | number[]; }
 interface StreetLoc  { name: string; color: string; accent: string; spawn: string; avg: string; }
 interface BuildLoc   { label: string; spawn: string; avg: string; boss: string; bold?: boolean; }
 interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLoc[]; hqLocs?: { label: string; spawn: string; avg: string }[]; buildings?: BuildLoc[]; invasions: string[]; }
 
 const SB_COG_DETAILS: CogDetail[] = [
+  {
+    cogName: 'Cold Caller',
+    attacks: [
+      { name:'Freeze Assets', target:'Single Toon', levels:[1,2,3,4,5], dmg:[3,4,6,8,10],  acc:[50,50,50,50,50], freq:[5,10,15,20,25] },
+      { name:'Pound Key',     target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,2,3,4,5],   acc:[75,80,85,90,95], freq:25 },
+      { name:'Mumbo Jumbo',   target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,3,4,6,8],   acc:[50,55,60,65,70], freq:25 },
+      { name:'Hot Air',       target:'Single Toon', levels:[1,2,3,4,5], dmg:[1,1,1,1,1],   acc:[90,90,90,90,90], freq:[45,40,35,30,25] },
+    ],
+    streets: [
+      { name:'Punchline Place', color:'#5a2800', accent:'#e06020', spawn:'16%',   avg:'~4'   },
+      { name:'Anchor Avenue',   color:'#5a1a05', accent:'#dc4a14', spawn:'15.7%', avg:'~4'   },
+      { name:'Knight Knoll',    color:'#33205e', accent:'#9b70cc', spawn:'7.9%',  avg:'~2'   },
+      { name:'Tulip Terrace',   color:'#314600', accent:'#9bd31a', spawn:'8.9%',  avg:'~2'   },
+      { name:'Alto Avenue',     color:'#482052', accent:'#bf62cb', spawn:'3.5%',  avg:'~1'   },
+    ],
+    hqLocs: [
+      { label:'SBHQ Courtyard',   spawn:'7.8%', avg:'~1' },
+      { label:'Factory Exterior', spawn:'5%',   avg:'~1' },
+    ],
+    buildings: [
+      { label:'1 Story',           spawn:'66.7%', avg:'~5-6', boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'14.3%', avg:'~2',   boss:'0%'  },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',   boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens'],
+  },
+  {
+    cogName: 'Telemarketer',
+    attacks: [
+      { name:'Clip On Tie',  target:'Single Toon', levels:[2,3,4,5,6], dmg:[2,2,3,3,4],   acc:[75,75,75,75,75], freq:15 },
+      { name:'Rolodex',      target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,6,7,9,12],  acc:[50,50,50,50,50], freq:20 },
+      { name:'Finger Wag',   target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,5,7,9,10],  acc:[60,65,70,75,80], freq:15 },
+      { name:'Pound Key',    target:'Single Toon', levels:[2,3,4,5,6], dmg:[3,4,5,6,7],   acc:[55,65,70,75,80], freq:20 },
+      { name:'Mumbo Jumbo',  target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,6,7,9,12],  acc:[75,80,85,90,95], freq:15 },
+      { name:'Pick Pocket',  target:'Single Toon', levels:[2,3,4,5,6], dmg:[1,1,1,1,1],   acc:[75,75,75,75,75], freq:15 },
+    ],
+    streets: [
+      { name:'Punchline Place', color:'#5a2800', accent:'#e06020', spawn:'12%',   avg:'~3'   },
+      { name:'Anchor Avenue',   color:'#5a1a05', accent:'#dc4a14', spawn:'15.7%', avg:'~4'   },
+      { name:'Knight Knoll',    color:'#33205e', accent:'#9b70cc', spawn:'10.6%', avg:'~3'   },
+      { name:'Tulip Terrace',   color:'#314600', accent:'#9bd31a', spawn:'13.3%', avg:'~3'   },
+      { name:'Alto Avenue',     color:'#482052', accent:'#bf62cb', spawn:'7.2%',  avg:'~1-2' },
+      { name:'Sleet Street',    color:'#003a46', accent:'#29b2dc', spawn:'4.3%',  avg:'~1'   },
+    ],
+    hqLocs: [
+      { label:'SBHQ Courtyard',   spawn:'11.7%', avg:'~1' },
+      { label:'Factory Exterior', spawn:'10%',   avg:'~2' },
+    ],
+    buildings: [
+      { label:'1 Story',           spawn:'33.3%', avg:'~3',   boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'21.4%', avg:'~3',   boss:'0%'  },
+      { label:'3 Story (Tier II)', spawn:'13.3%', avg:'~1-2', boss:'0%'  },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',  avg:'~1',   boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland'],
+  },
+  {
+    cogName: 'Name Dropper',
+    attacks: [
+      { name:'Razzle Dazzle', target:'Single Toon', levels:[3,4,5,6,7], dmg:[4,5,6,9,12],  acc:[75,80,85,90,95], freq:30 },
+      { name:'Rolodex',       target:'Single Toon', levels:[3,4,5,6,7], dmg:[5,6,7,10,14], acc:[95,95,95,95,95], freq:40 },
+      { name:'Synergy',       target:'All Toons',   levels:[3,4,5,6,7], dmg:[3,4,6,9,12],  acc:[50,50,50,50,50], freq:15 },
+      { name:'Pick Pocket',   target:'Single Toon', levels:[3,4,5,6,7], dmg:[2,2,2,2,2],   acc:[95,95,95,95,95], freq:15 },
+    ],
+    streets: [
+      { name:'Punchline Place', color:'#5a2800', accent:'#e06020', spawn:'8%',    avg:'~2'   },
+      { name:'Anchor Avenue',   color:'#5a1a05', accent:'#dc4a14', spawn:'11.8%', avg:'~3'   },
+      { name:'Knight Knoll',    color:'#33205e', accent:'#9b70cc', spawn:'10.6%', avg:'~3'   },
+      { name:'Tulip Terrace',   color:'#314600', accent:'#9bd31a', spawn:'17.8%', avg:'~4-5' },
+      { name:'Alto Avenue',     color:'#482052', accent:'#bf62cb', spawn:'10.7%', avg:'~2-3' },
+      { name:'Sleet Street',    color:'#003a46', accent:'#29b2dc', spawn:'8.6%',  avg:'~2-3' },
+      { name:'Peanut Place',    color:'#00451e', accent:'#20cf69', spawn:'2.7%',  avg:'~1'   },
+    ],
+    hqLocs: [
+      { label:'SBHQ Courtyard',   spawn:'15.7%', avg:'~1-2' },
+      { label:'Factory Exterior', spawn:'15%',   avg:'~3'   },
+    ],
+    buildings: [
+      { label:'1 Story',           spawn:'0%',    avg:'~0-1', boss:'33.3%' },
+      { label:'2 Story (Tier I)',  spawn:'20%',   avg:'~2',   boss:'25%'  },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%'  },
+      { label:'3 Story (Tier I)',  spawn:'21.4%', avg:'~3',   boss:'20%'  },
+      { label:'3 Story (Tier II)', spawn:'20%',   avg:'~2-3', boss:'0%'   },
+      { label:'4 Story (Tier I)',  spawn:'13.3%', avg:'~2',   boss:'0%'   },
+      { label:'4 Story (Tier II)', spawn:'7.1%',  avg:'~1',   boss:'0%'   },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh'],
+  },
+  {
+    cogName: 'Glad Hander',
+    attacks: [
+      { name:'Rubber Stamp',  target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,3,2,1,1],   acc:[90,70,50,30,10], freq:[40,30,20,10,5]  },
+      { name:'Fountain Pen',  target:'Single Toon', levels:[4,5,6,7,8], dmg:[3,3,2,1,1],   acc:[70,60,50,40,30], freq:[40,30,20,10,5]  },
+      { name:'Filibuster',    target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[30,40,50,60,70], freq:[10,20,30,40,45] },
+      { name:'Schmooze',      target:'Single Toon', levels:[4,5,6,7,8], dmg:[5,7,11,15,20],acc:[55,65,75,85,95], freq:[10,20,30,40,45] },
+    ],
+    streets: [
+      { name:'Punchline Place', color:'#5a2800', accent:'#e06020', spawn:'4%',    avg:'~1'   },
+      { name:'Anchor Avenue',   color:'#5a1a05', accent:'#dc4a14', spawn:'7.9%',  avg:'~2'   },
+      { name:'Knight Knoll',    color:'#33205e', accent:'#9b70cc', spawn:'7.9%',  avg:'~2'   },
+      { name:'Tulip Terrace',   color:'#314600', accent:'#9bd31a', spawn:'17.8%', avg:'~4-5' },
+      { name:'Alto Avenue',     color:'#482052', accent:'#bf62cb', spawn:'10.7%', avg:'~2-3' },
+      { name:'Sleet Street',    color:'#003a46', accent:'#29b2dc', spawn:'12.8%', avg:'~4'   },
+      { name:'Peanut Place',    color:'#00451e', accent:'#20cf69', spawn:'5.5%',  avg:'~2'   },
+      { name:'Lullaby Lane',    color:'#1a1060', accent:'#7b68ee', spawn:'5.7%',  avg:'~2'   },
+    ],
+    hqLocs: [
+      { label:'SBHQ Courtyard',   spawn:'19.5%', avg:'~2' },
+      { label:'Factory Exterior', spawn:'20%',   avg:'~4' },
+    ],
+    buildings: [
+      { label:'2 Story (Tier I)',  spawn:'0%',    avg:'~0-1', boss:'25%'  },
+      { label:'2 Story (Tier II)', spawn:'14.3%', avg:'~1-2', boss:'20%'  },
+      { label:'3 Story (Tier I)',  spawn:'21.4%', avg:'~3',   boss:'20%'  },
+      { label:'3 Story (Tier II)', spawn:'20%',   avg:'~2-3', boss:'20%'  },
+      { label:'4 Story (Tier I)',  spawn:'20%',   avg:'~3-4', boss:'0%'   },
+      { label:'4 Story (Tier II)', spawn:'14.3%', avg:'~2',   boss:'0%'   },
+      { label:'5 Story (Tier I)',  spawn:'5.3%',  avg:'~1',   boss:'0%'   },
+    ],
+    invasions: ['Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres'],
+  },
   {
     cogName: 'Mover & Shaker',
     attacks: [
@@ -245,7 +369,7 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
                     </tr>
                     <tr>
                       <td className="pim-atk-label">Frequency</td>
-                      {atk.levels.map((_,i) => <td key={i} className="pim-atk-val">{atk.freq}</td>)}
+                      {atk.levels.map((_,i) => <td key={i} className="pim-atk-val">{Array.isArray(atk.freq) ? atk.freq[i] : atk.freq}</td>)}
                     </tr>
                   </tbody>
                 </table>
