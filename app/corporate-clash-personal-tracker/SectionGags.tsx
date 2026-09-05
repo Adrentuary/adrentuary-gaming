@@ -18,6 +18,7 @@ type Seg =
   | { t: 'green'; v: string }
   | { t: 'cyan'; v: string }
   | { t: 'muted'; v: string }
+  | { t: 'red'; v: string }
   | { t: 'icon'; name: string; src: string; tooltip: string };
 
 type RichLine = Seg[];
@@ -38,6 +39,7 @@ const em = (v: string): Seg => ({ t: 'em',    v });
 const g  = (v: string): Seg => ({ t: 'green', v });
 const cy = (v: string): Seg => ({ t: 'cyan',  v });
 const mu = (v: string): Seg => ({ t: 'muted', v });
+const r  = (v: string): Seg => ({ t: 'red',   v });
 const icon = (name: string, src: string, tooltip: string): Seg => ({ t: 'icon', name, src, tooltip });
 
 // ─── Gag Mechanics Data ───────────────────────────────────────────────────────
@@ -94,34 +96,98 @@ const GAG_MECHANICS: Record<string, MechanicsEntry> = {
     ],
   },
   'Trap': {
-    intro: [p('Trap is a Power Gag that specializes in dealing massive damage to a single Cog. It is the second track in the Gag order, going after Toon-Up and before Lure.')],
+    intro: [
+      cy('Trap'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Trap Gags are '), b('Power Gags'), p(' that specialize in dealing massive damage to a Cog in a single attack. Trap is the second track in the Gag order, going after '), cy('Toon-Up'), p(' and before '), cy('Lure'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Trap Mechanics', items: [
-        { label: 'Trapped', rich: [p('Using Trap places the Gag in front of the Cog. To trigger it, the Cog must be Lured into it via Lure. The Trap remains until triggered or the Cog is destroyed.')], sub: [[p('Only one Trap can be placed on a Cog at a time.')], [p("Multiple Traps on the same Cog — only the strongest is used (or the rightmost Toon's in a tie).")]] },
-        { label: 'Dazed', rich: [p('Upon triggering a Trap Gag, the Cog is Dazed for 2 rounds. Dazed lowers Cog Defense by 10%, making Gags more accurate against it.')] },
-        { label: 'Executive Bonus', rich: [p('Trap deals '), g('30% more damage'), p(' against Executive and Manager Cogs.')] },
-        { label: 'Accuracy', rich: [p('Trap cannot miss on its own — Lure must activate it. Lure gains a 20% accuracy boost when targeting a Trapped Cog, and luring a Trapped Cog counts as two stuns.')] },
+        {
+          label: 'Trapped', labelColor: '#f87171',
+          rich: [p('Using Trap places the Gag in front the Cog. To trigger it, the Cog must be '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' into it via the '), cy('Lure'), p(' Track. The Trap will remain in front of the Cog until it\'s triggered or the Cog destroyed.')],
+          sub: [
+            [p('Only '), b('one Trap'), p(' can be placed on a Cog at a time. Attempting to use multiple Traps on the same Cog will result in only the strongest Trap being used '), em('(or the rightmost Toon\'s Trap in case of a tie)'), p('.')],
+          ],
+        },
+        {
+          label: 'Dazed', labelColor: '#facc15',
+          rich: [p('Upon triggering a Trap Gag, the Cog will be '), icon('Dazed', '/icons/gags/effects/Dazed.webp', "This Cog is dazed due to a TRAP activation, and as such has a -10% dodge chance reduction!"), cy('Dazed'), p(' for '), b('2 rounds'), p('. Dazed lowers the Cog\'s '), cy('Defense'), p(' by '), r('10%'), p(' '), em('(making Gags used on this Cog more accurate)'), p('.')],
+        },
+        {
+          label: 'Executive Bonus', labelColor: '#f97316',
+          rich: [p('Trap deals '), g('30% more damage'), p(' against '), cy('Executive'), p(' and '), cy('Manager'), p(' Cogs.')],
+        },
+        {
+          label: 'Accuracy', labelColor: '#f87171',
+          rich: [p('Trap cannot miss on its own. However, '), b('Lure must be used to activate it'), p('.')],
+          sub: [
+            [p('Lure gains a '), g('20% accuracy boost'), p(' when used on a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a [Trap Gag]! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take -[#] damage."), cy('Trapped'), p(' Cog. Additionally, '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('luring'), p(' a Cog into a Trap counts as two '), cy('stuns'), p('.')],
+          ],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Damage Bonus', rich: [p('Prestige Trap deals '), g('15% more damage'), p(' to any Cog. Stacks multiplicatively with the Executive/Manager bonus — '), g('49.5% more damage'), p(' total against Executives/Managers.')] },
+        {
+          label: 'Damage Bonus', labelColor: '#f97316',
+          rich: [p('Prestige Trap deals '), g('15% more damage'), p(' to any Cog.')],
+          sub: [
+            [p('This stacks '), b('multiplicatively'), p(' with Trap\'s Executive/Manager bonus, meaning Prestige Trap deals '), g('49.5% more damage'), p(' towards '), cy('Executive'), p(' and '), cy('Manager'), p(' Cogs.')],
+          ],
+        },
       ]},
     ],
   },
-  'Lure': {
-    intro: [p('Lure is a Support Gag used to stun Cogs, preventing them from attacking for multiple turns. Lure cannot deal damage on its own. It is the third track in the Gag order.')],
+    'Lure': {
+    intro: [
+      cy('Lure'), p(' is a '), cy('Gag Track'), p(' used by '), cy('Toons'), p(' in '), cy('Cog Battles'), p('. Lure Gags are '), b('Support Gags'), p(' used to stun Cogs, preventing them from attacking for multiple turns. Lure cannot deal damage on its own, but is great for preventing damage from Cogs and allows Toons to safely focus dangerous Cogs. Lure is the third track in the Gag order, going after '), cy('Trap'), p(' and before '), cy('Throw'), p(' in a turn.'),
+    ],
     sections: [
       { heading: 'Lure Mechanics', items: [
-        { label: 'Lured', rich: [p('Luring a Cog gives them the Lured debuff — Lured Cogs cannot attack for a set number of rounds.')], sub: [[p('Cogs immediately unlure when attacked with Gags (excluding Drop and Squirt splash damage).')], [p('Cogs can attack the same round they unlure.')], [p('Throw and Squirt are guaranteed to hit Lured Cogs.')], [p('Drop and unsoaked Zap are guaranteed to miss Lured Cogs.')], [p('Sound is guaranteed to hit so long as every Cog is Lured.')], [p('Lure Gags cannot be used on Cogs that are already Lured.')]] },
-        { label: 'Single/Multi-Target', rich: [p('Every odd-numbered Lure Gag targets one Cog; every even-numbered Gag targets all Cogs.')] },
-        { label: 'Knockback Damage', rich: [p('Using Throw or Squirt on a Lured Cog inflicts Knockback Damage — a flat damage bonus that stacks with multiple Throw/Squirt Gags in a turn. Knockback is factored into Throw and Squirt Combo Damage.')] },
-        { label: 'Accuracy', rich: [p("Lure's base accuracy ranges from "), g('75%–85%'), p(' per Gag. Gains a 20% boost when luring a Trapped Cog.')], sub: [[p('If Lure misses, targeted Cogs deal -25% less damage that turn.')], [p('Rounds Lured and Knockback Damage do NOT stack with multiple Lure Gags — highest values are used.')]] },
+        {
+          label: 'Lured', labelColor: '#4ade80',
+          rich: [p('Luring a Cog gives them the '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' debuff. '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' Cogs '), b('cannot attack'), p(' for a set number of rounds. Cogs immediately '), b('unlure'), p(' when attacked with Gags '), em("(excluding Drop and Squirt's splash damage)"), p('. Cogs can attack the same round they unlure '), em('(i.e. 1 round of Lure left means they will attack that turn)'), p('.')],
+          sub: [
+            [cy('Throw'), p(' and '), cy('Squirt'), p(' are '), b('guaranteed to hit'), p(' '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' Cogs.')],
+            [cy('Drop'), p(' and unsoaked '), cy('Zap'), p(' are '), b('guaranteed to miss'), p(' on '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' Cogs.')],
+            [cy('Sound'), p(' is '), b('guaranteed to hit'), p(' so long as every Cog is '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p('.')],
+            [p('Lure Gags '), b('cannot'), p(' be used on Cogs that are currently '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p('.')],
+          ],
+        },
+        {
+          label: 'Single/Multi-Target', labelColor: '#f9fafb',
+          rich: [p('Every odd-numbered Lure Gag can only target one Cog, while every even-numbered Gag will target all Cogs in battle.')],
+        },
+        {
+          label: 'Knockback Damage', labelColor: '#f97316',
+          rich: [p('Using '), cy('Throw'), p(' or '), cy('Squirt'), p(' on a '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' Cog inflicts '), cy('Knockback Damage'), p('. Knockback Damage is a flat '), g('damage bonus'), p(' that stacks with multiple Throw or Squirt Gags used in a turn.')],
+          sub: [
+            [cy('Knockback Damage'), p(" is factored into Throw and Squirt's "), b('Combo Damage'), p('.')],
+          ],
+        },
+        {
+          label: 'Accuracy', labelColor: '#f87171',
+          rich: [p("Lure's "), cy('base accuracy'), p(' varies by Gag, ranging from '), g('75% - 85%'), p('.')],
+          sub: [
+            [p('When luring a '), icon('Trapped', '/icons/gags/effects/Trapped.webp', "This Cog is TRAPPED by a [Trap Gag]! LURE Gags are +20% more accurate against this Cog. Once LURED, they will take -[#] damage."), cy('Trapped'), p(' Cog, Lure gains a '), g('20% accuracy boost'), p('. Additionally, luring a Cog into a Trap counts as two '), cy('stuns'), p('.')],
+            [p('If Lure misses, the targeted Cog(s) will deal '), icon('CogDamageDown', '/icons/gags/effects/CogDamageDown.webp', "This Cog will deal 25% less damage with their attacks."), r('-25% less damage'), p(' during the turn. This hidden debuff does '), b('NOT'), p(' affect Cogs with '), icon('LureResistance', '/icons/gags/effects/LureResistance.webp', "Cogs cannot be lured."), cy('Lure Resistance'), p('.')],
+          ],
+        },
+        {
+          label: '', labelColor: undefined,
+          rich: [p('Rounds '), icon('Lured', '/icons/gags/effects/Lured.webp', "LURED Cogs cannot attack and take +[#] more damage from each THROW or SQUIRT Gag that's used."), cy('Lured'), p(' and '), cy('Knockback Damage'), p(' do '), b('NOT'), p(' stack with multiple Lure Gags. Instead, it will use the highest rounds & knockback values.')],
+        },
       ]},
       { heading: 'Prestige', prestige: true, items: [
-        { label: 'Knockback Damage', rich: [p('Prestige Lure gains increased knockback damage:')], sub: [[p('Single-target Lure Gags: '), g('+15% more knockback damage'), p(' (rounded up).')], [p('Multi-target Lure Gags: '), g('+25% more knockback damage'), p(' (rounded up).')]] },
+        {
+          label: 'Knockback Damage', labelColor: '#f97316',
+          rich: [p('Prestige Lure gains increased knockback damage:')],
+          sub: [
+            [p('Single-target Lure Gags have '), g('15% more knockback damage'), p(' '), em('(rounded up)'), p('.')],
+            [p('Multi-target Lure Gags have '), g('25% more knockback damage'), p(' '), em('(rounded up)'), p('.')],
+          ],
+        },
       ]},
     ],
   },
-  'Throw': {
+    'Throw': {
     intro: [p("Throw is a Power Gag that deals a decent amount of damage. It provides strong single-target damage when combined with other Throw Gags and Lure's Knockback bonus. It is the fourth track in the Gag order.")],
     sections: [
       { heading: 'Throw Mechanics', items: [
@@ -200,17 +266,14 @@ function RichText({ line }: { line: RichLine }) {
         if (seg.t === 'green') return <span key={i} className="gag-mech-green">{seg.v}</span>;
         if (seg.t === 'cyan')  return <span key={i} className="gag-mech-cyan">{seg.v}</span>;
         if (seg.t === 'muted') return <span key={i} className="gag-mech-muted">{seg.v}</span>;
+        if (seg.t === 'red')   return <span key={i} className="gag-mech-red">{seg.v}</span>;
         if (seg.t === 'icon')  return (
           <span key={i} className="gag-mech-icon-wrap">
             <Image src={seg.src} alt={seg.name} width={18} height={18} className="gag-mech-icon" unoptimized />
             <span className="gag-mech-tooltip">
-              <span className="gag-mech-tooltip-header">
-                <Image src={seg.src} alt={seg.name} width={30} height={30} className="gag-mech-tooltip-icon" unoptimized />
-              </span>
-              <span className="gag-mech-tooltip-body">
-                <strong className="gag-mech-tooltip-name">{seg.name}</strong>
-                <span className="gag-mech-tooltip-desc">{seg.tooltip}</span>
-              </span>
+              <Image src={seg.src} alt={seg.name} width={28} height={28} className="gag-mech-tooltip-icon" unoptimized />
+              <strong className="gag-mech-tooltip-name">{seg.name}</strong>
+              <span className="gag-mech-tooltip-desc">{seg.tooltip}</span>
             </span>
           </span>
         );
@@ -256,7 +319,7 @@ export function SectionGags() {
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
         lastUpdated="September 5th, 2026"
-        lastChanges="Toon-Up Mechanics now uses full wiki-style rich text: colored labels, green highlights, cyan game terms, italic parentheticals, and inline Cheer icon with hover tooltip popup."
+        lastChanges="Trap & Lure Mechanics fully enriched with rich text: colored labels, inline status-effect icons (Lured, Trapped, Dazed, CogDamageDown, LureResistance) with clean hover tooltips. Tooltip popup redesigned."
       />
       <GagResetDrawer />
       {GAG_TRACKS.map(track => {
@@ -459,11 +522,13 @@ export function SectionGags() {
                   <ul className="gag-mechanics-list">
                     {sec.items.map((item, ii) => (
                       <li key={ii} className="gag-mechanics-item">
-                        <span
-                          className="gag-mechanics-label"
-                          style={item.labelColor ? { color: item.labelColor } as React.CSSProperties : undefined}
-                        >{item.label}</span>
-                        <span className="gag-mechanics-text"> : <RichText line={item.rich} /></span>
+                        {item.label && (
+                          <span
+                            className="gag-mechanics-label"
+                            style={item.labelColor ? { color: item.labelColor } as React.CSSProperties : undefined}
+                          >{item.label}</span>
+                        )}
+                        <span className="gag-mechanics-text">{item.label ? ' : ' : ''}<RichText line={item.rich} /></span>
                         {item.sub && (
                           <ul className="gag-mechanics-sublist">
                             {item.sub.map((subLine, si2) => (
