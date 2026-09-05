@@ -82,7 +82,7 @@ const SB_REMOVED = [
 
 /* Detailed cog data: attacks, locations, invasions */
 interface AttackRow { name: string; target: 'Single Toon'|'All Toons'; levels: number[]; dmg: number[]; acc: number[]; freq: number; }
-interface StreetLoc  { name: string; color: string; spawn: string; avg: string; }
+interface StreetLoc  { name: string; color: string; accent: string; spawn: string; avg: string; }
 interface BuildLoc   { label: string; spawn: string; avg: string; boss: string; bold?: boolean; }
 interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLoc[]; hqLocs?: { label: string; spawn: string; avg: string }[]; buildings?: BuildLoc[]; invasions: string[]; }
 
@@ -97,13 +97,13 @@ const SB_COG_DETAILS: CogDetail[] = [
       { name:'Tremor',        target:'All Toons',   levels:[5,6,7,8,9,10], dmg:[5,6,7,8,9,10],     acc:[50,50,50,50,50,50], freq:20 },
     ],
     streets: [
-      { name:'Anchor Avenue',   color:'#c04a2a', spawn:'3.9%',  avg:'~1'   },
-      { name:'Knight Knoll',    color:'#8a4ab0', spawn:'5.3%',  avg:'~1-2' },
-      { name:'Tulip Terrace',   color:'#5a8a2a', spawn:'13.3%', avg:'~3'   },
-      { name:'Alto Avenue',     color:'#a04ab0', spawn:'10.7%', avg:'~2-3' },
-      { name:'Sleet Street',    color:'#2aaab0', spawn:'17.2%', avg:'~5-6' },
-      { name:'Peanut Place',    color:'#2a8a4a', spawn:'10.9%', avg:'~3-4' },
-      { name:'Lullaby Lane',    color:'#6a5ab0', spawn:'17.2%', avg:'~5-6' },
+      { name:'Anchor Avenue',   color:'#5a1a05', accent:'#dc4a14', spawn:'3.9%',  avg:'~1'   },
+      { name:'Knight Knoll',    color:'#33205e', accent:'#9b70cc', spawn:'5.3%',  avg:'~1-2' },
+      { name:'Tulip Terrace',   color:'#314600', accent:'#9bd31a', spawn:'13.3%', avg:'~3'   },
+      { name:'Alto Avenue',     color:'#482052', accent:'#bf62cb', spawn:'10.7%', avg:'~2-3' },
+      { name:'Sleet Street',    color:'#003a46', accent:'#29b2dc', spawn:'17.2%', avg:'~5-6' },
+      { name:'Peanut Place',    color:'#00451e', accent:'#20cf69', spawn:'10.9%', avg:'~3-4' },
+      { name:'Lullaby Lane',    color:'#1a1060', accent:'#7b68ee', spawn:'17.2%', avg:'~5-6' },
     ],
     hqLocs: [
       { label:'SBHQ Courtyard',   spawn:'15.7%', avg:'~1-2' },
@@ -131,12 +131,12 @@ const SB_COG_DETAILS: CogDetail[] = [
       { name:'Red Tape',      target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[6,7,8,9,10,11,12],     acc:[60,65,75,85,90,95,95], freq:20 },
     ],
     streets: [
-      { name:'Knight Knoll',  color:'#8a4ab0', spawn:'2.7%',  avg:'~1'   },
-      { name:'Tulip Terrace', color:'#5a8a2a', spawn:'8.9%',  avg:'~2'   },
-      { name:'Alto Avenue',   color:'#a04ab0', spawn:'7.2%',  avg:'~2'   },
-      { name:'Sleet Street',  color:'#2aaab0', spawn:'17.2%', avg:'~5-6' },
-      { name:'Peanut Place',  color:'#2a8a4a', spawn:'10.9%', avg:'~3-4' },
-      { name:'Lullaby Lane',  color:'#6a5ab0', spawn:'17.2%', avg:'~5-6' },
+      { name:'Knight Knoll',  color:'#33205e', accent:'#9b70cc', spawn:'2.7%',  avg:'~1'   },
+      { name:'Tulip Terrace', color:'#314600', accent:'#9bd31a', spawn:'8.9%',  avg:'~2'   },
+      { name:'Alto Avenue',   color:'#482052', accent:'#bf62cb', spawn:'7.2%',  avg:'~2'   },
+      { name:'Sleet Street',  color:'#003a46', accent:'#29b2dc', spawn:'17.2%', avg:'~5-6' },
+      { name:'Peanut Place',  color:'#00451e', accent:'#20cf69', spawn:'10.9%', avg:'~3-4' },
+      { name:'Lullaby Lane',  color:'#1a1060', accent:'#7b68ee', spawn:'17.2%', avg:'~5-6' },
     ],
     hqLocs: [
       { label:'SBHQ Courtyard',   spawn:'11.7%', avg:'~1' },
@@ -269,7 +269,7 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
                 <tbody>
                   {detail.streets.map(s => (
                     <tr key={s.name}>
-                      <td className="pim-loc-name" style={{background: s.color}}>{s.name}</td>
+                      <td className="pim-loc-name" style={{background: s.color, color: s.accent}}>{s.name}</td>
                       <td className="pim-loc-val">{s.spawn}</td>
                       <td className="pim-loc-val">{s.avg}</td>
                     </tr>
@@ -336,7 +336,7 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
           <p className="pim-detail-note">Neighborhoods affected by {detail.cogName} invasions:</p>
           <ul className="pim-invasion-list">
             {detail.invasions.map(n => (
-              <li key={n} className="pim-invasion-item" style={{color: accent}}>{n}</li>
+              <li key={n} className="pim-invasion-item">{n}</li>
             ))}
           </ul>
         </div>
