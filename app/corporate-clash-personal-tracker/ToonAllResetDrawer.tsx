@@ -34,7 +34,7 @@ export function ToonAllResetDrawer() {
         aria-expanded={open}
       >
         <span className="quest-reset-toggle-icon">⚠</span>
-        Reset Toon Progress
+        Reset All Progress — Danger Zone
         <span className="quest-reset-toggle-arrow">{open ? '▼' : '▶'}</span>
       </button>
 
