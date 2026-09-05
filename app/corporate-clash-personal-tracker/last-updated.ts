@@ -9,7 +9,7 @@ export const LAST_UPDATED = {
   gags:        'September 5th, 2026 · 11:16 AM',
   quests:      'September 5th, 2026 · 11:16 AM',
   collections: 'September 5th, 2026 · 11:16 AM',
-  promotions:  'September 5th, 2026 · 11:16 AM',
+  promotions:  'September 5th, 2026 · 6:00 PM',
   streets:     'September 1st, 2026 · 5:00 PM',
   toons:       'September 5th, 2026 · 4:30 PM',
 };
