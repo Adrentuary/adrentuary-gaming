@@ -82,10 +82,10 @@ export function CollectionsResetDrawer() {
             <div key={sec.name} className="quest-reset-row">
               <span className="quest-reset-row-label">
                 {SECTION_ICON_IMG[sec.name]
-                  ? <Image src={SECTION_ICON_IMG[sec.name]} alt={sec.name} width={16} height={16} style={{objectFit:'contain',verticalAlign:'middle',marginRight:5}} unoptimized />
+                  ? <Image src={SECTION_ICON_IMG[sec.name]} alt={sec.name} width={20} height={20} className="quest-reset-row-icon" unoptimized />
                   : null}
                 {sec.name === 'Unobtainable'
-                  ? <><span style={{width:16,height:16,fontSize:14,lineHeight:'16px',display:'inline-flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>🔒</span>Unobtainable</>
+                  ? <><span style={{width:20,height:20,fontSize:16,lineHeight:'20px',display:'inline-flex',alignItems:'center',justifyContent:'center',flexShrink:0}}>🔒</span>Unobtainable</>
                   : sec.name}
               </span>
               <div className="quest-reset-row-btns">
