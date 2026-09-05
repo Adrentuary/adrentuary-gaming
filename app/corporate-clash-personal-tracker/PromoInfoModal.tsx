@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useEffect, useCallback, useState } from 'react';
 import Image from 'next/image';
 
@@ -346,7 +346,7 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
 
         <div className="pgm-header pim-header-raised">
           <Image
-            src="/icons/cog-emblems/SellbotEmblem.png"
+            src={`/icons/cog-emblems/${suitName}Emblem.png`}
             alt={suitName}
             width={36}
             height={36}
