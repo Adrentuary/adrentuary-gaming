@@ -1,42 +1,35 @@
 'use client';
 import React, { useState } from 'react';
-import { useTracker, TOON_COLORS } from './TrackerContext';
-import type { ToonIndex } from './TrackerContext';
+import { useTracker } from './TrackerContext';
 
 const CONFIRM_WORD = 'RESET';
-type Target = ToonIndex | 'all';
 
 export function ToonAllResetDrawer() {
-  const { toonNames, resetToon, resetAll } = useTracker();
-  const [open, setOpen]     = useState(false);
-  const [armed, setArmed]   = useState<Target | null>(null);
-  const [typed, setTyped]   = useState('');
-  const [done, setDone]     = useState<string | null>(null);
+  const { resetAll } = useTracker();
+  const [open, setOpen]   = useState(false);
+  const [armed, setArmed] = useState(false);
+  const [typed, setTyped] = useState('');
+  const [done, setDone]   = useState<string | null>(null);
 
   const confirmed = typed.trim().toUpperCase() === CONFIRM_WORD;
 
-  const closeDrawer = () => { setOpen(false); setArmed(null); setTyped(''); setDone(null); };
+  const closeDrawer = () => { setOpen(false); setArmed(false); setTyped(''); setDone(null); };
   const toggle      = () => { if (open) closeDrawer(); else setOpen(true); };
-  const arm         = (t: Target) => { setArmed(t); setTyped(''); setDone(null); };
-  const cancel      = () => { setArmed(null); setTyped(''); };
+  const arm         = () => { setArmed(true); setTyped(''); setDone(null); };
+  const cancel      = () => { setArmed(false); setTyped(''); };
 
   const execute = () => {
-    if (!confirmed || armed === null) return;
-    const label = armed === 'all' ? 'All Toons' : toonNames[armed as ToonIndex];
-    if (armed === 'all') resetAll();
-    else resetToon(armed as ToonIndex);
-    setDone(`Progress reset for ${label}.`);
-    setArmed(null);
+    if (!confirmed) return;
+    resetAll();
+    setDone('Progress reset for all toons.');
+    setArmed(false);
     setTyped('');
   };
-
-  const toonColor = (t: Target): React.CSSProperties =>
-    t === 'all' ? {} : { '--tc': TOON_COLORS[t as ToonIndex] } as React.CSSProperties;
 
   return (
     <div className="quest-reset-drawer">
       <button
-        className={`quest-reset-toggle${open ? ' quest-reset-toggle--open' : ''}`}
+        className={`quest-reset-toggle quest-reset-toggle--danger${open ? ' quest-reset-toggle--open' : ''}`}
         onClick={toggle}
         aria-expanded={open}
       >
@@ -48,31 +41,23 @@ export function ToonAllResetDrawer() {
       {open && (
         <div className="quest-reset-body">
           <p className="quest-reset-desc">
-            Select a toon to reset, then type <strong style={{color:'#f87171'}}>{CONFIRM_WORD}</strong> and click Reset to confirm.
+            Type <strong>{CONFIRM_WORD}</strong> and click Reset to permanently erase all progress for <strong>all toons</strong>. This cannot be undone.
           </p>
 
           <div className="quest-reset-row quest-reset-row--all">
-            <span className="quest-reset-row-label">Toon Progress</span>
+            <span className="quest-reset-row-label quest-reset-row-label--danger">All Toon Progress</span>
             <div className="quest-reset-row-btns">
-              {([0,1,2,3] as ToonIndex[]).map(t => (
-                <button key={t}
-                  className={`reset-btn${armed === t ? ' reset-btn--armed' : ''}`}
-                  style={toonColor(t)}
-                  onClick={() => arm(t)}
-                >{toonNames[t]}</button>
-              ))}
               <button
-                className={`reset-btn reset-btn--all${armed === 'all' ? ' reset-btn--armed' : ''}`}
-                onClick={() => arm('all')}
+                className={`reset-btn reset-btn--all${armed ? ' reset-btn--armed' : ''}`}
+                onClick={arm}
               >All Toons</button>
             </div>
           </div>
 
-          {armed !== null && (
+          {armed && (
             <div className="acct-danger-confirm">
               <p className="acct-danger-confirm-msg">
-                You are about to reset progress for{' '}
-                <strong>{armed === 'all' ? 'ALL toons' : toonNames[armed as ToonIndex]}</strong>.{' '}
+                You are about to reset progress for <strong>ALL toons</strong>.{' '}
                 Type <strong>{CONFIRM_WORD}</strong> below to confirm.
               </p>
               <div className="acct-danger-confirm-row">

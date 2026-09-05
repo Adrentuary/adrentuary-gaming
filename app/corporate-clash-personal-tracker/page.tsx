@@ -62,8 +62,7 @@ function TrackerInner() {
             </div>
             <div className="tracker-account-banner">
               <p className="tracker-account-banner-text">
-                To reset all toon progress across all sections,{' '}
-                visit your <Link href="/account" className="tracker-account-banner-link">Account page</Link>.
+                To reset all toon progress across all sections, visit your <strong className="tracker-account-banner-link">Toons page</strong>.
               </p>
             </div>
             {user

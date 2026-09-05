@@ -185,6 +185,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .quest-reset-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:11px 16px;background:rgba(248,113,113,.05);border:none;color:var(--muted);font:inherit;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:left;transition:background .15s,color .15s}
 .quest-reset-toggle:hover{background:rgba(248,113,113,.1);color:#f87171}
 .quest-reset-toggle--open{background:rgba(248,113,113,.1);color:#f87171}
+.quest-reset-toggle--danger{color:#f87171;background:rgba(248,113,113,.08);box-shadow:0 0 0 1px rgba(248,113,113,.3),0 0 12px 2px rgba(248,113,113,.18)}
+.quest-reset-toggle--danger:hover{background:rgba(248,113,113,.15);box-shadow:0 0 0 1px rgba(248,113,113,.5),0 0 18px 4px rgba(248,113,113,.28)}
 .quest-reset-toggle-icon{font-size:14px;flex-shrink:0}
 .quest-reset-toggle-arrow{margin-left:auto;font-size:10px}
 .quest-reset-body{background:#0d0808;padding:16px 18px;display:flex;flex-direction:column;gap:12px;border-top:1px solid rgba(248,113,113,.15)}
