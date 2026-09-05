@@ -473,24 +473,61 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
 /* Sellbot content */
 function SellbotContent({ accent }: { accent: string }) {
   const [tab, setTab] = useState<'promos'|'ladder'>('promos');
-  const [expandedCog, setExpandedCog] = useState<string|null>(null);
+  const [detailCog, setDetailCog] = useState<string|null>(null);
+
+  const openDetail  = (name: string) => setDetailCog(name);
+  const closeDetail = () => setDetailCog(null);
 
   return (
     <div className="pim-inner">
-      <div className="pim-inner-tabs">
-        {(['promos','ladder'] as const).map(t => (
-          <button
-            key={t}
-            className={`pim-inner-tab${tab === t ? ' pim-inner-tab--active' : ''}`}
-            style={tab === t ? {'--pim-accent': accent} as React.CSSProperties : undefined}
-            onClick={() => setTab(t)}
-          >
-            {t === 'promos' ? 'Sellbot Promotions' : 'Corporate Ladder'}
+      {/* Tab bar — replaced by back-nav when a cog detail is open */}
+      {detailCog ? (
+        <div className="pim-inner-tabs pim-detail-nav">
+          <button className="pim-detail-back-btn" style={{'--pim-accent': accent} as React.CSSProperties} onClick={closeDetail}>
+            &#8592; Back
           </button>
-        ))}
-      </div>
+          <span className="pim-detail-nav-title" style={{color: accent}}>{detailCog}</span>
+        </div>
+      ) : (
+        <div className="pim-inner-tabs">
+          {(['promos','ladder'] as const).map(t => (
+            <button
+              key={t}
+              className={`pim-inner-tab${tab === t ? ' pim-inner-tab--active' : ''}`}
+              style={tab === t ? {'--pim-accent': accent} as React.CSSProperties : undefined}
+              onClick={() => setTab(t)}
+            >
+              {t === 'promos' ? 'Sellbot Promotions' : 'Corporate Ladder'}
+            </button>
+          ))}
+        </div>
+      )}
 
-      {tab === 'promos' && (
+      {/* Full-page cog detail view */}
+      {detailCog && (() => {
+        const detail = SB_COG_DETAILS.find(d => d.cogName === detailCog);
+        const cogCard = SB_REGULAR.find(c => c.name === detailCog);
+        if (!detail) return null;
+        return (
+          <div className="pim-scroll pim-detail-view">
+            <div className="pim-detail-view-header">
+              {cogCard && (
+                <div className="pim-detail-view-img-wrap">
+                  <Image src={cogCard.img} alt={cogCard.name} fill className="pim-cog-img" unoptimized />
+                </div>
+              )}
+              <div className="pim-detail-view-meta">
+                {cogCard && <span className="pim-cog-tier">{cogCard.tier}</span>}
+                {cogCard && <span className="pim-cog-stat">Levels {cogCard.levels}</span>}
+                {cogCard && <span className="pim-cog-stat">Damage: {cogCard.dmg}</span>}
+              </div>
+            </div>
+            <CogDetailPanel detail={detail} accent={accent} />
+          </div>
+        );
+      })()}
+
+      {!detailCog && tab === 'promos' && (
         <div className="pim-scroll">
 
           <div className="pim-section">
@@ -635,7 +672,7 @@ function SellbotContent({ accent }: { accent: string }) {
 
         </div>
       )}
-      {tab === 'ladder' && (
+      {!detailCog && tab === 'ladder' && (
         <div className="pim-scroll">
 
           <div className="pim-section">
@@ -643,9 +680,8 @@ function SellbotContent({ accent }: { accent: string }) {
             <div className="pim-cog-grid">
               {SB_REGULAR.map(c => {
                 const detail = SB_COG_DETAILS.find(d => d.cogName === c.name);
-                const isOpen = expandedCog === c.name;
                 return (
-                  <div key={c.name} className={`pim-cog-card${isOpen ? ' pim-cog-card--expanded' : ''}`}>
+                  <div key={c.name} className="pim-cog-card">
                     <div className="pim-cog-img-wrap">
                       <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
                     </div>
@@ -658,18 +694,12 @@ function SellbotContent({ accent }: { accent: string }) {
                         <button
                           className="pim-cog-detail-btn"
                           style={{'--pim-accent': accent} as React.CSSProperties}
-                          onClick={() => setExpandedCog(isOpen ? null : c.name)}
-                          aria-expanded={isOpen}
+                          onClick={() => openDetail(c.name)}
                         >
-                          {isOpen ? '▲ Hide Details' : '▼ View Details'}
+                          View Details
                         </button>
                       )}
                     </div>
-                    {detail && isOpen && (
-                      <div className="pim-cog-detail-wrap">
-                        <CogDetailPanel detail={detail} accent={accent} />
-                      </div>
-                    )}
                   </div>
                 );
               })}
