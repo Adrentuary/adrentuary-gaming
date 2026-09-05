@@ -118,6 +118,7 @@ create policy "Users can insert own tracker progress"
 create policy "Users can update own tracker progress"
   on public.tracker_progress for update
   to authenticated
-  using (auth.uid() = user_id);
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
 
 grant select, insert, update on public.tracker_progress to authenticated;
