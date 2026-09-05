@@ -393,7 +393,7 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
                 <tbody>
                   {detail.streets.map(s => (
                     <tr key={s.name}>
-                      <td className="pim-loc-name" style={{background: s.color, color: s.accent}}>{s.name}</td>
+                      <td className="pim-loc-name pim-loc-name--street">{s.name}</td>
                       <td className="pim-loc-val">{s.spawn}</td>
                       <td className="pim-loc-val">{s.avg}</td>
                     </tr>
