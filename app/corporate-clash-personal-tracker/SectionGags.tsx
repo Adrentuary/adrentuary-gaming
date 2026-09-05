@@ -164,8 +164,8 @@ export function SectionGags() {
       <SectionNote
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 1st, 2026"
-        lastChanges="Added per-track gag reset drawer with large gag icons. Clicking a lower gag level now automatically unchecks all higher levels. Status updated to up to date."
+        lastUpdated="September 5th, 2026"
+        lastChanges="Added Mechanics collapsible panel with full wiki data for all 8 gag tracks. Prestige sections now use the PrestigeStar icon. Details/Mechanics collapse buttons added per track."
       />
       <GagResetDrawer />
       {GAG_TRACKS.map(track => {
