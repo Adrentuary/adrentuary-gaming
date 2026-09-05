@@ -447,11 +447,11 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
                     const topSpawn = parseFloat(b.spawn) === maxSpawn;
                     const topBoss  = maxBoss > 0 && parseFloat(b.boss) === maxBoss;
                     return (
-                    <tr key={b.label} className={b.bold ? 'pim-loc-row--bold' : ''}>
+                    <tr key={b.label} className={topBoss ? 'pim-loc-row--boss-top' : ''}>
                       <td className="pim-loc-name pim-loc-name--building">{b.label}</td>
                       <td className={`pim-loc-val${topSpawn ? ' pim-loc-val--top' : ''}`}>{b.spawn}</td>
                       <td className="pim-loc-val">{b.avg}</td>
-                      <td className={`pim-loc-val${topBoss ? ' pim-loc-val--top' : (b.bold ? ' pim-loc-val--bold' : '')}`}>{b.boss}</td>
+                      <td className={`pim-loc-val${topBoss ? ' pim-loc-val--boss-top' : ''}`}>{b.boss}</td>
                     </tr>
                     );
                   })}
