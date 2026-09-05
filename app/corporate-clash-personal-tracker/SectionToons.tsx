@@ -10,7 +10,6 @@ import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 import type { QuestPlayground } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
-import { ToonResetDrawer } from './ToonResetDrawer';
 import { ToonAllResetDrawer } from './ToonAllResetDrawer';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
@@ -109,6 +108,7 @@ export function SectionToons() {
         lastUpdated={LAST_UPDATED.toons}
         lastChanges="Playground emblem icons added to toon stat cards. Small gag icons added to gag track progress display."
       />
+      <ToonAllResetDrawer />
       <div className="toons-list">
         {([0,1,2,3] as ToonIndex[]).map(t => (
           <div key={t} className="toon-card" style={{'--tc':TOON_COLORS[t]} as React.CSSProperties}>
@@ -215,15 +215,9 @@ export function SectionToons() {
                 </div>
               </div>
             </div>)}{/* end toon-body-3col */}
-            {isToonOpen(t) && (
-              <div className="toon-reset-drawer-wrap">
-                <ToonResetDrawer toon={t} />
-              </div>
-            )}
           </div>
         ))}
       </div>
-      <ToonAllResetDrawer />
     </div>
   );
 }

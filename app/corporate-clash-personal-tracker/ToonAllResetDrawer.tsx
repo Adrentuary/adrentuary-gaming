@@ -27,7 +27,7 @@ export function ToonAllResetDrawer() {
   };
 
   return (
-    <div className="quest-reset-drawer">
+    <div className="quest-reset-drawer quest-reset-drawer--danger">
       <button
         className={`quest-reset-toggle quest-reset-toggle--danger${open ? ' quest-reset-toggle--open' : ''}`}
         onClick={toggle}
