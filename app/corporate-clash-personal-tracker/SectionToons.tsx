@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
+import { LAST_UPDATED } from './last-updated';
 import { GAG_TRACKS } from './data-gags';
 import { PROMOTIONS } from './data-promotions';
 import { LEVELING_REWARDS, LAFF_BOOSTS } from './data-laff';
@@ -71,7 +72,7 @@ export function SectionToons() {
       <SectionNote
         description="A per-toon overview of your progress across all sections. Shows quest completion by playground, gag track progress, promotion levels, leveling milestones, and laff boosts. Click a toon name to rename it."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 5th, 2026 · 12:00 PM"
+        lastUpdated={LAST_UPDATED.toons}
         lastChanges="Playground emblem icons added to toon stat cards. Small gag icons added to gag track progress display."
       />
       <div className="toons-grid-2x2">

@@ -7,6 +7,7 @@ import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
 import { LaffResetDrawer } from './LaffResetDrawer';
+import { LAST_UPDATED } from './last-updated';
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const PG_ICON_MAP: Record<string, string> = {
@@ -184,7 +185,7 @@ export function SectionLaff() {
       <SectionNote
         description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, promotions, and directives. Max laff is 150. Each section can be collapsed independently."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026 · 9:00 PM"
+        lastUpdated={LAST_UPDATED.laff}
         lastChanges="Source column added to Kudos. Promotions sub-sections are now individually collapsible like Activities. Reset drawer added with per-section per-toon reset. Lawbot corrected from Lowbot."
       />
       <LaffResetDrawer />

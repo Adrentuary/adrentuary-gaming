@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { GagResetDrawer } from './GagResetDrawer';
+import { LAST_UPDATED } from './last-updated';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -430,7 +431,7 @@ export function SectionGags() {
       <SectionNote
         description="Gag XP requirements and recommended training zones per track."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026 · 4:00 PM"
+        lastUpdated={LAST_UPDATED.gags}
         lastChanges="All 8 gag track mechanics panels: wiki-accurate descriptions, colored labels, inline status icons with hover tooltips. Collections-style banners with gag icons."
       />
       <GagResetDrawer />

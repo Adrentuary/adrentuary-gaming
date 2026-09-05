@@ -2,6 +2,7 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
+import { LAST_UPDATED } from './last-updated';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
 import type { QuestPlayground, QuestSectionType } from './data-quests-types';
 import { useTracker, TOON_COLORS } from './TrackerContext';
@@ -151,7 +152,7 @@ export function SectionQuests() {
       <SectionNote
         description="Track quest completion across all 8 playgrounds for each of your toons. Main storyline, sidetasks, and Kudos rank-up quests are all included. Checking a row auto-marks all previous rows for that toon."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026 · 9:00 AM"
+        lastUpdated={LAST_UPDATED.quests}
         lastChanges="Collapse state now persists to your account via Supabase. Full TTC mainline and sidetask quest data. Quest reset drawer with per-playground reset. Checking a lower quest auto-unchecks all above it."
       />
       <QuestResetDrawer />

@@ -8,6 +8,7 @@ import { useTracker } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { TOON_COLORS } from './TrackerContext';
 import { CollectionsResetDrawer } from './CollectionsResetDrawer';
+import { LAST_UPDATED } from './last-updated';
 
 const TYPE_ICONS: Record<string, string> = {
   'Background':   '🖼️',
@@ -84,7 +85,7 @@ export function SectionCollections() {
       <SectionNote
         description="Collectible items in Corporate Clash: backgrounds, nameplates, nametags, profile poses, cheesy effects, and emotions. Filter by type below."
         status="Accurate information, section design, and interactive features are currently being developed and refined."
-        lastUpdated="September 5th, 2026 · 11:00 AM"
+        lastUpdated={LAST_UPDATED.collections}
         lastChanges="Collapsible section state now persists to your account via Supabase. Trick-or-Treat cheesy effects moved to Unobtainable. Duplicate entries fixed. 8 missing collection entries added."
       />
       <CollectionsResetDrawer />

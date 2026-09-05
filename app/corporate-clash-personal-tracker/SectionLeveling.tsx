@@ -2,6 +2,7 @@
 import { useCallback } from 'react';
 import { SectionNote } from './SectionNote';
 import { LevelResetDrawer } from './LevelResetDrawer';
+import { LAST_UPDATED } from './last-updated';
 import { LEVELING_REWARDS } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -84,7 +85,7 @@ export function SectionLeveling() {
       <SectionNote
         description="Character level rewards from 2 through 85. Clicking a level auto-marks all previous levels for that toon. Rewards include laff boosts, gag access, and other progression milestones."
         status="Everything in this section is currently up to date."
-        lastUpdated="September 5th, 2026 · 6:30 PM"
+        lastUpdated={LAST_UPDATED.leveling}
         lastChanges="Inline collapsible 10-level groups. Color-coded reward badges for training points, gag pouch, and jellybean capacity."
       />
       <LevelResetDrawer />

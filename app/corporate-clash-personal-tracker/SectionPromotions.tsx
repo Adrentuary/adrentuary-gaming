@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { SectionNote } from './SectionNote';
+import { LAST_UPDATED } from './last-updated';
 import { PROMOTIONS } from './data-promotions';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
@@ -15,7 +16,7 @@ export function SectionPromotions() {
       <SectionNote
         description="Cog suit promotion costs for each department. Select a suit type using the tabs below. Track which promotions each toon has completed across all cog levels."
         status="Section design and interactive features are currently under development."
-        lastUpdated="September 1st, 2026 · 3:00 PM"
+        lastUpdated={LAST_UPDATED.promotions}
         lastChanges="Initial promotions section added. Full cog suit promotion costs for all 5 departments with per-toon progress tracking across all levels."
       />
       <nav className="sub-tabs">
