@@ -142,14 +142,14 @@ export const LAFF_BOOSTS: LaffBoostEntry[] = [
   { isHeader: false, section: 'Cashbot Promotions', note: 'Level 40', source: 'Cashbot Suit', laff: 1 },
   { isHeader: false, section: 'Cashbot Promotions', note: 'Level 50', source: 'Cashbot Suit', laff: 1 },
   { isHeader: true,  section: 'Cashbot Promotions', total: '+6 Laff' },
-  // Lowbot Promotions
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 8',  source: 'Lowbot Suit', laff: 1 },
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 15', source: 'Lowbot Suit', laff: 1 },
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 20', source: 'Lowbot Suit', laff: 1 },
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 30', source: 'Lowbot Suit', laff: 1 },
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 40', source: 'Lowbot Suit', laff: 1 },
-  { isHeader: false, section: 'Lowbot Promotions', note: 'Level 50', source: 'Lowbot Suit', laff: 1 },
-  { isHeader: true,  section: 'Lowbot Promotions', total: '+6 Laff' },
+  // Lawbot Promotions
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 8',  source: 'Lawbot Suit', laff: 1 },
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 15', source: 'Lawbot Suit', laff: 1 },
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 20', source: 'Lawbot Suit', laff: 1 },
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 30', source: 'Lawbot Suit', laff: 1 },
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 40', source: 'Lawbot Suit', laff: 1 },
+  { isHeader: false, section: 'Lawbot Promotions', note: 'Level 50', source: 'Lawbot Suit', laff: 1 },
+  { isHeader: true,  section: 'Lawbot Promotions', total: '+6 Laff' },
   // Bossbot Promotions
   { isHeader: false, section: 'Bossbot Promotions', note: 'Level 8',  source: 'Bossbot Suit', laff: 1 },
   { isHeader: false, section: 'Bossbot Promotions', note: 'Level 15', source: 'Bossbot Suit', laff: 1 },

@@ -6,6 +6,7 @@ import { LAFF_BOOSTS } from './data-laff';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { CheckBtn } from './CheckBtn';
+import { LaffResetDrawer } from './LaffResetDrawer';
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const PG_ICON_MAP: Record<string, string> = {
@@ -23,10 +24,11 @@ const LAFF_DA  = '#5ab0e0';
 const LAFF_DC  = '#1a2a3a';
 
 const ACTIVITY_SECTIONS = ['Fishing', 'Golfing', 'Racing', 'Trolly'];
-const PROMO_SECTIONS    = ['Sellbot Promotions', 'Cashbot Promotions', 'Lowbot Promotions', 'Bossbot Promotions'];
+const PROMO_SECTIONS    = ['Sellbot Promotions', 'Cashbot Promotions', 'Lawbot Promotions', 'Bossbot Promotions'];
 
 const LAFF_COLLAPSED_KEY = 'laff';
 const ACT_KEY            = 'laff-act';
+const PROMO_KEY          = 'laff-promo';
 
 // Keys for each progressive section (pre-computed for progressive click logic)
 function sectionKeys(section: string): string[] {
@@ -63,6 +65,17 @@ export function SectionLaff() {
     });
   };
 
+  // ── Promotions sub-collapses ────────────────────────────────────────────────
+  const closedPromos = new Set<string>(collapsedUI[PROMO_KEY] ?? []);
+  const isPromoOpen  = (s: string) => !closedPromos.has(s);
+  const togglePromo  = (s: string) => {
+    setCollapsedUI(prev => {
+      const current = new Set<string>(prev[PROMO_KEY] ?? []);
+      current.has(s) ? current.delete(s) : current.add(s);
+      return { ...prev, [PROMO_KEY]: [...current] };
+    });
+  };
+
   // ── Progressive click handler (Activities / Promotions / Directives) ──────
   const handleProgClick = useCallback((key: string, toon: ToonIndex, section: string) => {
     const keys = sectionKeys(section);
@@ -89,13 +102,15 @@ export function SectionLaff() {
     }
   }, [progress, toggleAll, isAllDone, setProgressBatch]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const colCount = 2 + toonNames.length + 1; // milestone + +Laff + toons + All
+  const colCount      = 2 + toonNames.length + 1; // milestone + +Laff + toons + All
+  const kudosColCount = 3 + toonNames.length + 1; // playground + source + +Laff + toons + All
 
 
   // ── Shared table header ────────────────────────────────────────────────────
-  const thead = (milestoneLabel: string) => (
+  const thead = (milestoneLabel: string, sourceLabel?: string) => (
     <thead><tr>
       <th className="col-main">{milestoneLabel}</th>
+      {sourceLabel && <th className="col-main">{sourceLabel}</th>}
       <th className="col-sm" style={{textAlign:'center'}}>+Laff</th>
       {toonNames.map((n,i) => <th key={i} className="col-toon" style={{color:TOON_COLORS[i]}}>{n}</th>)}
       <th className="col-all">All</th>
@@ -122,6 +137,7 @@ export function SectionLaff() {
               <span>{entry.playground}</span>
             </span>
           </td>
+          <td className="col-main" style={{color:'var(--muted)',fontSize:'12px'}}>{entry.source}</td>
           <td className="col-sm" style={{textAlign:'center'}}>+{entry.laff}</td>
           {([0,1,2,3] as ToonIndex[]).map(t => (
             <td key={t} className="col-toon"><CheckBtn id={key} toon={t} label={`${toonNames[t]}: Kudos ${entry.playground}`} /></td>
@@ -169,8 +185,9 @@ export function SectionLaff() {
         description="All sources of laff boosts in Corporate Clash, grouped by Kudos rankings, activities, promotions, and directives. Max laff is 150. Each section can be collapsed independently."
         status="Section design and interactive features are currently under development."
         lastUpdated="September 5th, 2026 · 9:00 PM"
-        lastChanges="4 separate collapsible cards matching Collections/Gags style. Kudos rows are individually tracked per toon. Activities, Promotions, and Directives use progressive tracking — selecting a level auto-marks all previous levels for that toon."
+        lastChanges="Source column added to Kudos. Promotions sub-sections are now individually collapsible like Activities. Reset drawer added with per-section per-toon reset. Lawbot corrected from Lowbot."
       />
+      <LaffResetDrawer />
       <div className="laff-cards-list">
 
         {/* ── KUDOS CARD ─────────────────────────────────────────────────────── */}
@@ -183,7 +200,7 @@ export function SectionLaff() {
           </button>
           {isOpen('Kudos') && (
             <div className="tracker-table-wrap"><table className="tracker-table">
-              {thead('Playground')}
+              {thead('Playground', 'Source')}
               <tbody>{kudosRows}</tbody>
             </table></div>
           )}
@@ -230,10 +247,12 @@ export function SectionLaff() {
               {thead('Milestone')}
               <tbody>
                 {PROMO_SECTIONS.map(sec => [
-                  <tr key={`promo-h-${sec}`} className="laff-section-header"><td colSpan={colCount}>
-                    <span className="laff-section-title">{sec}</span>
+                  <tr key={`promo-h-${sec}`} className="laff-section-header"><td colSpan={colCount} style={{padding:0}}>
+                    <button className="laff-collapse-btn--sub" onClick={() => togglePromo(sec)}>
+                      <span className="quest-collapse-arrow">{isPromoOpen(sec) ? '▼' : '▶'}</span>{sec}
+                    </button>
                   </td></tr>,
-                  ...progRows(sec),
+                  ...(isPromoOpen(sec) ? progRows(sec) : []),
                 ])}
               </tbody>
             </table></div>
