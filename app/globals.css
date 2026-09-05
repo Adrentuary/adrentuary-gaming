@@ -824,8 +824,9 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pim-loc-name--building{background:#26304a;color:rgba(255,255,255,.88)}
 .pim-loc-val{padding:5px 10px;text-align:center;color:var(--ink,#e0dfe8);font-size:11px;border-bottom:1px solid rgba(255,255,255,.06)}
 .pim-loc-val--bold{font-weight:800;color:#ffecac}
+.pim-loc-val--top{background:#3d4e70!important}
+.pim-loc-name--top{background:#3d4e70!important;color:#fff!important}
 .pim-loc-row--bold td{background:rgba(255,200,80,.06)}
-.pim-loc-row--top td{background:#3d4e70!important}
 /* Invasion list */
 .pim-invasion-list{margin:0;padding:0 0 0 16px;display:flex;flex-direction:column;gap:3px}
 .pim-invasion-item{font-size:12px;font-weight:600;color:var(--ink,#e0dfe8)}
