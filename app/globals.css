@@ -445,8 +445,12 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 /* ── Gags redesign ─────────────────────────────────────────────────── */
 .gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;overflow:hidden;margin-bottom:20px}
 /* Gag card info-toggle bar */
-.gag-info-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border:none;border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);cursor:pointer;color:var(--gl,#4ade80);font:inherit;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;transition:filter .12s;text-align:left}
-.gag-info-toggle:hover{filter:brightness(1.2)}
+.gag-card-header{display:flex;align-items:center;justify-content:space-between;padding:7px 14px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent)}
+.gag-card-header-label{color:var(--gl,#4ade80);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.gag-card-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gl,#4ade80);padding:2px 4px;line-height:1;transition:filter .12s}
+.gag-card-collapse-btn:hover{filter:brightness(1.4)}
+.gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:3px 8px;line-height:1;transition:filter .12s}
+.gag-details-collapse-btn:hover{filter:brightness(1.4)}
 .gag-info-toggle-chevron{font-size:10px;transition:transform .2s;flex-shrink:0}
 .gag-info-toggle-chevron--open{transform:rotate(0deg)}
 .gag-info-toggle-chevron--closed{transform:rotate(-90deg)}

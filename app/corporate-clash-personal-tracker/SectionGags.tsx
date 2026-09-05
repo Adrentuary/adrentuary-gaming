@@ -6,17 +6,27 @@ import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
-const COLLAPSED_KEY = 'gags';
+const COLLAPSED_DETAILS_KEY = 'gags';       // collapses the Track Info / stats rows
+const COLLAPSED_CARD_KEY    = 'gags-card';  // collapses the entire gag card
 
 export function SectionGags() {
   const { toonNames, isDone, setProgressBatch, collapsedUI, setCollapsedUI } = useTracker();
-  const collapsedInfo = new Set<string>(collapsedUI[COLLAPSED_KEY] ?? []);
+  const collapsedInfo = new Set<string>(collapsedUI[COLLAPSED_DETAILS_KEY] ?? []);
+  const collapsedCard = new Set<string>(collapsedUI[COLLAPSED_CARD_KEY]    ?? []);
 
   const toggleInfo = (trackName: string) => {
     setCollapsedUI(prev => {
-      const current = new Set<string>(prev[COLLAPSED_KEY] ?? []);
+      const current = new Set<string>(prev[COLLAPSED_DETAILS_KEY] ?? []);
       current.has(trackName) ? current.delete(trackName) : current.add(trackName);
-      return { ...prev, [COLLAPSED_KEY]: [...current] };
+      return { ...prev, [COLLAPSED_DETAILS_KEY]: [...current] };
+    });
+  };
+
+  const toggleCard = (trackName: string) => {
+    setCollapsedUI(prev => {
+      const current = new Set<string>(prev[COLLAPSED_CARD_KEY] ?? []);
+      current.has(trackName) ? current.delete(trackName) : current.add(trackName);
+      return { ...prev, [COLLAPSED_CARD_KEY]: [...current] };
     });
   };
 
@@ -31,15 +41,19 @@ export function SectionGags() {
       <GagResetDrawer />
       {GAG_TRACKS.map(track => {
         const infoCollapsed = collapsedInfo.has(track.name);
+        const cardCollapsed = collapsedCard.has(track.name);
         return (
         <div key={track.name} className="gag-card"
           style={{"--gc": track.color, "--gh": track.headerColor, "--gl": track.labelColor} as React.CSSProperties}>
-          <button className="gag-info-toggle" onClick={() => toggleInfo(track.name)}
-            aria-expanded={!infoCollapsed}>
-            <span>Track Info</span>
-            <span className={`gag-info-toggle-chevron${infoCollapsed ? ' gag-info-toggle-chevron--closed' : ' gag-info-toggle-chevron--open'}`}>▼</span>
-          </button>
-          <div className="gag-table-scroll">
+          {/* Top bar: track name label + card collapse button */}
+          <div className="gag-card-header">
+            <span className="gag-card-header-label">Track Info</span>
+            <button className="gag-card-collapse-btn" onClick={() => toggleCard(track.name)}
+              aria-expanded={!cardCollapsed} aria-label={cardCollapsed ? `Expand ${track.name}` : `Collapse ${track.name}`}>
+              <span className={`gag-info-toggle-chevron${cardCollapsed ? ' gag-info-toggle-chevron--closed' : ' gag-info-toggle-chevron--open'}`}>▼</span>
+            </button>
+          </div>
+          {!cardCollapsed && <div className="gag-table-scroll">
             <table className="gag-ss-table">
               <thead>
                 <tr className="gag-ss-zone-row">
@@ -47,6 +61,10 @@ export function SectionGags() {
                     <Image src={`/icons/gags/large/${track.largeIcon}`}
                       alt={track.name} width={60} height={60} className="gag-ss-large-icon" />
                     <span className="gag-ss-track-name">{track.name}</span>
+                    <button className="gag-details-collapse-btn" onClick={() => toggleInfo(track.name)}
+                      aria-expanded={!infoCollapsed} aria-label={infoCollapsed ? `Show ${track.name} details` : `Hide ${track.name} details`}>
+                      <span className={`gag-info-toggle-chevron${infoCollapsed ? ' gag-info-toggle-chevron--closed' : ' gag-info-toggle-chevron--open'}`}>▼</span>
+                    </button>
                   </td>
                   <td className="gag-ss-label-hdr gag-ss-zone-label-cell">
                     <span className="gag-ss-zone-label-text">Recommended<br/>Zone</span>
@@ -194,7 +212,7 @@ export function SectionGags() {
                 ))}
               </tbody>
             </table>
-          </div>
+          </div>}
         </div>
         );
       })}
