@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '../../lib/supabase/client';
 import { useAuth } from '../components/AuthProvider';
 
@@ -46,6 +46,14 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
 
+  // Refs always hold the latest values — avoids stale closures in save()
+  const progressRef = useRef(progress);
+  const toonNamesRef = useRef(toonNames);
+  const collapsedUIRef = useRef(collapsedUI);
+  useEffect(() => { progressRef.current = progress; }, [progress]);
+  useEffect(() => { toonNamesRef.current = toonNames; }, [toonNames]);
+  useEffect(() => { collapsedUIRef.current = collapsedUI; }, [collapsedUI]);
+
   useEffect(() => {
     if (!user) return;
     const supabase = createClient();
@@ -60,6 +68,7 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
       });
   }, [user]);
 
+  // save() always reads from refs — never stale
   const save = useCallback(async (p: Progress, names: string[], cui: CollapsedUI) => {
     if (!user) return;
     setSaving(true);
@@ -76,20 +85,21 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   const setCollapsedUI = useCallback((updater: (prev: CollapsedUI) => CollapsedUI) => {
     setCollapsedUIState(prev => {
       const next = updater(prev);
-      save(progress, toonNames, next);
+      // Use refs so we always have the latest progress + toonNames, not stale closures
+      save(progressRef.current, toonNamesRef.current, next);
       return next;
     });
-  }, [progress, toonNames, save]);
+  }, [save]);
 
   const toggle = useCallback((key: string, toon: ToonIndex) => {
     setProgress(prev => {
       const arr: boolean[] = prev[key] ? [...prev[key]] : [false,false,false,false];
       arr[toon] = !arr[toon];
       const next = { ...prev, [key]: arr };
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   const isDone = (key: string, toon: ToonIndex) => !!(progress[key]?.[toon]);
 
@@ -100,15 +110,15 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
       const arr: boolean[] = prev[key] ? [...prev[key]] : [false,false,false,false];
       const allDone = arr.every(Boolean);
       const next = { ...prev, [key]: [!allDone,!allDone,!allDone,!allDone] };
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
-  const commitToonName = (i: number, names: string[]) => {
+  const commitToonName = useCallback((i: number, names: string[]) => {
     setToonNames(names);
-    if (user) save(progress, names, collapsedUI);
-  };
+    if (user) save(progressRef.current, names, collapsedUIRef.current);
+  }, [user, save]);
 
   const setDoneMany = useCallback((entries: { key: string; toon: ToonIndex }[]) => {
     setProgress(prev => {
@@ -118,10 +128,10 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
         arr[toon] = true;
         next[key] = arr;
       }
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   const setUndoneMany = useCallback((entries: { key: string; toon: ToonIndex }[]) => {
     setProgress(prev => {
@@ -131,10 +141,10 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
         arr[toon] = false;
         next[key] = arr;
       }
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   const setProgressBatch = useCallback((
     done: { key: string; toon: ToonIndex }[],
@@ -152,10 +162,10 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
         arr[toon] = false;
         next[key] = arr;
       }
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   const resetToon = useCallback((toon: ToonIndex) => {
     setProgress(prev => {
@@ -165,16 +175,16 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
         arr[toon] = false;
         next[key] = arr;
       }
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   const resetAll = useCallback(() => {
     const next: Progress = {};
     setProgress(next);
-    if (user) save(next, toonNames, collapsedUI);
-  }, [user, toonNames, collapsedUI, save]);
+    if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
+  }, [user, save]);
 
   const resetSection = useCallback((prefix: string, toon: ToonIndex | 'all') => {
     setProgress(prev => {
@@ -189,10 +199,10 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
           next[key] = arr;
         }
       }
-      if (user) save(next, toonNames, collapsedUI);
+      if (user) save(next, toonNamesRef.current, collapsedUIRef.current);
       return next;
     });
-  }, [user, toonNames, collapsedUI, save]);
+  }, [user, save]);
 
   return (
     <TrackerCtx.Provider value={{ progress, toonNames, setToonNames, toggle, toggleAll, isDone, isAllDone, saving, saveMsg, commitToonName, setDoneMany, setUndoneMany, setProgressBatch, resetToon, resetAll, resetSection, collapsedUI, setCollapsedUI }}>
