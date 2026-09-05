@@ -449,12 +449,24 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gag-card-header-label{color:var(--gl,#4ade80);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
 .gag-card-collapse-btn{background:none;border:none;cursor:pointer;color:var(--gl,#4ade80);padding:2px 4px;line-height:1;transition:filter .12s}
 .gag-card-collapse-btn:hover{filter:brightness(1.4)}
-.gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:3px 8px;line-height:1;transition:filter .12s}
+.gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:4px 10px;line-height:1.2;transition:filter .12s;text-align:center}
 .gag-details-collapse-btn:hover{filter:brightness(1.4)}
-.gag-info-toggle-chevron{font-size:10px;transition:transform .2s;flex-shrink:0}
-.gag-info-toggle-chevron--open{transform:rotate(0deg)}
-.gag-info-toggle-chevron--closed{transform:rotate(-90deg)}
+.gag-info-toggle-chevron{font-size:10px;flex-shrink:0;display:block;margin:2px auto 0}
 .gag-info-body--hidden{display:none}
+.gag-details-collapse-label{display:block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;margin-bottom:1px}
+.gag-details-collapse-btn--mechanics{margin-top:6px}
+/* Mechanics panel */
+.gag-mechanics-panel{padding:14px 18px;border-top:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);background:color-mix(in srgb,var(--gc,#4ade80) 4%,#090d09)}
+.gag-mechanics-intro{margin:0 0 12px;font-size:12px;color:var(--muted);line-height:1.6}
+.gag-mechanics-section{margin-bottom:14px}
+.gag-mechanics-section:last-child{margin-bottom:0}
+.gag-mechanics-heading{margin:0 0 8px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gl,#4ade80);border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 20%,transparent);padding-bottom:4px}
+.gag-mechanics-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.gag-mechanics-item{font-size:12px;line-height:1.6;color:var(--ink)}
+.gag-mechanics-label{font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.05em;color:var(--gl,#4ade80)}
+.gag-mechanics-text{color:var(--ink)}
+.gag-mechanics-sublist{margin:4px 0 0 14px;padding:0;list-style:disc;display:flex;flex-direction:column;gap:2px}
+.gag-mechanics-subitem{font-size:11px;color:var(--muted);line-height:1.5}
 .gag-table-scroll{overflow-x:auto}
 .gag-redesign-table{border-collapse:collapse;font-size:12px;table-layout:fixed}
 
