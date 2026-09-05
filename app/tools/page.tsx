@@ -20,7 +20,7 @@ export const TOOLS:{status:ToolStatus;title:string;body:string;href:string;game:
 
 export function ToolCard({tool,i}:{tool:(typeof TOOLS)[number];i:number}){
   const meta=STATUS_META[tool.status];
-  const isLaunchable=tool.status==='live'||tool.status==='update-in-progress';
+  const isLaunchable=tool.status!=='coming-soon';
   return(
     <article key={`${tool.title}-${i}`}>
       <div className={`tool-status tool-status--${tool.status}`}>
