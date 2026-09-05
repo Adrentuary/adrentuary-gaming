@@ -258,7 +258,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .promo-cog-block:last-child{border-bottom:none}
 .promo-cog-toggle{width:100%;display:flex;align-items:center;gap:8px;padding:10px 16px;background:none;border:none;color:var(--da,#4ade80);font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-align:left;transition:background .14s}
 .promo-cog-toggle:hover{background:rgba(255,255,255,.04)}
-.promo-cog-toggle--done{color:color-mix(in srgb,var(--da,#4ade80) 70%,#fff)}
+.promo-cog-toggle--done{color:var(--da,#4ade80)}
 .promo-cog-icon{flex-shrink:0;display:block;object-fit:contain;border-radius:3px}
 .promo-cog-toggle-name{flex:1}
 .promo-cog-toggle-arrow{font-size:10px;color:var(--muted);flex-shrink:0}
