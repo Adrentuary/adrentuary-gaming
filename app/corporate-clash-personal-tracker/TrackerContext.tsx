@@ -39,7 +39,7 @@ interface Ctx {
 const TrackerCtx = createContext<Ctx | null>(null);
 
 export function TrackerProvider({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [progress, setProgress] = useState<Progress>({});
   const [toonNames, setToonNames] = useState(['Toon 1','Toon 2','Toon 3','Toon 4']);
   const [collapsedUI, setCollapsedUIState] = useState<CollapsedUI>({});
@@ -54,10 +54,13 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => { toonNamesRef.current = toonNames; }, [toonNames]);
   useEffect(() => { collapsedUIRef.current = collapsedUI; }, [collapsedUI]);
 
+  // Load from Supabase — keyed on user.id string so object reference changes don't cause missed loads
+  const userId = user?.id ?? null;
   useEffect(() => {
-    if (!user) return;
+    if (authLoading) return;   // wait until auth is fully resolved
+    if (!userId) return;       // not logged in
     const supabase = createClient();
-    supabase.from('tracker_progress').select('data').eq('user_id', user.id).single()
+    supabase.from('tracker_progress').select('data').eq('user_id', userId).single()
       .then(({ data }) => {
         if (data?.data) {
           const d = data.data as { progress?: Progress; toonNames?: string[]; collapsedUI?: CollapsedUI };
@@ -66,7 +69,7 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
           if (d.collapsedUI) setCollapsedUIState(d.collapsedUI);
         }
       });
-  }, [user]);
+  }, [userId, authLoading]);
 
   // save() always reads from refs — never stale
   const save = useCallback(async (p: Progress, names: string[], cui: CollapsedUI) => {
