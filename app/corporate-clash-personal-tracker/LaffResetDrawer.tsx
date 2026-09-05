@@ -92,7 +92,7 @@ export function LaffResetDrawer() {
 
           <div className="quest-reset-row quest-reset-row--all">
             <span className="quest-reset-row-label quest-reset-row-label--danger">
-              ⚠ Reset ALL Sections
+              ⚠ Reset ALL Laff Boost Sections
             </span>
             <div className="quest-reset-row-btns">
               {([0, 1, 2, 3] as ToonIndex[]).map(t => (
