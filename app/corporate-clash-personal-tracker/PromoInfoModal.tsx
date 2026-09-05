@@ -80,7 +80,7 @@ const SB_REMOVED = [
 ];
 
 /* Detailed cog data: attacks, locations, invasions */
-interface AttackRow { name: string; target: 'Single Toon'|'All Toons'; levels: number[]; dmg: number[]; acc: number[]; freq: number | number[]; }
+interface AttackRow { name: string; target: 'Single Toon'|'All Toons'|'Single Target'; levels: number[]; dmg: (number|'Limit')[]; acc: number[]; freq: number | number[]; }
 interface StreetLoc  { name: string; color: string; accent: string; spawn: string; avg: string; }
 interface BuildLoc   { label: string; spawn: string; avg: string; boss: string; bold?: boolean; }
 interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLoc[]; hqLocs?: { label: string; spawn: string; avg: string }[]; buildings?: BuildLoc[]; invasions: string[]; }
@@ -761,6 +761,278 @@ function SellbotContent({ accent }: { accent: string }) {
 }
 
 
+/* ─── Cashbot data ──────────────────────────────────────────────────────────── */
+const CB_REGULAR = [
+  { name:'Short Change',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Cashbot/25px-ShortChangeHead.webp' },
+  { name:'Penny Pincher',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-12',  img:'/icons/promotions/Cashbot/25px-PennyPincherHead.webp' },
+  { name:'Tightwad',        tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Cashbot/25px-TightwadHead.webp' },
+  { name:'Bean Counter',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'4-24',  img:'/icons/promotions/Cashbot/25px-DownsizerHead.webp' },
+  { name:'Number Cruncher', tier:'Tier 5 Employee', levels:'5-10', dmg:'4-28',  img:'/icons/promotions/Cashbot/25px-NumberCruncherHead.webp' },
+  { name:'Money Bags',      tier:'Tier 6 Employee', levels:'6-11', dmg:'5-30',  img:'/icons/promotions/Cashbot/25px-MoneyBagsHead.webp' },
+  { name:'Loan Shark',      tier:'Tier 7 Employee', levels:'7-15', dmg:'9-32',  img:'/icons/promotions/Cashbot/25px-LoanSharkHead.webp' },
+  { name:'Robber Baron',    tier:'Tier 8 Employee', levels:'8-50', dmg:'8-59',  img:'/icons/promotions/Cashbot/25px-RobberBaronHead.webp' },
+];
+
+const CB_COG_DETAILS: CogDetail[] = [
+  {
+    cogName: 'Loan Shark',
+    attacks: [
+      { name:'Bite',         target:'Single Toon',   levels:[7,8,9,10,11,12,13,14,15], dmg:[10,11,13,15,16,18,20,22,24], acc:[60,75,80,85,90,95,95,95,95], freq:30 },
+      { name:'Chomp',        target:'Single Toon',   levels:[7,8,9,10,11,12,13,14,15], dmg:[12,15,18,21,24,26,28,30,32], acc:[60,70,75,80,90,95,95,95,95], freq:35 },
+      { name:'Play Hardball',target:'Single Toon',   levels:[7,8,9,10,11,12,13,14,15], dmg:[9,11,13,15,17,19,21,23,25],  acc:[80,80,75,85,85,90,90,90,95], freq:20 },
+      { name:'Write Off',    target:'Single Toon',   levels:[7,8,9,10,11,12,13,14,15], dmg:[6,8,10,12,14,16,18,20,22],   acc:[80,80,85,85,90,90,90,90,95], freq:15 },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'11.3%', avg:'~2' }],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'0%',     avg:'~0-1',  boss:'20%' },
+      { label:'3 Story (Tier II)', spawn:'6.7%',   avg:'~1',    boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'13%',    avg:'~2-3',  boss:'25%' },
+      { label:'4 Story (Tier II)', spawn:'21.4%',  avg:'~3-4',  boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'26.3%',  avg:'~5-6',  boss:'50%', bold:true },
+      { label:'5 Story (Tier II)', spawn:'31.25%', avg:'~8',    boss:'50%', bold:true },
+      { label:'6 Story (Tier I)',  spawn:'37.5%',  avg:'~15-16',boss:'0%'  },
+      { label:'6 Story (Tier II)', spawn:'38.5%',  avg:'~18-19',boss:'0%'  },
+    ],
+    invasions: ['The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Robber Baron',
+    attacks: [
+      {
+        name:'Synergy', target:'All Toons',
+        levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
+        dmg:   [11,14,16,18,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,'Limit'],
+        acc:   [60,65,70,75,80,85,90,90,90,90,90,90,90,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95],
+        freq:  25,
+      },
+      {
+        name:'Cigar Smoke', target:'Single Toon',
+        levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
+        dmg:   [14,15,17,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,'Limit'],
+        acc:   [60,65,70,75,80,85,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90],
+        freq:  25,
+      },
+      {
+        name:'Pick Pocket', target:'Single Target',
+        levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
+        dmg:   [8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,'Limit','Limit'],
+        acc:   [55,65,70,75,80,85,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90],
+        freq:  25,
+      },
+      {
+        name:'Tee Off', target:'Single Target',
+        levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50],
+        dmg:   [10,12,14,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56],
+        acc:   [60,65,75,85,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90,90],
+        freq:  25,
+      },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'7.5%', avg:'~1-2' }],
+    buildings: [
+      { label:'3 Story (Tier II)', spawn:'0%',     avg:'~0-1',  boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',   avg:'~1-2',  boss:'25%' },
+      { label:'4 Story (Tier II)', spawn:'14.3%',  avg:'~2-3',  boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'26.3%',  avg:'~5-6',  boss:'50%' },
+      { label:'5 Story (Tier II)', spawn:'31.25%', avg:'~8',    boss:'50%' },
+      { label:'6 Story (Tier I)',  spawn:'37.5%',  avg:'~16-17',boss:'100%', bold:true },
+      { label:'6 Story (Tier II)', spawn:'46.1%',  avg:'~23',   boss:'100%', bold:true },
+    ],
+    invasions: ['Acorn Acres','Drowsy Dreamland'],
+  },
+];
+
+const CB_XP_ROWS = [
+  { source:'Any Cashbot',           base:'1x Cog level',     boost:'Cogbuck Monday, Invasions, Boosters' },
+  { source:'Cashbot Cog Buildings', base:'Varies by floors', boost:'Cogbuck Monday, Boosters only' },
+  { source:'Cashbot Mint (C.F.O.)', base:'No Dept XP',       boost:'N/A' },
+];
+
+const CB_HIGHLIGHTS = [
+  'Cashbot Cog Buildings',
+  'Cashbot HQ',
+  'Cogbuck Monday',
+  'Cog Invasions',
+  'Laff Points',
+  'Laff Point',
+  'Robber Baron',
+  'Loan Shark',
+  'Cashbots',
+  'Cashbot',
+  'Cogbucks',
+  'Cogbuck',
+  'Boosters',
+  'C.F.O.',
+];
+
+function CBHighlight({ text }: { text: string }) {
+  const escaped = CB_HIGHLIGHTS.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const parts = text.split(new RegExp(`(${escaped.join('|')})`, 'g'));
+  return (
+    <>
+      {parts.map((part, i) =>
+        CB_HIGHLIGHTS.includes(part)
+          ? <span key={i} className="pim-hl">{part}</span>
+          : <span key={i}>{part}</span>
+      )}
+    </>
+  );
+}
+
+/* Cashbot content — XP table sub-component */
+function CashbotXPSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-section">
+      <h3 className="pim-section-title" style={{color: accent}}>Gaining Department XP</h3>
+      <div className="pim-table-wrap">
+        <table className="pim-xp-table">
+          <thead><tr><th>Source</th><th>Base XP</th><th>Boostable By</th></tr></thead>
+          <tbody>
+            {CB_XP_ROWS.map(r => (
+              <tr key={r.source}>
+                <td><span className="pim-xp-val"><CBHighlight text={r.source} /></span></td>
+                <td><CBHighlight text={r.base} /></td>
+                <td className="pim-muted"><CBHighlight text={r.boost} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/* Cashbot content — Ladder tab sub-component */
+function CashbotLadderSection({ accent, openDetail }: { accent: string; openDetail: (n:string)=>void }) {
+  return (
+    <div className="pim-scroll">
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color: accent}}>General Cogs</h3>
+        <div className="pim-cog-grid">
+          {CB_REGULAR.map(c => {
+            const detail = CB_COG_DETAILS.find(d => d.cogName === c.name);
+            return (
+              <div key={c.name} className="pim-cog-card">
+                <div className="pim-cog-img-wrap">
+                  <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
+                </div>
+                <div className="pim-cog-info">
+                  <span className="pim-cog-name" style={{color: accent}}>{c.name}</span>
+                  <span className="pim-cog-tier">{c.tier}</span>
+                  <span className="pim-cog-stat">Levels {c.levels}</span>
+                  <span className="pim-cog-stat">Damage: {c.dmg}</span>
+                  {detail && (
+                    <button className="pim-cog-detail-btn"
+                      style={{'--pim-accent': accent} as React.CSSProperties}
+                      onClick={() => openDetail(c.name)}>
+                      View Details
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* Cashbot content — main component */
+function CashbotContent({ accent }: { accent: string }) {
+  const [tab, setTab] = useState<'promos'|'ladder'>('promos');
+  const [detailCog, setDetailCog] = useState<string|null>(null);
+  const openDetail  = (name: string) => setDetailCog(name);
+  const closeDetail = () => setDetailCog(null);
+
+  return (
+    <div className="pim-inner">
+      {detailCog ? (
+        <div className="pim-inner-tabs pim-detail-nav">
+          <button className="pim-detail-back-btn" style={{'--pim-accent': accent} as React.CSSProperties} onClick={closeDetail}>
+            &#8592; Back
+          </button>
+          <span className="pim-detail-nav-title" style={{color: accent}}>{detailCog}</span>
+        </div>
+      ) : (
+        <div className="pim-inner-tabs">
+          {(['promos','ladder'] as const).map(t => (
+            <button key={t}
+              className={`pim-inner-tab${tab === t ? ' pim-inner-tab--active' : ''}`}
+              style={tab === t ? {'--pim-accent': accent} as React.CSSProperties : undefined}
+              onClick={() => setTab(t)}>
+              {t === 'promos' ? 'Cashbot Promotions' : 'Corporate Ladder'}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {detailCog && (() => {
+        const detail  = CB_COG_DETAILS.find(d => d.cogName === detailCog);
+        const cogCard = CB_REGULAR.find(c => c.name === detailCog);
+        if (!detail) return null;
+        return (
+          <div className="pim-scroll pim-detail-view">
+            <div className="pim-detail-view-header">
+              {cogCard && (
+                <div className="pim-detail-view-img-wrap">
+                  <Image src={cogCard.img} alt={cogCard.name} fill className="pim-cog-img" unoptimized />
+                </div>
+              )}
+              <div className="pim-detail-view-meta">
+                {cogCard && <span className="pim-cog-tier">{cogCard.tier}</span>}
+                {cogCard && <span className="pim-cog-stat">Levels {cogCard.levels}</span>}
+                {cogCard && <span className="pim-cog-stat">Damage: {cogCard.dmg}</span>}
+              </div>
+            </div>
+            <CogDetailPanel detail={detail} accent={accent} />
+          </div>
+        );
+      })()}
+
+      {!detailCog && tab === 'promos' && (
+        <div className="pim-scroll">
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color: accent}}>Suit Acquisition</h3>
+            <div className="pim-info-block">
+              <div className="pim-suit-header">
+                <Image src="/icons/cog-emblems/CashbotEmblem.png" alt="Cashbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <span className="pim-suit-name" style={{fontWeight:800}}>Cashbot Cog Suit</span>
+              </div>
+              <ul className="pim-list">
+                <li><CBHighlight text="Earn the Short Change Cog Disguise by completing tasks in Cashbot HQ." /></li>
+                <li><CBHighlight text="Complete tasks given by Cashbot HQ NPCs to collect all suit parts." /></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color: accent}}>Promotions Overview</h3>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>How promotions work:</p>
+              <ul className="pim-list">
+                <li><CBHighlight text="Promotions are earned by defeating the C.F.O. in Cashbot HQ." /></li>
+                <li><CBHighlight text="The Cashbot equivalent of Merits is called Cogbucks." /></li>
+                <li><CBHighlight text="Cogbucks are earned by defeating any Cashbots anywhere in the game." /></li>
+              </ul>
+            </div>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>Best ways to stack Cogbucks fast:</p>
+              <ul className="pim-list">
+                <li><CBHighlight text="Cashbot Cog Buildings reward Cogbucks per floor — Cog Invasions do not boost inside buildings." /></li>
+                <li><CBHighlight text="Boost earnings with Cogbuck Monday, Cog Invasions, and Boosters." /></li>
+              </ul>
+            </div>
+          </div>
+          <CashbotXPSection accent={accent} />
+        </div>
+      )}
+
+      {!detailCog && tab === 'ladder' && (
+        <CashbotLadderSection accent={accent} openDetail={openDetail} />
+      )}
+    </div>
+  );
+}
+
 /* Main exported modal */
 export function PromoInfoModal({ suitName, accent, onClose }: Props) {
   const handleKey = useCallback((e: KeyboardEvent) => {
@@ -776,7 +1048,9 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
     };
   }, [handleKey]);
 
-  const isSellbot = suitName === 'Sellbot';
+  const isSellbot  = suitName === 'Sellbot';
+  const isCashbot  = suitName === 'Cashbot';
+  const hasContent = isSellbot || isCashbot;
 
   return (
     <div className="pgm-backdrop" onClick={onClose}>
@@ -804,10 +1078,9 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
         </div>
 
         <div className="pgm-body pgm-body--single pim-body-wrap">
-          {isSellbot
-            ? <SellbotContent accent={accent} />
-            : <p className="pgm-info-placeholder">Additional information for {suitName} will be added here.</p>
-          }
+          {isSellbot  && <SellbotContent  accent={accent} />}
+          {isCashbot  && <CashbotContent  accent={accent} />}
+          {!hasContent && <p className="pgm-info-placeholder">Additional information for {suitName} will be added here.</p>}
         </div>
       </div>
     </div>

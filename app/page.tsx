@@ -3,11 +3,11 @@ import {SiteFooter, SiteHeader} from './components/SiteChrome';
 import {AnimateIn} from './components/AnimateIn';
 
 const gear = [
-  'Predator Helios Neo 16',
-  'Intel® Core™ Ultra 9 275HX',
-  'NVIDIA® GeForce RTX™ 5070Ti',
-  '16″ WQXGA IPS · 240 Hz',
-  '32 GB DDR5 · 2 TB SSD',
+  'Acer Predator Helios Neo 16S AI',
+  'Intel\u00ae Core\u2122 Ultra 9',
+  'NVIDIA\u00ae GeForce RTX\u2122 5070Ti',
+  '16\u2033 OLED \u00b7 240 Hz',
+  '32 GB \u00b7 1 TB SSD',
 ];
 
 export default function Home() {
@@ -66,7 +66,7 @@ export default function Home() {
           </AnimateIn>
           <AnimateIn delay={100}>
           <div className="info-grid">
-            <article><p className="kicker">Stream info</p><h3>2:00 PM &ndash; 8:00 PM</h3><p>Different days every week</p></article>
+            <article><p className="kicker">Stream info</p><h3>Coming soon</h3></article>
             <article><p className="kicker">Platforms</p><h3>PC and Switch &middot; Switch 2</h3></article>
             <article className="gear-card"><p className="kicker">PC &amp; peripherals</p>{gear.map(item => <p key={item}>{item}</p>)}<hr />
               <p>Crusher&reg; 1080 ANC &middot; ModMic Wireless &middot; Logitech G502 Lightspeed &middot; Powerplay Charging Pad &middot; Logitech G915 TKL</p>
