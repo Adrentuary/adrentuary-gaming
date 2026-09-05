@@ -27,7 +27,6 @@ function RewardBadges({ reward }: { reward: string }) {
         else if (part.startsWith('Carry ') && part.endsWith('jellybeans')) cls = 'lv-badge lv-badge--yellow';
         return (
           <span key={i}>
-            {i > 0 && <span className="lv-reward-dot"> · </span>}
             {cls ? <span className={cls}>{part}</span> : <span>{part}</span>}
           </span>
         );
