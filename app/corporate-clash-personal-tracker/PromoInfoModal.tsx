@@ -430,7 +430,9 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
             </div>
           )}
           {detail.buildings && detail.buildings.length > 0 && (() => {
+            const parseAvg = (s: string) => { const n = s.replace('~','').split('-'); return parseFloat(n[n.length-1]); };
             const maxSpawn = Math.max(...detail.buildings.map(b => parseFloat(b.spawn)));
+            const maxAvg   = Math.max(...detail.buildings.map(b => parseAvg(b.avg)));
             const maxBoss  = Math.max(...detail.buildings.map(b => parseFloat(b.boss)));
             return (
             <><p className="pim-detail-sublabel" style={{marginTop:10}}>Sellbot Cog Buildings</p>
@@ -444,13 +446,14 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
                 </tr></thead>
                 <tbody>
                   {detail.buildings.map(b => {
-                    const topSpawn = parseFloat(b.spawn) === maxSpawn;
+                    const topSpawn = maxSpawn > 0 && parseFloat(b.spawn) === maxSpawn;
+                    const topAvg   = maxAvg > 0 && parseAvg(b.avg) === maxAvg;
                     const topBoss  = maxBoss > 0 && parseFloat(b.boss) === maxBoss;
                     return (
                     <tr key={b.label} className={topBoss ? 'pim-loc-row--boss-top' : ''}>
                       <td className="pim-loc-name pim-loc-name--building">{b.label}</td>
                       <td className={`pim-loc-val${topSpawn ? ' pim-loc-val--top' : ''}`}>{b.spawn}</td>
-                      <td className="pim-loc-val">{b.avg}</td>
+                      <td className={`pim-loc-val${topAvg ? ' pim-loc-val--avg-top' : ''}`}>{b.avg}</td>
                       <td className={`pim-loc-val${topBoss ? ' pim-loc-val--boss-top' : ''}`}>{b.boss}</td>
                     </tr>
                     );
