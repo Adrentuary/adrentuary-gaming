@@ -1,33 +1,22 @@
 ﻿﻿﻿﻿﻿﻿﻿﻿﻿'use client';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
 import { SectionNote } from './SectionNote';
 import { GagResetDrawer } from './GagResetDrawer';
 import { GAG_TRACKS, RECOMMENDED_ZONES } from './data-gags';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 
-const LS_KEY = 'cc-gag-info-collapsed';
-
-function loadCollapsed(): Set<string> {
-  if (typeof window === 'undefined') return new Set();
-  try { return new Set(JSON.parse(localStorage.getItem(LS_KEY) ?? '[]')); }
-  catch { return new Set(); }
-}
+const COLLAPSED_KEY = 'gags';
 
 export function SectionGags() {
-  const { toonNames, isDone, setProgressBatch } = useTracker();
-  const [collapsedInfo, setCollapsedInfo] = useState<Set<string>>(new Set());
-
-  useEffect(() => { setCollapsedInfo(loadCollapsed()); }, []);
+  const { toonNames, isDone, setProgressBatch, collapsedUI, setCollapsedUI } = useTracker();
+  const collapsedInfo = new Set<string>(collapsedUI[COLLAPSED_KEY] ?? []);
 
   const toggleInfo = (trackName: string) => {
-    setCollapsedInfo(prev => {
-      const next = new Set(prev);
-      if (next.has(trackName)) next.delete(trackName);
-      else next.add(trackName);
-      try { localStorage.setItem(LS_KEY, JSON.stringify([...next])); } catch {}
-      return next;
+    setCollapsedUI(prev => {
+      const current = new Set<string>(prev[COLLAPSED_KEY] ?? []);
+      current.has(trackName) ? current.delete(trackName) : current.add(trackName);
+      return { ...prev, [COLLAPSED_KEY]: [...current] };
     });
   };
 

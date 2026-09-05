@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { COLLECTIONS, COLLECTION_TYPES } from './data-collections';
@@ -56,14 +56,7 @@ const SECTION_ICON_IMG: Record<string, string> = {
   'Drowsy Dreamland':                     '/icons/playground-emblems/DDL.png',
 };
 
-const LS_COLL_COLLAPSED = 'cc-coll-collapsed';
-function loadCollapsed(): Set<string> {
-  if (typeof window === 'undefined') return new Set();
-  try { return new Set(JSON.parse(localStorage.getItem(LS_COLL_COLLAPSED) ?? '[]')); } catch { return new Set(); }
-}
-function saveCollapsed(s: Set<string>) {
-  try { localStorage.setItem(LS_COLL_COLLAPSED, JSON.stringify([...s])); } catch { /* ignore */ }
-}
+const COLLAPSED_KEY = 'collections';
 
 const IMG_DIMS: Record<string, [number,number]> = {
   'Background':    [192, 108],
@@ -75,12 +68,15 @@ const IMG_DIMS: Record<string, [number,number]> = {
 };
 
 export function SectionCollections() {
-  const { toonNames, progress, toggle } = useTracker();
+  const { toonNames, progress, toggle, collapsedUI, setCollapsedUI } = useTracker();
   const [filter, setFilter] = useState<CollectionType | 'All'>('All');
-  const [collapsed, setCollapsed] = useState<Set<string>>(() => loadCollapsed());
-  useEffect(() => { saveCollapsed(collapsed); }, [collapsed]);
+  const collapsed = new Set<string>(collapsedUI[COLLAPSED_KEY] ?? []);
   const toggleCollapse = (name: string) => {
-    setCollapsed(prev => { const next = new Set(prev); next.has(name) ? next.delete(name) : next.add(name); return next; });
+    setCollapsedUI(prev => {
+      const current = new Set<string>(prev[COLLAPSED_KEY] ?? []);
+      current.has(name) ? current.delete(name) : current.add(name);
+      return { ...prev, [COLLAPSED_KEY]: [...current] };
+    });
   };
   const activeTypes = filter === 'All' ? COLLECTION_TYPES : [filter] as CollectionType[];
   return (

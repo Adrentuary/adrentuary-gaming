@@ -1,5 +1,4 @@
 'use client';
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { LAFF_BOOSTS } from './data-laff';
@@ -60,20 +59,22 @@ const PG_ICON_MAP: Record<string, {emoji: string; img: string}> = {
 };
 const LAFF_GROUPS = ['Kudos', 'Activities', 'Promotions'];
 
+const LAFF_COLLAPSED_KEY = 'laff';
+
 export function SectionLaff() {
-  const { toonNames, isDone, toggleAll, isAllDone } = useTracker();
-  const STORAGE_KEY = 'laff-open-groups';
-  const [openGroups, setOpenGroups] = useState<Set<string>>(() => {
-    if (typeof window === 'undefined') return new Set(LAFF_GROUPS);
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) return new Set(JSON.parse(saved));
-    } catch {}
-    return new Set(LAFF_GROUPS);
-  });
-  useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...openGroups])); } catch {}
-  }, [openGroups]);
+  const { toonNames, isDone, toggleAll, isAllDone, collapsedUI, setCollapsedUI } = useTracker();
+  // Store which groups are CLOSED; default = none closed (all open)
+  const closedGroups = new Set<string>(collapsedUI[LAFF_COLLAPSED_KEY] ?? []);
+  const openGroups = new Set<string>(LAFF_GROUPS.filter(g => !closedGroups.has(g)));
+  const setOpenGroups = (updater: (prev: Set<string>) => Set<string>) => {
+    setCollapsedUI(prev => {
+      const currentClosed = new Set<string>(prev[LAFF_COLLAPSED_KEY] ?? []);
+      const currentOpen = new Set<string>(LAFF_GROUPS.filter(g => !currentClosed.has(g)));
+      const nextOpen = updater(currentOpen);
+      const nextClosed = LAFF_GROUPS.filter(g => !nextOpen.has(g));
+      return { ...prev, [LAFF_COLLAPSED_KEY]: nextClosed };
+    });
+  };
   const renderedSections = new Set<string>();
   const renderedGroups = new Set<string>();
   const colCount = 3 + toonNames.length + 1;

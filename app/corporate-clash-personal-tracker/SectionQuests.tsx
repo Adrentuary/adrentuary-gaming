@@ -1,5 +1,5 @@
 ﻿'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
 import { TTC, BB, YOTT, DG, MML, TB, AA, DDL } from './data-quests-index';
@@ -10,15 +10,7 @@ import { CheckBtn } from './CheckBtn';
 import { QuestResetDrawer } from './QuestResetDrawer';
 
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
-const LS_KEY = 'cc-quest-collapsed';
-
-function loadCollapsed(): Record<string, string[]> {
-  if (typeof window === 'undefined') return {};
-  try { return JSON.parse(localStorage.getItem(LS_KEY) ?? '{}'); } catch { return {}; }
-}
-function saveCollapsed(data: Record<string, string[]>) {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch { /* ignore */ }
-}
+const QUEST_NS = 'quests:';
 function rowClass(t: QuestSectionType | undefined): string {
   if (t === 'main') return 'quest-row--main';
   if (t === 'side') return 'quest-row--side';
@@ -28,26 +20,23 @@ function rowClass(t: QuestSectionType | undefined): string {
 }
 
 export function SectionQuests() {
-  const { toonNames, progress, toggle, toggleAll, isAllDone, setProgressBatch } = useTracker();
+  const { toonNames, progress, toggle, toggleAll, isAllDone, setProgressBatch, collapsedUI, setCollapsedUI } = useTracker();
   const [tab, setTab] = useState(0);
   const pg = QUESTS[tab];
 
-  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
-    const all = loadCollapsed();
-    return new Set(all[pg.name] ?? []);
-  });
-  useEffect(() => {
-    const all = loadCollapsed(); all[pg.name] = [...collapsed]; saveCollapsed(all);
-  }, [collapsed, pg.name]);
+  const collapsed = new Set<string>(collapsedUI[QUEST_NS + pg.name] ?? []);
 
   const toggleSection = useCallback((label: string) => {
-    setCollapsed(prev => {
-      const next = new Set(prev); next.has(label) ? next.delete(label) : next.add(label); return next;
+    setCollapsedUI(prev => {
+      const key = QUEST_NS + pg.name;
+      const current = new Set<string>(prev[key] ?? []);
+      current.has(label) ? current.delete(label) : current.add(label);
+      return { ...prev, [key]: [...current] };
     });
-  }, []);
+  }, [pg.name, setCollapsedUI]);
 
   const handleTabChange = (i: number) => {
-    const all = loadCollapsed(); setCollapsed(new Set(all[QUESTS[i].name] ?? [])); setTab(i);
+    setTab(i);
   };
 
   // For progression: main rows form one pool, ALL kudos rows (low+high) form one unified pool
