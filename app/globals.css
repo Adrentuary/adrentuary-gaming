@@ -718,6 +718,10 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pim-box--sb{background-image:url(/icons/promotions/Sellbot/wallpapers/SBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
 /* Dark overlay on top of BG so content is readable */
 .pim-bg-overlay{position:absolute;inset:0;background:rgba(8,6,18,.91);pointer-events:none;z-index:0}
+/* HQ guide section — wallpaper background scoped to just that tab's content */
+.pim-hq-section{position:relative;flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;background-image:var(--hq-bg);background-size:cover;background-position:center top}
+.pim-hq-overlay{position:absolute;inset:0;background:rgba(8,6,18,.88);pointer-events:none;z-index:0}
+.pim-hq-content{position:relative;z-index:1}
 /* Ensure header + body sit above the overlay */
 .pim-header-raised,.pim-body-wrap{position:relative;z-index:1}
 /* Body wrapper — remove default padding so pim-inner fills it */

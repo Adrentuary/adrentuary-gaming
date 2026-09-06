@@ -480,9 +480,70 @@ function CogDetailPanel({ detail, accent, dept = 'Sellbot' }: { detail: CogDetai
 }
 
 
+
+/* --- Sellbot HQ guide section --- */
+function SellbotHQSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Sellbot/wallpapers/Sellbot_HQ.png)'} as React.CSSProperties}>
+      <div className="pim-hq-overlay" />
+      <div className="pim-scroll pim-hq-content">
+        <div className="pim-section">
+          <p className="pim-para">
+            <strong>Sellbot Headquarters</strong> (shortened as SBHQ) is the base of operations for the{' '}
+            <span className="pim-hl">Sellbots</span>. Toons are tasked with infiltrating this{' '}
+            <span className="pim-hl">Cog Headquarters</span> when progressing through the{' '}
+            <span className="pim-hl">Daffodil Gardens Taskline</span>. Toons can collect{' '}
+            <span className="pim-hl">Invoices</span> in the{' '}
+            <span className="pim-hl">Sellbot Factory</span> to fight the{' '}
+            <span className="pim-hl">Senior Vice President</span>, who is found atop the Sellbot Towers.
+          </p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Courtyard</h3>
+          <p className="pim-para">The Sellbot HQ Courtyard is a large gravel pit with barrels of oil, scrap piles, and worn-down machinery littered around. The Courtyard is covered in a gloomy, cloudy sky with steep gray hills in the background. On the right-side of the Courtyard lies the Sellbot Factory Exterior, and the Sellbot Towers at the other end from the Courtyard entrance.</p>
+          <h4 className="pim-detail-heading" style={{color: accent, marginTop: 4}}>Cog Spawns</h4>
+          <ul className="pim-list">
+            <li>Level 4-8 Cogs roam around the Courtyard.</li>
+            <li><span className="pim-hl">Tier 1-7 Cogs</span> can spawn in the Courtyard.</li>
+            <li>An average of ~10 Cogs roam the Courtyard at any given time.</li>
+            <li>There is a 92% chance for a Cog to spawn as a Sellbot.
+              <ul className="pim-list" style={{marginTop: 4}}>
+                <li>There is a 2% chance for every other <span className="pim-hl">Department</span> to spawn (8% total).</li>
+              </ul>
+            </li>
+            <li>+1x <span className="pim-hl">Gag Experience</span> and Merit multiplier while in the Courtyard.</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Sellbot Factory Exterior</h3>
+          <p className="pim-para">The Sellbot HQ Factory Exterior contains the entrance to the <span className="pim-hl">Sellbot Factory</span>, the <span className="pim-hl">Facility</span> of Sellbot HQ. The Sellbot Factory has 2 entrances: the Front Entrance and Side Entrance. The Side Entrance will increase the levels of all Cogs in the Factory by +1 (excluding the <span className="pim-hl">Factory Foreman</span>). Toons must infiltrate and defeat the Sellbot Factory 5 times to complete their Sellbot <span className="pim-hl">Cog Disguise</span> (either entrance is accepted). Once a Suit is fully built, Toons can infiltrate the Sellbot Towers and battle the V.P.</p>
+          <p className="pim-para" style={{marginTop: 6}}>The Sellbot HQ Factory Exterior includes an entrance yard that connects to the Factory exterior&apos;s yard. Sellbot Cogs patrol both these areas.</p>
+          <h4 className="pim-detail-heading" style={{color: accent, marginTop: 4}}>Cog Spawns</h4>
+          <ul className="pim-list">
+            <li>Level 5-8 Cogs roam around the Factory Exterior.</li>
+            <li><span className="pim-hl">Tier 1-8 Cogs</span> can spawn in the Factory Exterior.</li>
+            <li>An average of ~21 Cogs roam the Factory Exterior at any given time.</li>
+            <li>Only Sellbot Cogs will spawn in the Factory Exterior.</li>
+            <li>+1x <span className="pim-hl">Gag Experience</span> and Merit multiplier while in the Factory Exterior.</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Sellbot Towers</h3>
+          <p className="pim-para">At the end of the Courtyard lies the Sellbot Towers, where the V.P. resides. The Sellbot Towers are 4 scaling buildings, with statues and spotlights at the front. Cogs are seen entering and exiting the Sellbot Towers. Inside the Sellbot Towers is the Sellbot HQ Lobby, where Toons can wait to form groups, take the elevator, and battle the Senior Vice President atop the Sellbot Towers. Infiltrating this location requires a completed Sellbot Cog Disguise.</p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Sellbot Junior Administration Lobby</h3>
+          <p className="pim-para">On the left-side of the Sellbot HQ Lobby lies the entrance to the Sellbot Junior Administration Lobby. This area contains an absurdly long series of stairs that leads to the Junior V.P.&apos;s office, where Toons will battle the <span className="pim-hl">Multislacker</span>. Likewise, entering the office itself requires Toons to reach &quot;<span className="pim-hl">The Couch Slouch</span>&quot; Kudos Board Rank-Up Task for <span className="pim-hl">Daffodil Gardens</span>.</p>
+          <p className="pim-para" style={{marginTop: 6}}>By the entrance of the lobby lies an out-of-order elevator and another doorway blocked with rails and signs that read &quot;keep out.&quot; Neither of these entrances are functional, though it&apos;s believed the doorway may be used for the <span className="pim-hl">Overclocked</span> Senior Vice President lobby.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* Sellbot content */
 function SellbotContent({ accent }: { accent: string }) {
-  const [tab, setTab] = useState<'promos'|'ladder'>('promos');
+  const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
   const [detailCog, setDetailCog] = useState<string|null>(null);
 
   const openDetail  = (name: string) => setDetailCog(name);
@@ -500,14 +561,14 @@ function SellbotContent({ accent }: { accent: string }) {
         </div>
       ) : (
         <div className="pim-inner-tabs">
-          {(['promos','ladder'] as const).map(t => (
+          {(['hq','promos','ladder'] as const).map(t => (
             <button
               key={t}
               className={`pim-inner-tab${tab === t ? ' pim-inner-tab--active' : ''}`}
               style={tab === t ? {'--pim-accent': accent} as React.CSSProperties : undefined}
               onClick={() => setTab(t)}
             >
-              {t === 'promos' ? 'Sellbot Promotions' : 'Corporate Ladder'}
+              {t === 'hq' ? 'Sellbot HQ' : t === 'promos' ? 'Sellbot Promotions' : 'Corporate Ladder'}
             </button>
           ))}
         </div>
@@ -536,6 +597,10 @@ function SellbotContent({ accent }: { accent: string }) {
           </div>
         );
       })()}
+
+      {!detailCog && tab === 'hq' && (
+        <SellbotHQSection accent={accent} />
+      )}
 
       {!detailCog && tab === 'promos' && (
         <div className="pim-scroll">
@@ -1062,6 +1127,54 @@ function CBHighlight({ text }: { text: string }) {
   );
 }
 
+
+/* --- Cashbot HQ guide section --- */
+function CashbotHQSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Cashbot/wallpapers/Cashbot_HQ.png)'} as React.CSSProperties}>
+      <div className="pim-hq-overlay" />
+      <div className="pim-scroll pim-hq-content">
+        <div className="pim-section">
+          <p className="pim-para">
+            <strong>Cashbot Headquarters</strong> (shortened as CBHQ) is the base of operations for the{' '}
+            <span className="pim-hl">Cashbots</span>. Toons are tasked with infiltrating this{' '}
+            <span className="pim-hl">Cog Headquarters</span> when progressing through the{' '}
+            <span className="pim-hl">Mezzo Melodyland Taskline</span>. Toons can collect{' '}
+            <span className="pim-hl">Cogbucks</span> in the{' '}
+            <span className="pim-hl">Cashbot Mints</span> to fight the{' '}
+            <span className="pim-hl">Chief Financial Officer</span>, who is found in the Cashbot Vault.
+          </p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Cashbot Train Yard</h3>
+          <p className="pim-para">The Cashbot Train Yard is a massive area where cargo is carried to and fro via trains. Trains intermittently come through the Train Yard, using four separate train tracks. Toons can use the red cross sections to maneuver across the tracks. However, they should be cautious as trains can collide with them, flattening and damaging the Toon for -10 Laff. Throughout the Train Yard are the entrances to the Cashbot Mints, located at the front, middle, and back end of the yard. At the very end of the Train Yard lies the entrance to the Cashbot Vault.</p>
+          <p className="pim-para" style={{marginTop: 6}}>Given its immense size and obstacles, Toons may want to use the <span className="pim-hl">Group Tracker</span> to teleport to the Cashbot Mint or Vault entrances.</p>
+          <h4 className="pim-detail-heading" style={{color: accent, marginTop: 4}}>Cog Spawns</h4>
+          <ul className="pim-list">
+            <li>Level 5-9 Cogs roam around the Train Yard.</li>
+            <li><span className="pim-hl">Tier 1-8 Cogs</span> can spawn in the Train Yard.</li>
+            <li>An average of ~21 Cogs roam the Train Yard at any given time.</li>
+            <li>There is a 92% chance for a Cog to spawn as a Cashbot.
+              <ul className="pim-list" style={{marginTop: 4}}>
+                <li>There is a 2% chance for every other <span className="pim-hl">Department</span> to spawn (8% total).</li>
+              </ul>
+            </li>
+            <li>+1x <span className="pim-hl">Gag Experience</span> and Merit multiplier while in the Train Yard.</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Cashbot Mints</h3>
+          <p className="pim-para"><span className="pim-hl">Cashbot Mints</span> are the <span className="pim-hl">Facilities</span> of Cashbot HQ, found at the front, middle, and back end the Train Yard. There are 3 types of Cashbot Mints: Coin, Dollar, and Bullion Mints. Each vary in length and amount of Cogbucks rewarded. Toons must infiltrate the Cashbot Mints and defeat 2 Coin Mints, 2 Dollar Mints, and 1 Bullion Mint to complete their Cashbot <span className="pim-hl">Cog Disguise</span>. Once a Suit is fully built, Toons can infiltrate the Cashbot Vault and battle the C.F.O.</p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Cashbot Vault</h3>
+          <p className="pim-para">At the end of the Cashbot Train Yard lies the Cashbot Vault, where the C.F.O. resides. The Cashbot Vault is a massive building with towering columns and black marble walls and floors. Inside the Cashbot Vault is the Cashbot HQ Lobby, where Toons can form groups, ride the elevator, and battle the Chief Financial Officer. Infiltrating this location requires a completed Cashbot Cog Disguise.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* Cashbot content — XP table sub-component */
 function CashbotXPSection({ accent }: { accent: string }) {
   return (
@@ -1163,7 +1276,7 @@ function CashbotLadderSection({ accent, openDetail }: { accent: string; openDeta
 
 /* Cashbot content — main component */
 function CashbotContent({ accent }: { accent: string }) {
-  const [tab, setTab] = useState<'promos'|'ladder'>('promos');
+  const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
   const [detailCog, setDetailCog] = useState<string|null>(null);
   const openDetail  = (name: string) => setDetailCog(name);
   const closeDetail = () => setDetailCog(null);
@@ -1179,12 +1292,12 @@ function CashbotContent({ accent }: { accent: string }) {
         </div>
       ) : (
         <div className="pim-inner-tabs">
-          {(['promos','ladder'] as const).map(t => (
+          {(['hq','promos','ladder'] as const).map(t => (
             <button key={t}
               className={`pim-inner-tab${tab === t ? ' pim-inner-tab--active' : ''}`}
               style={tab === t ? {'--pim-accent': accent} as React.CSSProperties : undefined}
               onClick={() => setTab(t)}>
-              {t === 'promos' ? 'Cashbot Promotions' : 'Corporate Ladder'}
+              {t === 'hq' ? 'Cashbot HQ' : t === 'promos' ? 'Cashbot Promotions' : 'Corporate Ladder'}
             </button>
           ))}
         </div>
@@ -1212,6 +1325,10 @@ function CashbotContent({ accent }: { accent: string }) {
           </div>
         );
       })()}
+
+      {!detailCog && tab === 'hq' && (
+        <CashbotHQSection accent={accent} />
+      )}
 
       {!detailCog && tab === 'promos' && (
         <div className="pim-scroll">
