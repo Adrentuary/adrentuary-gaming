@@ -498,7 +498,7 @@ function SellbotHQSection({ accent }: { accent: string }) {
           <h3 className="pim-section-title" style={{color: accent}}>Courtyard</h3>
           <p className="pim-para">A large gravel pit connecting the Factory Exterior and Sellbot Towers. Gloomy sky, gray hills, and scattered machinery set the scene.</p>
           <ul className="pim-list">
-            <li>Levels <strong>4–8</strong> · <span className="pim-hl">Tier 1–7 Cogs</span> · ~10 Cogs active</li>
+            <li>Levels <strong>4–8</strong> | <span className="pim-hl">Tier 1–7 Cogs</span> | ~10 Cogs active</li>
             <li><strong>92%</strong> Sellbot spawn rate (2% per other department)</li>
             <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
           </ul>
@@ -508,7 +508,7 @@ function SellbotHQSection({ accent }: { accent: string }) {
           <h3 className="pim-section-title" style={{color: accent}}>Factory Exterior</h3>
           <p className="pim-para">Houses the two entrances to the <span className="pim-hl">Sellbot Factory</span>. The <strong>Side Entrance</strong> raises all Cog levels by +1 (excluding the <span className="pim-hl">Factory Foreman</span>). Complete 5 Factory runs — either entrance — to earn your <span className="pim-hl">Sellbot Cog Disguise</span>.</p>
           <ul className="pim-list">
-            <li>Levels <strong>5–8</strong> · <span className="pim-hl">Tier 1–8 Cogs</span> · ~21 Cogs active</li>
+            <li>Levels <strong>5–8</strong> | <span className="pim-hl">Tier 1–8 Cogs</span> | ~21 Cogs active</li>
             <li>Sellbot-only spawns</li>
             <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
           </ul>
@@ -1133,7 +1133,7 @@ function CashbotHQSection({ accent }: { accent: string }) {
           <h3 className="pim-section-title" style={{color: accent}}>Train Yard</h3>
           <p className="pim-para">A massive outdoor area criss-crossed by four active train tracks. Mint entrances are at the front, middle, and back of the yard — the Vault sits at the far end.</p>
           <ul className="pim-list">
-            <li>Levels <strong>5–9</strong> · <span className="pim-hl">Tier 1–8 Cogs</span> · ~21 Cogs active</li>
+            <li>Levels <strong>5–9</strong> | <span className="pim-hl">Tier 1–8 Cogs</span> | ~21 Cogs active</li>
             <li><strong>92%</strong> Cashbot spawn rate (2% per other department)</li>
             <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
             <li>Trains deal <strong>-10 Laff</strong> on contact — use red cross sections to cross safely</li>
