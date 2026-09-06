@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useCallback, useState } from 'react';
 import Image from 'next/image';
 
@@ -335,7 +335,7 @@ const SB_XP_ROWS = [
   { source:'Sellbot Towers (V.P.)', base:'No Dept XP',      boost:'N/A' },
 ];
 /* Cog detail panel — attacks */
-function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string }) {
+function CogDetailPanel({ detail, accent, dept = 'Sellbot' }: { detail: CogDetail; accent: string; dept?: string }) {
   return (
     <div className="pim-cog-detail-panel">
       <div className="pim-detail-section">
@@ -435,7 +435,7 @@ function CogDetailPanel({ detail, accent }: { detail: CogDetail; accent: string 
             const maxAvg   = Math.max(...detail.buildings.map(b => parseAvg(b.avg)));
             const maxBoss  = Math.max(...detail.buildings.map(b => parseFloat(b.boss)));
             return (
-            <><p className="pim-detail-sublabel" style={{marginTop:10}}>Sellbot Cog Buildings</p>
+            <><p className="pim-detail-sublabel" style={{marginTop:10}}>{dept} Cog Buildings</p>
             <div className="pim-loc-table-wrap">
               <table className="pim-loc-table">
                 <thead><tr>
@@ -654,7 +654,7 @@ function SellbotContent({ accent }: { accent: string }) {
           </div>
 
           <div className="pim-section">
-            <h3 className="pim-section-title" style={{color: accent}}>Gaining Department XP</h3>
+            <h3 className="pim-section-title" style={{color: accent}}>Gaining Department Experience</h3>
             <div className="pim-table-wrap">
               <table className="pim-xp-table">
                 <thead>
@@ -763,17 +763,189 @@ function SellbotContent({ accent }: { accent: string }) {
 
 /* ─── Cashbot data ──────────────────────────────────────────────────────────── */
 const CB_REGULAR = [
-  { name:'Short Change',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Cashbot/25px-ShortChangeHead.webp' },
-  { name:'Penny Pincher',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-12',  img:'/icons/promotions/Cashbot/25px-PennyPincherHead.webp' },
-  { name:'Tightwad',        tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Cashbot/25px-TightwadHead.webp' },
-  { name:'Bean Counter',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'4-24',  img:'/icons/promotions/Cashbot/25px-DownsizerHead.webp' },
-  { name:'Number Cruncher', tier:'Tier 5 Employee', levels:'5-10', dmg:'4-28',  img:'/icons/promotions/Cashbot/25px-NumberCruncherHead.webp' },
-  { name:'Money Bags',      tier:'Tier 6 Employee', levels:'6-11', dmg:'5-30',  img:'/icons/promotions/Cashbot/25px-MoneyBagsHead.webp' },
-  { name:'Loan Shark',      tier:'Tier 7 Employee', levels:'7-15', dmg:'9-32',  img:'/icons/promotions/Cashbot/25px-LoanSharkHead.webp' },
-  { name:'Robber Baron',    tier:'Tier 8 Employee', levels:'8-50', dmg:'8-59',  img:'/icons/promotions/Cashbot/25px-RobberBaronHead.webp' },
+  { name:'Short Change',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-11',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Shortchange_CG.gif' },
+  { name:'Penny Pincher',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Pennypincher_CG.gif' },
+  { name:'Tightwad',        tier:'Tier 3 Employee', levels:'3-7',  dmg:'3-18',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Tightwad_CG.gif' },
+  { name:'Bean Counter',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'4-24',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Beancounter_CG.gif' },
+  { name:'Number Cruncher', tier:'Tier 5 Employee', levels:'5-9',  dmg:'4-28',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Numbercruncher_CG.gif' },
+  { name:'Money Bags',      tier:'Tier 6 Employee', levels:'6-10', dmg:'5-30',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Moneybags_CG.gif' },
+  { name:'Loan Shark',      tier:'Tier 7 Employee', levels:'7-15', dmg:'9-32',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Loanshark_CG.gif' },
+  { name:'Robber Baron',    tier:'Tier 8 Employee', levels:'8-50', dmg:'8-59',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Robberbaron_CG.gif' },
+];
+
+const CB_SPECIAL = [
+  { name:'Mint Supervisor',      tier:'Manager',          level:'13 (mgr)', dmg:'21-31',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-MintSuper2.gif' },
+  { name:'Duck Shuffler',        tier:'Regional Manager', level:'5 (mgr)',  dmg:'3-6',    img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Duckshuffler_CG.gif' },
+  { name:'Treekiller',           tier:'Regional Manager', level:'24 (mgr)', dmg:'8-32',   img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Treekiller_CG.gif' },
+  { name:'Plutocrat',            tier:'Regional Manager', level:'38 (mgr)', dmg:'27-36',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Plutocrat_CG.gif' },
+  { name:'Satellite Investors',  tier:'Regional Managers',level:'20-35 (mgr)', dmg:'25-36', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Satelliteinvestors_CG.gif' },
+  { name:'High Roller',          tier:'Regional Manager', level:'100 (mgr)',dmg:'150-225',img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-HighRoller_CG.gif' },
+  { name:'Count Erfit',          tier:'Third Cousin Twice Removed', level:'20 (mgr) v2.0', dmg:'12-25', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CountErfit_CG.gif' },
+  { name:'Chief Financial Officer', tier:'Boss',          level:'[CLASSIFIED]', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CFOGif.gif' },
+];
+
+const CB_REMOVED = [
+  { name:'Chief of Dollars', tier:'Boss', level:'Removed', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/removed/300px-CODCogGalleryNOTREAL.gif' },
 ];
 
 const CB_COG_DETAILS: CogDetail[] = [
+  {
+    cogName: 'Short Change',
+    attacks: [
+      { name:'Watercooler',  target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,2,3,4,6],   acc:[50,50,50,50,50], freq:20 },
+      { name:'Bounce Check', target:'Single Toon', levels:[1,2,3,4,5], dmg:[3,5,7,9,11],  acc:[75,80,85,90,95], freq:15 },
+      { name:'Clip On Tie',  target:'Single Toon', levels:[1,2,3,4,5], dmg:[1,1,2,2,3],   acc:[50,50,50,50,50], freq:25 },
+      { name:'Pick Pocket',  target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,2,3,4,6],   acc:[95,95,95,95,95], freq:40 },
+    ],
+    streets: [
+      { name:'Punchline Place',  color:'#7a2500', accent:'#ff9966', spawn:'16%',   avg:'~4'   },
+      { name:'Seaweed Street',   color:'#5a1a05', accent:'#dc4a14', spawn:'17.2%', avg:'~4'   },
+      { name:'Knight Knoll',     color:'#33205e', accent:'#9b70cc', spawn:'7.9%',  avg:'~2'   },
+      { name:'Petunia Place',    color:'#314600', accent:'#9bd31a', spawn:'5.6%',  avg:'~1-2' },
+      { name:'Soprano Street',   color:'#482052', accent:'#bf62cb', spawn:'4.7%',  avg:'~1-2' },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'3.8%', avg:'~1' }],
+    buildings: [
+      { label:'1 Story',           spawn:'66.7%', avg:'~5-6', boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',   spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)',  spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',   spawn:'14.3%', avg:'~2',   boss:'0%' },
+      { label:'3 Story (Tier II)',  spawn:'6.7%',  avg:'~1',   boss:'0%' },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens'],
+  },
+  {
+    cogName: 'Penny Pincher',
+    attacks: [
+      { name:'Bounce Check',  target:'Single Toon', levels:[2,3,4,5,6], dmg:[3,4,5,7,10],  acc:[75,75,75,75,75], freq:25 },
+      { name:'Freeze Assets', target:'Single Toon', levels:[2,3,4,5,6], dmg:[2,3,4,6,9],   acc:[75,75,75,75,75], freq:20 },
+      { name:'Finger Wag',    target:'Single Toon', levels:[2,3,4,5,6], dmg:[1,2,3,4,6],   acc:[50,50,50,50,50], freq:25 },
+      { name:'Penny Pinch',   target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,5,6,8,12],  acc:[75,75,75,75,75], freq:30 },
+    ],
+    streets: [
+      { name:'Punchline Place',  color:'#7a2500', accent:'#ff9966', spawn:'12%',   avg:'~3'   },
+      { name:'Seaweed Street',   color:'#5a1a05', accent:'#dc4a14', spawn:'17.2%', avg:'~4'   },
+      { name:'Knight Knoll',     color:'#33205e', accent:'#9b70cc', spawn:'10.6%', avg:'~3'   },
+      { name:'Petunia Place',    color:'#314600', accent:'#9bd31a', spawn:'8.4%',  avg:'~2'   },
+      { name:'Soprano Street',   color:'#482052', accent:'#bf62cb', spawn:'9.4%',  avg:'~3'   },
+      { name:'Sleet Street',     color:'#003a46', accent:'#29b2dc', spawn:'2.1%',  avg:'~1'   },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'7.5%', avg:'~1-2' }],
+    buildings: [
+      { label:'1 Story',           spawn:'33.3%', avg:'~3',   boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',   spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)',  spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',   spawn:'21.4%', avg:'~3',   boss:'0%' },
+      { label:'3 Story (Tier II)',  spawn:'13.3%', avg:'~1-2', boss:'0%' },
+      { label:'4 Story (Tier I)',   spawn:'6.7%',  avg:'~1',   boss:'0%' },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland'],
+  },
+  {
+    cogName: 'Tightwad',
+    attacks: [
+      { name:'Bounce Check',  target:'Single Toon', levels:[3,4,5,6,7], dmg:[4,6,9,12,15],  acc:[75,75,75,75,75], freq:25 },
+      { name:'Finger Wag',    target:'Single Toon', levels:[3,4,5,6,7], dmg:[2,3,4,6,9],    acc:[50,50,50,50,50], freq:25 },
+      { name:'Fired',         target:'Single Toon', levels:[3,4,5,6,7], dmg:[3,4,6,8,10],   acc:[75,75,75,75,75], freq:25 },
+      { name:'Glower Power',  target:'Single Toon', levels:[3,4,5,6,7], dmg:[3,4,6,9,12],   acc:[95,95,95,95,95], freq:25 },
+    ],
+    streets: [
+      { name:'Punchline Place',  color:'#7a2500', accent:'#ff9966', spawn:'9.6%',  avg:'~2-3' },
+      { name:'Seaweed Street',   color:'#5a1a05', accent:'#dc4a14', spawn:'13.8%', avg:'~3-4' },
+      { name:'Knight Knoll',     color:'#33205e', accent:'#9b70cc', spawn:'12.4%', avg:'~3'   },
+      { name:'Petunia Place',    color:'#314600', accent:'#9bd31a', spawn:'11.2%', avg:'~3'   },
+      { name:'Soprano Street',   color:'#482052', accent:'#bf62cb', spawn:'12.6%', avg:'~3-4' },
+      { name:'Sleet Street',     color:'#003a46', accent:'#29b2dc', spawn:'4.1%',  avg:'~1'   },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'11.3%', avg:'~2-3' }],
+    buildings: [
+      { label:'2 Story (Tier I)',   spawn:'20%',   avg:'~2',   boss:'25%' },
+      { label:'2 Story (Tier II)',  spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',   spawn:'28.6%', avg:'~4',   boss:'20%', bold:true },
+      { label:'3 Story (Tier II)',  spawn:'26.7%', avg:'~3-4', boss:'20%', bold:true },
+      { label:'4 Story (Tier I)',   spawn:'20%',   avg:'~3-4', boss:'0%' },
+      { label:'4 Story (Tier II)',  spawn:'14.3%', avg:'~2-3', boss:'0%' },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh'],
+  },
+  {
+    cogName: 'Bean Counter',
+    attacks: [
+      { name:'Audit',     target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[95,95,95,95,95], freq:20 },
+      { name:'Calculate', target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[75,75,75,75,75], freq:25 },
+      { name:'Tabulate',  target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[75,75,75,75,75], freq:25 },
+      { name:'Write Off', target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[95,95,95,95,95], freq:30 },
+    ],
+    streets: [
+      { name:'Punchline Place',  color:'#7a2500', accent:'#ff9966', spawn:'7.7%',  avg:'~2'   },
+      { name:'Seaweed Street',   color:'#5a1a05', accent:'#dc4a14', spawn:'6.9%',  avg:'~2'   },
+      { name:'Knight Knoll',     color:'#33205e', accent:'#9b70cc', spawn:'13.3%', avg:'~3'   },
+      { name:'Petunia Place',    color:'#314600', accent:'#9bd31a', spawn:'14%',   avg:'~3'   },
+      { name:'Soprano Street',   color:'#482052', accent:'#bf62cb', spawn:'15.7%', avg:'~4'   },
+      { name:'Sleet Street',     color:'#003a46', accent:'#29b2dc', spawn:'6.1%',  avg:'~1-2' },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'15.1%', avg:'~3' }],
+    buildings: [
+      { label:'2 Story (Tier II)',  spawn:'14.3%', avg:'~1-2', boss:'20%' },
+      { label:'3 Story (Tier I)',   spawn:'28.6%', avg:'~4',   boss:'20%' },
+      { label:'3 Story (Tier II)',  spawn:'33.3%', avg:'~4-5', boss:'20%', bold:true },
+      { label:'4 Story (Tier I)',   spawn:'26.7%', avg:'~4-5', boss:'25%', bold:true },
+      { label:'4 Story (Tier II)',  spawn:'21.4%', avg:'~3-4', boss:'25%' },
+      { label:'5 Story (Tier I)',   spawn:'10.5%', avg:'~2',   boss:'0%' },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres'],
+  },
+  {
+    cogName: 'Number Cruncher',
+    attacks: [
+      { name:'Audit',     target:'Single Toon', levels:[5,6,7,8,9], dmg:[6,8,11,14,17], acc:[95,95,95,95,95], freq:20 },
+      { name:'Calculate', target:'Single Toon', levels:[5,6,7,8,9], dmg:[6,8,11,14,17], acc:[75,75,75,75,75], freq:25 },
+      { name:'Crunch',    target:'Single Toon', levels:[5,6,7,8,9], dmg:[6,8,11,14,17], acc:[95,95,95,95,95], freq:25 },
+      { name:'Tabulate',  target:'Single Toon', levels:[5,6,7,8,9], dmg:[6,8,11,14,17], acc:[75,75,75,75,75], freq:30 },
+    ],
+    streets: [
+      { name:'Seaweed Street',   color:'#5a1a05', accent:'#dc4a14', spawn:'3.4%',  avg:'~1'   },
+      { name:'Knight Knoll',     color:'#33205e', accent:'#9b70cc', spawn:'10.6%', avg:'~2-3' },
+      { name:'Petunia Place',    color:'#314600', accent:'#9bd31a', spawn:'11.2%', avg:'~2-3' },
+      { name:'Soprano Street',   color:'#482052', accent:'#bf62cb', spawn:'13.4%', avg:'~3'   },
+      { name:'Sleet Street',     color:'#003a46', accent:'#29b2dc', spawn:'10.3%', avg:'~2-3' },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'18.9%', avg:'~3-4' }],
+    buildings: [
+      { label:'3 Story (Tier I)',   spawn:'7.1%',  avg:'~1',   boss:'20%' },
+      { label:'3 Story (Tier II)',  spawn:'13.3%', avg:'~1-2', boss:'20%' },
+      { label:'4 Story (Tier I)',   spawn:'20%',   avg:'~3',   boss:'25%' },
+      { label:'4 Story (Tier II)',  spawn:'28.6%', avg:'~4-5', boss:'25%', bold:true },
+      { label:'5 Story (Tier I)',   spawn:'26.3%', avg:'~5',   boss:'50%', bold:true },
+      { label:'5 Story (Tier II)',  spawn:'25%',   avg:'~6',   boss:'50%', bold:true },
+      { label:'6 Story (Tier I)',   spawn:'18.75%',avg:'~8',   boss:'0%' },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Money Bags',
+    attacks: [
+      { name:'Liquidate',    target:'Single Toon', levels:[6,7,8,9,10], dmg:[6,8,11,14,17],  acc:[75,75,75,75,75], freq:25 },
+      { name:'Market Crash', target:'All Toons',   levels:[6,7,8,9,10], dmg:[5,7,9,12,15],   acc:[60,65,70,75,80], freq:25 },
+      { name:'Power Trip',   target:'All Toons',   levels:[6,7,8,9,10], dmg:[6,8,11,14,17],  acc:[75,80,85,90,95], freq:25 },
+      { name:'Tee Off',      target:'Single Toon', levels:[6,7,8,9,10], dmg:[8,10,13,16,20], acc:[75,75,80,80,80], freq:25 },
+    ],
+    streets: [
+      { name:'Sleet Street',    color:'#003a46', accent:'#29b2dc', spawn:'12.4%', avg:'~3'   },
+      { name:'Soprano Street',  color:'#482052', accent:'#bf62cb', spawn:'10.4%', avg:'~2-3' },
+      { name:'Petunia Place',   color:'#314600', accent:'#9bd31a', spawn:'8.4%',  avg:'~2'   },
+    ],
+    hqLocs: [{ label:'CBHQ Courtyard', spawn:'22.6%', avg:'~4-5' }],
+    buildings: [
+      { label:'3 Story (Tier II)',  spawn:'6.7%',  avg:'~1',   boss:'20%' },
+      { label:'4 Story (Tier I)',   spawn:'13.3%', avg:'~2',   boss:'25%' },
+      { label:'4 Story (Tier II)',  spawn:'21.4%', avg:'~3-4', boss:'25%' },
+      { label:'5 Story (Tier I)',   spawn:'26.3%', avg:'~5-6', boss:'50%', bold:true },
+      { label:'5 Story (Tier II)',  spawn:'31.25%',avg:'~8',   boss:'50%', bold:true },
+      { label:'6 Story (Tier I)',   spawn:'37.5%', avg:'~15',  boss:'0%' },
+    ],
+    invasions: ['Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
   {
     cogName: 'Loan Shark',
     attacks: [
@@ -842,26 +1014,39 @@ const CB_COG_DETAILS: CogDetail[] = [
 ];
 
 const CB_XP_ROWS = [
-  { source:'Any Cashbot',           base:'1x Cog level',     boost:'Cogbuck Monday, Invasions, Boosters' },
-  { source:'Cashbot Cog Buildings', base:'Varies by floors', boost:'Cogbuck Monday, Boosters only' },
-  { source:'Cashbot Mint (C.F.O.)', base:'No Dept XP',       boost:'N/A' },
+  { source:'Stomping Goons',              base:'+45-165 (increases with stronger Goons)*', boost:'N/A' },
+  { source:'Damaging the C.F.O.',         base:'+8-75 XP (= \u00d71.5 damage dealt)',         boost:'N/A' },
+  { source:'Teammate stuns the C.F.O.',   base:'+300 XP (depreciates each stun)',          boost:'N/A' },
+  { source:'You stun C.F.O. (main crane)',base:'+532 XP (depreciates each stun)*',         boost:'N/A' },
+  { source:'You stun C.F.O. (side crane)',base:'+1,067 XP (depreciates each stun)',        boost:'N/A' },
 ];
 
 const CB_HIGHLIGHTS = [
   'Cashbot Cog Buildings',
-  'Cashbot HQ',
-  'Cogbuck Monday',
+  'Short Change Suit Cog Disguise',
+  'Number Cruncher',
+  'Mint Supervisor',
+  'Department Levels',
   'Cog Invasions',
+  'Cog Buildings',
+  'Robber Baron',
+  'Bullion Mint',
+  'Dollar Mint',
+  'Coin Mint',
+  'Cogbuck Monday',
   'Laff Points',
   'Laff Point',
-  'Robber Baron',
   'Loan Shark',
+  'Cashbot HQ',
+  'Boss Rewards',
   'Cashbots',
   'Cashbot',
   'Cogbucks',
   'Cogbuck',
   'Boosters',
+  'Merits',
   'C.F.O.',
+  'Goons',
 ];
 
 function CBHighlight({ text }: { text: string }) {
@@ -882,17 +1067,16 @@ function CBHighlight({ text }: { text: string }) {
 function CashbotXPSection({ accent }: { accent: string }) {
   return (
     <div className="pim-section">
-      <h3 className="pim-section-title" style={{color: accent}}>Gaining Department XP</h3>
+      <h3 className="pim-section-title" style={{color: accent}}>Gaining Department Experience</h3>
       <div className="pim-table-wrap">
         <table className="pim-xp-table">
-          <thead><tr><th>Source</th><th>Base XP</th><th>Boostable By</th></tr></thead>
+          <thead><tr><th>Method</th><th>Experience</th></tr></thead>
           <tbody>
             {CB_XP_ROWS.map(r => (
               <tr key={r.source}>
                 <td><span className="pim-xp-val"><CBHighlight text={r.source} /></span></td>
                 <td><CBHighlight text={r.base} /></td>
-                <td className="pim-muted"><CBHighlight text={r.boost} /></td>
-              </tr>
+                  </tr>
             ))}
           </tbody>
         </table>
@@ -921,9 +1105,11 @@ function CashbotLadderSection({ accent, openDetail }: { accent: string; openDeta
                   <span className="pim-cog-stat">Levels {c.levels}</span>
                   <span className="pim-cog-stat">Damage: {c.dmg}</span>
                   {detail && (
-                    <button className="pim-cog-detail-btn"
+                    <button
+                      className="pim-cog-detail-btn"
                       style={{'--pim-accent': accent} as React.CSSProperties}
-                      onClick={() => openDetail(c.name)}>
+                      onClick={() => openDetail(c.name)}
+                    >
                       View Details
                     </button>
                   )}
@@ -933,6 +1119,45 @@ function CashbotLadderSection({ accent, openDetail }: { accent: string; openDeta
           })}
         </div>
       </div>
+
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color: accent}}>Special Cogs</h3>
+        <div className="pim-cog-grid">
+          {CB_SPECIAL.map(c => (
+            <div key={c.name} className="pim-cog-card">
+              <div className="pim-cog-img-wrap">
+                <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
+              </div>
+              <div className="pim-cog-info">
+                <span className="pim-cog-name" style={{color: accent}}>{c.name}</span>
+                <span className="pim-cog-tier">{c.tier}</span>
+                <span className="pim-cog-stat">Level {c.level}</span>
+                <span className="pim-cog-stat">Damage: {c.dmg}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="pim-section">
+        <h3 className="pim-section-title pim-section-title--removed">Removed Cogs</h3>
+        <div className="pim-cog-grid">
+          {CB_REMOVED.map(c => (
+            <div key={c.name} className="pim-cog-card pim-cog-card--removed">
+              <div className="pim-cog-img-wrap">
+                <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
+              </div>
+              <div className="pim-cog-info">
+                <span className="pim-cog-name pim-cog-name--removed">{c.name}</span>
+                <span className="pim-cog-tier">{c.tier}</span>
+                <span className="pim-cog-stat">Level {c.level}</span>
+                <span className="pim-cog-stat">Damage: {c.dmg}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   );
 }
@@ -984,45 +1209,129 @@ function CashbotContent({ accent }: { accent: string }) {
                 {cogCard && <span className="pim-cog-stat">Damage: {cogCard.dmg}</span>}
               </div>
             </div>
-            <CogDetailPanel detail={detail} accent={accent} />
+            <CogDetailPanel detail={detail} accent={accent} dept="Cashbot" />
           </div>
         );
       })()}
 
       {!detailCog && tab === 'promos' && (
         <div className="pim-scroll">
+
           <div className="pim-section">
             <h3 className="pim-section-title" style={{color: accent}}>Suit Acquisition</h3>
             <div className="pim-info-block">
               <div className="pim-suit-header">
                 <Image src="/icons/cog-emblems/CashbotEmblem.png" alt="Cashbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
-                <span className="pim-suit-name" style={{fontWeight:800}}>Cashbot Cog Suit</span>
+                <span className="pim-suit-name" style={{fontWeight:800}}>Cashbot Suit</span>
               </div>
+              <p className="pim-para" style={{marginBottom:6}}>
+                <CBHighlight text="Defeat the Mint Supervisor to gain 1 Cashbot Suit part. Each Mint rewards different suit parts. 5 parts are needed to complete the disguise." />
+              </p>
               <ul className="pim-list">
-                <li><CBHighlight text="Earn the Short Change Cog Disguise by completing tasks in Cashbot HQ." /></li>
-                <li><CBHighlight text="Complete tasks given by Cashbot HQ NPCs to collect all suit parts." /></li>
+                <li><CBHighlight text="Complete 2 Coin Mints (rewards leg parts)" /></li>
+                <li><CBHighlight text="Complete 2 Dollar Mints (rewards arm parts)" /></li>
+                <li><CBHighlight text="Complete 1 Bullion Mint (rewards chest part)" /></li>
               </ul>
             </div>
           </div>
+
           <div className="pim-section">
             <h3 className="pim-section-title" style={{color: accent}}>Promotions Overview</h3>
             <div className="pim-info-block">
-              <p className="pim-para pim-note" style={{marginBottom:4}}>How promotions work:</p>
+              <p className="pim-para pim-note" style={{marginBottom: 4}}>How promotions work:</p>
               <ul className="pim-list">
-                <li><CBHighlight text="Promotions are earned by defeating the C.F.O. in Cashbot HQ." /></li>
+                <li><CBHighlight text="Cashbot Promotions begin with the Short Change Suit Cog Disguise after defeating the Mint Supervisor in the Coin, Dollar, and Bullion Cashbot Mints." /></li>
+                <li><CBHighlight text="Promotions are earned by defeating the C.F.O. at the Cashbot Vault in Cashbot HQ." /></li>
+                <li><CBHighlight text="Cashbot Promotions are separate from the Department Levels." /></li>
                 <li><CBHighlight text="The Cashbot equivalent of Merits is called Cogbucks." /></li>
                 <li><CBHighlight text="Cogbucks are earned by defeating any Cashbots anywhere in the game." /></li>
+                <li><CBHighlight text="Teleport access is earned when a Toon reaches Number Cruncher Level 5." /></li>
+                <li><CBHighlight text="A Laff Point is earned at Robber Baron Levels 8, 15, 20, 30, 40, and 50 (6 total)." /></li>
               </ul>
             </div>
             <div className="pim-info-block">
-              <p className="pim-para pim-note" style={{marginBottom:4}}>Best ways to stack Cogbucks fast:</p>
+              <p className="pim-para pim-note" style={{marginBottom: 4}}>Best ways to stack Cogbucks fast:</p>
               <ul className="pim-list">
-                <li><CBHighlight text="Cashbot Cog Buildings reward Cogbucks per floor — Cog Invasions do not boost inside buildings." /></li>
+                <li><CBHighlight text="Completing Cashbot Mints is a quick way to defeat many Cashbots at once." /></li>
+                <li><CBHighlight text="Cashbot Cog Buildings also reward Cogbucks, but Cog Invasions do not boost Merits inside buildings." /></li>
                 <li><CBHighlight text="Boost earnings with Cogbuck Monday, Cog Invasions, and Boosters." /></li>
               </ul>
             </div>
           </div>
+
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color: accent}}>Department Levels</h3>
+            <p className="pim-para" style={{marginBottom:10}}>
+              <CBHighlight text="Department Levels are separate from Cashbot Promotions and track your overall progress in the Cashbot Department." />
+            </p>
+            <div className="pim-dept-levels">
+
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background: `color-mix(in srgb,${accent} 40%,#0a140a)`}}>
+                  Level 10 &mdash; Cashbot Catcher
+                </div>
+                <div className="pim-dept-level-body">
+                  <ul className="pim-list">
+                    <li><CBHighlight text="Reward: Exclusive Cashbot Catcher outfit (shirt, shorts, and skirt options)" /></li>
+                    <li><CBHighlight text="Unlocks access to higher-difficulty Cashbot content" /></li>
+                  </ul>
+                  <div className="pim-outfit-table-wrap">
+                    <table className="pim-outfit-table">
+                      <thead>
+                        <tr>
+                          <th className="pim-outfit-th" style={{color: accent}}>Shirt</th>
+                          <th className="pim-outfit-th" style={{color: accent}}>Shorts</th>
+                          <th className="pim-outfit-th" style={{color: accent}}>Skirt</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="pim-outfit-img-cell">
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShirt.png" alt="Cashbot Catcher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                          </td>
+                          <td className="pim-outfit-img-cell">
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShorts.png" alt="Cashbot Catcher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                          </td>
+                          <td className="pim-outfit-img-cell">
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherSkirt.png" alt="Cashbot Catcher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background: `color-mix(in srgb,${accent} 30%,#0a140a)`}}>
+                  Level 20 &mdash; Cashbot Expert
+                </div>
+                <div className="pim-dept-level-body">
+                  <ul className="pim-list">
+                    <li><CBHighlight text="Reward: 50% of Merits carry over into the next Promotion for that Department." /></li>
+                    <li><CBHighlight text="Note: Merits will not carry over if the previous Promotion's Merit requirement exceeds the next." /></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background: `color-mix(in srgb,${accent} 20%,#0a140a)`}}>
+                  Level 30 &mdash; Cashbot Master
+                </div>
+                <div className="pim-dept-level-body">
+                  <ul className="pim-list">
+                    <li><CBHighlight text="Reward: Boss Rewards — C.F.O. permanently grants +4 Counterfeits." /></li>
+                    <li><CBHighlight text="Note: This stacks with Surplus Sunday and Boosters." /></li>
+                    <li><CBHighlight text="Note: Unites gained are unaffected by Department Level 30." /></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
           <CashbotXPSection accent={accent} />
+
         </div>
       )}
 
