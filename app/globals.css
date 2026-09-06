@@ -809,12 +809,12 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pim-detail-sublabel{font-size:11px;font-weight:700;color:var(--ink-dim,#aaa);margin:0;letter-spacing:.03em;text-transform:uppercase}
 /* Attack cards */
 .pim-attack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start}
-/* Lawbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
-.pim-box--lb{position:relative}
-/* Bossbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
-.pim-box--bb{position:relative}
-/* Cashbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
-.pim-box--cb{position:relative}
+/* Cashbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
+.pim-box--cb{background-image:url(/icons/promotions/Cashbot/wallpapers/CBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
+/* Lawbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
+.pim-box--lb{background-image:url(/icons/promotions/Lawbot/wallpapers/LbhqLoadScreen.png);background-size:cover;background-position:center;position:relative}
+/* Bossbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
+.pim-box--bb{background-image:url(/icons/promotions/Bossbot/wallpapers/BBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
 /* Executive promotions table — wider with overflow scroll */
 .pim-exec-table-wrap{overflow-x:auto}
 .pim-exec-table{min-width:700px;font-size:12px}

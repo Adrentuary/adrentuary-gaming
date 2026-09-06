@@ -1512,7 +1512,7 @@ const LB_EXEC_ROWS = [
 ﻿/* --- Lawbot HQ guide section --- */
 function LawbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{"--hq-bg": "url(/icons/promotions/Lawbot/wallpapers/Lawbot_HQ.png)"} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{"--hq-bg": "url(/icons/promotions/Lawbot/wallpapers/LawbotHQ.png)"} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
         <div className="pim-section">
@@ -1747,7 +1747,7 @@ const BB_XP_ROWS = [
 ﻿/* --- Bossbot HQ guide section --- */
 function BossbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{"--hq-bg":"url(/icons/promotions/Bossbot/wallpapers/Bossbot_HQ.png)"} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{"--hq-bg":"url(/icons/promotions/Bossbot/wallpapers/BossbotHQ.png)"} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
         <div className="pim-section">
@@ -1911,7 +1911,7 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
         style={{'--pgm-accent': accent} as React.CSSProperties}
         onClick={e => e.stopPropagation()}
       >
-        {isSellbot && <div className="pim-bg-overlay" />}
+        {(isSellbot || isCashbot || isLawbot || isBossbot) && <div className="pim-bg-overlay" />}
 
         <div className="pgm-header pim-header-raised">
           <Image
