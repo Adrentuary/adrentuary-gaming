@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { SectionNote } from './SectionNote';
@@ -76,7 +76,7 @@ export function SectionPromotions() {
       </nav>
       <div className="tracker-card" style={{'--dc':suit.color,'--da':suit.accent} as React.CSSProperties}>
         <div className="tracker-card-header">
-          <strong>{suit.name} Promotions — {suit.currency}</strong>
+          <strong>{suit.name} Promotions</strong>
           <button className="pgm-title-btn pgm-title-btn--right" onClick={() => setInfoOpen(true)}
             title={`View ${suit.name} additional info`}>
             <span className="pgm-title-btn-badge">{suit.name} Additional Info</span>

@@ -1014,10 +1014,10 @@ const CB_COG_DETAILS: CogDetail[] = [
 ];
 
 const CB_XP_ROWS = [
-  { source:'Stomping Goons',              base:'+45-165 (increases with stronger Goons)*', boost:'N/A' },
+  { source:'Stomping Goons',              base:'+45-165 (increases with stronger Goons)', boost:'N/A' },
   { source:'Damaging the C.F.O.',         base:'+8-75 XP (= \u00d71.5 damage dealt)',         boost:'N/A' },
   { source:'Teammate stuns the C.F.O.',   base:'+300 XP (depreciates each stun)',          boost:'N/A' },
-  { source:'You stun C.F.O. (main crane)',base:'+532 XP (depreciates each stun)*',         boost:'N/A' },
+  { source:'You stun C.F.O. (main crane)',base:'+532 XP (depreciates each stun)',         boost:'N/A' },
   { source:'You stun C.F.O. (side crane)',base:'+1,067 XP (depreciates each stun)',        boost:'N/A' },
 ];
 
@@ -1046,7 +1046,6 @@ const CB_HIGHLIGHTS = [
   'Boosters',
   'Merits',
   'C.F.O.',
-  'Goons',
 ];
 
 function CBHighlight({ text }: { text: string }) {
