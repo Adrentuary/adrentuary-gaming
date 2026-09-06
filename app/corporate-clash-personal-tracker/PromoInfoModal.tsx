@@ -1500,7 +1500,7 @@ const LB_XP_ROWS = [
   { source:'Destroying an Advocate shield',                   base:'+113 XP (depreciates each kill)' },
 ];
 const LB_EXEC_ROWS = [
-  { from:'Big Wig to Pettifogger', cogHead:'/icons/promotions/Lawbot/25px-BigWigHead.webp',      cogLevels:'50 → 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveLobbyKey.webp',alt:'Key'}],                               rewardText:'Executive Lobby Key' },
+  { from:'Big Wig',                cogHead:'/icons/promotions/Lawbot/25px-BigWigHead.webp',      cogLevels:'50 → 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveLobbyKey.webp',alt:'Key'}],                               rewardText:'Executive Lobby Key' },
   { from:'Pettifogger',            cogHead:'/icons/promotions/Lawbot/25px-PettifoggerHead.webp', cogLevels:'2-7.exe',       oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, R.I.D.D.L.E Background' },
   { from:'Needlenose',             cogHead:'/icons/promotions/Lawbot/25px-NeedlenoseHead.webp',  cogLevels:'3-10.exe',      oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'},{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],    rewardText:'Executive Suit Promotion, A +1 Laff Boost' },
   { from:'Conveyancer',            cogHead:'/icons/promotions/Lawbot/25px-ConveyancerHead.webp', cogLevels:'4-8.exe',       oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, Megaphone Profile Pose' },
@@ -1677,7 +1677,7 @@ function LawbotContent({ accent }: { accent: string }) {
                     <td style={{textAlign:'center'}}>{r.oclos}</td>
                     <td><span className="pim-hl">{r.directive}</span></td>
                     <td style={{whiteSpace:'nowrap'}}>{r.unlockedAt}</td>
-                    <td><span style={{display:'flex',alignItems:'center',gap:4,flexWrap:'wrap'}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={18} height={18} style={{verticalAlign:'middle',flexShrink:0}} unoptimized />))}<span>{r.rewardText}</span></span></td>
+                    <td><span style={{display:'flex',flexDirection:'column',gap:3}}><span style={{display:'flex',alignItems:'center',gap:4}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={24} height={24} style={{flexShrink:0}} unoptimized />))}</span><span>{r.rewardText}</span></span></td>
                   </tr>
                 ))}</tbody>
               </table>
