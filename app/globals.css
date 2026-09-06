@@ -809,11 +809,11 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .pim-detail-sublabel{font-size:11px;font-weight:700;color:var(--ink-dim,#aaa);margin:0;letter-spacing:.03em;text-transform:uppercase}
 /* Attack cards */
 .pim-attack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start}
-/* Lawbot background */
-.pim-box--lb{background-image:url(/icons/promotions/Lawbot/wallpapers/Lawbot_HQ.png);background-size:cover;background-position:center;position:relative}
-/* Bossbot background */
-.pim-box--bb{background-image:url(/icons/promotions/Bossbot/wallpapers/Bossbot_HQ.png);background-size:cover;background-position:center;position:relative}
-/* Cashbot background (already has overlay but no box bg - adding for consistency) */
+/* Lawbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
+.pim-box--lb{position:relative}
+/* Bossbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
+.pim-box--bb{position:relative}
+/* Cashbot — no outer background; wallpaper is scoped to the HQ tab via pim-hq-section */
 .pim-box--cb{position:relative}
 /* Executive promotions table — wider with overflow scroll */
 .pim-exec-table-wrap{overflow-x:auto}
