@@ -1,0 +1,5 @@
+node_modules/
+.next/
+*.traineddata
+package.json
+package-lock.json
