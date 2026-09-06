@@ -1439,6 +1439,450 @@ function CashbotContent({ accent }: { accent: string }) {
   );
 }
 
+﻿/* --- Lawbot data --- */
+const LB_HIGHLIGHTS = [
+  'Bottom Feeder Cog Disguise','Chief Legal Officer','Department Experience',
+  'Legal Administration','Executive Lawfice','Department Levels','Head Attorney',
+  'Lawbot HQ','Laff Points','Laff Point','Lawfice A113','Lawfice B221','Lawfice C418',
+  'Teleport access','Lawfice Lobby','Lawfices','Lawfice','Courtyard','Boosters',
+  'Big Wig','Lawbots','Lawbot','Patents','Patent','O.C.L.O.','C.L.O.',
+];
+function LBHighlight({ text }: { text: string }) {
+  const escaped = LB_HIGHLIGHTS.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const parts = text.split(new RegExp(`(${escaped.join('|')})`, 'g'));
+  return (<>{parts.map((part, i) => LB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
+}
+const LB_REGULAR = [
+  { name:'Bottom Feeder',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'2-12',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BottomFeederGalv2.gif' },
+  { name:'Bloodsucker',      tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-14',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BloodsuckerGalv2.gif' },
+  { name:'Double Talker',    tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-DoubleTalkerGal.gif' },
+  { name:'Ambulance Chaser', tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AmbulanceChaserGal.gif' },
+  { name:'Back Stabber',     tier:'Tier 5 Employee', levels:'5-9',  dmg:'5-22',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BackstabberGal.gif' },
+  { name:'Spin Doctor',      tier:'Tier 6 Employee', levels:'6-10', dmg:'6-24',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-SpindoctorGal.gif' },
+  { name:'Legal Eagle',      tier:'Tier 7 Employee', levels:'7-11', dmg:'7-30',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Legal_Eagle_Gal.gif' },
+  { name:'Big Wig',          tier:'Tier 8 Employee', levels:'8-50', dmg:'10-56', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BigwigGal.gif' },
+];
+const LB_SPECIAL = [
+  { name:'Head Attorney',       tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-HeadAttorneyGal.gif' },
+  { name:'Litigator',           tier:'Manager',          level:'8 (mgr)',  dmg:'12-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-LitigatorGal.gif' },
+  { name:'Stenographer',        tier:'Manager',          level:'7 (mgr)',  dmg:'6-16',   img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-StenographerGal.gif' },
+  { name:'Case Manager',        tier:'Regional Manager', level:'11 (mgr)', dmg:'12-22',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Case_Manager_Gal.gif' },
+  { name:'Scapegoat',           tier:'Regional Manager', level:'13 (mgr)', dmg:'10-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-ScapegoatGal.gif' },
+  { name:'Counterclaim',        tier:'Regional Manager', level:'28 (mgr)', dmg:'20-32',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CountErclaimGal.gif' },
+  { name:'Judy',                tier:'Secretary',        level:'28 (mgr)', dmg:'N/A',    img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-JudyGal.gif' },
+  { name:'Mouthpiece',          tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Mouthpiece_CG.gif' },
+  { name:'Rainmaker',           tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Rainmaker_CG.gif' },
+  { name:'Witch Hunter',        tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Witchhunter_CG.gif' },
+  { name:'Chief Legal Officer', tier:'Boss',             level:'C.L.O.',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CLOGal.gif' },
+];
+const LB_REMOVED = [
+  { name:'Chief Justice', tier:'Removed Boss',    level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-CJCogGalleryNOTREAL.gif' },
+  { name:'Clerk',         tier:'Removed NPC',     level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ClerkCogGalleryNOTREAL.gif' },
+  { name:'Redd',          tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ReddCogGalleryNOTREAL.gif' },
+  { name:'S.A.D.S.',      tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-SadsGal.gif' },
+  { name:'W.S.I.',        tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-WSICogGalleryNOTREAL.gif' },
+];
+const LB_XP_ROWS = [
+  { source:'Destroying a level 1-5 Cog (Cannon Round)',       base:'+12 XP' },
+  { source:'Destroying a level 6-10 Cog (Cannon Round)',      base:'+16 XP' },
+  { source:'Destroying a level 11-15 Cog (Cannon Round)',     base:'+24 XP' },
+  { source:'Destroying a level 1-5 Executive Cog',            base:'+80 XP' },
+  { source:'Destroying a level 6-10 Executive Cog',           base:'+100 XP' },
+  { source:'Destroying a level 11-15 Executive Cog',          base:'+160 XP' },
+  { source:'Cog destroyed after full Sound bar',              base:'+100 XP' },
+  { source:'Damaging the C.L.O. (Final Round)',               base:'Damage dealt x1.5' },
+  { source:'Teammate stuns the C.L.O.',                       base:'+79 XP (depreciates each stun)' },
+  { source:'You stun the C.L.O.',                             base:'+156 XP (depreciates each stun)' },
+  { source:'Destroying a Cog (Final Round)',                  base:"Cog's level x8 (depreciates)" },
+  { source:'Destroying an exe Cog breaking a trap',           base:"Cog's level x30* (depreciates)" },
+  { source:'Destroying a Pettifogger shield',                 base:'+54 XP (depreciates each kill)' },
+  { source:'Destroying a Conveyancer shield',                 base:'+61 XP (depreciates each kill)' },
+  { source:'Destroying an Advocate shield',                   base:'+113 XP (depreciates each kill)' },
+];
+const LB_EXEC_ROWS = [
+  { from:'Big Wig to Pettifogger', cogLevels:'50 to 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         reward:'Executive Lobby Key' },
+  { from:'Pettifogger',            cogLevels:'2-7.exe',     oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', reward:'Executive Suit Promotion, R.I.D.D.L.E Background' },
+  { from:'Needlenose',             cogLevels:'3-10.exe',    oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', reward:'Executive Suit Promotion, +1 Laff Boost' },
+  { from:'Conveyancer',            cogLevels:'4-8.exe',     oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', reward:'Executive Suit Promotion, Megaphone Profile Pose' },
+  { from:'Advocate',               cogLevels:'5-15.exe',    oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   reward:'Executive Suit Promotion, +1 Laff Boost' },
+  { from:'Shyster',                cogLevels:'6-12.exe',    oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    reward:'Executive Suit Promotion, Crocheting Nameplate' },
+  { from:'Barrister',              cogLevels:'7-15.exe',    oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  reward:'+1 Laff Boost, Lawbot Disguise Picker' },
+];
+
+﻿/* --- Lawbot HQ guide section --- */
+function LawbotHQSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-hq-section" style={{"--hq-bg": "url(/icons/promotions/Lawbot/wallpapers/Lawbot_HQ.png)"} as React.CSSProperties}>
+      <div className="pim-hq-overlay" />
+      <div className="pim-scroll pim-hq-content">
+        <div className="pim-section">
+          <p className="pim-para">
+            <strong>Lawbot HQ (LBHQ)</strong> is the home base of the <span className="pim-hl">Lawbots</span>, unlocked through the <span className="pim-hl">Brrrgh Taskline</span>. Collect <span className="pim-hl">Patents</span> in the <span className="pim-hl">Lawfices</span> to challenge the <span className="pim-hl">Chief Legal Officer</span> in the Executive Lawfice.
+          </p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Courtyard</h3>
+          <p className="pim-para">A stone-walled courtyard with a central oil fountain. The Lawfice Lobby is on the left; the Legal Administration Foyer at the far end.</p>
+          <ul className="pim-list">
+            <li>Levels <strong>5-10</strong> | <span className="pim-hl">Tier 1-7 Cogs</span> | ~10 Cogs active</li>
+            <li><strong>92%</strong> Lawbot spawn rate (2% per other department)</li>
+            <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
+            <li>Oil fountain deals <strong>-15 Laff</strong> on contact; staying deals -15 every 5 seconds</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Lawfice Lobby</h3>
+          <p className="pim-para">Houses the three Lawfice entrances: <strong>A113</strong>, <strong>B221</strong>, and <strong>C418</strong>. Complete <strong>2 A113 + 2 B221 + 1 C418</strong> to earn your <span className="pim-hl">Lawbot Cog Disguise</span>. Legal Documents rain down continuously.</p>
+          <ul className="pim-list">
+            <li>Levels <strong>7-10</strong> | <span className="pim-hl">Tier 3-8 Cogs</span> | ~9 Cogs active</li>
+            <li>Lawbot-only spawns</li>
+            <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Legal Administration Foyer</h3>
+          <p className="pim-para">At the far end of the Courtyard — statues, spotlights, and golden floors. <span className="pim-hl">Lawbot Secretary Judy</span> resides inside. Requires a completed <span className="pim-hl">Lawbot Cog Disguise</span> to enter the elevator and battle the <span className="pim-hl">C.L.O.</span></p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color: accent}}>Legal Administration Lounge</h3>
+          <p className="pim-para">A separate elevator leads to the <span className="pim-hl">O.C.L.O.</span> (Overclocked C.L.O.) battle. Requires at least a Level 8 Big Wig disguise and completion of the <strong>Report Roundup Directive</strong> from Judy to unlock.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+function LawbotXPSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-section">
+      <h3 className="pim-section-title" style={{color: accent}}>Gaining Department Experience</h3>
+      <div className="pim-table-wrap">
+        <table className="pim-xp-table">
+          <thead><tr><th>Cannon Round Method</th><th>XP</th></tr></thead>
+          <tbody>{LB_XP_ROWS.slice(0,7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div className="pim-table-wrap" style={{marginTop:10}}>
+        <table className="pim-xp-table">
+          <thead><tr><th>C.L.O. Final Round Method</th><th>XP</th></tr></thead>
+          <tbody>{LB_XP_ROWS.slice(7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+function LawbotLadderSection({ accent }: { accent: string; openDetail?: (n:string)=>void }) {
+  return (
+    <div className="pim-scroll">
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color: accent}}>General Cogs</h3>
+        <div className="pim-cog-grid">
+          {LB_REGULAR.map(c => (<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Levels {c.levels}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+        </div>
+      </div>
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color: accent}}>Special Cogs</h3>
+        <div className="pim-cog-grid">
+          {LB_SPECIAL.map(c => (<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Level {c.level}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+        </div>
+      </div>
+      <div className="pim-section">
+        <h3 className="pim-section-title pim-section-title--removed">Removed Cogs</h3>
+        <div className="pim-cog-grid">
+          {LB_REMOVED.map(c => (<div key={c.name} className="pim-cog-card pim-cog-card--removed"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name pim-cog-name--removed">{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Level {c.level}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+﻿/* Lawbot content */
+function LawbotContent({ accent }: { accent: string }) {
+  const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
+  return (
+    <div className="pim-inner">
+      <div className="pim-inner-tabs">
+        {(['hq','promos','ladder'] as const).map(t => (
+          <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
+            {t==='hq'?'Lawbot HQ':t==='promos'?'Lawbot Promotions':'Corporate Ladder'}
+          </button>
+        ))}
+      </div>
+      {tab==='hq' && <LawbotHQSection accent={accent} />}
+      {tab==='promos' && (
+        <div className="pim-scroll">
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
+            <div className="pim-info-block">
+              <div className="pim-suit-header">
+                <Image src="/icons/cog-emblems/LawbotEmblem.png" alt="Lawbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <span className="pim-suit-name" style={{fontWeight:800}}>Lawbot Suit</span>
+              </div>
+              <p className="pim-para" style={{marginBottom:6}}>Defeat the <span className="pim-hl">Head Attorney</span> to gain 1 Lawbot Suit part. Each <span className="pim-hl">Lawfice</span> rewards different Suit parts. 5 parts are needed to complete the disguise.</p>
+              <ul className="pim-list">
+                <li>Complete <strong>2 Lawfice A113s</strong> (<em>rewards leg parts</em>)</li>
+                <li>Complete <strong>2 Lawfice B221s</strong> (<em>rewards arm parts</em>)</li>
+                <li>Complete <strong>1 Lawfice C418</strong> (<em>rewards chest part</em>)</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Promotions Overview</h3>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>How promotions work:</p>
+              <ul className="pim-list">
+                <li><LBHighlight text="Lawbot Promotions begin with the Bottom Feeder Cog Disguise after defeating the Head Attorney in the Lawfices." /></li>
+                <li><LBHighlight text="Promotions are earned by defeating the Chief Legal Officer in the Executive Lawfice in Lawbot HQ." /></li>
+                <li><LBHighlight text="Lawbot Promotions are separate from Department Levels." /></li>
+                <li><LBHighlight text="Lawbot Merits are called Patents and can be earned by defeating any Lawbots." /></li>
+                <li><LBHighlight text="Toons must have a certain amount of Patents before entering the Executive Lawfice." /></li>
+                <li><LBHighlight text="Teleport access is earned when a Toon reaches Back Stabber Level 5." /></li>
+                <li><LBHighlight text="A Laff Point is earned at Big Wig Levels 8, 15, 20, 30, 40, and 50 -- totaling 6 additional Laff Points." /></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Executive Lawbot Disguise</h3>
+            <div className="pim-info-block">
+              <p className="pim-para">Executive Disguises are used in <span className="pim-hl">O.C.L.O.</span> (Overclocked Boss) progression.</p>
+            </div>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>Obtaining an Executive Disguise:</p>
+              <ul className="pim-list">
+                <li>Reach <span className="pim-hl">Big Wig</span> disguise and speak with <strong>Judy</strong> to receive the first <strong>Report Roundup Directive</strong>.</li>
+                <li>Completing the directive unlocks the <strong>Legal Administration Lounge</strong> key and access to the <span className="pim-hl">O.C.L.O.</span></li>
+                <li>Defeating the <span className="pim-hl">O.C.L.O.</span> as a Level 50 <span className="pim-hl">Big Wig</span> promotes to the <strong>Executive Pettifogger Disguise</strong>.</li>
+                <li>If defeated below Level 50 <span className="pim-hl">Big Wig</span>, it counts as a standard promotion with <strong>50% Merit carryover</strong> (stacks with Dept Level 20 Boost).</li>
+              </ul>
+            </div>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>Executive Disguise Rewards:</p>
+              <ul className="pim-list">
+                <li>A <Image src="/icons/promotions/25px-+1.webp" alt="+1 Laff" width={16} height={16} style={{verticalAlign:'middle',margin:'0 2px'}} unoptimized /> Laff Point boost is earned after completing the Directives for <span className="pim-hl">Needlenose</span> Lvl 10, <span className="pim-hl">Advocate</span> Lvl 15, and <span className="pim-hl">Barrister</span> Lvl 14 (3 total).</li>
+                <li>At <strong>Level 15.exe Barrister</strong>, change the Executive Cog Disguise to any Employee or Specialist Lawbot Suit from the Shtickerbook. Status becomes &quot;Maxed.exe&quot;.</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Executive Promotions Table</h3>
+            <div className="pim-table-wrap pim-exec-table-wrap">
+              <table className="pim-xp-table pim-exec-table">
+                <thead><tr><th>Suit</th><th>Cog Levels</th><th>O.C.L.O.s</th><th>Directive</th><th>Unlocked At</th><th>Reward</th></tr></thead>
+                <tbody>{LB_EXEC_ROWS.map(r=>(<tr key={r.from}><td>{r.from}</td><td>{r.cogLevels}</td><td>{r.oclos}</td><td><span className="pim-hl">{r.directive}</span></td><td>{r.unlockedAt}</td><td>{r.reward}</td></tr>))}</tbody>
+              </table>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Department Levels</h3>
+            <p className="pim-section-sub">Department Levels are separate from Promotions. Earn Dept XP by defeating <span className="pim-hl">Lawbots</span> anywhere.</p>
+            <div className="pim-dept-levels">
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 40%,#0a0a1a)`}}>Level 10 &mdash; Lawbot Liberator</div>
+                <div className="pim-dept-level-body">
+                  <ul className="pim-list"><li>Reward: Exclusive Lawbot Liberator outfit (shirt, shorts, and skirt options)</li></ul>
+                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShirt.png" alt="Lawbot Liberator Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShorts.png" alt="Lawbot Liberator Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorSkirt.png" alt="Lawbot Liberator Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
+                </div>
+              </div>
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 30%,#0a0a1a)`}}>Level 20 &mdash; Lawbot Expert</div>
+                <div className="pim-dept-level-body"><ul className="pim-list"><li>Reward: 50% of Merits carry over into the next Promotion for that Department.</li><li>Note: Merits will not carry over if the previous Merit requirement exceeds the next.</li></ul></div>
+              </div>
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 20%,#0a0a1a)`}}>Level 30 &mdash; Lawbot Master</div>
+                <div className="pim-dept-level-body"><ul className="pim-list"><li>Reward: Boss Rewards -- <span className="pim-hl">C.L.O.</span>/<span className="pim-hl">O.C.L.O.</span> permanently grants +2 Cease &amp; Desists.</li><li>Note: This stacks with Surplus Sunday and Boosters.</li><li>Note: Unites gained are unaffected by Department Level 30.</li></ul></div>
+              </div>
+            </div>
+          </div>
+          <LawbotXPSection accent={accent} />
+        </div>
+      )}
+      {tab==='ladder' && <LawbotLadderSection accent={accent} />}
+    </div>
+  );
+}
+
+﻿/* --- Bossbot data --- */
+const BB_HIGHLIGHTS = [
+  'Flunky Cog Disguise','Chief Executive Officer','Department Experience',
+  'Cog Golf Courses','Department Levels','Diamond Dynamo','Silver Sprocket',
+  'Club President','Golden Gear','Bossbot HQ','Laff Points','Laff Point',
+  'Teleport access','Country Club','The Clubhouse','Big Cheese','Downsizer',
+  'Boosters','Bossbots','Bossbot','Stock Options','C.E.O.',
+];
+function BBHighlight({ text }: { text: string }) {
+  const escaped = BB_HIGHLIGHTS.map(h => h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const parts = text.split(new RegExp(`(${escaped.join('|')})`, 'g'));
+  return (<>{parts.map((part, i) => BB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
+}
+const BB_REGULAR = [
+  { name:'Flunky',           tier:'Tier 1 Employee', levels:'1-5',  dmg:'2-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Flunky_CG.gif' },
+  { name:'Pencil Pusher',    tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Pencilpusher_CG.gif' },
+  { name:'Yesman',           tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-16',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Yesman_CG.gif' },
+  { name:'Micromanager',     tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Micromanager_CG.gif' },
+  { name:'Downsizer',        tier:'Tier 5 Employee', levels:'5-9',  dmg:'4-22',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Downsizer_CG.gif' },
+  { name:'Head Hunter',      tier:'Tier 6 Employee', levels:'6-11', dmg:'6-24',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Headhunter_CG.gif' },
+  { name:'Corporate Raider', tier:'Tier 7 Employee', levels:'7-12', dmg:'8-28',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Corporateraider_CG.gif' },
+  { name:'Big Cheese',       tier:'Tier 8 Employee', levels:'8-50', dmg:'12-60', img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Bigcheese_CG.gif' },
+];
+const BB_SPECIAL = [
+  { name:'Club President',          tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-ClubPresident2.gif' },
+  { name:'Autocaddie',              tier:'Regional Manager', level:'6 (mgr)',  dmg:'4-10',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Autocaddie_CG.gif' },
+  { name:'Featherbedder',           tier:'Regional Manager', level:'8 (mgr)',  dmg:'6-14',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Featherbedder_CG.gif' },
+  { name:'Major Player',            tier:'Regional Manager', level:'32 (mgr)', dmg:'24-38',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Majorplayer_CG.gif' },
+  { name:'Derrick Man',             tier:'Regional Manager', level:'16 (mgr)', dmg:'14-24',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickman_CG.gif' },
+  { name:'Derrick Hand',            tier:'Regional Manager', level:'20 (mgr)', dmg:'16-28',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickhand_CG.gif' },
+  { name:'Firestarter',             tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Firestarter_CG.gif' },
+  { name:'Chainsaw Consultant',     tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Chainsawconsultant_CG.gif' },
+  { name:'Chief Executive Officer', tier:'Boss',             level:'C.E.O.',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-CEOGif.gif' },
+];
+const BB_XP_ROWS = [
+  { source:'Cog explodes in Feeding Round',             base:'+20 XP' },
+  { source:'3-18 Damage Seltzer',                       base:'+15-90 XP (5x the damage dealt)' },
+  { source:'Teammate stuns the C.E.O.',                 base:'+100 XP (depreciates each stun)' },
+  { source:'You stun the C.E.O.',                       base:'+190 XP (depreciates each stun)' },
+  { source:'Hitting C.E.O. with golf ball (low power)', base:'+32 XP' },
+  { source:'Hitting C.E.O. with golf ball (mid power)', base:'+64 XP' },
+  { source:'Hitting C.E.O. with golf ball (high power)',base:'+96 XP' },
+];
+
+﻿/* --- Bossbot HQ guide section --- */
+function BossbotHQSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-hq-section" style={{"--hq-bg":"url(/icons/promotions/Bossbot/wallpapers/Bossbot_HQ.png)"} as React.CSSProperties}>
+      <div className="pim-hq-overlay" />
+      <div className="pim-scroll pim-hq-content">
+        <div className="pim-section">
+          <p className="pim-para"><strong>Bossbot HQ (BBHQ)</strong> is the home base of the <span className="pim-hl">Bossbots</span>, unlocked through the <span className="pim-hl">Acorn Acres Taskline</span>. Collect <span className="pim-hl">Stock Options</span> in the <span className="pim-hl">Cog Golf Courses</span> to challenge the <span className="pim-hl">Chief Executive Officer</span> inside <span className="pim-hl">The Clubhouse</span>.</p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color:accent}}>Country Club</h3>
+          <p className="pim-para">The outdoor area of BBHQ -- large hedges, dead trees, and a gloomy overcast sky. Golf Course entrances are scattered across the grounds. The Clubhouse sits at the far end.</p>
+          <ul className="pim-list">
+            <li>Levels <strong>5-11</strong> | <span className="pim-hl">Tier 1-8 Cogs</span> | ~10 Cogs active</li>
+            <li><strong>92%</strong> Bossbot spawn rate (2% per other department)</li>
+            <li>+1x <span className="pim-hl">Gag XP</span> &amp; Merit multiplier</li>
+          </ul>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color:accent}}>Cog Golf Courses</h3>
+          <p className="pim-para">Three types: <strong>Silver Sprocket</strong>, <strong>Golden Gear</strong>, and <strong>Diamond Dynamo</strong> -- each varies in difficulty, length, and <span className="pim-hl">Stock Options</span> rewarded. Complete <strong>2 Silver Sprockets + 2 Golden Gears + 1 Diamond Dynamo</strong> to build your <span className="pim-hl">Bossbot Cog Disguise</span>.</p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color:accent}}>The Clubhouse</h3>
+          <p className="pim-para">A large, dark castle at the far end of the <span className="pim-hl">Country Club</span>. Enter the Clubhouse Foyer to queue up, ride the elevator, and battle the <span className="pim-hl">Chief Executive Officer</span>. Requires a completed <span className="pim-hl">Bossbot Cog Disguise</span> to enter.</p>
+        </div>
+        <div className="pim-section">
+          <h3 className="pim-section-title" style={{color:accent}}>The C.E.O.&#39;s Office</h3>
+          <p className="pim-para">A spiral staircase on the right side of the Clubhouse Foyer leads to the <span className="pim-hl">C.E.O.</span>&#39;s Office where The Directors fight takes place. Requires completing the &quot;The Final Battle. For Now.&quot; task in the Drowsy Dreamland Taskline.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+function BossbotXPSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-section">
+      <h3 className="pim-section-title" style={{color:accent}}>Gaining Department Experience</h3>
+      <div className="pim-table-wrap">
+        <table className="pim-xp-table">
+          <thead><tr><th>Method</th><th>Experience</th></tr></thead>
+          <tbody>{BB_XP_ROWS.map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p className="pim-detail-note" style={{marginTop:6}}><em>Note: The player will gain experience for any Cog destroyed in the feeding round, including those destroyed by other players.</em></p>
+    </div>
+  );
+}
+function BossbotLadderSection({ accent }: { accent: string }) {
+  return (
+    <div className="pim-scroll">
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color:accent}}>General Cogs</h3>
+        <div className="pim-cog-grid">
+          {BB_REGULAR.map(c=>(<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Levels {c.levels}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+        </div>
+      </div>
+      <div className="pim-section">
+        <h3 className="pim-section-title" style={{color:accent}}>Special Cogs</h3>
+        <div className="pim-cog-grid">
+          {BB_SPECIAL.map(c=>(<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Level {c.level}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+        </div>
+      </div>
+    </div>
+  );
+}
+function BossbotContent({ accent }: { accent: string }) {
+  const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
+  return (
+    <div className="pim-inner">
+      <div className="pim-inner-tabs">
+        {(['hq','promos','ladder'] as const).map(t=>(
+          <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
+            {t==='hq'?'Bossbot HQ':t==='promos'?'Bossbot Promotions':'Corporate Ladder'}
+          </button>
+        ))}
+      </div>
+      {tab==='hq' && <BossbotHQSection accent={accent} />}
+      {tab==='promos' && (
+        <div className="pim-scroll">
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
+            <div className="pim-info-block">
+              <div className="pim-suit-header">
+                <Image src="/icons/cog-emblems/BossbotEmblem.png" alt="Bossbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <span className="pim-suit-name" style={{fontWeight:800}}>Bossbot Suit</span>
+              </div>
+              <p className="pim-para" style={{marginBottom:6}}>Defeat the <span className="pim-hl">Club President</span> to gain 1 Bossbot Suit part. Each <span className="pim-hl">Cog Golf Courses</span> rewards different Suit parts. 5 parts are needed.</p>
+              <ul className="pim-list">
+                <li>Complete <strong>2 Silver Sprockets</strong> (<em>rewards leg parts</em>)</li>
+                <li>Complete <strong>2 Golden Gears</strong> (<em>rewards arm parts</em>)</li>
+                <li>Complete <strong>1 Diamond Dynamo</strong> (<em>rewards chest part</em>)</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Promotions Overview</h3>
+            <div className="pim-info-block">
+              <p className="pim-para pim-note" style={{marginBottom:4}}>How promotions work:</p>
+              <ul className="pim-list">
+                <li><BBHighlight text="Bossbot Promotions begin with the Flunky Cog Disguise after defeating the Club President in the Silver Sprocket, Golden Gear, and Diamond Dynamo Cog Golf Courses." /></li>
+                <li><BBHighlight text="Promotions are earned by defeating the Chief Executive Officer inside the Bossbot Clubhouse in Bossbot HQ." /></li>
+                <li><BBHighlight text="Bossbot Promotions are separate from the Department Levels." /></li>
+                <li><BBHighlight text="Bossbot Merits are called Stock Options and can be earned by defeating any Bossbots." /></li>
+                <li><BBHighlight text="Toons must have a certain amount of Stock Options before entering the Bossbot Clubhouse." /></li>
+                <li><BBHighlight text="Teleport access is earned when a Toon reaches Downsizer Level 5." /></li>
+                <li><BBHighlight text="A Laff Point is earned at Big Cheese Levels 8, 15, 20, 30, 40, and 50 -- totaling 6 additional Laff Points." /></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pim-section">
+            <h3 className="pim-section-title" style={{color:accent}}>Department Levels</h3>
+            <p className="pim-section-sub">Department Levels are separate from Promotions. Earn Dept XP by defeating <span className="pim-hl">Bossbots</span> anywhere.</p>
+            <div className="pim-dept-levels">
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 40%,#100a04)`}}>Level 10 &mdash; Bossbot Basher</div>
+                <div className="pim-dept-level-body">
+                  <ul className="pim-list"><li>Reward: Exclusive Bossbot Basher outfit (shirt, shorts, and skirt options)</li></ul>
+                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShirt.png" alt="Bossbot Basher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShorts.png" alt="Bossbot Basher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherSkirt.png" alt="Bossbot Basher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
+                </div>
+              </div>
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 30%,#100a04)`}}>Level 20 &mdash; Bossbot Expert</div>
+                <div className="pim-dept-level-body"><ul className="pim-list"><li>Reward: 50% of Merits carry over into the next Promotion for that Department.</li><li>Note: Merits will not carry over if the previous Merit requirement exceeds the next.</li></ul></div>
+              </div>
+              <div className="pim-dept-level-card">
+                <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 20%,#100a04)`}}>Level 30 &mdash; Bossbot Master</div>
+                <div className="pim-dept-level-body"><ul className="pim-list"><li>Reward: Boss Rewards -- <span className="pim-hl">C.E.O.</span> permanently grants +2 Pink Slips.</li><li>Note: This stacks with Surplus Sunday and <span className="pim-hl">Boosters</span>.</li><li>Note: Unites gained are unaffected by Department Level 30.</li></ul></div>
+              </div>
+            </div>
+          </div>
+          <BossbotXPSection accent={accent} />
+        </div>
+      )}
+      {tab==='ladder' && <BossbotLadderSection accent={accent} />}
+    </div>
+  );
+}
+
 /* Main exported modal */
 export function PromoInfoModal({ suitName, accent, onClose }: Props) {
   const handleKey = useCallback((e: KeyboardEvent) => {
@@ -1456,12 +1900,14 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
 
   const isSellbot  = suitName === 'Sellbot';
   const isCashbot  = suitName === 'Cashbot';
-  const hasContent = isSellbot || isCashbot;
+  const isLawbot   = suitName === 'Lawbot';
+  const isBossbot  = suitName === 'Bossbot';
+  const hasContent = isSellbot || isCashbot || isLawbot || isBossbot;
 
   return (
     <div className="pgm-backdrop" onClick={onClose}>
       <div
-        className={`pgm-box pim-box${isSellbot ? ' pim-box--sb' : ''}`}
+        className={`pgm-box pim-box${isSellbot ? ' pim-box--sb' : ''}${isCashbot ? ' pim-box--cb' : ''}${isLawbot ? ' pim-box--lb' : ''}${isBossbot ? ' pim-box--bb' : ''}`}
         style={{'--pgm-accent': accent} as React.CSSProperties}
         onClick={e => e.stopPropagation()}
       >
@@ -1486,6 +1932,8 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
         <div className="pgm-body pgm-body--single pim-body-wrap">
           {isSellbot  && <SellbotContent  accent={accent} />}
           {isCashbot  && <CashbotContent  accent={accent} />}
+          {isLawbot   && <LawbotContent   accent={accent} />}
+          {isBossbot  && <BossbotContent  accent={accent} />}
           {!hasContent && <p className="pgm-info-placeholder">Additional information for {suitName} will be added here.</p>}
         </div>
       </div>
