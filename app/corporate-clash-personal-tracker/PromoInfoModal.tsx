@@ -1499,14 +1499,20 @@ const LB_XP_ROWS = [
   { source:'Destroying a Conveyancer shield',                 base:'+61 XP (depreciates each kill)' },
   { source:'Destroying an Advocate shield',                   base:'+113 XP (depreciates each kill)' },
 ];
+const SUIT_ICON = {img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'};
+const PLUS1_ICON = {img:'/icons/promotions/25px-+1.webp',alt:'+1'};
+const KEY_ICON = {img:'/icons/promotions/Lawbot/25px-ExecutiveLobbyKey.webp',alt:'Key'};
+type RewardNode = {type:'text';text:string} | {type:'icon';img:string;alt:string};
+const rT = (s:string): RewardNode => ({type:'text',text:s});
+const rI = (icon:{img:string;alt:string}): RewardNode => ({type:'icon',img:icon.img,alt:icon.alt});
 const LB_EXEC_ROWS = [
-  { from:'Big Wig',                cogHead:'/icons/promotions/Lawbot/25px-BigWigHead.webp',      cogLevels:'50 → 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveLobbyKey.webp',alt:'Key'}],                               rewardText:'Executive Lobby Key' },
-  { from:'Pettifogger',            cogHead:'/icons/promotions/Lawbot/25px-PettifoggerHead.webp', cogLevels:'2-7.exe',       oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, R.I.D.D.L.E Background' },
-  { from:'Needlenose',             cogHead:'/icons/promotions/Lawbot/25px-NeedlenoseHead.webp',  cogLevels:'3-10.exe',      oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'},{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],    rewardText:'Executive Suit Promotion, A +1 Laff Boost' },
-  { from:'Conveyancer',            cogHead:'/icons/promotions/Lawbot/25px-ConveyancerHead.webp', cogLevels:'4-8.exe',       oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, Megaphone Profile Pose' },
-  { from:'Advocate',               cogHead:'/icons/promotions/Lawbot/25px-AdvocateHead.webp',    cogLevels:'5-15.exe',      oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'},{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],    rewardText:'Executive Suit Promotion, A +1 Laff Boost' },
-  { from:'Shyster',                cogHead:'/icons/promotions/Lawbot/25px-ShysterHead.webp',     cogLevels:'6-12.exe',      oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, Crocheting Nameplate' },
-  { from:'Barrister',              cogHead:'/icons/promotions/Lawbot/25px-BarristerHead.webp',   cogLevels:'7-15.exe',      oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  rewardIcons:[{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],                                rewardText:'A +1 Laff Boost, Lawbot Disguise Picker' },
+  { from:'Big Wig',     cogHead:'/icons/promotions/Lawbot/25px-BigWigHead.webp',      cogLevels:'50 → 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         rewardNodes:[rI(KEY_ICON),  rT('Executive Lobby Key')] },
+  { from:'Pettifogger', cogHead:'/icons/promotions/Lawbot/25px-PettifoggerHead.webp', cogLevels:'2-7.exe',        oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, R.I.D.D.L.E Background')] },
+  { from:'Needlenose',  cogHead:'/icons/promotions/Lawbot/25px-NeedlenoseHead.webp',  cogLevels:'3-10.exe',       oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, '), rI(PLUS1_ICON), rT(' Laff Boost')] },
+  { from:'Conveyancer', cogHead:'/icons/promotions/Lawbot/25px-ConveyancerHead.webp', cogLevels:'4-8.exe',        oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, Megaphone Profile Pose')] },
+  { from:'Advocate',    cogHead:'/icons/promotions/Lawbot/25px-AdvocateHead.webp',    cogLevels:'5-15.exe',       oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, '), rI(PLUS1_ICON), rT(' Laff Boost')] },
+  { from:'Shyster',     cogHead:'/icons/promotions/Lawbot/25px-ShysterHead.webp',     cogLevels:'6-12.exe',       oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, Crocheting Nameplate')] },
+  { from:'Barrister',   cogHead:'/icons/promotions/Lawbot/25px-BarristerHead.webp',   cogLevels:'7-15.exe',       oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  rewardNodes:[rI(PLUS1_ICON), rT(' Laff Boost, Lawbot Disguise Picker')] },
 ];
 
 ﻿/* --- Lawbot HQ guide section --- */
@@ -1677,7 +1683,7 @@ function LawbotContent({ accent }: { accent: string }) {
                     <td style={{textAlign:'center'}}>{r.oclos}</td>
                     <td><span className="pim-hl">{r.directive}</span></td>
                     <td style={{whiteSpace:'nowrap'}}>{r.unlockedAt}</td>
-                    <td><span style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,flexWrap:'wrap'}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={18} height={18} style={{flexShrink:0,verticalAlign:'middle'}} unoptimized />))}<span style={{fontSize:'12px'}}>{r.rewardText}</span></span></td>
+                    <td><span style={{display:'flex',flexDirection:'row',alignItems:'center',gap:4,flexWrap:'wrap'}}>{r.rewardNodes.map((n,i)=>n.type==='icon'?(<Image key={i} src={n.img} alt={n.alt} width={18} height={18} style={{flexShrink:0,verticalAlign:'middle'}} unoptimized />):(<span key={i} style={{fontSize:'12px'}}>{n.text}</span>))}</span></td>
                   </tr>
                 ))}</tbody>
               </table>
