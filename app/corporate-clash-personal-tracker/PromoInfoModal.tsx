@@ -1500,13 +1500,13 @@ const LB_XP_ROWS = [
   { source:'Destroying an Advocate shield',                   base:'+113 XP (depreciates each kill)' },
 ];
 const LB_EXEC_ROWS = [
-  { from:'Big Wig to Pettifogger', cogLevels:'50 to 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         reward:'Executive Lobby Key' },
-  { from:'Pettifogger',            cogLevels:'2-7.exe',     oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', reward:'Executive Suit Promotion, R.I.D.D.L.E Background' },
-  { from:'Needlenose',             cogLevels:'3-10.exe',    oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', reward:'Executive Suit Promotion, +1 Laff Boost' },
-  { from:'Conveyancer',            cogLevels:'4-8.exe',     oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', reward:'Executive Suit Promotion, Megaphone Profile Pose' },
-  { from:'Advocate',               cogLevels:'5-15.exe',    oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   reward:'Executive Suit Promotion, +1 Laff Boost' },
-  { from:'Shyster',                cogLevels:'6-12.exe',    oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    reward:'Executive Suit Promotion, Crocheting Nameplate' },
-  { from:'Barrister',              cogLevels:'7-15.exe',    oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  reward:'+1 Laff Boost, Lawbot Disguise Picker' },
+  { from:'Big Wig to Pettifogger', cogHead:'/icons/promotions/Lawbot/25px-BigWigHead.webp',      cogLevels:'50 → 2.exe', oclos:'1',     directive:'Report Roundup',       unlockedAt:'Big Wig Lvl 8',         rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveLobbyKey.webp',alt:'Key'}],                               rewardText:'Executive Lobby Key' },
+  { from:'Pettifogger',            cogHead:'/icons/promotions/Lawbot/25px-PettifoggerHead.webp', cogLevels:'2-7.exe',       oclos:'5',     directive:'Crossword Crisis',     unlockedAt:'Pettifogger Lvl 7.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, R.I.D.D.L.E Background' },
+  { from:'Needlenose',             cogHead:'/icons/promotions/Lawbot/25px-NeedlenoseHead.webp',  cogLevels:'3-10.exe',      oclos:'7',     directive:'Needle Nonsense',      unlockedAt:'Needlenose Lvl 10.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'},{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],    rewardText:'Executive Suit Promotion, A +1 Laff Boost' },
+  { from:'Conveyancer',            cogHead:'/icons/promotions/Lawbot/25px-ConveyancerHead.webp', cogLevels:'4-8.exe',       oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, Megaphone Profile Pose' },
+  { from:'Advocate',               cogHead:'/icons/promotions/Lawbot/25px-AdvocateHead.webp',    cogLevels:'5-15.exe',      oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'},{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],    rewardText:'Executive Suit Promotion, A +1 Laff Boost' },
+  { from:'Shyster',                cogHead:'/icons/promotions/Lawbot/25px-ShysterHead.webp',     cogLevels:'6-12.exe',      oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    rewardIcons:[{img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'}],                             rewardText:'Executive Suit Promotion, Crocheting Nameplate' },
+  { from:'Barrister',              cogHead:'/icons/promotions/Lawbot/25px-BarristerHead.webp',   cogLevels:'7-15.exe',      oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  rewardIcons:[{img:'/icons/promotions/25px-+1.webp',alt:'+1'}],                                rewardText:'A +1 Laff Boost, Lawbot Disguise Picker' },
 ];
 
 ﻿/* --- Lawbot HQ guide section --- */
@@ -1557,14 +1557,14 @@ function LawbotXPSection({ accent }: { accent: string }) {
       <h3 className="pim-section-title" style={{color: accent}}>Gaining Department Experience</h3>
       <div className="pim-table-wrap">
         <table className="pim-xp-table">
-          <thead><tr><th>Cannon Round Method</th><th>XP</th></tr></thead>
-          <tbody>{LB_XP_ROWS.slice(0,7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}</tbody>
-        </table>
-      </div>
-      <div className="pim-table-wrap" style={{marginTop:10}}>
-        <table className="pim-xp-table">
-          <thead><tr><th>C.L.O. Final Round Method</th><th>XP</th></tr></thead>
-          <tbody>{LB_XP_ROWS.slice(7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}</tbody>
+          <colgroup><col style={{width:'75%'}} /><col style={{width:'25%'}} /></colgroup>
+          <thead><tr><th>Method</th><th>XP</th></tr></thead>
+          <tbody>
+            <tr><td colSpan={2} style={{background:'rgba(255,255,255,.06)',fontWeight:800,fontSize:11,letterSpacing:'.07em',textTransform:'uppercase',padding:'6px 12px',color:'rgba(255,255,255,.5)'}}>Cannon Round</td></tr>
+            {LB_XP_ROWS.slice(0,7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}
+            <tr><td colSpan={2} style={{background:'rgba(255,255,255,.06)',fontWeight:800,fontSize:11,letterSpacing:'.07em',textTransform:'uppercase',padding:'6px 12px',color:'rgba(255,255,255,.5)'}}>C.L.O. Final Round</td></tr>
+            {LB_XP_ROWS.slice(7).map(r=>(<tr key={r.source}><td><span className="pim-xp-val">{r.source}</span></td><td>{r.base}</td></tr>))}
+          </tbody>
         </table>
       </div>
     </div>
@@ -1657,7 +1657,7 @@ function LawbotContent({ accent }: { accent: string }) {
             <div className="pim-info-block">
               <p className="pim-para pim-note" style={{marginBottom:4}}>Executive Disguise Rewards:</p>
               <ul className="pim-list">
-                <li>A <Image src="/icons/promotions/25px-+1.webp" alt="+1 Laff" width={16} height={16} style={{verticalAlign:'middle',margin:'0 2px'}} unoptimized /> Laff Point boost is earned after completing the Directives for <span className="pim-hl">Needlenose</span> Lvl 10, <span className="pim-hl">Advocate</span> Lvl 15, and <span className="pim-hl">Barrister</span> Lvl 14 (3 total).</li>
+                <li>A +1 Laff Point boost is earned after completing the Directives for <span className="pim-hl">Needlenose</span> Lvl 10, <span className="pim-hl">Advocate</span> Lvl 15, and <span className="pim-hl">Barrister</span> Lvl 14 (3 total).</li>
                 <li>At <strong>Level 15.exe Barrister</strong>, change the Executive Cog Disguise to any Employee or Specialist Lawbot Suit from the Shtickerbook. Status becomes &quot;Maxed.exe&quot;.</li>
               </ul>
             </div>
@@ -1666,8 +1666,20 @@ function LawbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color:accent}}>Executive Promotions Table</h3>
             <div className="pim-table-wrap pim-exec-table-wrap">
               <table className="pim-xp-table pim-exec-table">
-                <thead><tr><th>Suit</th><th>Cog Levels</th><th>O.C.L.O.s</th><th>Directive</th><th>Unlocked At</th><th>Reward</th></tr></thead>
-                <tbody>{LB_EXEC_ROWS.map(r=>(<tr key={r.from}><td>{r.from}</td><td>{r.cogLevels}</td><td>{r.oclos}</td><td><span className="pim-hl">{r.directive}</span></td><td>{r.unlockedAt}</td><td>{r.reward}</td></tr>))}</tbody>
+                <thead><tr><th>Suit Progression</th><th>Cog Levels</th><th>OCLOs Needed</th><th>Directive</th><th>Unlocked At</th><th>Directive Reward</th></tr></thead>
+                <tbody>{LB_EXEC_ROWS.map(r=>(
+                  <tr key={r.from}>
+                    <td style={{whiteSpace:'nowrap'}}>
+                      {r.cogHead && <Image src={r.cogHead} alt={r.from} width={20} height={20} style={{verticalAlign:'middle',marginRight:6}} unoptimized />}
+                      <strong>{r.from}</strong>
+                    </td>
+                    <td>{r.cogLevels}</td>
+                    <td style={{textAlign:'center'}}>{r.oclos}</td>
+                    <td><span className="pim-hl">{r.directive}</span></td>
+                    <td style={{whiteSpace:'nowrap'}}>{r.unlockedAt}</td>
+                    <td><span style={{display:'flex',alignItems:'center',gap:4,flexWrap:'wrap'}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={18} height={18} style={{verticalAlign:'middle',flexShrink:0}} unoptimized />))}<span>{r.rewardText}</span></span></td>
+                  </tr>
+                ))}</tbody>
               </table>
             </div>
           </div>
