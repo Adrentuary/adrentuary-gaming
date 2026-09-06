@@ -1512,7 +1512,7 @@ const LB_EXEC_ROWS = [
   { from:'Conveyancer', cogHead:'/icons/promotions/Lawbot/25px-ConveyancerHead.webp', cogLevels:'4-8.exe',        oclos:'4',     directive:'Temperature Troubles', unlockedAt:'Conveyancer Lvl 8.exe', rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, Megaphone Profile Pose')] },
   { from:'Advocate',    cogHead:'/icons/promotions/Lawbot/25px-AdvocateHead.webp',    cogLevels:'5-15.exe',       oclos:'10',    directive:'Docket Dilemma',       unlockedAt:'Advocate Lvl 15.exe',   rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, '), rI(PLUS1_ICON), rT(' Laff Boost')] },
   { from:'Shyster',     cogHead:'/icons/promotions/Lawbot/25px-ShysterHead.webp',     cogLevels:'6-12.exe',       oclos:'6',     directive:'Memo Mishap',          unlockedAt:'Shyster Lvl 12.exe',    rewardNodes:[rT('Executive '), rI(SUIT_ICON), rT(' Promotion, Crocheting Nameplate')] },
-  { from:'Barrister',   cogHead:'/icons/promotions/Lawbot/25px-BarristerHead.webp',   cogLevels:'7-15.exe',       oclos:'7(+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  rewardNodes:[rI(PLUS1_ICON), rT(' Laff Boost, Lawbot Disguise Picker')] },
+  { from:'Barrister',   cogHead:'/icons/promotions/Lawbot/25px-BarristerHead.webp',   cogLevels:'7-15.exe',       oclos:'7 (+2)', directive:'Fashion Fiasco',       unlockedAt:'Barrister Lvl 14.exe',  rewardNodes:[rI(PLUS1_ICON), rT(' Laff Boost, Lawbot Disguise Picker')] },
 ];
 
 ﻿/* --- Lawbot HQ guide section --- */
@@ -1672,6 +1672,7 @@ function LawbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color:accent}}>Executive Promotions Table</h3>
             <div className="pim-table-wrap pim-exec-table-wrap">
               <table className="pim-xp-table pim-exec-table">
+                <colgroup><col /><col /><col /><col /><col /><col style={{minWidth:'240px'}} /></colgroup>
                 <thead><tr><th>Suit Progression</th><th>Cog Levels</th><th>OCLOs Needed</th><th>Directive</th><th>Unlocked At</th><th>Directive Reward</th></tr></thead>
                 <tbody>{LB_EXEC_ROWS.map(r=>(
                   <tr key={r.from}>
@@ -1683,7 +1684,7 @@ function LawbotContent({ accent }: { accent: string }) {
                     <td style={{textAlign:'center'}}>{r.oclos}</td>
                     <td><span className="pim-hl">{r.directive}</span></td>
                     <td style={{whiteSpace:'nowrap'}}>{r.unlockedAt}</td>
-                    <td><span style={{display:'flex',flexDirection:'row',alignItems:'center',gap:4,flexWrap:'wrap'}}>{r.rewardNodes.map((n,i)=>n.type==='icon'?(<Image key={i} src={n.img} alt={n.alt} width={18} height={18} style={{flexShrink:0,verticalAlign:'middle'}} unoptimized />):(<span key={i} style={{fontSize:'12px'}}>{n.text}</span>))}</span></td>
+                    <td><span style={{display:'flex',flexDirection:'row',alignItems:'center',gap:4,flexWrap:'nowrap'}}>{r.rewardNodes.map((n,i)=>n.type==='icon'?(<Image key={i} src={n.img} alt={n.alt} width={18} height={18} style={{flexShrink:0,verticalAlign:'middle'}} unoptimized />):(<span key={i} style={{fontSize:'12px'}}>{n.text}</span>))}</span></td>
                   </tr>
                 ))}</tbody>
               </table>
