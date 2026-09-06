@@ -1677,7 +1677,7 @@ function LawbotContent({ accent }: { accent: string }) {
                     <td style={{textAlign:'center'}}>{r.oclos}</td>
                     <td><span className="pim-hl">{r.directive}</span></td>
                     <td style={{whiteSpace:'nowrap'}}>{r.unlockedAt}</td>
-                    <td><span style={{display:'flex',flexDirection:'column',gap:5}}><span style={{display:'flex',alignItems:'center',gap:6}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={40} height={40} style={{flexShrink:0}} unoptimized />))}</span><span style={{fontSize:'12px'}}>{r.rewardText}</span></span></td>
+                    <td><span style={{display:'flex',flexDirection:'row',alignItems:'center',gap:5,flexWrap:'wrap'}}>{r.rewardIcons.map((ic,i)=>(<Image key={i} src={ic.img} alt={ic.alt} width={18} height={18} style={{flexShrink:0,verticalAlign:'middle'}} unoptimized />))}<span style={{fontSize:'12px'}}>{r.rewardText}</span></span></td>
                   </tr>
                 ))}</tbody>
               </table>
