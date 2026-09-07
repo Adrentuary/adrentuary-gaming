@@ -7,6 +7,7 @@ import { PROMOTIONS } from './data-promotions';
 import { useTracker, TOON_COLORS } from './TrackerContext';
 import type { ToonIndex } from './TrackerContext';
 import { PromoInfoModal } from './PromoInfoModal';
+import { PromoResetDrawer } from './PromoResetDrawer';
 
 const COLLAPSED_KEY = 'promo-cogs';
 type Lv = { level: number; cost: string };
@@ -68,6 +69,7 @@ export function SectionPromotions() {
         lastUpdated={LAST_UPDATED.promotions}
         lastChanges="Cog head icons, collapsible cog rows, progressive level clicking, and suit info modals added."
       />
+      <PromoResetDrawer />
       <nav className="sub-tabs">
         {PROMOTIONS.map((s,i) => (
           <button key={s.name} className={`sub-tab${tab===i?' sub-tab--active':''}`}
