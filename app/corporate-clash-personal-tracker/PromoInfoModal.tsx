@@ -88,11 +88,13 @@ interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLo
 /* Playground palette — keyed by street name */
 const PG_PALETTE: Record<string, { bg: string; text: string }> = {
   // Toontown Central
+  'Loopy Lane':         { bg:'#321F0A', text:'#D86B10' },
   'Punchline Place':    { bg:'#321F0A', text:'#D86B10' },
   'Silly Street':       { bg:'#321F0A', text:'#D86B10' },
   'Wacky Way':          { bg:'#321F0A', text:'#D86B10' },
   // Barnacle Boatyard
   'Anchor Avenue':      { bg:'#32180a', text:'#dc4a14' },
+  'Barnacle Boulevard': { bg:'#32180a', text:'#dc4a14' },
   'Buccaneer Boulevard':{ bg:'#32180a', text:'#dc4a14' },
   'Lighthouse Lane':    { bg:'#32180a', text:'#dc4a14' },
   'Seaweed Street':     { bg:'#32180a', text:'#dc4a14' },
