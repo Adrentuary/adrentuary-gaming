@@ -2258,6 +2258,229 @@ const BB_XP_ROWS = [
   { source:'Hitting C.E.O. with golf ball (high power)',base:'+96 XP' },
 ];
 
+const BB_COG_DETAILS: CogDetail[] = [
+  {
+    cogName: 'Flunky',
+    attacks: [
+      { name:'Pound Key',    target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,2,3,4,6], acc:[75,75,75,75,75], freq:25 },
+      { name:'Shred',        target:'Single Toon', levels:[1,2,3,4,5], dmg:[3,4,5,6,7], acc:[50,55,60,65,70], freq:25 },
+      { name:'Rubber Stamp', target:'Single Toon', levels:[1,2,3,4,5], dmg:[2,2,3,4,6], acc:[75,80,85,90,95], freq:25 },
+      { name:'Finger Wag',   target:'Single Toon', levels:[1,2,3,4,5], dmg:[1,1,2,2,3], acc:[50,50,50,50,50], freq:25 },
+    ],
+    streets: [
+      { name:'Punchline Place',    color:'#5a2800', accent:'#e06020', spawn:'8%',   avg:'~2'   },
+      { name:'Seaweed Street',     color:'#5a1a05', accent:'#dc4a14', spawn:'6.9%', avg:'~1-2' },
+      { name:'Lighthouse Lane',    color:'#6a1a00', accent:'#dd4422', spawn:'5%',   avg:'~1'   },
+      { name:'Loopy Lane',         color:'#7a3300', accent:'#ff7733', spawn:'6%',   avg:'~1-2' },
+      { name:'Barnacle Boulevard', color:'#1a3a4a', accent:'#4a9ab5', spawn:'5.3%', avg:'~1'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'5%', avg:'~1' }],
+    buildings: [
+      { label:'1 Story',           spawn:'66.7%', avg:'~5-6', boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'14.3%', avg:'~2',   boss:'0%'  },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',   boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens'],
+  },
+  {
+    cogName: 'Pencil Pusher',
+    attacks: [
+      { name:'Fountain Pen',   target:'Single Toon', levels:[2,3,4,5,6], dmg:[2,3,4,6,9],   acc:[75,75,75,75,75], freq:20 },
+      { name:'Rub Out',        target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,5,6,8,12],  acc:[75,75,75,75,75], freq:25 },
+      { name:'Finger Wag',     target:'Single Toon', levels:[2,3,4,5,6], dmg:[1,1,2,2,3],   acc:[50,50,50,50,50], freq:20 },
+      { name:'Write Off',      target:'Single Toon', levels:[2,3,4,5,6], dmg:[4,6,8,10,12], acc:[75,75,75,75,75], freq:20 },
+      { name:'Fill With Lead', target:'Single Toon', levels:[2,3,4,5,6], dmg:[3,4,5,6,8],   acc:[75,80,85,90,95], freq:15 },
+    ],
+    streets: [
+      { name:'Punchline Place',    color:'#5a2800', accent:'#e06020', spawn:'8%',    avg:'~2'   },
+      { name:'Seaweed Street',     color:'#5a1a05', accent:'#dc4a14', spawn:'10.3%', avg:'~2-3' },
+      { name:'Lighthouse Lane',    color:'#6a1a00', accent:'#dd4422', spawn:'7.5%',  avg:'~1-2' },
+      { name:'Loopy Lane',         color:'#7a3300', accent:'#ff7733', spawn:'8%',    avg:'~2'   },
+      { name:'Barnacle Boulevard', color:'#1a3a4a', accent:'#4a9ab5', spawn:'7.9%',  avg:'~2'   },
+      { name:'Alto Avenue',        color:'#482052', accent:'#bf62cb', spawn:'3.5%',  avg:'~1'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'7%', avg:'~1' }],
+    buildings: [
+      { label:'1 Story',           spawn:'33.3%', avg:'~3',   boss:'33.3%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'40%',   avg:'~4',   boss:'25%' },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'21.4%', avg:'~3',   boss:'0%'  },
+      { label:'3 Story (Tier II)', spawn:'13.3%', avg:'~1-2', boss:'0%'  },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',  avg:'~1',   boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland'],
+  },
+  {
+    cogName: 'Yesman',
+    attacks: [
+      { name:'Rubber Stamp', target:'Single Toon', levels:[3,4,5,6,7], dmg:[2,2,3,4,6],  acc:[75,75,75,75,75], freq:25 },
+      { name:'Bounce Check', target:'Single Toon', levels:[3,4,5,6,7], dmg:[3,5,7,9,11], acc:[75,80,85,90,95], freq:20 },
+      { name:'Synergy',      target:'All Toons',   levels:[3,4,5,6,7], dmg:[4,5,6,7,8],  acc:[50,55,60,65,70], freq:15 },
+      { name:'Tee Off',      target:'Single Toon', levels:[3,4,5,6,7], dmg:[3,4,6,9,12], acc:[75,80,85,90,95], freq:15 },
+      { name:'Pick Pocket',  target:'Single Toon', levels:[3,4,5,6,7], dmg:[2,2,3,4,6],  acc:[95,95,95,95,95], freq:25 },
+    ],
+    streets: [
+      { name:'Punchline Place',    color:'#5a2800', accent:'#e06020', spawn:'9.6%',  avg:'~2-3' },
+      { name:'Seaweed Street',     color:'#5a1a05', accent:'#dc4a14', spawn:'10.3%', avg:'~2-3' },
+      { name:'Lighthouse Lane',    color:'#6a1a00', accent:'#dd4422', spawn:'10%',   avg:'~2'   },
+      { name:'Loopy Lane',         color:'#7a3300', accent:'#ff7733', spawn:'10%',   avg:'~2-3' },
+      { name:'Barnacle Boulevard', color:'#1a3a4a', accent:'#4a9ab5', spawn:'10.5%', avg:'~2-3' },
+      { name:'Alto Avenue',        color:'#482052', accent:'#bf62cb', spawn:'7.2%',  avg:'~1-2' },
+      { name:'Knight Knoll',       color:'#33205e', accent:'#9b70cc', spawn:'4%',    avg:'~1'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'9%', avg:'~1' }],
+    buildings: [
+      { label:'2 Story (Tier I)',  spawn:'20%',   avg:'~2',   boss:'25%' },
+      { label:'2 Story (Tier II)', spawn:'28.6%', avg:'~3',   boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'28.6%', avg:'~4',   boss:'20%', bold:true },
+      { label:'3 Story (Tier II)', spawn:'26.7%', avg:'~3-4', boss:'20%', bold:true },
+      { label:'4 Story (Tier I)',  spawn:'20%',   avg:'~3-4', boss:'0%'  },
+      { label:'4 Story (Tier II)', spawn:'14.3%', avg:'~2-3', boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh'],
+  },
+  {
+    cogName: 'Micromanager',
+    attacks: [
+      { name:'Demotion',     target:'Single Toon', levels:[4,5,6,7,8], dmg:[6,8,10,12,15], acc:[75,75,75,75,75], freq:30 },
+      { name:'Finger Wag',   target:'Single Toon', levels:[4,5,6,7,8], dmg:[1,2,3,4,6],   acc:[50,50,50,50,50], freq:20 },
+      { name:'Fountain Pen', target:'Single Toon', levels:[4,5,6,7,8], dmg:[3,4,6,8,10],  acc:[75,80,85,90,95], freq:25 },
+      { name:'Brain Storm',  target:'All Toons',   levels:[4,5,6,7,8], dmg:[4,6,8,10,12], acc:[60,65,70,75,80], freq:25 },
+    ],
+    streets: [
+      { name:'Seaweed Street',     color:'#5a1a05', accent:'#dc4a14', spawn:'10.3%', avg:'~2-3' },
+      { name:'Lighthouse Lane',    color:'#6a1a00', accent:'#dd4422', spawn:'10%',   avg:'~2'   },
+      { name:'Loopy Lane',         color:'#7a3300', accent:'#ff7733', spawn:'8%',    avg:'~2'   },
+      { name:'Barnacle Boulevard', color:'#1a3a4a', accent:'#4a9ab5', spawn:'10.5%', avg:'~2-3' },
+      { name:'Alto Avenue',        color:'#482052', accent:'#bf62cb', spawn:'8.7%',  avg:'~2'   },
+      { name:'Knight Knoll',       color:'#33205e', accent:'#9b70cc', spawn:'5.3%',  avg:'~1'   },
+      { name:'Sleet Street',       color:'#003a46', accent:'#29b2dc', spawn:'4.1%',  avg:'~1'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'11%', avg:'~1' }],
+    buildings: [
+      { label:'2 Story (Tier II)', spawn:'14.3%', avg:'~1-2', boss:'20%' },
+      { label:'3 Story (Tier I)',  spawn:'28.6%', avg:'~4',   boss:'20%' },
+      { label:'3 Story (Tier II)', spawn:'33.3%', avg:'~4-5', boss:'20%', bold:true },
+      { label:'4 Story (Tier I)',  spawn:'26.7%', avg:'~4-5', boss:'25%', bold:true },
+      { label:'4 Story (Tier II)', spawn:'21.4%', avg:'~3-4', boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'10.5%', avg:'~2',   boss:'0%'  },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh'],
+  },
+  {
+    cogName: 'Downsizer',
+    attacks: [
+      { name:'Canned',    target:'Single Toon', levels:[5,6,7,8,9,10], dmg:[5,6,8,10,12,15],  acc:[60,75,80,85,90,90], freq:25 },
+      { name:'Sacked',    target:'Single Toon', levels:[5,6,7,8,9,10], dmg:[5,7,9,11,13,15],  acc:[50,65,70,75,90,90], freq:25 },
+      { name:'Downsize',  target:'All Toons',   levels:[5,6,7,8,9,10], dmg:[6,8,10,12,14,16], acc:[60,70,75,80,90,90], freq:30 },
+      { name:'Pink Slip', target:'Single Toon', levels:[5,6,7,8,9,10], dmg:[4,5,6,8,10,12],   acc:[75,80,85,90,95,95], freq:20 },
+    ],
+    streets: [
+      { name:'Alto Avenue',   color:'#482052', accent:'#bf62cb', spawn:'8.7%',  avg:'~2'   },
+      { name:'Knight Knoll',  color:'#33205e', accent:'#9b70cc', spawn:'7.9%',  avg:'~2'   },
+      { name:'Sleet Street',  color:'#003a46', accent:'#29b2dc', spawn:'8.2%',  avg:'~2'   },
+      { name:'Petunia Place', color:'#314600', accent:'#9bd31a', spawn:'5.6%',  avg:'~1-2' },
+      { name:'Peanut Place',  color:'#00451e', accent:'#20cf69', spawn:'7.3%',  avg:'~2'   },
+      { name:'Lullaby Lane',  color:'#1a1060', accent:'#7b68ee', spawn:'8.9%',  avg:'~2'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'13%', avg:'~1-2' }],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'7.1%',  avg:'~1',   boss:'20%' },
+      { label:'3 Story (Tier II)', spawn:'13.3%', avg:'~2',   boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'20%',   avg:'~3-4', boss:'25%', bold:true },
+      { label:'4 Story (Tier II)', spawn:'21.4%', avg:'~3-4', boss:'25%', bold:true },
+      { label:'5 Story (Tier I)',  spawn:'26.3%', avg:'~5',   boss:'0%'  },
+      { label:'5 Story (Tier II)', spawn:'25%',   avg:'~6',   boss:'0%'  },
+      { label:'6 Story (Tier I)',  spawn:'18.75%',avg:'~7-8', boss:'0%'  },
+      { label:'6 Story (Tier II)', spawn:'15.4%', avg:'~7',   boss:'0%'  },
+    ],
+    invasions: ['Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Head Hunter',
+    attacks: [
+      { name:'Fountain Pen',  target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[6,8,10,12,14,16,18], acc:[75,80,85,90,95,95,95], freq:25 },
+      { name:'Glower Power',  target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[6,8,10,12,15,17,19], acc:[60,75,80,85,90,95,95], freq:30 },
+      { name:'Half Windsor',  target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[5,6,8,10,12,14,16],  acc:[75,80,85,90,95,95,95], freq:20 },
+      { name:'Bite the Dust', target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[5,7,9,11,13,15,17],  acc:[65,75,80,85,90,95,95], freq:25 },
+    ],
+    streets: [
+      { name:'Sleet Street', color:'#003a46', accent:'#29b2dc', spawn:'10.3%', avg:'~3'   },
+      { name:'Peanut Place', color:'#00451e', accent:'#20cf69', spawn:'9.1%',  avg:'~2-3' },
+      { name:'Lullaby Lane', color:'#1a1060', accent:'#7b68ee', spawn:'12.6%', avg:'~3-4' },
+      { name:'Polar Place',  color:'#006666', accent:'#00cccc', spawn:'8.6%',  avg:'~2-3' },
+      { name:'Legume Lane',  color:'#2a5500', accent:'#66bb00', spawn:'7.3%',  avg:'~2'   },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'15%', avg:'~1-2' }],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'0%',    avg:'~0-1',  boss:'20%' },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',    boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'13%',   avg:'~2-3',  boss:'25%' },
+      { label:'4 Story (Tier II)', spawn:'21.4%', avg:'~3-4',  boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'26.3%', avg:'~5-6',  boss:'50%', bold:true },
+      { label:'5 Story (Tier II)', spawn:'31.25%',avg:'~8',    boss:'50%', bold:true },
+      { label:'6 Story (Tier I)',  spawn:'37.5%', avg:'~15-16',boss:'0%'  },
+      { label:'6 Story (Tier II)', spawn:'38.5%', avg:'~18-19',boss:'0%'  },
+    ],
+    invasions: ['The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Corporate Raider',
+    attacks: [
+      { name:'Quake',        target:'All Toons',   levels:[7,8,9,10,11,12,13,14,15], dmg:[10,12,14,16,18,20,22,24,26], acc:[60,70,75,80,85,90,90,90,90], freq:25 },
+      { name:'Rolodex',      target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[10,12,14,16,18,20,22,24,26], acc:[60,75,80,85,90,90,90,90,90], freq:20 },
+      { name:'Guilt Trip',   target:'All Toons',   levels:[7,8,9,10,11,12,13,14,15], dmg:[10,13,14,15,18,20,22,24,26], acc:[60,70,75,80,90,90,90,90,90], freq:25 },
+      { name:'Glower Power', target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[7,8,10,12,13,15,17,19,21],  acc:[50,60,70,80,90,90,90,90,90], freq:15 },
+      { name:'Evil Eye',     target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[8,10,12,14,16,18,20,22,24], acc:[60,65,70,75,80,85,90,90,90], freq:15 },
+    ],
+    streets: [
+      { name:'Peanut Place', color:'#00451e', accent:'#20cf69', spawn:'10.9%', avg:'~3-4' },
+      { name:'Lullaby Lane', color:'#1a1060', accent:'#7b68ee', spawn:'15.3%', avg:'~4-5' },
+      { name:'Polar Place',  color:'#006666', accent:'#00cccc', spawn:'11.4%', avg:'~3-4' },
+      { name:'Legume Lane',  color:'#2a5500', accent:'#66bb00', spawn:'10.9%', avg:'~3'   },
+      { name:'Pajama Place', color:'#6600aa', accent:'#bb55ff', spawn:'10%',   avg:'~2-3' },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'10%', avg:'~1' }],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'0%',    avg:'~0-1',  boss:'20%' },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',    boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'13%',   avg:'~2-3',  boss:'25%' },
+      { label:'4 Story (Tier II)', spawn:'21.4%', avg:'~3-4',  boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'26.3%', avg:'~5-6',  boss:'50%', bold:true },
+      { label:'5 Story (Tier II)', spawn:'31.25%',avg:'~8',    boss:'50%', bold:true },
+      { label:'6 Story (Tier I)',  spawn:'37.5%', avg:'~15-16',boss:'0%'  },
+      { label:'6 Story (Tier II)', spawn:'38.5%', avg:'~18-19',boss:'0%'  },
+    ],
+    invasions: ['Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Big Cheese',
+    attacks: [
+      { name:'Tee Off',          target:'Single Toon', levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50], dmg:[10,12,15,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58], acc:[55,65,75,80,85,90,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95], freq:25 },
+      { name:'Glower Power',     target:'Single Toon', levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50], dmg:[12,14,16,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58], acc:[55,65,70,75,80,85,90,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95], freq:25 },
+      { name:'Finger Wag',       target:'Single Toon', levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50], dmg:[8,10,12,14,16,18,20,22,24,26,28,30,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,61], acc:[70,75,80,85,90,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95], freq:25 },
+      { name:'Restraining Order',target:'Single Toon', levels:[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50], dmg:[8,10,12,14,16,18,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57], acc:[55,65,70,75,80,85,90,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95,95], freq:25 },
+    ],
+    hqLocs: [{ label:'BBHQ Country Club', spawn:'5%', avg:'~1' }],
+    buildings: [
+      { label:'3 Story (Tier II)', spawn:'0%',    avg:'~0-1',  boss:'20%' },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',  avg:'~1-2',  boss:'25%' },
+      { label:'4 Story (Tier II)', spawn:'14.3%', avg:'~2-3',  boss:'25%' },
+      { label:'5 Story (Tier I)',  spawn:'26.3%', avg:'~5-6',  boss:'50%' },
+      { label:'5 Story (Tier II)', spawn:'31.25%',avg:'~8',    boss:'50%' },
+      { label:'6 Story (Tier I)',  spawn:'37.5%', avg:'~16-17',boss:'100%', bold:true },
+      { label:'6 Story (Tier II)', spawn:'46.1%', avg:'~23',   boss:'100%', bold:true },
+    ],
+    invasions: ['Acorn Acres','Drowsy Dreamland'],
+  },
+];
+
+
+
+
+
 ﻿/* --- Bossbot HQ guide section --- */
 function BossbotHQSection({ accent }: { accent: string }) {
   return (
@@ -2306,13 +2529,40 @@ function BossbotXPSection({ accent }: { accent: string }) {
     </div>
   );
 }
-function BossbotLadderSection({ accent }: { accent: string }) {
+function BossbotLadderSection({ accent, openDetail }: { accent: string; openDetail: (n:string)=>void }) {
   return (
     <div className="pim-scroll">
       <div className="pim-section">
         <h3 className="pim-section-title" style={{color:accent}}>General Cogs</h3>
         <div className="pim-cog-grid">
-          {BB_REGULAR.map(c=>(<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Levels {c.levels}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+          {BB_REGULAR.map(c => {
+            const detail = BB_COG_DETAILS.find(d => d.cogName === c.name);
+            return (
+              <div key={c.name} className="pim-cog-card">
+                <div className="pim-cog-img-wrap">
+                  <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
+                </div>
+                <div className="pim-cog-info">
+                  <span className="pim-cog-name" style={{color:accent}}>{c.name}</span>
+                  <span className="pim-cog-tier">{c.tier}</span>
+                  <span className="pim-cog-stat">Levels {c.levels}</span>
+                  <span className="pim-cog-stat">Damage: {c.dmg}</span>
+                  {detail && (
+                    <>
+                      <div className="pim-cog-spacer" />
+                      <button
+                        className="pim-cog-detail-btn"
+                        style={{'--pim-accent': accent} as React.CSSProperties}
+                        onClick={() => openDetail(c.name)}
+                      >
+                        View Details
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="pim-section">
@@ -2326,17 +2576,53 @@ function BossbotLadderSection({ accent }: { accent: string }) {
 }
 function BossbotContent({ accent }: { accent: string }) {
   const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
+  const [detailCog, setDetailCog] = useState<string|null>(null);
+  const openDetail  = (name: string) => setDetailCog(name);
+  const closeDetail = () => setDetailCog(null);
   return (
     <div className="pim-inner">
-      <div className="pim-inner-tabs">
-        {(['hq','promos','ladder'] as const).map(t=>(
-          <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
-            {t==='hq'?'Bossbot HQ':t==='promos'?'Bossbot Promotions':'Corporate Ladder'}
+      {detailCog ? (
+        <div className="pim-inner-tabs pim-detail-nav">
+          <button className="pim-detail-back-btn" style={{'--pim-accent': accent} as React.CSSProperties} onClick={closeDetail}>
+            &#8592; Back
           </button>
-        ))}
-      </div>
-      {tab==='hq' && <BossbotHQSection accent={accent} />}
-      {tab==='promos' && (
+          <span className="pim-detail-nav-title" style={{color: accent}}>{detailCog}</span>
+        </div>
+      ) : (
+        <div className="pim-inner-tabs">
+          {(['hq','promos','ladder'] as const).map(t=>(
+            <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
+              {t==='hq'?'Bossbot HQ':t==='promos'?'Bossbot Promotions':'Corporate Ladder'}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {detailCog && (() => {
+        const detail  = BB_COG_DETAILS.find(d => d.cogName === detailCog);
+        const cogCard = BB_REGULAR.find(c => c.name === detailCog);
+        if (!detail) return null;
+        return (
+          <div className="pim-scroll pim-detail-view">
+            <div className="pim-detail-view-header">
+              {cogCard && (
+                <div className="pim-detail-view-img-wrap">
+                  <Image src={cogCard.img} alt={cogCard.name} fill className="pim-cog-img" unoptimized />
+                </div>
+              )}
+              <div className="pim-detail-view-meta">
+                {cogCard && <span className="pim-cog-tier">{cogCard.tier}</span>}
+                {cogCard && <span className="pim-cog-stat">Levels {cogCard.levels}</span>}
+                {cogCard && <span className="pim-cog-stat">Damage: {cogCard.dmg}</span>}
+              </div>
+            </div>
+            <CogDetailPanel detail={detail} accent={accent} dept="Bossbot" />
+          </div>
+        );
+      })()}
+
+      {!detailCog && tab==='hq' && <BossbotHQSection accent={accent} />}
+      {!detailCog && tab==='promos' && (
         <div className="pim-scroll">
           <div className="pim-section">
             <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
@@ -2392,7 +2678,7 @@ function BossbotContent({ accent }: { accent: string }) {
           <BossbotXPSection accent={accent} />
         </div>
       )}
-      {tab==='ladder' && <BossbotLadderSection accent={accent} />}
+      {!detailCog && tab==='ladder' && <BossbotLadderSection accent={accent} openDetail={openDetail} />}
     </div>
   );
 }
