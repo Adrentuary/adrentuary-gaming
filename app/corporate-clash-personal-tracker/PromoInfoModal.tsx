@@ -754,13 +754,16 @@ function SellbotContent({ accent }: { accent: string }) {
                       <span className="pim-cog-stat">Levels {c.levels}</span>
                       <span className="pim-cog-stat">Damage: {c.dmg}</span>
                       {detail && (
-                        <button
-                          className="pim-cog-detail-btn"
-                          style={{'--pim-accent': accent} as React.CSSProperties}
-                          onClick={() => openDetail(c.name)}
-                        >
-                          View Details
-                        </button>
+                        <>
+                          <div className="pim-cog-spacer" />
+                          <button
+                            className="pim-cog-detail-btn"
+                            style={{'--pim-accent': accent} as React.CSSProperties}
+                            onClick={() => openDetail(c.name)}
+                          >
+                            View Details
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -1198,13 +1201,16 @@ function CashbotLadderSection({ accent, openDetail }: { accent: string; openDeta
                   <span className="pim-cog-stat">Levels {c.levels}</span>
                   <span className="pim-cog-stat">Damage: {c.dmg}</span>
                   {detail && (
-                    <button
-                      className="pim-cog-detail-btn"
-                      style={{'--pim-accent': accent} as React.CSSProperties}
-                      onClick={() => openDetail(c.name)}
-                    >
-                      View Details
-                    </button>
+                    <>
+                      <div className="pim-cog-spacer" />
+                      <button
+                        className="pim-cog-detail-btn"
+                        style={{'--pim-accent': accent} as React.CSSProperties}
+                        onClick={() => openDetail(c.name)}
+                      >
+                        View Details
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
@@ -2021,13 +2027,16 @@ function LawbotLadderSection({ accent, openDetail }: { accent: string; openDetai
                   <span className="pim-cog-stat">Levels {c.levels}</span>
                   <span className="pim-cog-stat">Damage Range: {c.dmg}</span>
                   {detail && (
-                    <button
-                      className="pim-cog-detail-btn"
-                      style={{'--pim-accent': accent} as React.CSSProperties}
-                      onClick={() => openDetail(c.name)}
-                    >
-                      View Details
-                    </button>
+                    <>
+                      <div className="pim-cog-spacer" />
+                      <button
+                        className="pim-cog-detail-btn"
+                        style={{'--pim-accent': accent} as React.CSSProperties}
+                        onClick={() => openDetail(c.name)}
+                      >
+                        View Details
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
