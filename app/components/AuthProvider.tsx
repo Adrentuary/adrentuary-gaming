@@ -7,18 +7,39 @@ interface AuthContextValue {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  displayName: string | null;
+  refreshProfile: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   session: null,
   loading: true,
+  displayName: null,
+  refreshProfile: () => {},
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
+  const [displayName, setDisplayName] = useState<string | null>(null);
+
+  async function fetchProfile(userId: string) {
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('profiles')
+      .select('display_name, username')
+      .eq('id', userId)
+      .single();
+    if (data) {
+      setDisplayName(data.display_name || data.username || null);
+    }
+  }
+
+  function refreshProfile() {
+    if (user) fetchProfile(user.id);
+  }
 
   useEffect(() => {
     const supabase = createClient();
@@ -30,10 +51,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setSession(session);
           setUser(user);
           setLoading(false);
+          fetchProfile(user.id);
         });
       } else {
         setSession(null);
         setUser(null);
+        setDisplayName(null);
         setLoading(false);
       }
     });
@@ -41,8 +64,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
-        setUser(session?.user ?? null);
+        const u = session?.user ?? null;
+        setUser(u);
         setLoading(false);
+        if (u) {
+          fetchProfile(u.id);
+        } else {
+          setDisplayName(null);
+        }
       }
     );
 
@@ -50,7 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, session, loading }}>
+    <AuthContext.Provider value={{ user, session, loading, displayName, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

@@ -12,7 +12,7 @@ const navigation = [
 ] as const;
 
 export function SiteHeader() {
-  const { user, loading } = useAuth();
+  const { user, loading, displayName } = useAuth();
 
   return (
     <header className="global-header">
@@ -29,7 +29,7 @@ export function SiteHeader() {
             user
               ? <Link className="nav-account" href="/account" aria-label="Your account">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                  <span>Account</span>
+                  <span>{displayName || 'Account'}</span>
                 </Link>
               : <Link className="nav-account" href="/login">Log in</Link>
           )}

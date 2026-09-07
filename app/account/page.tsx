@@ -16,7 +16,7 @@ function AccountContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isPasswordReset = searchParams.get('reset') === '1';
-  const { user, loading } = useAuth();
+  const { user, loading, refreshProfile } = useAuth();
   const [profile, setProfile] = useState<Profile>({ username: '', display_name: '', avatar_url: null });
   const [profileLoading, setProfileLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -67,6 +67,7 @@ function AccountContent() {
       .upsert({ id: user.id, ...profile, updated_at: new Date().toISOString() });
     setSaving(false);
     setSaveMsg(error ? error.message : 'Saved!');
+    if (!error) refreshProfile();
     setTimeout(() => setSaveMsg(''), 3000);
   }
 
@@ -115,7 +116,7 @@ function AccountContent() {
     if (upErr) { setAvatarUploading(false); return; }
     const { data } = supabase.storage.from('avatars').getPublicUrl(path);
     const avatarUrl = data.publicUrl + '?t=' + Date.now();
-    await supabase.from('profiles').upsert({ id: user.id, avatar_url: avatarUrl, updated_at: new Date().toISOString() });
+    await supabase.from('profiles').update({ avatar_url: avatarUrl, updated_at: new Date().toISOString() }).eq('id', user.id);
     setProfile(p => ({ ...p, avatar_url: avatarUrl }));
     setAvatarUploading(false);
   }
