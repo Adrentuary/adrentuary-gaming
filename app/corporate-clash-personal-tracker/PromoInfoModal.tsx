@@ -86,46 +86,46 @@ interface BuildLoc   { label: string; spawn: string; avg: string; boss: string; 
 interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLoc[]; hqLocs?: { label: string; spawn: string; avg: string }[]; buildings?: BuildLoc[]; invasions: string[]; }
 
 /* Playground palette — keyed by street name */
-const PG_PALETTE: Record<string, { bg: string; text: string }> = {
-  // Toontown Central
-  'Loopy Lane':         { bg:'#321F0A', text:'#D86B10' },
-  'Punchline Place':    { bg:'#321F0A', text:'#D86B10' },
-  'Silly Street':       { bg:'#321F0A', text:'#D86B10' },
-  'Wacky Way':          { bg:'#321F0A', text:'#D86B10' },
-  // Barnacle Boatyard
-  'Anchor Avenue':      { bg:'#32180a', text:'#dc4a14' },
-  'Barnacle Boulevard': { bg:'#32180a', text:'#dc4a14' },
-  'Buccaneer Boulevard':{ bg:'#32180a', text:'#dc4a14' },
-  'Lighthouse Lane':    { bg:'#32180a', text:'#dc4a14' },
-  'Seaweed Street':     { bg:'#32180a', text:'#dc4a14' },
-  // Ye Olde Toontowne
-  'Knight Knoll':       { bg:'#25202f', text:'#9b70cc' },
-  'Noble Nook':         { bg:'#25202f', text:'#9b70cc' },
-  'Wizard Way':         { bg:'#25202f', text:'#9b70cc' },
-  // Daffodil Gardens
-  'Daisy Drive':        { bg:'#29390d', text:'#aae71c' },
-  'Petunia Place':      { bg:'#29390d', text:'#aae71c' },
-  'Sunflower Street':   { bg:'#29390d', text:'#aae71c' },
-  'Tulip Terrace':      { bg:'#29390d', text:'#aae71c' },
-  // Mezzo Melodyland
-  'Alto Avenue':        { bg:'#2d1d2f', text:'#bf62cb' },
-  'Baritone Boulevard': { bg:'#2d1d2f', text:'#bf62cb' },
-  'Soprano Street':     { bg:'#2d1d2f', text:'#bf62cb' },
-  'Tenor Terrace':      { bg:'#2d1d2f', text:'#bf62cb' },
-  // The Brrrgh
-  'Arctic Avenue':      { bg:'#0f2d32', text:'#29b2dc' },
-  'Polar Place':        { bg:'#0f2d32', text:'#29b2dc' },
-  'Sleet Street':       { bg:'#0f2d32', text:'#29b2dc' },
-  'Walrus Way':         { bg:'#0f2d32', text:'#29b2dc' },
-  // Acorn Acres
-  'Almond Avenue':      { bg:'#0d331b', text:'#20cf69' },
-  'Legume Lane':        { bg:'#0d331b', text:'#20cf69' },
-  'Peanut Place':       { bg:'#0d331b', text:'#20cf69' },
-  'Walnut Way':         { bg:'#0d331b', text:'#20cf69' },
-  // Drowsy Dreamland
-  'Lullaby Lane':       { bg:'#1f1e36', text:'#7b68ef' },
-  'Pajama Place':       { bg:'#1f1e36', text:'#7b68ef' },
-  'Twilight Terrace':   { bg:'#1f1e36', text:'#7b68ef' },
+const PG_PALETTE: Record<string, { bg: string; text: string; order: number }> = {
+  // Toontown Central (0)
+  'Loopy Lane':         { bg:'#321F0A', text:'#D86B10', order:0 },
+  'Punchline Place':    { bg:'#321F0A', text:'#D86B10', order:0 },
+  'Silly Street':       { bg:'#321F0A', text:'#D86B10', order:0 },
+  'Wacky Way':          { bg:'#321F0A', text:'#D86B10', order:0 },
+  // Barnacle Boatyard (1)
+  'Anchor Avenue':      { bg:'#32180a', text:'#dc4a14', order:1 },
+  'Barnacle Boulevard': { bg:'#32180a', text:'#dc4a14', order:1 },
+  'Buccaneer Boulevard':{ bg:'#32180a', text:'#dc4a14', order:1 },
+  'Lighthouse Lane':    { bg:'#32180a', text:'#dc4a14', order:1 },
+  'Seaweed Street':     { bg:'#32180a', text:'#dc4a14', order:1 },
+  // Ye Olde Toontowne (2)
+  'Knight Knoll':       { bg:'#25202f', text:'#9b70cc', order:2 },
+  'Noble Nook':         { bg:'#25202f', text:'#9b70cc', order:2 },
+  'Wizard Way':         { bg:'#25202f', text:'#9b70cc', order:2 },
+  // Daffodil Gardens (3)
+  'Daisy Drive':        { bg:'#29390d', text:'#aae71c', order:3 },
+  'Petunia Place':      { bg:'#29390d', text:'#aae71c', order:3 },
+  'Sunflower Street':   { bg:'#29390d', text:'#aae71c', order:3 },
+  'Tulip Terrace':      { bg:'#29390d', text:'#aae71c', order:3 },
+  // Mezzo Melodyland (4)
+  'Alto Avenue':        { bg:'#2d1d2f', text:'#bf62cb', order:4 },
+  'Baritone Boulevard': { bg:'#2d1d2f', text:'#bf62cb', order:4 },
+  'Soprano Street':     { bg:'#2d1d2f', text:'#bf62cb', order:4 },
+  'Tenor Terrace':      { bg:'#2d1d2f', text:'#bf62cb', order:4 },
+  // The Brrrgh (5)
+  'Arctic Avenue':      { bg:'#0f2d32', text:'#29b2dc', order:5 },
+  'Polar Place':        { bg:'#0f2d32', text:'#29b2dc', order:5 },
+  'Sleet Street':       { bg:'#0f2d32', text:'#29b2dc', order:5 },
+  'Walrus Way':         { bg:'#0f2d32', text:'#29b2dc', order:5 },
+  // Acorn Acres (6)
+  'Almond Avenue':      { bg:'#0d331b', text:'#20cf69', order:6 },
+  'Legume Lane':        { bg:'#0d331b', text:'#20cf69', order:6 },
+  'Peanut Place':       { bg:'#0d331b', text:'#20cf69', order:6 },
+  'Walnut Way':         { bg:'#0d331b', text:'#20cf69', order:6 },
+  // Drowsy Dreamland (7)
+  'Lullaby Lane':       { bg:'#1f1e36', text:'#7b68ef', order:7 },
+  'Pajama Place':       { bg:'#1f1e36', text:'#7b68ef', order:7 },
+  'Twilight Terrace':   { bg:'#1f1e36', text:'#7b68ef', order:7 },
 };
 
 const SB_COG_DETAILS: CogDetail[] = [
@@ -434,7 +434,7 @@ function CogDetailPanel({ detail, accent, dept = 'Sellbot' }: { detail: CogDetai
                   <th className="pim-loc-th">Avg Amount</th>
                 </tr></thead>
                 <tbody>
-                  {detail.streets.map(s => {
+                  {[...detail.streets].sort((a, b) => (PG_PALETTE[a.name]?.order ?? 99) - (PG_PALETTE[b.name]?.order ?? 99)).map(s => {
                     const pg = PG_PALETTE[s.name];
                     return (
                       <tr key={s.name}>
