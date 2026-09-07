@@ -85,6 +85,47 @@ interface StreetLoc  { name: string; color: string; accent: string; spawn: strin
 interface BuildLoc   { label: string; spawn: string; avg: string; boss: string; bold?: boolean; }
 interface CogDetail  { cogName: string; attacks: AttackRow[]; streets?: StreetLoc[]; hqLocs?: { label: string; spawn: string; avg: string }[]; buildings?: BuildLoc[]; invasions: string[]; }
 
+/* Playground palette — keyed by street name */
+const PG_PALETTE: Record<string, { bg: string; text: string }> = {
+  // Toontown Central
+  'Punchline Place':    { bg:'#321F0A', text:'#D86B10' },
+  'Silly Street':       { bg:'#321F0A', text:'#D86B10' },
+  'Wacky Way':          { bg:'#321F0A', text:'#D86B10' },
+  // Barnacle Boatyard
+  'Anchor Avenue':      { bg:'#32180a', text:'#dc4a14' },
+  'Buccaneer Boulevard':{ bg:'#32180a', text:'#dc4a14' },
+  'Lighthouse Lane':    { bg:'#32180a', text:'#dc4a14' },
+  'Seaweed Street':     { bg:'#32180a', text:'#dc4a14' },
+  // Ye Olde Toontowne
+  'Knight Knoll':       { bg:'#25202f', text:'#9b70cc' },
+  'Noble Nook':         { bg:'#25202f', text:'#9b70cc' },
+  'Wizard Way':         { bg:'#25202f', text:'#9b70cc' },
+  // Daffodil Gardens
+  'Daisy Drive':        { bg:'#29390d', text:'#aae71c' },
+  'Petunia Place':      { bg:'#29390d', text:'#aae71c' },
+  'Sunflower Street':   { bg:'#29390d', text:'#aae71c' },
+  'Tulip Terrace':      { bg:'#29390d', text:'#aae71c' },
+  // Mezzo Melodyland
+  'Alto Avenue':        { bg:'#2d1d2f', text:'#bf62cb' },
+  'Baritone Boulevard': { bg:'#2d1d2f', text:'#bf62cb' },
+  'Soprano Street':     { bg:'#2d1d2f', text:'#bf62cb' },
+  'Tenor Terrace':      { bg:'#2d1d2f', text:'#bf62cb' },
+  // The Brrrgh
+  'Arctic Avenue':      { bg:'#0f2d32', text:'#29b2dc' },
+  'Polar Place':        { bg:'#0f2d32', text:'#29b2dc' },
+  'Sleet Street':       { bg:'#0f2d32', text:'#29b2dc' },
+  'Walrus Way':         { bg:'#0f2d32', text:'#29b2dc' },
+  // Acorn Acres
+  'Almond Avenue':      { bg:'#0d331b', text:'#20cf69' },
+  'Legume Lane':        { bg:'#0d331b', text:'#20cf69' },
+  'Peanut Place':       { bg:'#0d331b', text:'#20cf69' },
+  'Walnut Way':         { bg:'#0d331b', text:'#20cf69' },
+  // Drowsy Dreamland
+  'Lullaby Lane':       { bg:'#1f1e36', text:'#7b68ef' },
+  'Pajama Place':       { bg:'#1f1e36', text:'#7b68ef' },
+  'Twilight Terrace':   { bg:'#1f1e36', text:'#7b68ef' },
+};
+
 const SB_COG_DETAILS: CogDetail[] = [
   {
     cogName: 'Cold Caller',
@@ -391,13 +432,16 @@ function CogDetailPanel({ detail, accent, dept = 'Sellbot' }: { detail: CogDetai
                   <th className="pim-loc-th">Avg Amount</th>
                 </tr></thead>
                 <tbody>
-                  {detail.streets.map(s => (
-                    <tr key={s.name}>
-                      <td className="pim-loc-name" style={{background: s.color, color: s.accent}}>{s.name}</td>
-                      <td className="pim-loc-val">{s.spawn}</td>
-                      <td className="pim-loc-val">{s.avg}</td>
-                    </tr>
-                  ))}
+                  {detail.streets.map(s => {
+                    const pg = PG_PALETTE[s.name];
+                    return (
+                      <tr key={s.name}>
+                        <td className="pim-loc-name" style={{ background: pg?.bg ?? s.color, color: pg?.text ?? s.accent }}>{s.name}</td>
+                        <td className="pim-loc-val">{s.spawn}</td>
+                        <td className="pim-loc-val">{s.avg}</td>
+                      </tr>
+                    );
+                  })}
                   {detail.hqLocs && detail.hqLocs.map(h => (
                     <tr key={h.label}>
                       <td className="pim-loc-name pim-loc-name--hq">{h.label}</td>
