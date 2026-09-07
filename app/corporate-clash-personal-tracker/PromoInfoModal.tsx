@@ -1453,14 +1453,20 @@ function LBHighlight({ text }: { text: string }) {
   return (<>{parts.map((part, i) => LB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
 }
 const LB_REGULAR = [
-  { name:'Bottom Feeder',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'2-12',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BottomFeederGalv2.gif' },
-  { name:'Bloodsucker',      tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-14',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BloodsuckerGalv2.gif' },
-  { name:'Double Talker',    tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-DoubleTalkerGal.gif' },
-  { name:'Ambulance Chaser', tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AmbulanceChaserGal.gif' },
-  { name:'Back Stabber',     tier:'Tier 5 Employee', levels:'5-9',  dmg:'5-22',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BackstabberGal.gif' },
-  { name:'Spin Doctor',      tier:'Tier 6 Employee', levels:'6-10', dmg:'6-24',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-SpindoctorGal.gif' },
-  { name:'Legal Eagle',      tier:'Tier 7 Employee', levels:'7-11', dmg:'7-30',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Legal_Eagle_Gal.gif' },
-  { name:'Big Wig',          tier:'Tier 8 Employee', levels:'8-50', dmg:'10-56', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BigwigGal.gif' },
+  { name:'Bottom Feeder',    tier:'Tier 1 Employee',              levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BottomFeederGalv2.gif' },
+  { name:'Bloodsucker',      tier:'Tier 2 Employee',              levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BloodsuckerGalv2.gif' },
+  { name:'Pettifogger',      tier:'Tiers 2-3 Operations Analyst', levels:'2-7',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Pettifogger_CG.gif' },
+  { name:'Double Talker',    tier:'Tier 3 Employee',              levels:'3-7',  dmg:'1-18',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-DoubleTalkerGal.gif' },
+  { name:'Needlenose',       tier:'Tiers 3-5 Field Specialist',   levels:'3-10', dmg:'3-31',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-NeedlenoseGal.gif' },
+  { name:'Ambulance Chaser', tier:'Tier 4 Employee',              levels:'4-8',  dmg:'2-19',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AmbulanceChaserGal.gif' },
+  { name:'Conveyancer',      tier:'Tier 4 Operations Analyst',    levels:'4-8',  dmg:'2-15',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ConveyancerGal.gif' },
+  { name:'Back Stabber',     tier:'Tier 5 Employee',              levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BackstabberGal.gif' },
+  { name:'Advocate',         tier:'Tiers 5-7 Operations Analyst', levels:'5-15', dmg:'4-20',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AdvocateGal.gif' },
+  { name:'Spin Doctor',      tier:'Tier 6 Employee',              levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-SpindoctorGal.gif' },
+  { name:'Shyster',          tier:'Tier 6 Field Specialist',      levels:'6-12', dmg:'10-32', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ShysterGal.gif' },
+  { name:'Legal Eagle',      tier:'Tier 7 Employee',              levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Legal_Eagle_Gal.gif' },
+  { name:'Barrister',        tier:'Tier 7 Field Specialist',      levels:'7-15', dmg:'11-38', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BarristerGal.gif' },
+  { name:'Big Wig',          tier:'Tier 8 Employee',              levels:'8-50', dmg:'10-60', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BigwigGal.gif' },
 ];
 const LB_SPECIAL = [
   { name:'Head Attorney',       tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-HeadAttorneyGal.gif' },
@@ -1498,6 +1504,189 @@ const LB_XP_ROWS = [
   { source:'Destroying a Pettifogger shield',                 base:'+54 XP (depreciates each kill)' },
   { source:'Destroying a Conveyancer shield',                 base:'+61 XP (depreciates each kill)' },
   { source:'Destroying an Advocate shield',                   base:'+113 XP (depreciates each kill)' },
+];
+const LB_COG_DETAILS: CogDetail[] = [
+  {
+    cogName: 'Pettifogger',
+    attacks: [
+      { name:'Filibuster', target:'Single Toon', levels:[2,3,4,5,6,7], dmg:[1,2,2,3,3,4],  acc:[75,75,75,75,75,75], freq:20 },
+      { name:'Red Tape',   target:'Single Toon', levels:[2,3,4,5,6,7], dmg:[2,3,4,5,6,7],  acc:[75,75,75,75,75,75], freq:20 },
+      { name:'Write Off',  target:'Single Toon', levels:[2,3,4,5,6,7], dmg:[3,4,5,6,8,10], acc:[75,75,75,75,75,75], freq:20 },
+      { name:'Finger Wag', target:'Single Toon', levels:[2,3,4,5,6,7], dmg:[1,2,3,5,6,7],  acc:[60,70,80,80,90,90], freq:40 },
+    ],
+    streets: [
+      { name:'Loopy Lane',      color:'#7a3300', accent:'#ff7733', spawn:'6%',   avg:'~1-2' },
+      { name:'Lighthouse Lane', color:'#6a1a00', accent:'#dd4422', spawn:'5%',   avg:'~1'   },
+      { name:'Wizard Way',      color:'#4a1a6a', accent:'#9944cc', spawn:'8.2%', avg:'~2'   },
+      { name:'Petunia Place',   color:'#314600', accent:'#9bd31a', spawn:'3.8%', avg:'~1'   },
+      { name:'Tenor Terrace',   color:'#6a2080', accent:'#cc55ee', spawn:'2.4%', avg:'~1'   },
+      { name:'Polar Place',     color:'#006666', accent:'#00cccc', spawn:'2.9%', avg:'~1'   },
+    ],
+    hqLocs: [{ label:'LBHQ Courtyard', spawn:'3.6%', avg:'~0-1' }],
+    buildings: [
+      { label:'1 Story',           spawn:'16.7%', avg:'~1-2', boss:'16.7%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'20%',   avg:'~2',   boss:'12.5%' },
+      { label:'2 Story (Tier II)', spawn:'14.3%', avg:'~1-2', boss:'10%'   },
+      { label:'3 Story (Tier I)',  spawn:'10.7%', avg:'~1-2', boss:'0%'    },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',   boss:'0%'    },
+      { label:'4 Story (Tier I)',  spawn:'3.3%',  avg:'~0-1', boss:'0%'    },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh'],
+  },
+  {
+    cogName: 'Needlenose',
+    attacks: [
+      { name:'Rubber Stamp', target:'Single Toon', levels:[3,4,5,6,7,8,9,10], dmg:[3,5,8,12,16,20,24,28],  acc:[75,75,75,75,75,75,75,75], freq:20 },
+      { name:'Fountain Pen', target:'Single Toon', levels:[3,4,5,6,7,8,9,10], dmg:[7,9,12,14,16,18,20,22], acc:[60,70,80,90,95,95,95,95], freq:30 },
+      { name:'Buzz Word',    target:'Single Toon', levels:[3,4,5,6,7,8,9,10], dmg:[4,6,9,12,15,18,21,24],  acc:[60,70,80,90,95,95,95,95], freq:20 },
+      { name:'Pound Key',    target:'Single Toon', levels:[3,4,5,6,7,8,9,10], dmg:[5,9,13,17,21,25,28,31], acc:[60,70,80,90,95,95,95,95], freq:30 },
+    ],
+    streets: [
+      { name:'Loopy Lane',      color:'#7a3300', accent:'#ff7733', spawn:'4%',   avg:'~1'   },
+      { name:'Lighthouse Lane', color:'#6a1a00', accent:'#dd4422', spawn:'3.8%', avg:'~1'   },
+      { name:'Wizard Way',      color:'#4a1a6a', accent:'#9944cc', spawn:'8.2%', avg:'~2'   },
+      { name:'Petunia Place',   color:'#314600', accent:'#9bd31a', spawn:'5%',   avg:'~1'   },
+      { name:'Tenor Terrace',   color:'#6a2080', accent:'#cc55ee', spawn:'3.5%', avg:'~1'   },
+      { name:'Polar Place',     color:'#006666', accent:'#00cccc', spawn:'5.7%', avg:'~1-2' },
+      { name:'Legume Lane',     color:'#2a5500', accent:'#66bb00', spawn:'1.8%', avg:'~0-1' },
+    ],
+    hqLocs: [
+      { label:'LBHQ Courtyard',   spawn:'3.6%', avg:'~0-1' },
+      { label:'Lawfice Exterior', spawn:'2.8%', avg:'~0-1' },
+    ],
+    buildings: [
+      { label:'1 Story',           spawn:'0%',    avg:'~0-1', boss:'16.7%', bold:true },
+      { label:'2 Story (Tier I)',  spawn:'10%',   avg:'~1',   boss:'12.5%' },
+      { label:'2 Story (Tier II)', spawn:'14.3%', avg:'~1-2', boss:'10%'   },
+      { label:'3 Story (Tier I)',  spawn:'10.7%', avg:'~1-2', boss:'10%'   },
+      { label:'3 Story (Tier II)', spawn:'10%',   avg:'~1',   boss:'0%'    },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',  avg:'~1',   boss:'0%'    },
+      { label:'4 Story (Tier II)', spawn:'3.6%',  avg:'~0-1', boss:'0%'    },
+    ],
+    invasions: ['Barnacle Boatyard','Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Conveyancer',
+    attacks: [
+      { name:'Legalese',        target:'Single Toon', levels:[4,5,6,7,8], dmg:[3,5,7,10,12], acc:[75,75,80,80,85], freq:20 },
+      { name:'Eviction Notice', target:'Single Toon', levels:[4,5,6,7,8], dmg:[4,6,9,12,15], acc:[75,75,80,80,85], freq:30 },
+      { name:'Rolodex',         target:'Single Toon', levels:[4,5,6,7,8], dmg:[2,3,4,5,6],   acc:[75,75,80,80,85], freq:20 },
+      { name:'Jargon',          target:'Single Toon', levels:[4,5,6,7,8], dmg:[2,3,3,4,4],   acc:[75,75,80,80,85], freq:30 },
+    ],
+    streets: [
+      { name:'Loopy Lane',      color:'#7a3300', accent:'#ff7733', spawn:'2%',   avg:'~0-1' },
+      { name:'Lighthouse Lane', color:'#6a1a00', accent:'#dd4422', spawn:'2.5%', avg:'~0-1' },
+      { name:'Wizard Way',      color:'#4a1a6a', accent:'#9944cc', spawn:'6.2%', avg:'~1-2' },
+      { name:'Petunia Place',   color:'#314600', accent:'#9bd31a', spawn:'5%',   avg:'~1'   },
+      { name:'Tenor Terrace',   color:'#6a2080', accent:'#cc55ee', spawn:'4.7%', avg:'~1-2' },
+      { name:'Polar Place',     color:'#006666', accent:'#00cccc', spawn:'8.6%', avg:'~2-3' },
+      { name:'Legume Lane',     color:'#2a5500', accent:'#66bb00', spawn:'3.6%', avg:'~1'   },
+      { name:'Pajama Place',    color:'#6600aa', accent:'#bb55ff', spawn:'2.5%', avg:'~1'   },
+    ],
+    hqLocs: [
+      { label:'LBHQ Courtyard',   spawn:'7.2%', avg:'~1'   },
+      { label:'Lawfice Exterior', spawn:'5.6%', avg:'~0-1' },
+    ],
+    buildings: [
+      { label:'2 Story (Tier I)',  spawn:'0%',    avg:'~0-1', boss:'12.5%' },
+      { label:'2 Story (Tier II)', spawn:'7.1%',  avg:'~1',   boss:'10%'   },
+      { label:'3 Story (Tier I)',  spawn:'10.7%', avg:'~1-2', boss:'10%',  bold:true },
+      { label:'3 Story (Tier II)', spawn:'10%',   avg:'~1',   boss:'10%'   },
+      { label:'4 Story (Tier I)',  spawn:'10%',   avg:'~2',   boss:'0%'    },
+      { label:'4 Story (Tier II)', spawn:'7.2%',  avg:'~1',   boss:'0%'    },
+      { label:'5 Story (Tier I)',  spawn:'2.7%',  avg:'~0-1', boss:'0%'    },
+    ],
+    invasions: ['Ye Olde Toontowne','Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres'],
+  },
+  {
+    cogName: 'Advocate',
+    attacks: [
+      { name:'Power Trip',   target:'All Toons',   levels:[5,6,7,8,9,10,11,12,13,14,15], dmg:[5,6,7,8,9,10,11,12,13,14,15],   acc:[60,75,80,85,90,95,95,95,95,95,95], freq:35 },
+      { name:'Shred',        target:'Single Toon', levels:[5,6,7,8,9,10,11,12,13,14,15], dmg:[4,6,8,10,12,13,14,14,15,15,16],  acc:[50,65,70,75,90,95,95,95,95,95,95], freq:25 },
+      { name:'Glower Power', target:'Single Toon', levels:[5,6,7,8,9,10,11,12,13,14,15], dmg:[6,8,10,12,14,15,16,17,18,19,20], acc:[55,65,75,85,95,95,95,95,95,95,95], freq:15 },
+      { name:'Watercooler',  target:'Single Toon', levels:[5,6,7,8,9,10,11,12,13,14,15], dmg:[4,5,5,6,7,8,9,10,11,12,13],      acc:[50,55,65,75,80,85,90,95,95,95,95], freq:25 },
+    ],
+    streets: [
+      { name:'Lighthouse Lane', color:'#6a1a00', accent:'#dd4422', spawn:'1.3%',  avg:'~0-1' },
+      { name:'Wizard Way',      color:'#4a1a6a', accent:'#9944cc', spawn:'4.1%',  avg:'~1'   },
+      { name:'Petunia Place',   color:'#314600', accent:'#9bd31a', spawn:'3.8%',  avg:'~1'   },
+      { name:'Tenor Terrace',   color:'#6a2080', accent:'#cc55ee', spawn:'4.7%',  avg:'~1-2' },
+      { name:'Polar Place',     color:'#006666', accent:'#00cccc', spawn:'11.4%', avg:'~3-4' },
+      { name:'Legume Lane',     color:'#2a5500', accent:'#66bb00', spawn:'7.3%',  avg:'~2'   },
+      { name:'Pajama Place',    color:'#6600aa', accent:'#bb55ff', spawn:'7.5%',  avg:'~2'   },
+    ],
+    hqLocs: [
+      { label:'LBHQ Courtyard',   spawn:'10.8%', avg:'~1' },
+      { label:'Lawfice Exterior', spawn:'11.1%', avg:'~1' },
+    ],
+    buildings: [
+      { label:'2 Story (Tier II)', spawn:'0%',    avg:'~0-1', boss:'10%'    },
+      { label:'3 Story (Tier I)',  spawn:'7.1%',  avg:'~1',   boss:'10%'    },
+      { label:'3 Story (Tier II)', spawn:'10%',   avg:'~1',   boss:'10%'    },
+      { label:'4 Story (Tier I)',  spawn:'10%',   avg:'~2',   boss:'12.5%'  },
+      { label:'4 Story (Tier II)', spawn:'10.7%', avg:'~2',   boss:'12.5%', bold:true },
+      { label:'5 Story (Tier I)',  spawn:'7.9%',  avg:'~1-2', boss:'0%'     },
+      { label:'5 Story (Tier II)', spawn:'6.25%', avg:'~1-2', boss:'0%'     },
+      { label:'6 Story (Tier I)',  spawn:'3.1%',  avg:'~1',   boss:'0%'     },
+    ],
+    invasions: ['Daffodil Gardens','Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Shyster',
+    attacks: [
+      { name:'Guilt Trip',        target:'All Toons',   levels:[6,7,8,9,10,11,12], dmg:[12,14,17,19,21,23,25], acc:[85,85,85,85,90,90,90], freq:40 },
+      { name:'Liquidate',         target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[17,20,23,26,28,30,32], acc:[75,75,80,80,85,85,90], freq:25 },
+      { name:'Restraining Order', target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[13,15,17,20,22,24,26], acc:[65,75,80,85,90,95,95], freq:20 },
+      { name:'Buzz Word',         target:'Single Toon', levels:[6,7,8,9,10,11,12], dmg:[10,11,12,14,16,18,20], acc:[60,65,75,85,90,95,95], freq:15 },
+    ],
+    streets: [
+      { name:'Wizard Way',    color:'#4a1a6a', accent:'#9944cc', spawn:'2.1%',  avg:'~0-1' },
+      { name:'Petunia Place', color:'#314600', accent:'#9bd31a', spawn:'2.5%',  avg:'~0-1' },
+      { name:'Tenor Terrace', color:'#6a2080', accent:'#cc55ee', spawn:'3.5%',  avg:'~1'   },
+      { name:'Polar Place',   color:'#006666', accent:'#00cccc', spawn:'11.4%', avg:'~3-4' },
+      { name:'Legume Lane',   color:'#2a5500', accent:'#66bb00', spawn:'7.3%',  avg:'~2'   },
+      { name:'Pajama Place',  color:'#6600aa', accent:'#bb55ff', spawn:'10%',   avg:'~3'   },
+    ],
+    hqLocs: [
+      { label:'LBHQ Courtyard',   spawn:'9%',    avg:'~1' },
+      { label:'Lawfice Exterior', spawn:'11.1%', avg:'~1' },
+    ],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'3.6%',  avg:'~0-1', boss:'10%'    },
+      { label:'3 Story (Tier II)', spawn:'6.7%',  avg:'~1',   boss:'10%'    },
+      { label:'4 Story (Tier I)',  spawn:'10%',   avg:'~2',   boss:'12.5%'  },
+      { label:'4 Story (Tier II)', spawn:'10.7%', avg:'~2',   boss:'12.5%', bold:true },
+      { label:'5 Story (Tier I)',  spawn:'13.2%', avg:'~2-3', boss:'0%'     },
+      { label:'5 Story (Tier II)', spawn:'12.5%', avg:'~3',   boss:'0%'     },
+      { label:'6 Story (Tier I)',  spawn:'9.4%',  avg:'~4',   boss:'0%'     },
+      { label:'6 Story (Tier II)', spawn:'7.7%',  avg:'~3-4', boss:'0%'     },
+    ],
+    invasions: ['Mezzo Melodyland','The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
+  {
+    cogName: 'Barrister',
+    attacks: [
+      { name:'Throw Book',    target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[18,21,24,27,30,32,34,36,38], acc:[75,80,80,80,80,85,85,85,85], freq:40 },
+      { name:'Evil Eye',      target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[11,13,15,17,19,21,22,23,24], acc:[90,90,90,90,90,90,95,95,95], freq:15 },
+      { name:'Play Hardball', target:'Single Toon', levels:[7,8,9,10,11,12,13,14,15], dmg:[12,15,18,20,22,23,24,25,26], acc:[85,85,85,90,90,90,90,90,90], freq:15 },
+      { name:'Quake',         target:'All Toons',   levels:[7,8,9,10,11,12,13,14,15], dmg:[14,17,20,22,24,26,28,30,32], acc:[85,85,85,90,90,90,90,90,90], freq:30 },
+    ],
+    hqLocs: [
+      { label:'LBHQ Courtyard',   spawn:'7.2%',  avg:'~0-1' },
+      { label:'Lawfice Exterior', spawn:'11.1%', avg:'~1'   },
+    ],
+    buildings: [
+      { label:'3 Story (Tier I)',  spawn:'0%',     avg:'~0-1', boss:'10%'    },
+      { label:'3 Story (Tier II)', spawn:'3.3%',   avg:'~0-1', boss:'10%'    },
+      { label:'4 Story (Tier I)',  spawn:'6.7%',   avg:'~1',   boss:'12.5%'  },
+      { label:'4 Story (Tier II)', spawn:'10.7%',  avg:'~2',   boss:'12.5%'  },
+      { label:'5 Story (Tier I)',  spawn:'13.2%',  avg:'~3',   boss:'25%',   bold:true },
+      { label:'5 Story (Tier II)', spawn:'15.6%',  avg:'~4',   boss:'25%',   bold:true },
+      { label:'6 Story (Tier I)',  spawn:'18.75%', avg:'~7-8', boss:'0%'     },
+      { label:'6 Story (Tier II)', spawn:'19.25%', avg:'~9',   boss:'0%'     },
+    ],
+    invasions: ['The Brrrgh','Acorn Acres','Drowsy Dreamland'],
+  },
 ];
 const SUIT_ICON = {img:'/icons/promotions/Lawbot/25px-ExecutiveCogDisguise.webp',alt:'Suit'};
 const PLUS1_ICON = {img:'/icons/promotions/25px-+1.webp',alt:'+1'};
@@ -1576,13 +1765,37 @@ function LawbotXPSection({ accent }: { accent: string }) {
     </div>
   );
 }
-function LawbotLadderSection({ accent }: { accent: string; openDetail?: (n:string)=>void }) {
+function LawbotLadderSection({ accent, openDetail }: { accent: string; openDetail: (n:string)=>void }) {
   return (
     <div className="pim-scroll">
       <div className="pim-section">
         <h3 className="pim-section-title" style={{color: accent}}>General Cogs</h3>
         <div className="pim-cog-grid">
-          {LB_REGULAR.map(c => (<div key={c.name} className="pim-cog-card"><div className="pim-cog-img-wrap"><Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized /></div><div className="pim-cog-info"><span className="pim-cog-name" style={{color:accent}}>{c.name}</span><span className="pim-cog-tier">{c.tier}</span><span className="pim-cog-stat">Levels {c.levels}</span><span className="pim-cog-stat">Damage: {c.dmg}</span></div></div>))}
+          {LB_REGULAR.map(c => {
+            const detail = LB_COG_DETAILS.find(d => d.cogName === c.name);
+            return (
+              <div key={c.name} className="pim-cog-card">
+                <div className="pim-cog-img-wrap">
+                  <Image src={c.img} alt={c.name} fill className="pim-cog-img" unoptimized />
+                </div>
+                <div className="pim-cog-info">
+                  <span className="pim-cog-name" style={{color:accent}}>{c.name}</span>
+                  <span className="pim-cog-tier">{c.tier}</span>
+                  <span className="pim-cog-stat">Levels {c.levels}</span>
+                  <span className="pim-cog-stat">Damage Range: {c.dmg}</span>
+                  {detail && (
+                    <button
+                      className="pim-cog-detail-btn"
+                      style={{'--pim-accent': accent} as React.CSSProperties}
+                      onClick={() => openDetail(c.name)}
+                    >
+                      View Details
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="pim-section">
@@ -1604,17 +1817,53 @@ function LawbotLadderSection({ accent }: { accent: string; openDetail?: (n:strin
 ﻿/* Lawbot content */
 function LawbotContent({ accent }: { accent: string }) {
   const [tab, setTab] = useState<'hq'|'promos'|'ladder'>('hq');
+  const [detailCog, setDetailCog] = useState<string|null>(null);
+  const openDetail  = (name: string) => setDetailCog(name);
+  const closeDetail = () => setDetailCog(null);
   return (
     <div className="pim-inner">
-      <div className="pim-inner-tabs">
-        {(['hq','promos','ladder'] as const).map(t => (
-          <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
-            {t==='hq'?'Lawbot HQ':t==='promos'?'Lawbot Promotions':'Corporate Ladder'}
+      {detailCog ? (
+        <div className="pim-inner-tabs pim-detail-nav">
+          <button className="pim-detail-back-btn" style={{'--pim-accent': accent} as React.CSSProperties} onClick={closeDetail}>
+            &#8592; Back
           </button>
-        ))}
-      </div>
-      {tab==='hq' && <LawbotHQSection accent={accent} />}
-      {tab==='promos' && (
+          <span className="pim-detail-nav-title" style={{color: accent}}>{detailCog}</span>
+        </div>
+      ) : (
+        <div className="pim-inner-tabs">
+          {(['hq','promos','ladder'] as const).map(t => (
+            <button key={t} className={`pim-inner-tab${tab===t?' pim-inner-tab--active':''}`} style={tab===t?{'--pim-accent':accent} as React.CSSProperties:undefined} onClick={()=>setTab(t)}>
+              {t==='hq'?'Lawbot HQ':t==='promos'?'Lawbot Promotions':'Corporate Ladder'}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {detailCog && (() => {
+        const detail  = LB_COG_DETAILS.find(d => d.cogName === detailCog);
+        const cogCard = LB_REGULAR.find(c => c.name === detailCog);
+        if (!detail) return null;
+        return (
+          <div className="pim-scroll pim-detail-view">
+            <div className="pim-detail-view-header">
+              {cogCard && (
+                <div className="pim-detail-view-img-wrap">
+                  <Image src={cogCard.img} alt={cogCard.name} fill className="pim-cog-img" unoptimized />
+                </div>
+              )}
+              <div className="pim-detail-view-meta">
+                {cogCard && <span className="pim-cog-tier">{cogCard.tier}</span>}
+                {cogCard && <span className="pim-cog-stat">Levels {cogCard.levels}</span>}
+                {cogCard && <span className="pim-cog-stat">Damage Range: {cogCard.dmg}</span>}
+              </div>
+            </div>
+            <CogDetailPanel detail={detail} accent={accent} dept="Lawbot" />
+          </div>
+        );
+      })()}
+
+      {!detailCog && tab==='hq' && <LawbotHQSection accent={accent} />}
+      {!detailCog && tab==='promos' && (
         <div className="pim-scroll">
           <div className="pim-section">
             <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
@@ -1714,7 +1963,7 @@ function LawbotContent({ accent }: { accent: string }) {
           <LawbotXPSection accent={accent} />
         </div>
       )}
-      {tab==='ladder' && <LawbotLadderSection accent={accent} />}
+      {!detailCog && tab==='ladder' && <LawbotLadderSection accent={accent} openDetail={openDetail} />}
     </div>
   );
 }
