@@ -2228,14 +2228,14 @@ function BBHighlight({ text }: { text: string }) {
   return (<>{parts.map((part, i) => BB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
 }
 const BB_REGULAR = [
-  { name:'Flunky',           tier:'Tier 1 Employee', levels:'1-5',  dmg:'2-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Flunky_CG.gif' },
-  { name:'Pencil Pusher',    tier:'Tier 2 Employee', levels:'2-6',  dmg:'2-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Pencilpusher_CG.gif' },
-  { name:'Yesman',           tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-16',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Yesman_CG.gif' },
+  { name:'Flunky',           tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-7',   img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Flunky_CG.gif' },
+  { name:'Pencil Pusher',    tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Pencilpusher_CG.gif' },
+  { name:'Yesman',           tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-15',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Yesman_CG.gif' },
   { name:'Micromanager',     tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Micromanager_CG.gif' },
-  { name:'Downsizer',        tier:'Tier 5 Employee', levels:'5-9',  dmg:'4-22',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Downsizer_CG.gif' },
-  { name:'Head Hunter',      tier:'Tier 6 Employee', levels:'6-11', dmg:'6-24',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Headhunter_CG.gif' },
-  { name:'Corporate Raider', tier:'Tier 7 Employee', levels:'7-12', dmg:'8-28',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Corporateraider_CG.gif' },
-  { name:'Big Cheese',       tier:'Tier 8 Employee', levels:'8-50', dmg:'12-60', img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Bigcheese_CG.gif' },
+  { name:'Downsizer',        tier:'Tier 5 Employee', levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Downsizer_CG.gif' },
+  { name:'Head Hunter',      tier:'Tier 6 Employee', levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Headhunter_CG.gif' },
+  { name:'Corporate Raider', tier:'Tier 7 Employee', levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Corporateraider_CG.gif' },
+  { name:'Big Cheese',       tier:'Tier 8 Employee', levels:'8-50', dmg:'8-61',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Bigcheese_CG.gif' },
 ];
 const BB_SPECIAL = [
   { name:'Club President',          tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-ClubPresident2.gif' },
