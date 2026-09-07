@@ -75,13 +75,24 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
   const save = useCallback(async (p: Progress, names: string[], cui: CollapsedUI) => {
     if (!user) return;
     setSaving(true);
-    const supabase = createClient();
-    await supabase.from('tracker_progress').upsert(
-      { user_id: user.id, data: { progress: p, toonNames: names, collapsedUI: cui }, updated_at: new Date().toISOString() },
-      { onConflict: 'user_id' }
-    );
-    setSaving(false);
-    setSaveMsg('Saved!');
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from('tracker_progress').upsert(
+        { user_id: user.id, data: { progress: p, toonNames: names, collapsedUI: cui }, updated_at: new Date().toISOString() },
+        { onConflict: 'user_id' }
+      );
+      setSaving(false);
+      if (error) {
+        setSaveMsg('Save failed — try again');
+      } else {
+        setSaveMsg('Saved!');
+      }
+    } catch {
+      // Network hiccup (e.g. HeadersTimeoutError) — silently ignore
+      setSaving(false);
+      setSaveMsg('');
+      return;
+    }
     setTimeout(() => setSaveMsg(''), 2000);
   }, [user]);
 
