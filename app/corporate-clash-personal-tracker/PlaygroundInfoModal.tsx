@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
@@ -35,13 +35,10 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerDept: 'Cashbot',
     streetManagerStats: 'Level 5 · 200 HP',
     facts: [
-      "Toontown Central's Street Manager is the Duck Shuffler — a Cashbot Regional Manager.",
-      'Toontown Central streets are fully immune to Cog Invasions.',
-      '1–3 Story Cog Buildings can be found on a street.',
-      'On Silly Street, only 1–2 Story Cog Buildings can be found (Cog levels 1–3 only).',
-      'A maximum of 3 Cog Buildings are allowed on a street at any given time.',
-      'TTC streets are commonly used when training low-level Gags.',
-      'TTC connects to Barnacle Boatyard (Punchline Place), Ye Olde Toontowne (Silly Street), Daffodil Gardens (Wacky Way), and Mezzo Melodyland (Loopy Lane).',
+      'Streets are fully immune to Cog Invasions.',
+      '1–3 Story Cog Buildings per street (max 3). Silly Street is capped at 2 Story.',
+      'Popular for training low-level Gags.',
+      'Tunnels: BB (Punchline Place) · YOTT (Silly Street) · DG (Wacky Way) · MML (Loopy Lane)',
     ],
     streets: [
       { name: 'Silly Street',    minStory: '1 Story', maxStory: '2 Story (Tier 2)' },
@@ -62,14 +59,9 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerDept: 'Boardbot',
     streetManagerStats: 'Level 10.mgr · 1200 HP · Defense 30',
     facts: [
-      "Ye Olde Toontowne's Street Manager is the Gatekeeper — a Boardbot Regional Manager.",
-      '2–4 Story Cog Buildings can be found on a street.',
-      'On Noble Nook, only 2-3 Story Cog Buildings can be found.',
-      'A maximum of 6 Cog Buildings are allowed on a street at any given time.',
-      'Cog Invasions of Cogs ranging from Tiers 1-4 will affect Ye Olde Toontowne.',
-      'Knight Knoll connects to Petunia Place in Daffodil Gardens.',
-      'Noble Nook connects to Silly Street in Toontown Central.',
-      'Wizard Way is a dead-end street with no tunnel connection.',
+      '2–4 Story Cog Buildings per street (max 6). Noble Nook capped at 3 Story.',
+      'Affected by Cog Invasions (Tiers 1–4).',
+      'Tunnels: DG (Knight Knoll) · TTC (Noble Nook) · Wizard Way is a dead end.'
     ],
     streets: [
       { name: 'Knight Knoll', minStory: '2 Story', maxStory: '4 Story (Tier 2)' },
@@ -89,12 +81,10 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerDept: 'Boardbot',
     streetManagerStats: 'Level 7 · 400 HP',
     facts: [
-      "Barnacle Boatyard's Street Manager is the Deep Diver — a Boardbot Regional Manager.",
-      '2–3 Story Cog Buildings can be found on a street.',
-      'A maximum of 5 Cog Buildings are allowed on a street at any given time.',
-      'Cog Invasions of Cogs ranging from Tiers 1–3 will affect Barnacle Boatyard.',
-      'Anchor Avenue is the only BB street with a Toon HQ (required for the BB taskline).',
-      'BB connects to Toontown Central (Punchline Place), The Brrrgh (Walrus Way), and Acorn Acres (Peanut Place).',
+      '2–3 Story Cog Buildings per street (max 5).',
+      'Affected by Cog Invasions (Tiers 1–3).',
+      'Anchor Avenue is the only street with a Toon HQ — required for the BB taskline.',
+      'Tunnels: TTC (Punchline Place) · TB (Walrus Way) · AA (Peanut Place)'
     ],
     streets: [
       { name: 'Anchor Avenue',      minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
