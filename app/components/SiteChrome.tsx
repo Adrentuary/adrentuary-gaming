@@ -56,7 +56,8 @@ export function SiteFooter() {
       </div>
       <div className="global-footer__legal">
         <p>© 2026 Adrentuary Gaming. All rights reserved.</p>
-        <p>Adrentuary Gaming is an independent fan-created resource and is not affiliated with or endorsed by the developers or publishers of the games featured.</p>
+        <p>Adrentuary Gaming is an independent, fan-created resource and is not affiliated with, endorsed by, sponsored by, or officially associated with the developers or publishers of any games featured on this website.</p>
+        <p>Guides, tools, blog posts, and other content may include game-related images, screenshots, artwork, or other materials sourced from official game websites or third-party sources. All trademarks, logos, images, and other copyrighted materials remain the property of their respective owners and are used for informational, educational, and fan-resource purposes.</p>
       </div>
     </footer>
   );
