@@ -2,7 +2,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import {
-  CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE, IOU_DATA,
+  CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE, IOU_DATA, LURE_GAG_DATA,
   type GagTrackKey, type CogType, type IouTrackKey,
 } from './data-cc-gags';
 import { calcTotalDamage, getGagDamage, getKnockbackValue, trackGetsKnockback, trackCounts, type SelectedGag } from './calc-logic';
@@ -15,6 +15,9 @@ const IOU_GAG_TRACKS: GagTrackKey[] = ['toon-up','trap','lure','throw','squirt',
 export function CalculatorTab() {
   const [selectedGags, setSelectedGags] = useState<SelectedGag[]>([]);
   const [isLured, setIsLured] = useState(false);
+  // Which lure gag was used the previous round (-1 = unknown/generic)
+  const [luredByGagIdx, setLuredByGagIdx] = useState<number>(-1);
+  const [luredByPrestige, setLuredByPrestige] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
   const [debuffCount, setDebuffCount] = useState<number>(0);
   // activeIous: track → total IOU bonus applied (selectedBonus × count, 0 = none) — fed into calc
@@ -29,8 +32,8 @@ export function CalculatorTab() {
   const rainBonus = rainActive ? 20 : 0;
 
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus),
-    [selectedGags, isLured, debuffCount, activeIous, rainBonus],
+    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige),
+    [selectedGags, isLured, debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige],
   );
 
   // Show debuff selector only when Prestige Drop is in the combo
@@ -65,7 +68,7 @@ export function CalculatorTab() {
     setSelectedGags(prev => prev.map(g => g.id === id ? { ...g, customDamage: dmg } : g));
   }
   function clearAll() {
-    setSelectedGags([]); setIsLured(false); setDebuffCount(0);
+    setSelectedGags([]); setIsLured(false); setLuredByGagIdx(-1); setLuredByPrestige(false); setDebuffCount(0);
     setActiveIous({}); setActiveIouCounts({}); setActiveIouSelected({}); setRainActive(false);
   }
 
@@ -134,10 +137,56 @@ export function CalculatorTab() {
         )}
 
         <label className="gagcalc-toggle">
-          <input type="checkbox" checked={isLured} onChange={e => setIsLured(e.target.checked)} />
+          <input type="checkbox" checked={isLured} onChange={e => {
+            setIsLured(e.target.checked);
+            if (!e.target.checked) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
+          }} />
           <span className="gagcalc-toggle-box" />
           <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt knockback · Drop misses · Trap triggers)</span></span>
         </label>
+
+        {/* Lure gag selector — only shown when "Cog is Lured" is active */}
+        {isLured && (() => {
+          const lureTrack = CC_GAG_TRACKS.find(t => t.key === 'lure')!;
+          return (
+            <div className="gagcalc-lure-picker">
+              <span className="gagcalc-lure-picker-label">Which Lure was used last round?</span>
+              <div className="gagcalc-lure-picker-chips">
+                {lureTrack.gags.map((gag, gi) => {
+                  const lureData = LURE_GAG_DATA[gi];
+                  const isSelected = luredByGagIdx === gi;
+                  const kbVal = isSelected && luredByPrestige ? lureData.knockbackPrestige : lureData.knockback;
+                  return (
+                    <button
+                      key={gi}
+                      className={`gagcalc-lure-chip${isSelected ? ' gagcalc-lure-chip--active' : ''}`}
+                      onClick={() => {
+                        if (isSelected) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
+                        else { setLuredByGagIdx(gi); setLuredByPrestige(false); }
+                      }}
+                      title={`${gag.name} — ${lureData.knockback} KB (prestige: ${lureData.knockbackPrestige} KB)`}
+                    >
+                      <Image src={`/icons/gags/small/lure/${gag.icon}`} alt={gag.name} width={22} height={22} unoptimized className="gagcalc-lure-chip-img" />
+                      <span className="gagcalc-lure-chip-name">{gag.name}</span>
+                      <span className="gagcalc-lure-chip-kb">{isSelected ? kbVal : lureData.knockback} KB</span>
+                    </button>
+                  );
+                })}
+              </div>
+              {luredByGagIdx >= 0 && (
+                <label className="gagcalc-lure-pres-toggle">
+                  <input
+                    type="checkbox"
+                    checked={luredByPrestige}
+                    onChange={e => setLuredByPrestige(e.target.checked)}
+                  />
+                  <span className="gagcalc-lure-pres-box" />
+                  <span>Prestige Lure <span className="gagcalc-muted">({LURE_GAG_DATA[luredByGagIdx].knockbackPrestige} KB)</span></span>
+                </label>
+              )}
+            </div>
+          );
+        })()}
 
         {/* IOU Panel */}
         <div className="gagcalc-iou-section">
@@ -217,6 +266,7 @@ export function CalculatorTab() {
       <div className="gagcalc-right">
         <ComboPanel
           gags={selectedGags} isLured={isLured} breakdown={breakdown}
+          luredByGagIdx={luredByGagIdx} luredByPrestige={luredByPrestige}
           onRemove={removeGag} onTogglePrestige={togglePrestige}
           onSetCustomDamage={setCustomDamage} onClear={clearAll}
         />
@@ -224,8 +274,8 @@ export function CalculatorTab() {
     </div>
   );
 }
-function ComboPanel({ gags, isLured, breakdown, onRemove, onTogglePrestige, onSetCustomDamage, onClear }: {
-  gags: SelectedGag[]; isLured: boolean;
+function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, onRemove, onTogglePrestige, onSetCustomDamage, onClear }: {
+  gags: SelectedGag[]; isLured: boolean; luredByGagIdx: number; luredByPrestige: boolean;
   breakdown: ReturnType<typeof calcTotalDamage>;
   onRemove(id: number): void; onTogglePrestige(id: number): void;
   onSetCustomDamage(id: number, dmg: number | undefined): void; onClear(): void;
@@ -239,7 +289,7 @@ function ComboPanel({ gags, isLured, breakdown, onRemove, onTogglePrestige, onSe
       </div>
       {gags.length === 0
         ? <p className="gagcalc-empty">Click a gag to add it to your combo.</p>
-        : <SelectedList gags={gags} isLured={isLured} onRemove={onRemove} onTogglePrestige={onTogglePrestige} onSetCustomDamage={onSetCustomDamage} />
+        : <SelectedList gags={gags} isLured={isLured} luredByGagIdx={luredByGagIdx} luredByPrestige={luredByPrestige} onRemove={onRemove} onTogglePrestige={onTogglePrestige} onSetCustomDamage={onSetCustomDamage} />
       }
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
@@ -249,13 +299,13 @@ function ComboPanel({ gags, isLured, breakdown, onRemove, onTogglePrestige, onSe
   );
 }
 
-function SelectedList({ gags, isLured, onRemove, onTogglePrestige, onSetCustomDamage }: {
-  gags: SelectedGag[]; isLured: boolean; onRemove(id: number): void;
-  onTogglePrestige(id: number): void;
+function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, onRemove, onTogglePrestige, onSetCustomDamage }: {
+  gags: SelectedGag[]; isLured: boolean; luredByGagIdx: number; luredByPrestige: boolean;
+  onRemove(id: number): void; onTogglePrestige(id: number): void;
   onSetCustomDamage(id: number, dmg: number | undefined): void;
 }) {
   const tc       = trackCounts(gags);
-  const kbValue  = getKnockbackValue(gags, isLured);
+  const kbValue  = getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasSound = gags.some(g => g.track === 'sound');
   return (
     <div className="gagcalc-sel-list">

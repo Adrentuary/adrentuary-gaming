@@ -43,7 +43,14 @@ export function trackCounts(gags: SelectedGag[]): Partial<Record<GagTrackKey, nu
 
 // ── Knockback value from the best Lure gag in the combo ──────────────────────
 // Returns the flat knockback damage (0 if no knockback applies).
-export function getKnockbackValue(gags: SelectedGag[], isLured: boolean): number {
+// luredByGagIdx: which lure gag was used the previous round (-1 = unknown/generic)
+// luredByPrestige: whether that previous-round lure had Prestige active
+export function getKnockbackValue(
+  gags: SelectedGag[],
+  isLured: boolean,
+  luredByGagIdx = -1,
+  luredByPrestige = false,
+): number {
   const lureGags = gags.filter(g => g.track === 'lure');
   const hasTrap  = gags.some(g => g.track === 'trap');
   const hasSound = gags.some(g => g.track === 'sound');
@@ -53,8 +60,18 @@ export function getKnockbackValue(gags: SelectedGag[], isLured: boolean): number
   if (hasTrap) return 0;
   if (hasSound) return 0;
 
-  // Use the highest knockback from all Lure gags used (they don't stack)
-  let best = isLured ? 5 : 0; // if already lured with no Lure gag, use $1 Bill baseline
+  // Baseline KB for "pre-lured" state — use the selected gag's KB if known, else $1 Bill (5)
+  let best = 0;
+  if (isLured) {
+    if (luredByGagIdx >= 0 && luredByGagIdx < LURE_GAG_DATA.length) {
+      const d = LURE_GAG_DATA[luredByGagIdx];
+      best = luredByPrestige ? d.knockbackPrestige : d.knockback;
+    } else {
+      best = 5; // generic / unknown
+    }
+  }
+
+  // Use the highest knockback from all Lure gags used in this combo (they don't stack)
   for (const g of lureGags) {
     const data = LURE_GAG_DATA[g.gagIdx];
     const kb = g.isPrestige ? data.knockbackPrestige : data.knockback;
@@ -96,6 +113,8 @@ export function calcTotalDamage(
   debuffCount: number = 0,
   activeIous: Partial<Record<IouTrackKey, number>> = {},
   rainIouBonus: number = 0,
+  luredByGagIdx: number = -1,
+  luredByPrestige: boolean = false,
 ): DamageBreakdown {
   const groups: Partial<Record<GagTrackKey, SelectedGag[]>> = {};
   for (const g of gags) {
@@ -109,7 +128,7 @@ export function calcTotalDamage(
   const lureActive = isLured || hasLure;
   const trapNeedsLure = hasTrap && !lureActive;
 
-  const kbValue = getKnockbackValue(gags, isLured);
+  const kbValue = getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
 
   // IOU: Lure IOU adds flat bonus to knockback value
