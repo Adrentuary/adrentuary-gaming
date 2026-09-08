@@ -6,32 +6,53 @@ import {
   TP_PER_TRACK, TP_PER_PRESTIGE, type GagTrackKey,
 } from './data-cc-gags';
 
-interface BuildState { tracks: Set<GagTrackKey>; prestiges: Set<GagTrackKey>; }
+// Starting tracks are chosen at Make-a-Toon and cost 0 TP.
+// Any tracks beyond the 2 starting ones cost 2 TP each.
+const STARTING_TRACKS_COUNT = 2;
+
+interface BuildState {
+  tracks: Set<GagTrackKey>;       // all unlocked tracks (includes starting 2)
+  startingTracks: Set<GagTrackKey>; // the 2 free starting tracks
+  prestiges: Set<GagTrackKey>;
+}
 
 export function BuildsTab() {
-  const [build, setBuild] = useState<BuildState>({ tracks: new Set(), prestiges: new Set() });
+  const [build, setBuild] = useState<BuildState>({
+    tracks: new Set(),
+    startingTracks: new Set(),
+    prestiges: new Set(),
+  });
   const [activePreset, setActivePreset] = useState<string | null>(null);
-  const usedTP = build.tracks.size * TP_PER_TRACK + build.prestiges.size * TP_PER_PRESTIGE;
+
+  // TP is only spent on tracks beyond the 2 free starting ones
+  const tpTracks = Math.max(0, build.tracks.size - STARTING_TRACKS_COUNT);
+  const usedTP = tpTracks * TP_PER_TRACK + build.prestiges.size * TP_PER_PRESTIGE;
   const remainingTP = TRAINING_POINTS_MAX - usedTP;
   const tpPct = Math.min(100, Math.round((usedTP / TRAINING_POINTS_MAX) * 100));
   const tpColor = usedTP > TRAINING_POINTS_MAX ? '#e05050' : usedTP === TRAINING_POINTS_MAX ? '#4ade80' : '#a4f78f';
 
   function toggleTrack(key: GagTrackKey) {
     setBuild(prev => {
-      const tracks = new Set(prev.tracks);
+      const tracks    = new Set(prev.tracks);
+      const starting  = new Set(prev.startingTracks);
       const prestiges = new Set(prev.prestiges);
+
       if (tracks.has(key)) {
-        // Must keep at least 2 tracks at all times
+        // Cannot remove if it would drop below 2 total tracks
         if (tracks.size <= 2) return prev;
         tracks.delete(key);
+        starting.delete(key);
         prestiges.delete(key);
       } else {
         tracks.add(key);
+        // First 2 tracks added are free starting tracks
+        if (starting.size < STARTING_TRACKS_COUNT) starting.add(key);
       }
-      return { tracks, prestiges };
+      return { tracks, startingTracks: starting, prestiges };
     });
     setActivePreset(null);
   }
+
   function togglePrestige(key: GagTrackKey) {
     if (!build.tracks.has(key)) return;
     setBuild(prev => {
@@ -41,13 +62,21 @@ export function BuildsTab() {
     });
     setActivePreset(null);
   }
+
   function applyPreset(label: string, tracks: number, prestiges: number) {
     const tk = CC_GAG_TRACKS.map(t => t.key).slice(0, tracks) as GagTrackKey[];
-    setBuild({ tracks: new Set(tk), prestiges: new Set(tk.slice(0, prestiges)) });
+    // First 2 are always starting (free)
+    const startingTk = new Set(tk.slice(0, STARTING_TRACKS_COUNT));
+    setBuild({
+      tracks: new Set(tk),
+      startingTracks: startingTk,
+      prestiges: new Set(tk.slice(0, prestiges)),
+    });
     setActivePreset(label);
   }
+
   function clearBuild() {
-    setBuild({ tracks: new Set(), prestiges: new Set() });
+    setBuild({ tracks: new Set(), startingTracks: new Set(), prestiges: new Set() });
     setActivePreset(null);
   }
 
@@ -84,30 +113,39 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, 
         </div>
       </div>
       <p className="gagbuilds-hint">
-        Unlock a Gag Track for <strong>2 TP</strong>. Prestige an unlocked track for <strong>+1 TP</strong>.
-        You must keep at least <strong>2 Gag Tracks</strong> at all times — you cannot remove a track if only 2 are unlocked.
+        You start with <strong>2 free Gag Tracks</strong> chosen at Make-a-Toon — these cost no TP.
+        Additional tracks cost <strong>2 TP</strong> each. Prestige an unlocked track for <strong>+1 TP</strong>.
+        You must always keep at least <strong>2 Gag Tracks</strong>.
         Tracks and Prestiges can be refunded for free in-game.
       </p>
       <div className="gagbuilds-tracks">
         {CC_GAG_TRACKS.map(track => {
-          const isOn  = build.tracks.has(track.key);
-          const isPrs = build.prestiges.has(track.key);
-          const isLocked = isOn && build.tracks.size <= 2;
+          const isOn      = build.tracks.has(track.key);
+          const isPrs     = build.prestiges.has(track.key);
+          const isStarting = build.startingTracks.has(track.key);
+          const isLocked  = isOn && build.tracks.size <= 2;
           const largeIcon = track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`;
+
+          // Cost label
+          let costLabel: string;
+          let costColor: string;
+          if (isLocked)     { costLabel = '🔒 Min 2 tracks'; costColor = '#e0a050'; }
+          else if (isStarting) { costLabel = 'Starting · Free'; costColor = '#a4f78f'; }
+          else if (isOn)    { costLabel = 'Unlocked · 2 TP'; costColor = '#4ade80'; }
+          else              { costLabel = '+ 2 TP';           costColor = 'var(--muted)'; }
+
           return (
             <div key={track.key} className={`gagbuilds-track-row${isOn ? ' gagbuilds-track-row--on' : ''}`}>
               <button
                 className="gagbuilds-track-btn"
                 onClick={() => onToggleTrack(track.key)}
-                title={isLocked ? 'Cannot remove — minimum 2 tracks required' : isOn ? 'Click to remove track' : 'Click to unlock track (2 TP)'}
+                title={isLocked ? 'Cannot remove — minimum 2 tracks required' : isOn ? 'Click to remove track' : isStarting ? 'Starting track (free)' : 'Click to unlock track (2 TP)'}
                 style={{ background: isOn ? track.headerColor : '#111711', borderColor: isOn ? track.color : '#293528' }}
               >
                 <Image src={`/icons/gags/large/${largeIcon}`} alt={track.name} width={28} height={28} unoptimized
                   style={{ opacity: isOn ? 1 : 0.4 }} />
                 <span style={{ color: isOn ? track.labelColor : 'var(--muted)' }}>{track.name}</span>
-                <span className="gagbuilds-cost" style={{ color: isLocked ? '#e0a050' : isOn ? '#4ade80' : 'var(--muted)' }}>
-                  {isLocked ? '🔒 Min 2 tracks' : isOn ? 'Unlocked · 2 TP' : '+ 2 TP'}
-                </span>
+                <span className="gagbuilds-cost" style={{ color: costColor }}>{costLabel}</span>
               </button>
               <button
                 className={`gagbuilds-pres-btn${isPrs ? ' gagbuilds-pres-btn--on' : ''}`}
@@ -138,9 +176,10 @@ function BuildRight({ build, usedTP, activePreset, onApplyPreset }: {
     <div className="gagbuilds-right">
       <div className="gagcalc-panel-head"><span className="kicker">Quick Presets</span></div>
       <p className="gagbuilds-preset-note">
-        A Training Point is given at <strong>Toon Levels 4, 8, 12, 16, 20, 28, 38, 48, 58, 68, and 78</strong> (11 total),
+        You start with <strong>2 free Gag Tracks</strong> from Make-a-Toon. Training Points are earned at
+        Toon Levels <strong>4, 8, 12, 16, 20, 28, 38, 48, 58, 68, and 78</strong> (11 total),
         plus 1 more for <strong>maxing all four Department Levels</strong> — <strong>12 TP total</strong>.
-        Gag setups are noted as <em>Tracks / Prestiges</em>.
+        Gag setups are noted as <em>Tracks / Prestiges</em> (not counting the 2 free starting tracks).
       </p>
       <div className="gagbuilds-preset-groups">
         {([11, 12] as const).map(tp => (
@@ -164,18 +203,29 @@ function BuildRight({ build, usedTP, activePreset, onApplyPreset }: {
           <div className="gagcalc-panel-head"><span className="kicker">Your Build Summary</span></div>
           <div className="gagbuilds-summary-list">
             {CC_GAG_TRACKS.filter(t => build.tracks.has(t.key)).map(t => {
-              const isPrs = build.prestiges.has(t.key);
-              const largeIcon = t.key === 'toon-up' ? 'toon-up.png' : `${t.key}-large.png`;
+              const isPrs      = build.prestiges.has(t.key);
+              const isStarting = build.startingTracks.has(t.key);
+              const largeIcon  = t.key === 'toon-up' ? 'toon-up.png' : `${t.key}-large.png`;
+              // TP cost: starting track = 0, TP track = 2, +1 if prestiged
+              const tpCost = isStarting ? (isPrs ? 1 : 0) : (isPrs ? 3 : 2);
+              const tpLabel = isStarting
+                ? (isPrs ? '1 TP (prestige)' : 'Free')
+                : `${tpCost} TP`;
               return (
                 <div key={t.key} className="gagbuilds-sum-row" style={{ borderLeftColor: t.color }}>
                   <Image src={`/icons/gags/large/${largeIcon}`} alt={t.name} width={20} height={20} unoptimized />
                   <span style={{ color: t.labelColor }}>{t.name}</span>
+                  {isStarting && !isPrs && (
+                    <span className="gagbuilds-sum-free">Starting</span>
+                  )}
                   {isPrs && (
                     <span className="gagbuilds-sum-pres">
                       <Image src="/icons/gags/PrestigeStar.webp" alt="★" width={11} height={11} unoptimized /> Prestige
                     </span>
                   )}
-                  <span className="gagbuilds-sum-tp">{isPrs ? 3 : 2} TP</span>
+                  <span className="gagbuilds-sum-tp" style={{ color: tpCost === 0 ? '#a4f78f' : 'var(--muted)' }}>
+                    {tpLabel}
+                  </span>
                 </div>
               );
             })}
