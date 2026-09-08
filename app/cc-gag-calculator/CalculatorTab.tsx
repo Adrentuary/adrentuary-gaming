@@ -321,6 +321,7 @@ export function CalculatorTab() {
           luredByGagIdx={luredByGagIdx} luredByPrestige={luredByPrestige}
           customKb={customKb}
           onRemove={removeGag} onTogglePrestige={togglePrestige}
+          onToggleLurePrestige={() => setLuredByPrestige(p => !p)}
           onSetCustomDamage={setCustomDamage} onSetCustomHeal={setCustomHeal}
           onSetCustomKb={val => setCustomKb(val)} onClear={clearAll}
         />
@@ -328,10 +329,10 @@ export function CalculatorTab() {
     </div>
   );
 }
-function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, customKb, onRemove, onTogglePrestige, onSetCustomDamage, onSetCustomHeal, onSetCustomKb, onClear }: {
+function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, customKb, onRemove, onTogglePrestige, onToggleLurePrestige, onSetCustomDamage, onSetCustomHeal, onSetCustomKb, onClear }: {
   gags: SelectedGag[]; isLured: boolean; luredByGagIdx: number; luredByPrestige: boolean;
   breakdown: ReturnType<typeof calcTotalDamage>; customKb: number | undefined;
-  onRemove(id: number): void; onTogglePrestige(id: number): void;
+  onRemove(id: number): void; onTogglePrestige(id: number): void; onToggleLurePrestige(): void;
   onSetCustomDamage(id: number, dmg: number | undefined): void;
   onSetCustomHeal(id: number, heal: number | undefined): void;
   onSetCustomKb(val: number | undefined): void; onClear(): void;
@@ -345,7 +346,7 @@ function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, 
       </div>
       {gags.length === 0
         ? <p className="gagcalc-empty">Click a gag to add it to your combo.</p>
-        : <SelectedList gags={gags} isLured={isLured} luredByGagIdx={luredByGagIdx} luredByPrestige={luredByPrestige} customKb={customKb} onRemove={onRemove} onTogglePrestige={onTogglePrestige} onSetCustomDamage={onSetCustomDamage} onSetCustomHeal={onSetCustomHeal} onSetCustomKb={onSetCustomKb} />
+        : <SelectedList gags={gags} isLured={isLured} luredByGagIdx={luredByGagIdx} luredByPrestige={luredByPrestige} customKb={customKb} onRemove={onRemove} onTogglePrestige={onTogglePrestige} onToggleLurePrestige={onToggleLurePrestige} onSetCustomDamage={onSetCustomDamage} onSetCustomHeal={onSetCustomHeal} onSetCustomKb={onSetCustomKb} />
       }
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
@@ -358,10 +359,10 @@ function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, 
   );
 }
 
-function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb, onRemove, onTogglePrestige, onSetCustomDamage, onSetCustomHeal, onSetCustomKb }: {
+function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb, onRemove, onTogglePrestige, onToggleLurePrestige, onSetCustomDamage, onSetCustomHeal, onSetCustomKb }: {
   gags: SelectedGag[]; isLured: boolean; luredByGagIdx: number; luredByPrestige: boolean;
   customKb: number | undefined;
-  onRemove(id: number): void; onTogglePrestige(id: number): void;
+  onRemove(id: number): void; onTogglePrestige(id: number): void; onToggleLurePrestige(): void;
   onSetCustomDamage(id: number, dmg: number | undefined): void;
   onSetCustomHeal(id: number, heal: number | undefined): void;
   onSetCustomKb(val: number | undefined): void;
@@ -413,7 +414,6 @@ function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb,
                 {showKb && (
                   <EditableDmgTag
                     value={kbValue} isCustom={isCustomKb} label="KB" plusSign tagClass="gagcalc-tag--kb"
-                    prestige={luredByPrestige}
                     onCommit={val => onSetCustomKb(val === calcKb ? undefined : val)}
                     onReset={() => onSetCustomKb(undefined)}
                   />
@@ -422,7 +422,6 @@ function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb,
                 {sg.track === "lure" && kbValue > 0 && !hasSound && (
                   <EditableDmgTag
                     value={kbValue} isCustom={isCustomKb} label="KB" plusSign tagClass="gagcalc-tag--kb"
-                    prestige={luredByPrestige}
                     onCommit={val => onSetCustomKb(val === calcKb ? undefined : val)}
                     onReset={() => onSetCustomKb(undefined)}
                   />
@@ -430,9 +429,13 @@ function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb,
               </div>
             </div>
             <div className="gagcalc-sel-btns">
-              {(gag.damage > 0 || gag.heal) && (
-                <button className={`gagcalc-pres-btn${sg.isPrestige ? ' gagcalc-pres-btn--on' : ''}`}
-                  onClick={() => onTogglePrestige(sg.id)} title={sg.isPrestige ? 'Remove Prestige' : 'Enable Prestige'}>
+              {(gag.damage > 0 || gag.heal || sg.track === 'lure') && (
+                <button
+                  className={`gagcalc-pres-btn${sg.track === 'lure' ? (luredByPrestige ? ' gagcalc-pres-btn--on' : '') : (sg.isPrestige ? ' gagcalc-pres-btn--on' : '')}`}
+                  onClick={() => sg.track === 'lure' ? onToggleLurePrestige() : onTogglePrestige(sg.id)}
+                  title={sg.track === 'lure'
+                    ? (luredByPrestige ? 'Remove Prestige Lure' : 'Enable Prestige Lure (+KB)')
+                    : (sg.isPrestige ? 'Remove Prestige' : 'Enable Prestige')}>
                   <Image src="/icons/gags/PrestigeStar.webp" alt="Prestige" width={15} height={15} unoptimized />
                 </button>
               )}
