@@ -156,7 +156,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .wp-recent{position:relative}.wp-recent::before{content:'';position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,#050806,transparent);pointer-events:none;z-index:0}
 .resource-intro{position:relative}
 .contact-layout{position:relative}.contact-layout::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(to bottom,transparent,#050806);pointer-events:none;z-index:0}
-.pet-calc-section{position:relative}.pet-calc-section::before{content:'';position:absolute;top:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,#050806,transparent);pointer-events:none;z-index:0}
+.pet-calc-section{position:relative}
 
 /* â”€â”€ Global link hover glow â”€â”€ */
 .resource-card a,.tool-grid article>a,.footer-links a,.contact-copy>a,.contact-copy a,.wp-card__sizes .wp-size-pill,.resource-list a,.featured-guide__copy a,.post-card__copy>a,.global-footer a{transition:color .18s,text-shadow .18s}
