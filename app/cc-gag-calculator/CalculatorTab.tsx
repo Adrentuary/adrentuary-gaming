@@ -89,7 +89,7 @@ export function CalculatorTab() {
                 <div className="gagcalc-track-label" style={{ color: track.labelColor }}>
                   <Image
                     src={`/icons/gags/large/${track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`}`}
-                    alt={track.name} width={24} height={24} unoptimized className="gagcalc-track-icon"
+                    alt={track.name} width={28} height={28} unoptimized className="gagcalc-track-icon"
                   />
                   {track.name}
                 </div>
