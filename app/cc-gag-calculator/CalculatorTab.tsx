@@ -152,8 +152,8 @@ export function CalculatorTab() {
                 </div>
               )}
 
-              {/* Inline Soaked toggle — shown directly below Squirt row */}
-              {track.key === 'squirt' && (
+              {/* Inline Soaked toggle — shown directly below Zap row */}
+              {track.key === 'zap' && (
                 <div className="gagcalc-inline-picker" style={{ borderColor: track.color }}>
                   <label className="gagcalc-toggle" style={{ fontSize: 12 }}>
                     <input type="checkbox" checked={isSoaked} onChange={e => setIsSoaked(e.target.checked)} />
