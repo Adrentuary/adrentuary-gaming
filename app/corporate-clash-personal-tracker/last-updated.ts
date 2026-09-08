@@ -1,15 +1,15 @@
 // ── Section last-updated timestamps ────────────────────────────────────────
-// Edit this file manually whenever you update a section.
-// Format: Month Dth, YYYY · H:MM AM/PM
-// All section files import from here — one place to maintain.
+// Update this whenever any file belonging to a section is edited.
+// Covers: the Section*.tsx file, its data file(s), and any sub-components.
+// Format: Month Dth, YYYY · H:MM AM/PM  (local time, EDT)
 
 export const LAST_UPDATED = {
-  laff:        'September 5th, 2026 · 12:41 PM',
-  leveling:    'September 5th, 2026 · 12:33 PM',
-  gags:        'September 5th, 2026 · 11:16 AM',
-  quests:      'September 5th, 2026 · 11:16 AM',
-  collections: 'September 5th, 2026 · 11:16 AM',
-  promotions:  'September 5th, 2026 · 6:00 PM',
-  streets:     'September 1st, 2026 · 5:00 PM',
-  toons:       'September 5th, 2026 · 4:30 PM',
+  laff:        'September 5th, 2026 · 12:41 PM',  // SectionLaff.tsx + LaffResetDrawer
+  leveling:    'September 5th, 2026 · 12:41 PM',  // SectionLeveling.tsx
+  gags:        'September 5th, 2026 · 12:41 PM',  // SectionGags.tsx
+  quests:      'September 5th, 2026 · 12:41 PM',  // SectionQuests.tsx
+  collections: 'September 5th, 2026 · 1:05 PM',   // SectionCollections.tsx
+  promotions:  'September 7th, 2026 · 7:53 PM',   // SectionPromotions.tsx
+  streets:     'September 7th, 2026 · 8:20 PM',   // data-street-shops.ts
+  toons:       'September 5th, 2026 · 6:08 PM',   // SectionToons.tsx
 };
