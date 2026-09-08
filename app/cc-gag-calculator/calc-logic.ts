@@ -7,6 +7,7 @@ export interface SelectedGag {
   gagIdx: number;
   isPrestige: boolean;
   customDamage?: number; // user-overridden damage value (undefined = use max/formula value)
+  customHeal?: number;   // user-overridden heal value (display only — toon-up not in damage calc)
 }
 
 // ── Base damage for a single gag (no exec/kb/combo modifiers) ─────────────────
@@ -116,6 +117,7 @@ export function calcTotalDamage(
   rainIouBonus: number = 0,
   luredByGagIdx: number = -1,
   luredByPrestige: boolean = false,
+  customKb: number | undefined = undefined,
 ): DamageBreakdown {
   const groups: Partial<Record<GagTrackKey, SelectedGag[]>> = {};
   for (const g of gags) {
@@ -133,7 +135,7 @@ export function calcTotalDamage(
   // Zap requires the cog to be soaked (hit by Squirt this round or previously)
   const zapNeedsSoak = hasZap && !hasSquirt;
 
-  const kbValue = getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
+  const kbValue = customKb !== undefined ? customKb : getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
 
   // IOU: Lure IOU adds flat bonus to knockback value
