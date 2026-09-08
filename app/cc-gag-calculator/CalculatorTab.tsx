@@ -116,11 +116,20 @@ export function CalculatorTab() {
                 })}
               </div>
 
-              {/* Inline Lure picker — shown directly below Lure row when Cog is Lured */}
-              {track.key === 'lure' && isLured && (
+              {/* Inline Lure panel — always shown below Lure row */}
+              {track.key === 'lure' && (
                 <div className="gagcalc-inline-picker" style={{ borderColor: track.color }}>
-                  <span className="gagcalc-inline-picker-label" style={{ color: track.labelColor }}>Which Lure was used last round?</span>
-                  <div className="gagcalc-inline-picker-chips">
+                  <label className="gagcalc-toggle" style={{ fontSize: 12 }}>
+                    <input type="checkbox" checked={isLured} onChange={e => {
+                      setIsLured(e.target.checked);
+                      if (!e.target.checked) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
+                    }} />
+                    <span className="gagcalc-toggle-box" />
+                    <span style={{ color: track.labelColor }}>Cog is Lured</span>
+                    <span className="gagcalc-muted" style={{ fontSize: 11 }}>(Throw/Squirt knockback · Drop misses · Trap triggers)</span>
+                  </label>
+                  {isLured && <span className="gagcalc-inline-picker-label" style={{ color: track.labelColor }}>Which Lure was used last round?</span>}
+                  {isLured && <div className="gagcalc-inline-picker-chips">
                     {track.gags.map((gag, gi) => {
                       const lureData = LURE_GAG_DATA[gi];
                       const isSelected = luredByGagIdx === gi;
@@ -141,7 +150,7 @@ export function CalculatorTab() {
                         </button>
                       );
                     })}
-                  </div>
+                  </div>}
                   {luredByGagIdx >= 0 && (
                     <label className="gagcalc-lure-pres-toggle">
                       <input type="checkbox" checked={luredByPrestige} onChange={e => setLuredByPrestige(e.target.checked)} />
@@ -193,15 +202,6 @@ export function CalculatorTab() {
             </p>
           </div>
         )}
-
-        <label className="gagcalc-toggle">
-          <input type="checkbox" checked={isLured} onChange={e => {
-            setIsLured(e.target.checked);
-            if (!e.target.checked) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
-          }} />
-          <span className="gagcalc-toggle-box" />
-          <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt knockback · Drop misses · Trap triggers)</span></span>
-        </label>
 
         {/* IOU Panel */}
         <div className="gagcalc-iou-section">
