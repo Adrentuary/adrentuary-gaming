@@ -568,6 +568,19 @@ function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
   return maxDefeated;
 }
 
+/** Maps standard cog level 1–8 to a portrait image. Level 1 uses the Lv1 cog,
+ *  and each step up shows the next cog portrait as damage increases. */
+const COG_PORTRAITS: { maxStandardLv: number; src: string; name: string }[] = [
+  { maxStandardLv: 1, src: '/icons/cogs/cog-lv1.png', name: 'Flunky'        },
+  { maxStandardLv: 2, src: '/icons/cogs/cog-lv2.png', name: 'Paper Hands'   },
+  { maxStandardLv: 3, src: '/icons/cogs/cog-lv3.png', name: 'Tightwad'      },
+  { maxStandardLv: 4, src: '/icons/cogs/cog-lv4.png', name: 'Glad Hander'   },
+  { maxStandardLv: 5, src: '/icons/cogs/cog-lv5.png', name: 'Downsizer'     },
+  { maxStandardLv: 6, src: '/icons/cogs/cog-lv6.png', name: 'Shark Watcher' },
+  { maxStandardLv: 7, src: '/icons/cogs/cog-lv7.png', name: 'Legal Eagle'   },
+  { maxStandardLv: 8, src: '/icons/cogs/cog-lv8.png', name: 'Mr. Hollywood' },
+];
+
 function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDamage> }) {
   const { total, knockback, execBonus, comboBonus, debuffBonus, iouBonus } = breakdown;
 
@@ -581,6 +594,12 @@ function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDam
     maxLv: getMaxDefeatedLevel(ct, total),
     range: COG_TYPE_LEVEL_RANGE[ct],
   }));
+
+  // Pick the highest portrait whose level we can defeat
+  const standardMaxLv = getMaxDefeatedLevel('standard', total);
+  const cogPortrait = standardMaxLv !== null
+    ? [...COG_PORTRAITS].reverse().find(p => standardMaxLv >= p.maxStandardLv) ?? null
+    : null;
 
   return (
     <div className="gagcalc-result">
@@ -598,7 +617,18 @@ function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDam
       {/* Damage card */}
       <div className="gagcalc-card">
         <div className="gagcalc-card-img">
-          <div className="gagcalc-card-img-placeholder" />
+          {cogPortrait ? (
+            <Image
+              src={cogPortrait.src}
+              alt={cogPortrait.name}
+              width={72}
+              height={80}
+              unoptimized
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
+          ) : (
+            <div className="gagcalc-card-img-placeholder" />
+          )}
         </div>
         <div className="gagcalc-card-info">
           <span className="gagcalc-card-level">Total Damage</span>
