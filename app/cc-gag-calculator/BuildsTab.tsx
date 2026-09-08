@@ -8,6 +8,8 @@ import {
 } from './data-cc-gags';
 import { useAuth } from '../components/AuthProvider';
 import { createClient } from '../../lib/supabase/client';
+import { SectionNote } from '../corporate-clash-personal-tracker/SectionNote';
+import { CALC_LAST_UPDATED } from './last-updated';
 
 // Starting tracks are chosen at Make-a-Toon and cost 0 TP.
 // Any tracks beyond the 2 starting ones cost 2 TP each.
@@ -177,6 +179,12 @@ export function BuildsTab() {
 
   return (
     <div className="gagbuilds-layout">
+      <SectionNote
+        description="Plan your toon's gag track build for Corporate Clash. Set your toon level, choose starting tracks, unlock additional tracks with Training Points, and add prestiges."
+        status="Everything in this section is currently up to date."
+        lastUpdated={CALC_LAST_UPDATED.builds}
+        lastChanges="Added prestige toggle per track, toon level input (1–85), department bonus TP checkbox, save/load builds via account, and preset builds."
+      />
       <BuildLeft
         build={build} usedTP={usedTP} remainingTP={remainingTP}
         tpPct={tpPct} tpColor={tpColor} availableTP={availableTP}

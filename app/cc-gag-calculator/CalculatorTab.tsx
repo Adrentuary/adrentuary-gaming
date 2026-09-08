@@ -6,6 +6,8 @@ import {
   type GagTrackKey, type CogType, type IouTrackKey,
 } from './data-cc-gags';
 import { calcTotalDamage, getGagDamage, getKnockbackValue, trackGetsKnockback, trackCounts, type SelectedGag } from './calc-logic';
+import { SectionNote } from '../corporate-clash-personal-tracker/SectionNote';
+import { CALC_LAST_UPDATED } from './last-updated';
 
 let nextId = 1;
 
@@ -85,6 +87,12 @@ export function CalculatorTab() {
 
   return (
     <div className="gagcalc-layout">
+      <SectionNote
+        description="Calculate total gag combo damage for Corporate Clash. Select gags, toggle lure/prestige, add IOUs, and see the highest cog level your combo can defeat."
+        status="Everything in this section is currently up to date."
+        lastUpdated={CALC_LAST_UPDATED.calculator}
+        lastChanges="Added IOU support with per-track flat bonuses, prestige drop debuff calc, live cog portrait on damage result card, and debuff boost selector (0–10)."
+      />
       <div className="gagcalc-left">
         <div className="gagcalc-grid">
           {CC_GAG_TRACKS.map((track, ti) => (
