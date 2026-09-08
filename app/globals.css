@@ -267,8 +267,8 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .section-note-updated{margin:0;color:#4a5e4a;font-size:11px;font-style:italic;white-space:nowrap;padding-top:1px}
 .section-note-changes{margin:0;color:#5e7a5e;font-size:11px;font-style:italic;border-left:1px solid #2a3e2a;padding-left:12px;line-height:1.4;flex:1;min-width:0}
 .tracker-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden;--dc:#1a2a1a;--da:#4ade80}
-.tracker-card-header{display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
-.tracker-card-header strong{font-size:16px;font-weight:800}
+.tracker-card-header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.tracker-card-header strong{font-size:14px;font-weight:800}
 .dc-icon{font-size:20px;line-height:1}
 .tracker-table-wrap{overflow-x:auto}
 .tracker-table{width:100%;border-collapse:collapse;font-size:13px}
@@ -757,9 +757,9 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .coll-sections{display:flex;flex-direction:column;gap:16px}
 .coll-card{margin-bottom:0}
 /* Collapsible section header — matches .tracker-card-header exactly, extends it as a button */
-.coll-section-header{width:100%;display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--dc,#1a2a1a);border:none;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;flex-wrap:wrap}
+.coll-section-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc,#1a2a1a);border:none;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;flex-wrap:wrap}
 .coll-section-header:hover{filter:brightness(1.13)}
-.coll-section-header strong{font-size:16px;font-weight:800}
+.coll-section-header strong{font-size:14px;font-weight:800}
 .coll-section-header--collapsed{border-bottom:none}
 /* Icon wrapper: fixed 24×24 box so any aspect ratio image stays tidy */
 .coll-section-icon-wrap{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
