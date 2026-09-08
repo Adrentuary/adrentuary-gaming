@@ -412,11 +412,11 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .laff-pg-icon-wrap{flex-shrink:0}
 .laff-pg-icon{display:block;object-fit:contain;width:24px;height:24px}
 .toon-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden}
-.toon-card-header{background:#0d1218;padding:14px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.toon-card-header{background:#0d1218;padding:10px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .toon-card-header-btn{width:100%;border:none;font:inherit;cursor:pointer;text-align:left;transition:filter .14s}
 .toon-card-header-btn:hover{filter:brightness(1.12)}
-.toon-card-dot{width:12px;height:12px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
-.toon-name-btn{background:none;border:none;color:var(--ink);font:inherit;font-size:16px;font-weight:800;cursor:pointer;padding:0}
+.toon-card-dot{width:10px;height:10px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
+.toon-name-btn{background:none;border:none;color:var(--ink);font:inherit;font-size:14px;font-weight:800;cursor:pointer;padding:0}
 .toon-name-btn:hover{color:var(--tc,#4ade80)}
 .toon-collapse-chevron{margin-left:auto;font-size:11px;color:var(--muted);flex-shrink:0}
 .toon-reset-drawer-wrap{border-top:1px solid rgba(255,255,255,.06)}
