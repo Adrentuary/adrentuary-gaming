@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { InteriorPage } from '../components/Interior';
 import { PetCalculator } from './PetCalculator';
 
@@ -11,15 +10,10 @@ export const metadata: Metadata = {
 export default function Calculator() {
   return (
     <InteriorPage>
-      <section className="calculator-hero">
-        <img src="/brand/pages/calculator.webp" alt="Wizard101-inspired pet calculator artwork" />
-        <div>
-          <p className="eyebrow">Wizard101</p>
-          <h1>Pet Calculator</h1>
-          <p>Enter your pet&apos;s five core stats to instantly calculate every talent value. Useful for comparing hatches and planning your ideal pet build.</p>
-          <Link className="button button--ghost" href="/tools">← Back to tools</Link>
-        </div>
-      </section>
+      <div className="tool-banner">
+        <p className="eyebrow">Wizard101</p>
+        <h1>Pet Calculator</h1>
+      </div>
       <section className="interior-section pet-calc-section">
         <p className="kicker">Calculator</p>
         <h2>Enter pet stats</h2>
