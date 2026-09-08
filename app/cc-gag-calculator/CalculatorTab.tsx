@@ -526,7 +526,7 @@ function IouCard({ iou, active, count, onToggle }: {
     <button
       className={`gagcalc-iou-card${active ? ' gagcalc-iou-card--active' : ''}`}
       onClick={onToggle}
-      title={`${iou.toon}: +${iou.bonus} — click to add (up to ×4 toons)`}
+      title={`${iou.toon}: +${iou.bonus} flat bonus — click to cycle toons (1–4) who used this IOU last round`}
     >
       {/* Portrait image / placeholder */}
       <div className="gagcalc-iou-img-placeholder">

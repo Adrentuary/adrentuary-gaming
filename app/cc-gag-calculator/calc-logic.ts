@@ -150,9 +150,9 @@ export function calcTotalDamage(
   const kbValue = customKb !== undefined ? customKb : getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
 
-  // IOU: Lure IOU adds flat bonus to knockback value
+  // IOU: Lure IOU adds flat bonus to knockback value; Rain does NOT boost KB
   const lureIouBonus = activeIous['lure'] ?? 0;
-  const effectiveKbValue = kbValue > 0 ? kbValue + lureIouBonus + rainIouBonus : kbValue;
+  const effectiveKbValue = kbValue > 0 ? kbValue + lureIouBonus : kbValue;
 
   let total = 0, totalKnockback = 0, totalExecBonus = 0,
       totalComboBonus = 0, totalDebuffBonus = 0, totalIouBonus = 0;
@@ -166,32 +166,31 @@ export function calcTotalDamage(
     const comboBonus  = CC_GAG_TRACKS.find(t => t.key === track)!.comboBonus;
     const getsKb      = hasKb && !hasSound && trackGetsKnockback(track);
 
-    // IOU flat bonus per gag for this track (rain applies only once to first gag)
+    // IOU flat bonus for this track — added ONCE to the track total, not per gag.
+    // activeIous[track] already stores bonus × toonCount (e.g. Barnacle Bessie ×2 = 160).
+    // Rain IOU is handled separately (added once to the grand total at the end).
     const trackIouFlat = activeIous[track as GagTrackKey] ?? 0;
+    const trackIouTotal = trackIouFlat; // Rain excluded — it's added at grand-total level
 
     let sumBase: number;
     let iouBonusThisTrack = 0;
 
     if (track === 'trap') {
-      // Only ONE Trap fires — the strongest one
+      // Only ONE Trap fires — the strongest one; IOU adds flat once to that gag
       const strongest = group.reduce((best, g) => {
         const dG    = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
         const dBest = getGagDamage(best.track, best.gagIdx, best.isPrestige, best.customDamage);
         return dG > dBest ? g : best;
       }, group[0]);
       const baseDmg = getGagDamage(strongest.track, strongest.gagIdx, strongest.isPrestige, strongest.customDamage);
-      // IOU adds flat bonus to the single trap gag; Rain adds once too
-      const iouFlat = trackIouFlat + rainIouBonus;
-      sumBase = baseDmg + iouFlat;
-      iouBonusThisTrack = iouFlat;
+      sumBase = baseDmg + trackIouTotal;
+      iouBonusThisTrack = trackIouTotal;
     } else {
-      // Each gag in the group gets the track IOU bonus; Rain only applies once (to first gag)
-      sumBase = group.reduce((acc, g, idx) => {
-        const base = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
-        const rain = idx === 0 ? rainIouBonus : 0;
-        return acc + base + trackIouFlat + rain;
-      }, 0);
-      iouBonusThisTrack = trackIouFlat * group.length + rainIouBonus;
+      // Sum all gag bases, then add IOU flat ONCE to the track total
+      const rawSum = group.reduce((acc, g) =>
+        acc + getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage), 0);
+      sumBase = rawSum + trackIouTotal;
+      iouBonusThisTrack = trackIouTotal;
     }
 
     // Executive bonus (Trap only)
@@ -205,20 +204,19 @@ export function calcTotalDamage(
     let afterDebuff = afterExec;
     let debuffBonusThisTrack = 0;
     if (track === 'drop' && anyPrestige && debuffCount > 0) {
-      const hasDropIou = (activeIous['drop'] ?? 0) > 0 || rainIouBonus > 0;
-      // Re-calculate: prestige gags get debuff-boosted base; non-prestige gags keep plain base.
-      // IOU flat is already baked into sumBase; we need per-gag bases to split correctly.
-      let rebuiltSum = 0;
-      for (let i = 0; i < group.length; i++) {
-        const g = group[i];
+      const hasDropIou = trackIouTotal > 0 || rainIouBonus > 0;
+      // Apply debuff boost to each prestige drop's RAW base individually.
+      // IOU (trackIouTotal) is added flat ONCE after — it's already in afterExec via sumBase,
+      // but we need to rebuild from raw bases to avoid double-counting.
+      let rawDebuffSum = 0;
+      for (const g of group) {
         const base = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
-        const iouFlat = trackIouFlat + (i === 0 ? rainIouBonus : 0);
-        const gagBase = base + iouFlat;
-        rebuiltSum += g.isPrestige
-          ? applyPrestigeDropDebuff(gagBase, debuffCount, hasDropIou)
-          : gagBase;
+        rawDebuffSum += g.isPrestige
+          ? applyPrestigeDropDebuff(base, debuffCount, hasDropIou)
+          : base;
       }
-      afterDebuff = rebuiltSum;
+      // Re-add IOU flat once on top of debuff-boosted sum
+      afterDebuff = rawDebuffSum + trackIouTotal;
       debuffBonusThisTrack = afterDebuff - afterExec;
     }
 
@@ -238,6 +236,10 @@ export function calcTotalDamage(
     totalComboBonus  += comboThisTrack;
     totalIouBonus    += iouBonusThisTrack;
   }
+
+  // Rain IOU adds +20 flat to the combo total once (targets one gag of the user's choice)
+  total         += rainIouBonus;
+  totalIouBonus += rainIouBonus;
 
   return { total, knockback: totalKnockback, execBonus: totalExecBonus,
            comboBonus: totalComboBonus, debuffBonus: totalDebuffBonus,
