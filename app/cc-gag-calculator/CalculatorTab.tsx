@@ -30,12 +30,14 @@ export function CalculatorTab() {
   const [showIous, setShowIous] = useState(false);
   // Custom knockback override — undefined = use calc'd value from lure gags
   const [customKb, setCustomKb] = useState<number | undefined>(undefined);
+  // Cog was soaked by Squirt last round — suppresses Zap warning without adding damage
+  const [isSoaked, setIsSoaked] = useState(false);
 
   const rainBonus = rainActive ? 20 : 0;
 
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb),
-    [selectedGags, isLured, debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb],
+    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked),
+    [selectedGags, isLured, debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked],
   );
 
   // Show debuff selector only when Prestige Drop is in the combo
@@ -74,7 +76,7 @@ export function CalculatorTab() {
   }
   function clearAll() {
     setSelectedGags([]); setIsLured(false); setLuredByGagIdx(-1); setLuredByPrestige(false); setDebuffCount(0);
-    setActiveIous({}); setActiveIouCounts({}); setActiveIouSelected({}); setRainActive(false); setCustomKb(undefined);
+    setActiveIous({}); setActiveIouCounts({}); setActiveIouSelected({}); setRainActive(false); setCustomKb(undefined); setIsSoaked(false);
   }
 
   return (
@@ -82,35 +84,85 @@ export function CalculatorTab() {
       <div className="gagcalc-left">
         <div className="gagcalc-grid">
           {CC_GAG_TRACKS.map((track, ti) => (
-            <div key={track.key} className="gagcalc-track-row" style={{ background: track.headerColor }}>
-              <div className="gagcalc-track-label" style={{ color: track.labelColor }}>
-                <Image
-                  src={`/icons/gags/large/${track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`}`}
-                  alt={track.name} width={20} height={20} unoptimized className="gagcalc-track-icon"
-                />
-                {track.name}
+            <div key={track.key} className="gagcalc-track-wrap">
+              <div className="gagcalc-track-row" style={{ background: track.headerColor }}>
+                <div className="gagcalc-track-label" style={{ color: track.labelColor }}>
+                  <Image
+                    src={`/icons/gags/large/${track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`}`}
+                    alt={track.name} width={20} height={20} unoptimized className="gagcalc-track-icon"
+                  />
+                  {track.name}
+                </div>
+                {track.gags.map((gag, gi) => {
+                  const k = `${track.key}-${gi}`;
+                  return (
+                    <button key={gi}
+                      className={`gagcalc-cell${hoveredCell === k ? ' gagcalc-cell--hov' : ''}`}
+                      onClick={() => addGag(track.key, ti, gi)}
+                      onMouseEnter={() => setHoveredCell(k)}
+                      onMouseLeave={() => setHoveredCell(null)}
+                      style={{ background: track.color }}
+                      title={`${gag.name} (Lv ${gag.level})${gag.damage > 0 ? ` — ${gag.damage} dmg` : gag.heal ? ` — +${gag.heal} heal` : ''}`}
+                    >
+                      <Image src={`/icons/gags/small/${track.key}/${gag.icon}`} alt={gag.name} width={36} height={36} unoptimized className="gagcalc-gag-img" />
+                      <span className="gagcalc-gag-name">{gag.name}</span>
+                      {gag.damage > 0
+                        ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{gag.damage}</span>
+                        : gag.heal ? <span className="gagcalc-gag-stat gagcalc-gag-stat--heal">+{gag.heal}</span>
+                        : track.key === 'lure' ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{LURE_GAG_DATA[gi].knockback} KB</span>
+                        : null}
+                    </button>
+                  );
+                })}
               </div>
-              {track.gags.map((gag, gi) => {
-                const k = `${track.key}-${gi}`;
-                return (
-                  <button key={gi}
-                    className={`gagcalc-cell${hoveredCell === k ? ' gagcalc-cell--hov' : ''}`}
-                    onClick={() => addGag(track.key, ti, gi)}
-                    onMouseEnter={() => setHoveredCell(k)}
-                    onMouseLeave={() => setHoveredCell(null)}
-                    style={{ background: track.color }}
-                    title={`${gag.name} (Lv ${gag.level})${gag.damage > 0 ? ` — ${gag.damage} dmg` : gag.heal ? ` — +${gag.heal} heal` : ''}`}
-                  >
-                    <Image src={`/icons/gags/small/${track.key}/${gag.icon}`} alt={gag.name} width={36} height={36} unoptimized className="gagcalc-gag-img" />
-                    <span className="gagcalc-gag-name">{gag.name}</span>
-                    {gag.damage > 0
-                      ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{gag.damage}</span>
-                      : gag.heal ? <span className="gagcalc-gag-stat gagcalc-gag-stat--heal">+{gag.heal}</span>
-                      : track.key === 'lure' ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{LURE_GAG_DATA[gi].knockback} KB</span>
-                      : null}
-                  </button>
-                );
-              })}
+
+              {/* Inline Lure picker — shown directly below Lure row when Cog is Lured */}
+              {track.key === 'lure' && isLured && (
+                <div className="gagcalc-inline-picker" style={{ borderColor: track.color }}>
+                  <span className="gagcalc-inline-picker-label" style={{ color: track.labelColor }}>Which Lure was used last round?</span>
+                  <div className="gagcalc-inline-picker-chips">
+                    {track.gags.map((gag, gi) => {
+                      const lureData = LURE_GAG_DATA[gi];
+                      const isSelected = luredByGagIdx === gi;
+                      const kbVal = isSelected && luredByPrestige ? lureData.knockbackPrestige : lureData.knockback;
+                      return (
+                        <button
+                          key={gi}
+                          className={`gagcalc-inline-chip${isSelected ? ' gagcalc-inline-chip--active' : ''}`}
+                          style={isSelected ? { borderColor: track.color, background: track.headerColor } : {}}
+                          onClick={() => {
+                            if (isSelected) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
+                            else { setLuredByGagIdx(gi); setLuredByPrestige(false); }
+                          }}
+                        >
+                          <Image src={`/icons/gags/small/lure/${gag.icon}`} alt={gag.name} width={28} height={28} unoptimized className="gagcalc-gag-img" />
+                          <span className="gagcalc-inline-chip-name">{gag.name}</span>
+                          <span className="gagcalc-inline-chip-stat" style={{ color: track.labelColor }}>{kbVal} KB</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {luredByGagIdx >= 0 && (
+                    <label className="gagcalc-lure-pres-toggle">
+                      <input type="checkbox" checked={luredByPrestige} onChange={e => setLuredByPrestige(e.target.checked)} />
+                      <span className="gagcalc-lure-pres-box" />
+                      <span>Prestige Lure <span className="gagcalc-muted">({LURE_GAG_DATA[luredByGagIdx].knockbackPrestige} KB)</span></span>
+                    </label>
+                  )}
+                </div>
+              )}
+
+              {/* Inline Soaked toggle — shown directly below Squirt row */}
+              {track.key === 'squirt' && (
+                <div className="gagcalc-inline-picker" style={{ borderColor: track.color }}>
+                  <label className="gagcalc-toggle" style={{ fontSize: 12 }}>
+                    <input type="checkbox" checked={isSoaked} onChange={e => setIsSoaked(e.target.checked)} />
+                    <span className="gagcalc-toggle-box" />
+                    <span style={{ color: track.labelColor }}>Cog is Soaked</span>
+                    <span className="gagcalc-muted" style={{ fontSize: 11 }}>(Zap enabled from last round — no extra damage)</span>
+                  </label>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -150,49 +202,6 @@ export function CalculatorTab() {
           <span className="gagcalc-toggle-box" />
           <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt knockback · Drop misses · Trap triggers)</span></span>
         </label>
-
-        {/* Lure gag selector — only shown when "Cog is Lured" is active */}
-        {isLured && (() => {
-          const lureTrack = CC_GAG_TRACKS.find(t => t.key === 'lure')!;
-          return (
-            <div className="gagcalc-lure-picker">
-              <span className="gagcalc-lure-picker-label">Which Lure was used last round?</span>
-              <div className="gagcalc-lure-picker-chips">
-                {lureTrack.gags.map((gag, gi) => {
-                  const lureData = LURE_GAG_DATA[gi];
-                  const isSelected = luredByGagIdx === gi;
-                  const kbVal = isSelected && luredByPrestige ? lureData.knockbackPrestige : lureData.knockback;
-                  return (
-                    <button
-                      key={gi}
-                      className={`gagcalc-lure-chip${isSelected ? ' gagcalc-lure-chip--active' : ''}`}
-                      onClick={() => {
-                        if (isSelected) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
-                        else { setLuredByGagIdx(gi); setLuredByPrestige(false); }
-                      }}
-                      title={`${gag.name} — ${lureData.knockback} KB (prestige: ${lureData.knockbackPrestige} KB)`}
-                    >
-                      <Image src={`/icons/gags/small/lure/${gag.icon}`} alt={gag.name} width={22} height={22} unoptimized className="gagcalc-lure-chip-img" />
-                      <span className="gagcalc-lure-chip-name">{gag.name}</span>
-                      <span className="gagcalc-lure-chip-kb">{isSelected ? kbVal : lureData.knockback} KB</span>
-                    </button>
-                  );
-                })}
-              </div>
-              {luredByGagIdx >= 0 && (
-                <label className="gagcalc-lure-pres-toggle">
-                  <input
-                    type="checkbox"
-                    checked={luredByPrestige}
-                    onChange={e => setLuredByPrestige(e.target.checked)}
-                  />
-                  <span className="gagcalc-lure-pres-box" />
-                  <span>Prestige Lure <span className="gagcalc-muted">({LURE_GAG_DATA[luredByGagIdx].knockbackPrestige} KB)</span></span>
-                </label>
-              )}
-            </div>
-          );
-        })()}
 
         {/* IOU Panel */}
         <div className="gagcalc-iou-section">

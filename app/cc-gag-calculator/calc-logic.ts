@@ -118,6 +118,7 @@ export function calcTotalDamage(
   luredByGagIdx: number = -1,
   luredByPrestige: boolean = false,
   customKb: number | undefined = undefined,
+  isSoaked: boolean = false,
 ): DamageBreakdown {
   const groups: Partial<Record<GagTrackKey, SelectedGag[]>> = {};
   for (const g of gags) {
@@ -132,8 +133,8 @@ export function calcTotalDamage(
   const hasSquirt  = gags.some(g => g.track === 'squirt');
   const lureActive = isLured || hasLure;
   const trapNeedsLure = hasTrap && !lureActive;
-  // Zap requires the cog to be soaked (hit by Squirt this round or previously)
-  const zapNeedsSoak = hasZap && !hasSquirt;
+  // Zap requires the cog to be soaked (hit by Squirt this round, previously, or toggle)
+  const zapNeedsSoak = hasZap && !hasSquirt && !isSoaked;
 
   const kbValue = customKb !== undefined ? customKb : getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
