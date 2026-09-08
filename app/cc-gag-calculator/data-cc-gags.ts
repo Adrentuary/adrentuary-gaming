@@ -287,6 +287,20 @@ export const TRAINING_POINTS_MAX = 12;
 export const TP_PER_TRACK = 2;
 export const TP_PER_PRESTIGE = 1;
 
+/**
+ * Toon Levels at which a Training Point is awarded (11 total from levelling).
+ * Source: CC wiki — levels 4, 8, 12, 16, 20, 28, 38, 48, 58, 68, 78.
+ */
+export const TP_LEVEL_MILESTONES: number[] = [4, 8, 12, 16, 20, 28, 38, 48, 58, 68, 78];
+
+/**
+ * Returns how many TP a toon has earned purely from levelling up to `level`.
+ * Does NOT include the Department Level bonus TP.
+ */
+export function getTpFromLevel(level: number): number {
+  return TP_LEVEL_MILESTONES.filter(l => l <= level).length;
+}
+
 export interface GagBuildPreset {
   label: string;
   tp: 11 | 12;

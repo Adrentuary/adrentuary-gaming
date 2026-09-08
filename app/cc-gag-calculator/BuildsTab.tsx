@@ -3,7 +3,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import {
   CC_GAG_TRACKS, GAG_BUILD_PRESETS, TRAINING_POINTS_MAX,
-  TP_PER_TRACK, TP_PER_PRESTIGE, type GagTrackKey,
+  TP_PER_TRACK, TP_PER_PRESTIGE, TP_LEVEL_MILESTONES, getTpFromLevel,
+  type GagTrackKey,
 } from './data-cc-gags';
 import { useAuth } from '../components/AuthProvider';
 import { createClient } from '../../lib/supabase/client';
@@ -57,6 +58,8 @@ export function BuildsTab() {
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
   const [loadedFromDb, setLoadedFromDb] = useState(false);
+  const [toonLevel, setToonLevel] = useState<number | ''>(78);
+  const [maxedDepts, setMaxedDepts] = useState(false);
 
   // Refs to avoid stale closures in save
   const buildRef = useRef(build);
@@ -67,9 +70,15 @@ export function BuildsTab() {
   // TP is only spent on tracks beyond the 2 free starting ones
   const tpTracks = Math.max(0, build.tracks.size - STARTING_TRACKS_COUNT);
   const usedTP = tpTracks * TP_PER_TRACK + build.prestiges.size * TP_PER_PRESTIGE;
-  const remainingTP = TRAINING_POINTS_MAX - usedTP;
-  const tpPct = Math.min(100, Math.round((usedTP / TRAINING_POINTS_MAX) * 100));
-  const tpColor = usedTP > TRAINING_POINTS_MAX ? '#e05050' : usedTP === TRAINING_POINTS_MAX ? '#4ade80' : '#a4f78f';
+
+  // Available TP based on toon level + optional dept bonus
+  const levelNum = typeof toonLevel === 'number' ? Math.max(1, Math.min(78, toonLevel)) : 1;
+  const availableTP = getTpFromLevel(levelNum) + (maxedDepts ? 1 : 0);
+  const nextMilestone = TP_LEVEL_MILESTONES.find(l => l > levelNum) ?? null;
+
+  const remainingTP = availableTP - usedTP;
+  const tpPct = availableTP > 0 ? Math.min(100, Math.round((usedTP / availableTP) * 100)) : 0;
+  const tpColor = usedTP > availableTP ? '#e05050' : usedTP === availableTP ? '#4ade80' : '#a4f78f';
 
   // Load saved build from Supabase when user signs in
   const userId = user?.id ?? null;
@@ -170,32 +179,82 @@ export function BuildsTab() {
     <div className="gagbuilds-layout">
       <BuildLeft
         build={build} usedTP={usedTP} remainingTP={remainingTP}
-        tpPct={tpPct} tpColor={tpColor}
+        tpPct={tpPct} tpColor={tpColor} availableTP={availableTP}
+        toonLevel={toonLevel} setToonLevel={setToonLevel}
+        maxedDepts={maxedDepts} setMaxedDepts={setMaxedDepts}
+        nextMilestone={nextMilestone}
         onToggleTrack={toggleTrack} onTogglePrestige={togglePrestige} onClear={clearBuild}
       />
       <BuildRight
-        build={build} usedTP={usedTP} activePreset={activePreset} onApplyPreset={applyPreset}
+        build={build} usedTP={usedTP} availableTP={availableTP} activePreset={activePreset} onApplyPreset={applyPreset}
         saving={saving} saveMsg={saveMsg} isLoggedIn={!!user}
       />
     </div>
   );
 }
 
-function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, onTogglePrestige, onClear }: {
+function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, availableTP,
+  toonLevel, setToonLevel, maxedDepts, setMaxedDepts, nextMilestone,
+  onToggleTrack, onTogglePrestige, onClear }: {
   build: BuildState; usedTP: number; remainingTP: number;
-  tpPct: number; tpColor: string;
+  tpPct: number; tpColor: string; availableTP: number;
+  toonLevel: number | ''; setToonLevel(v: number | ''): void;
+  maxedDepts: boolean; setMaxedDepts(v: boolean): void;
+  nextMilestone: number | null;
   onToggleTrack(k: GagTrackKey): void;
   onTogglePrestige(k: GagTrackKey): void;
   onClear(): void;
 }) {
   return (
     <div className="gagbuilds-left">
+
+      {/* ── Toon Level panel ── */}
+      <div className="gagbuilds-level-panel">
+        <div className="gagbuilds-level-row">
+          <label className="gagbuilds-level-label" htmlFor="toon-level-input">
+            Toon Level
+          </label>
+          <input
+            id="toon-level-input"
+            className="gagbuilds-level-input"
+            type="number"
+            min={1}
+            max={78}
+            value={toonLevel}
+            onChange={e => {
+              const v = e.target.value === '' ? '' : Math.max(1, Math.min(78, Number(e.target.value)));
+              setToonLevel(v as number | '');
+            }}
+          />
+          <span className="gagbuilds-level-tp-badge" style={{ color: tpColor }}>
+            {availableTP} TP available
+          </span>
+        </div>
+        {nextMilestone !== null && (
+          <p className="gagbuilds-level-hint">
+            Next TP at level <strong>{nextMilestone}</strong>
+          </p>
+        )}
+        <label className="gagbuilds-dept-toggle">
+          <input
+            type="checkbox"
+            checked={maxedDepts}
+            onChange={e => setMaxedDepts(e.target.checked)}
+          />
+          <span className="gagbuilds-dept-check-box" />
+          <span className="gagbuilds-dept-label">
+            Maxed all Department Levels
+            <span className="gagbuilds-dept-sub"> (+1 TP — 12 max)</span>
+          </span>
+        </label>
+      </div>
+
       <div className="gagbuilds-tp-meter">
         <div className="gagbuilds-tp-bar-wrap">
           <div className="gagbuilds-tp-bar" style={{ width: `${tpPct}%`, background: tpColor }} />
         </div>
         <div className="gagbuilds-tp-counts">
-          <span style={{ color: tpColor }}><strong>{usedTP}</strong> / {TRAINING_POINTS_MAX} TP used</span>
+          <span style={{ color: tpColor }}><strong>{usedTP}</strong> / {availableTP} TP used</span>
           {remainingTP >= 0
             ? <span className="gagcalc-muted">{remainingTP} remaining</span>
             : <span style={{ color: '#e05050' }}>Over by {-remainingTP} TP!</span>}
@@ -252,8 +311,8 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, 
   );
 }
 
-function BuildRight({ build, usedTP, activePreset, onApplyPreset, saving, saveMsg, isLoggedIn }: {
-  build: BuildState; usedTP: number; activePreset: string | null;
+function BuildRight({ build, usedTP, availableTP, activePreset, onApplyPreset, saving, saveMsg, isLoggedIn }: {
+  build: BuildState; usedTP: number; availableTP: number; activePreset: string | null;
   onApplyPreset(label: string, tracks: number, prestiges: number): void;
   saving: boolean; saveMsg: string; isLoggedIn: boolean;
 }) {
@@ -323,8 +382,8 @@ function BuildRight({ build, usedTP, activePreset, onApplyPreset, saving, saveMs
           </div>
           <div className="gagbuilds-sum-total">
             <span>Total</span>
-            <span style={{ color: usedTP > TRAINING_POINTS_MAX ? '#e05050' : '#4ade80' }}>
-              <strong>{usedTP}</strong> / {TRAINING_POINTS_MAX} TP
+            <span style={{ color: usedTP > availableTP ? '#e05050' : '#4ade80' }}>
+              <strong>{usedTP}</strong> / {availableTP} TP
             </span>
           </div>
         </div>

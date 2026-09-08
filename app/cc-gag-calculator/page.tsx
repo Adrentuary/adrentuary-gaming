@@ -4,7 +4,7 @@ import { InteriorPage } from '../components/Interior';
 import { CalculatorTab } from './CalculatorTab';
 import { BuildsTab } from './BuildsTab';
 
-const TABS = ['Gag Calculator', 'Gag Builds'] as const;
+const TABS = ['Gag Calculator', 'TP Builds'] as const;
 type Tab = typeof TABS[number];
 
 export default function CCGagCalculatorPage() {
@@ -33,7 +33,7 @@ export default function CCGagCalculatorPage() {
         <div className="gagcalc-shell">
           <div className="gagcalc-tab-body">
             {tab === 'Gag Calculator' && <CalculatorTab />}
-            {tab === 'Gag Builds'     && <BuildsTab />}
+            {tab === 'TP Builds'      && <BuildsTab />}
           </div>
         </div>
       </section>
