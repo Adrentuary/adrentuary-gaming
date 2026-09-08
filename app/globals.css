@@ -588,7 +588,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .gag-card-header:hover{filter:brightness(1.13)}
 .gag-card-header--collapsed{border-bottom:none}
 .gag-card-header-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
-.gag-card-header-icon{width:24px;height:24px;object-fit:contain;display:block;flex-shrink:0}
+.gag-card-header-icon{width:19px;height:19px;object-fit:contain;display:block;flex-shrink:0}
 .gag-card-header-label{font-size:14px;font-weight:800;color:var(--gl,#4ade80);flex:1}
 .gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:4px 10px;line-height:1.2;transition:filter .12s;text-align:center}
 .gag-details-collapse-btn:hover{filter:brightness(1.4)}
@@ -761,9 +761,9 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .coll-section-header:hover{filter:brightness(1.13)}
 .coll-section-header strong{font-size:14px;font-weight:800}
 .coll-section-header--collapsed{border-bottom:none}
-/* Icon wrapper: fixed 24×24 box so any aspect ratio image stays tidy */
-.coll-section-icon-wrap{width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.coll-section-icon{width:24px;height:24px;object-fit:contain;display:block}
+/* Icon wrapper: fixed 19×19 box to fit inside 39.2px locked header */
+.coll-section-icon-wrap{width:19px;height:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.coll-section-icon{width:19px;height:19px;object-fit:contain;display:block}
 /* Arrow at the START (rendered before title in JSX) */
 .coll-section-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
 /* Scrollable wrapper inside each section card */
