@@ -1,5 +1,5 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import {
   CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE,
@@ -16,6 +16,7 @@ export function CalculatorTab() {
   const [cogType, setCogType] = useState<CogType>('standard');
   const [cogLevel, setCogLevel] = useState<number>(12);
   const [manualHP, setManualHP] = useState<string>('');
+  const [debuffCount, setDebuffCount] = useState<number>(0);
 
   // Level range for the currently selected cog type
   const levelRange = COG_TYPE_LEVEL_RANGE[cogType];
@@ -23,9 +24,12 @@ export function CalculatorTab() {
   const clampedLevel = Math.max(levelRange.min, Math.min(levelRange.max, cogLevel));
 
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, cogType),
-    [selectedGags, isLured, cogType],
+    () => calcTotalDamage(selectedGags, isLured, cogType, debuffCount),
+    [selectedGags, isLured, cogType, debuffCount],
   );
+
+  // Show debuff selector only when Prestige Drop is in the combo
+  const hasPrestigeDrop = selectedGags.some(g => g.track === 'drop' && g.isPrestige);
 
   const needsManualHP = getCogHP(cogType, clampedLevel) === null;
 
@@ -66,7 +70,10 @@ export function CalculatorTab() {
   function togglePrestige(id: number) {
     setSelectedGags(prev => prev.map(g => g.id === id ? { ...g, isPrestige: !g.isPrestige } : g));
   }
-  function clearAll() { setSelectedGags([]); setIsLured(false); }
+  function setCustomDamage(id: number, dmg: number | undefined) {
+    setSelectedGags(prev => prev.map(g => g.id === id ? { ...g, customDamage: dmg } : g));
+  }
+  function clearAll() { setSelectedGags([]); setIsLured(false); setDebuffCount(0); }
 
   return (
     <div className="gagcalc-layout">
@@ -141,6 +148,33 @@ export function CalculatorTab() {
           )}
         </div>
 
+        {hasPrestigeDrop && (
+          <div className="gagcalc-cog-controls" style={{ borderColor: '#107878' }}>
+            <div className="gagcalc-cog-row">
+              <label className="gagcalc-cog-label" style={{ color: '#40d0d0' }}>
+                ★ Prestige Drop — Debuffs on Cog
+              </label>
+              <div className="gagcalc-debuff-btns">
+                {[0, 1, 2, 3].map(n => (
+                  <button
+                    key={n}
+                    className={`gagcalc-debuff-btn${debuffCount === n ? ' gagcalc-debuff-btn--on' : ''}`}
+                    onClick={() => setDebuffCount(n)}
+                  >
+                    {n === 0 ? 'None' : `${n}`}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <p className="gagcalc-debuff-note">
+              {debuffCount === 0 && <span className="gagcalc-muted">No debuff bonus applied.</span>}
+              {debuffCount === 1 && <span>+10% damage (Dazed / Marked for Laugh / Soaked / other)</span>}
+              {debuffCount === 2 && <span>+15% damage (2 active debuffs)</span>}
+              {debuffCount === 3 && <span>+20% damage (3 active debuffs)</span>}
+            </p>
+          </div>
+        )}
+
         <label className="gagcalc-toggle">
           <input type="checkbox" checked={isLured} onChange={e => setIsLured(e.target.checked)} />
           <span className="gagcalc-toggle-box" />
@@ -151,17 +185,19 @@ export function CalculatorTab() {
         <ComboPanel
           gags={selectedGags} isLured={isLured} breakdown={breakdown}
           cogType={cogType} cogLevel={clampedLevel} resolvedHP={resolvedHP}
-          onRemove={removeGag} onTogglePrestige={togglePrestige} onClear={clearAll}
+          onRemove={removeGag} onTogglePrestige={togglePrestige}
+          onSetCustomDamage={setCustomDamage} onClear={clearAll}
         />
       </div>
     </div>
   );
 }
-function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, onRemove, onTogglePrestige, onClear }: {
+function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, onRemove, onTogglePrestige, onSetCustomDamage, onClear }: {
   gags: SelectedGag[]; isLured: boolean;
   breakdown: ReturnType<typeof calcTotalDamage>;
   cogType: CogType; cogLevel: number; resolvedHP: number | null;
-  onRemove(id: number): void; onTogglePrestige(id: number): void; onClear(): void;
+  onRemove(id: number): void; onTogglePrestige(id: number): void;
+  onSetCustomDamage(id: number, dmg: number | undefined): void; onClear(): void;
 }) {
   const hasDmg = gags.some(g => g.track !== 'toon-up' && g.track !== 'lure');
   return (
@@ -172,7 +208,7 @@ function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, o
       </div>
       {gags.length === 0
         ? <p className="gagcalc-empty">Click a gag to add it to your combo.</p>
-        : <SelectedList gags={gags} isLured={isLured} onRemove={onRemove} onTogglePrestige={onTogglePrestige} />
+        : <SelectedList gags={gags} isLured={isLured} onRemove={onRemove} onTogglePrestige={onTogglePrestige} onSetCustomDamage={onSetCustomDamage} />
       }
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
@@ -184,29 +220,40 @@ function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, o
   );
 }
 
-function SelectedList({ gags, isLured, onRemove, onTogglePrestige }: {
-  gags: SelectedGag[]; isLured: boolean; onRemove(id: number): void; onTogglePrestige(id: number): void;
+function SelectedList({ gags, isLured, onRemove, onTogglePrestige, onSetCustomDamage }: {
+  gags: SelectedGag[]; isLured: boolean; onRemove(id: number): void;
+  onTogglePrestige(id: number): void;
+  onSetCustomDamage(id: number, dmg: number | undefined): void;
 }) {
-  const tc      = trackCounts(gags);
-  const kbValue = getKnockbackValue(gags, isLured);
+  const tc       = trackCounts(gags);
+  const kbValue  = getKnockbackValue(gags, isLured);
   const hasSound = gags.some(g => g.track === 'sound');
   return (
     <div className="gagcalc-sel-list">
       {gags.map(sg => {
-        const track  = CC_GAG_TRACKS[sg.trackIdx];
-        const gag    = track.gags[sg.gagIdx];
-        const dmg    = getGagDamage(sg.track, sg.gagIdx, sg.isPrestige);
-        const multi  = (tc[sg.track] ?? 0) >= 2 && !['toon-up','lure','trap','sound','zap'].includes(sg.track);
-        const kb     = kbValue > 0 && trackGetsKnockback(sg.track) && !hasSound;
-        const healVal  = gag.heal ? gag.heal : null;
+        const track    = CC_GAG_TRACKS[sg.trackIdx];
+        const gag      = track.gags[sg.gagIdx];
+        const maxDmg   = getGagDamage(sg.track, sg.gagIdx, sg.isPrestige);
+        const dispDmg  = sg.customDamage !== undefined ? sg.customDamage : maxDmg;
+        const multi    = (tc[sg.track] ?? 0) >= 2 && !['toon-up','lure','trap','sound','zap'].includes(sg.track);
+        const kb       = kbValue > 0 && trackGetsKnockback(sg.track) && !hasSound;
+        const healVal  = gag.heal ?? null;
         const selfHeal = gag.heal ? (sg.isPrestige ? Math.ceil(gag.heal * 0.45) : Math.ceil(gag.heal * 0.25)) : null;
+        const isCustom = sg.customDamage !== undefined && sg.customDamage !== maxDmg;
         return (
           <div key={sg.id} className="gagcalc-sel-gag" style={{ borderLeftColor: track.color }}>
             <Image src={`/icons/gags/small/${sg.track}/${gag.icon}`} alt={gag.name} width={34} height={34} unoptimized className="gagcalc-sel-img" />
             <div className="gagcalc-sel-info">
               <span className="gagcalc-sel-name" style={{ color: track.labelColor }}>{gag.name}</span>
               <div className="gagcalc-sel-tags">
-                {dmg > 0 && <span className="gagcalc-tag gagcalc-tag--dmg">{dmg} dmg</span>}
+                {/* Editable damage tag */}
+                {dispDmg > 0 && (
+                  <EditableDmgTag
+                    value={dispDmg} isCustom={isCustom}
+                    onCommit={val => onSetCustomDamage(sg.id, val === maxDmg ? undefined : val)}
+                    onReset={() => onSetCustomDamage(sg.id, undefined)}
+                  />
+                )}
                 {healVal && <span className="gagcalc-tag gagcalc-tag--heal">+{healVal} heal</span>}
                 {selfHeal && <span className="gagcalc-tag gagcalc-tag--heal">+{selfHeal} self</span>}
                 {multi && <span className="gagcalc-tag gagcalc-tag--multi">+{Math.round(track.comboBonus * 100)}% combo</span>}
@@ -230,11 +277,64 @@ function SelectedList({ gags, isLured, onRemove, onTogglePrestige }: {
   );
 }
 
+/** Inline editable damage chip — click to edit, Enter or blur to confirm */
+function EditableDmgTag({ value, isCustom, onCommit, onReset }: {
+  value: number; isCustom: boolean;
+  onCommit(val: number): void;
+  onReset(): void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editing) {
+      setDraft(String(value));
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    }
+  }, [editing, value]);
+
+  function commit() {
+    const n = parseInt(draft, 10);
+    if (!isNaN(n) && n > 0) onCommit(n);
+    setEditing(false);
+  }
+
+  if (editing) {
+    return (
+      <input
+        ref={inputRef}
+        className="gagcalc-dmg-input"
+        value={draft}
+        onChange={e => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={e => {
+          if (e.key === 'Enter') { e.preventDefault(); commit(); }
+          if (e.key === 'Escape') setEditing(false);
+        }}
+        type="number" min={1}
+      />
+    );
+  }
+
+  return (
+    <button
+      className={`gagcalc-tag gagcalc-tag--dmg gagcalc-tag--dmg-edit${isCustom ? ' gagcalc-tag--dmg-custom' : ''}`}
+      onClick={() => setEditing(true)}
+      title={isCustom ? 'Custom damage — click to edit, right-click to reset' : 'Click to set custom damage'}
+      onContextMenu={e => { e.preventDefault(); onReset(); }}
+    >
+      {value} dmg
+    </button>
+  );
+}
+
 function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
   breakdown: ReturnType<typeof calcTotalDamage>;
   cogType: CogType; cogLevel: number; resolvedHP: number | null;
 }) {
-  const { total, knockback, execBonus, comboBonus } = breakdown;
+  const { total, knockback, execBonus, comboBonus, debuffBonus } = breakdown;
   const cogTypeData = COG_TYPES.find(c => c.key === cogType)!;
   const isExec = cogTypeData.isExec;
   const needsManualHP = resolvedHP === null;
@@ -244,11 +344,12 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
   return (
     <div className="gagcalc-result">
       {/* Bonus breakdown chips */}
-      {(knockback > 0 || execBonus > 0 || comboBonus > 0) && (
+      {(knockback > 0 || execBonus > 0 || comboBonus > 0 || debuffBonus > 0) && (
         <div className="gagcalc-breakdown">
-          {knockback  > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} Knockback</span>}
-          {execBonus  > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec Bonus</span>}
-          {comboBonus > 0 && <span className="gagcalc-tag gagcalc-tag--multi">+{comboBonus} Combo</span>}
+          {knockback   > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} Knockback</span>}
+          {execBonus   > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec Bonus</span>}
+          {debuffBonus > 0 && <span className="gagcalc-tag gagcalc-tag--debuff">+{debuffBonus} Debuff Boost</span>}
+          {comboBonus  > 0 && <span className="gagcalc-tag gagcalc-tag--multi">+{comboBonus} Combo</span>}
         </div>
       )}
 
