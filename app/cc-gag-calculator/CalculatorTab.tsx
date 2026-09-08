@@ -1,7 +1,10 @@
 'use client';
 import { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { CC_GAG_TRACKS, COG_TYPES, getCogHP, standardCogHP, type GagTrackKey, type CogType } from './data-cc-gags';
+import {
+  CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE,
+  getCogHP, standardCogHP, type GagTrackKey, type CogType,
+} from './data-cc-gags';
 import { calcTotalDamage, getGagDamage, getKnockbackValue, trackGetsKnockback, trackCounts, type SelectedGag } from './calc-logic';
 
 let nextId = 1;
@@ -14,29 +17,47 @@ export function CalculatorTab() {
   const [cogLevel, setCogLevel] = useState<number>(12);
   const [manualHP, setManualHP] = useState<string>('');
 
+  // Level range for the currently selected cog type
+  const levelRange = COG_TYPE_LEVEL_RANGE[cogType];
+  // Clamp cogLevel to the valid range whenever it would be out of bounds
+  const clampedLevel = Math.max(levelRange.min, Math.min(levelRange.max, cogLevel));
+
   const breakdown = useMemo(
     () => calcTotalDamage(selectedGags, isLured, cogType),
     [selectedGags, isLured, cogType],
   );
-  const totalDamage = breakdown.total;
 
-  // Resolved HP for comparison: formula-based or manual
+  const needsManualHP = getCogHP(cogType, clampedLevel) === null;
+
+  // Resolved HP: formula or manual entry
   const resolvedHP = useMemo(() => {
-    const computed = getCogHP(cogType, cogLevel);
+    const computed = getCogHP(cogType, clampedLevel);
     if (computed !== null) return computed;
     const manual = parseInt(manualHP, 10);
-    return isNaN(manual) ? null : manual;
-  }, [cogType, cogLevel, manualHP]);
+    return isNaN(manual) || manual <= 0 ? null : manual;
+  }, [cogType, clampedLevel, manualHP]);
 
-  // Skelecog HP range hint
+  // Skelecog HP range hint shown next to manual input
   const skelecogRange = useMemo(() => {
     if (cogType !== 'skelecog' && cogType !== 'virtual-skelecog') return null;
-    const base = standardCogHP(cogLevel);
-    if (cogType === 'skelecog') {
-      return { min: Math.ceil(base * 0.90), max: Math.ceil(base * 1.25) };
-    }
+    const base = standardCogHP(clampedLevel);
+    if (cogType === 'skelecog') return { min: Math.ceil(base * 0.90), max: Math.ceil(base * 1.25) };
     return { min: Math.ceil(base * 0.70), max: Math.ceil(base * 1.10) };
-  }, [cogType, cogLevel]);
+  }, [cogType, clampedLevel]);
+
+  function handleCogTypeChange(newType: CogType) {
+    const range = COG_TYPE_LEVEL_RANGE[newType];
+    setCogType(newType);
+    setManualHP('');
+    // Clamp level into the new type's range
+    setCogLevel(prev => Math.max(range.min, Math.min(range.max, prev)));
+  }
+
+  function handleLevelChange(raw: string) {
+    const parsed = parseInt(raw, 10);
+    if (isNaN(parsed)) return;
+    setCogLevel(Math.max(levelRange.min, Math.min(levelRange.max, parsed)));
+  }
 
   function addGag(track: GagTrackKey, trackIdx: number, gagIdx: number) {
     setSelectedGags(prev => [...prev, { id: nextId++, track, trackIdx, gagIdx, isPrestige: false }]);
@@ -46,8 +67,6 @@ export function CalculatorTab() {
     setSelectedGags(prev => prev.map(g => g.id === id ? { ...g, isPrestige: !g.isPrestige } : g));
   }
   function clearAll() { setSelectedGags([]); setIsLured(false); }
-
-  const needsManualHP = getCogHP(cogType, cogLevel) === null;
 
   return (
     <div className="gagcalc-layout">
@@ -90,55 +109,58 @@ export function CalculatorTab() {
           <div className="gagcalc-cog-row">
             <label className="gagcalc-cog-label">Cog Type</label>
             <select className="gagcalc-cog-select" value={cogType}
-              onChange={e => { setCogType(e.target.value as CogType); setManualHP(''); }}>
+              onChange={e => handleCogTypeChange(e.target.value as CogType)}>
               {COG_TYPES.map(ct => <option key={ct.key} value={ct.key}>{ct.label}</option>)}
             </select>
           </div>
           <div className="gagcalc-cog-row">
-            <label className="gagcalc-cog-label">Cog Level</label>
-            <input type="number" min={1} max={50} className="gagcalc-cog-input" value={cogLevel}
-              onChange={e => setCogLevel(Math.max(1, Math.min(50, parseInt(e.target.value) || 1)))} />
+            <label className="gagcalc-cog-label">
+              Level
+              <span className="gagcalc-muted"> ({levelRange.min}–{levelRange.max})</span>
+            </label>
+            {cogType === 'manager'
+              ? <span className="gagcalc-cog-input gagcalc-cog-input--static">—</span>
+              : <input type="number"
+                  min={levelRange.min} max={levelRange.max}
+                  className="gagcalc-cog-input"
+                  value={clampedLevel}
+                  onChange={e => handleLevelChange(e.target.value)} />
+            }
           </div>
           {needsManualHP && (
             <div className="gagcalc-cog-row">
               <label className="gagcalc-cog-label">
-                {cogType === 'manager' ? 'Manager HP' : 'Actual HP'}
-                {skelecogRange && <span className="gagcalc-muted"> ({skelecogRange.min}–{skelecogRange.max})</span>}
+                {cogType === 'manager' ? 'HP' : 'Actual HP'}
+                {skelecogRange && (
+                  <span className="gagcalc-muted"> ({skelecogRange.min}–{skelecogRange.max})</span>
+                )}
               </label>
               <input type="number" min={1} className="gagcalc-cog-input" placeholder="Enter HP…"
                 value={manualHP} onChange={e => setManualHP(e.target.value)} />
             </div>
-          )}
-          {!needsManualHP && resolvedHP !== null && (
-            <p className="gagcalc-cog-hp-display">
-              <span className="gagcalc-muted">HP: </span><strong>{resolvedHP}</strong>
-              {COG_TYPES.find(c => c.key === cogType)?.isExec && (
-                <span className="gagcalc-tag gagcalc-tag--exec" style={{ marginLeft: 8 }}>Exec — Trap +30%</span>
-              )}
-            </p>
           )}
         </div>
 
         <label className="gagcalc-toggle">
           <input type="checkbox" checked={isLured} onChange={e => setIsLured(e.target.checked)} />
           <span className="gagcalc-toggle-box" />
-          <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt get knockback · Drop misses · Trap triggers)</span></span>
+          <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt knockback · Drop misses · Trap triggers)</span></span>
         </label>
       </div>
       <div className="gagcalc-right">
         <ComboPanel
           gags={selectedGags} isLured={isLured} breakdown={breakdown}
-          cogType={cogType} resolvedHP={resolvedHP}
+          cogType={cogType} cogLevel={clampedLevel} resolvedHP={resolvedHP}
           onRemove={removeGag} onTogglePrestige={togglePrestige} onClear={clearAll}
         />
       </div>
     </div>
   );
 }
-function ComboPanel({ gags, isLured, breakdown, cogType, resolvedHP, onRemove, onTogglePrestige, onClear }: {
+function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, onRemove, onTogglePrestige, onClear }: {
   gags: SelectedGag[]; isLured: boolean;
   breakdown: ReturnType<typeof calcTotalDamage>;
-  cogType: CogType; resolvedHP: number | null;
+  cogType: CogType; cogLevel: number; resolvedHP: number | null;
   onRemove(id: number): void; onTogglePrestige(id: number): void; onClear(): void;
 }) {
   const hasDmg = gags.some(g => g.track !== 'toon-up' && g.track !== 'lure');
@@ -155,7 +177,9 @@ function ComboPanel({ gags, isLured, breakdown, cogType, resolvedHP, onRemove, o
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
       )}
-      {hasDmg && <DamageResult breakdown={breakdown} cogType={cogType} resolvedHP={resolvedHP} />}
+      {hasDmg && (
+        <DamageResult breakdown={breakdown} cogType={cogType} cogLevel={cogLevel} resolvedHP={resolvedHP} />
+      )}
     </>
   );
 }
@@ -206,69 +230,69 @@ function SelectedList({ gags, isLured, onRemove, onTogglePrestige }: {
   );
 }
 
-function DamageResult({ breakdown, cogType, resolvedHP }: {
-  breakdown: ReturnType<typeof calcTotalDamage>; cogType: CogType; resolvedHP: number | null;
+function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
+  breakdown: ReturnType<typeof calcTotalDamage>;
+  cogType: CogType; cogLevel: number; resolvedHP: number | null;
 }) {
   const { total, knockback, execBonus, comboBonus } = breakdown;
-  // If we have a specific resolved HP, show single-target result; otherwise show the standard table
-  if (resolvedHP !== null) {
-    const kills = total >= resolvedHP;
-    const pct = Math.min(100, Math.round((total / resolvedHP) * 100));
-    return (
-      <div className="gagcalc-result">
-        <div className="gagcalc-result-head">
-          <span className="kicker">Total Damage</span>
-          <span className="gagcalc-result-num" style={{ color: kills ? '#4ade80' : '#f87171' }}>{total}</span>
-        </div>
-        {(knockback > 0 || execBonus > 0 || comboBonus > 0) && (
-          <div className="gagcalc-breakdown">
-            {knockback > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} KB</span>}
-            {execBonus > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec</span>}
-            {comboBonus > 0 && <span className="gagcalc-tag gagcalc-tag--multi">+{comboBonus} Combo</span>}
-          </div>
-        )}
-        <div className={`gagcalc-hp-row${kills ? ' gagcalc-hp-row--kill' : ''}`} style={{ marginTop: 8 }}>
-          <span className="gagcalc-hp-lv">{COG_TYPES.find(c => c.key === cogType)?.label ?? 'Cog'}</span>
-          <div className="gagcalc-hp-bar-wrap"><div className="gagcalc-hp-bar" style={{ width: `${pct}%` }} /></div>
-          <span className="gagcalc-hp-num">{resolvedHP} HP</span>
-          <span className={kills ? 'gagcalc-hp-kill' : 'gagcalc-hp-no'}>{kills ? '\u2713' : '\u2717'}</span>
-        </div>
-      </div>
-    );
-  }
+  const cogTypeData = COG_TYPES.find(c => c.key === cogType)!;
+  const isExec = cogTypeData.isExec;
+  const needsManualHP = resolvedHP === null;
+  const remaining = resolvedHP !== null ? resolvedHP - total : null;
+  const kills = resolvedHP !== null && total >= resolvedHP;
 
-  // Fallback: standard cog HP table (levels 1–35)
-  const COG_HP_ENTRIES: [number, number][] = Array.from({ length: 35 }, (_, i) => {
-    const lv = i + 1;
-    return [lv, (lv + 1) * (lv + 2)];
-  });
   return (
     <div className="gagcalc-result">
-      <div className="gagcalc-result-head">
-        <span className="kicker">Total Damage</span>
-        <span className="gagcalc-result-num">{total}</span>
-      </div>
+      {/* Bonus breakdown chips */}
       {(knockback > 0 || execBonus > 0 || comboBonus > 0) && (
         <div className="gagcalc-breakdown">
-          {knockback > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} KB</span>}
-          {execBonus > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec</span>}
+          {knockback  > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} Knockback</span>}
+          {execBonus  > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec Bonus</span>}
           {comboBonus > 0 && <span className="gagcalc-tag gagcalc-tag--multi">+{comboBonus} Combo</span>}
         </div>
       )}
-      <div className="gagcalc-hp-list">
-        {COG_HP_ENTRIES.map(([lvl, hp]) => {
-          const kills = total >= hp;
-          const pct = Math.min(100, Math.round((total / hp) * 100));
-          return (
-            <div key={lvl} className={`gagcalc-hp-row${kills ? ' gagcalc-hp-row--kill' : ''}`}>
-              <span className="gagcalc-hp-lv">Lv {lvl}</span>
-              <div className="gagcalc-hp-bar-wrap"><div className="gagcalc-hp-bar" style={{ width: `${pct}%` }} /></div>
-              <span className="gagcalc-hp-num">{hp} HP</span>
-              <span className={kills ? 'gagcalc-hp-kill' : 'gagcalc-hp-no'}>{kills ? '\u2713' : '\u2717'}</span>
-            </div>
-          );
-        })}
+
+      {/* Card — matches reference screenshot style */}
+      <div className={`gagcalc-card${kills ? ' gagcalc-card--kill' : needsManualHP ? ' gagcalc-card--unknown' : ''}`}>
+        {/* Cog portrait placeholder */}
+        <div className="gagcalc-card-img">
+          <div className="gagcalc-card-img-placeholder">
+            {isExec && <span className="gagcalc-card-exec-badge">.exe</span>}
+          </div>
+        </div>
+
+        {/* Level / HP / Remaining info box */}
+        <div className="gagcalc-card-info">
+          {cogType === 'manager'
+            ? <span className="gagcalc-card-level">.mgr</span>
+            : <span className="gagcalc-card-level">Level: {cogLevel}</span>
+          }
+          {resolvedHP !== null
+            ? <>
+                <span className="gagcalc-card-hp">HP: {resolvedHP}</span>
+                <span className={`gagcalc-card-remaining${kills ? ' gagcalc-card-remaining--kill' : remaining! < 0 ? ' gagcalc-card-remaining--over' : ''}`}>
+                  {kills ? 'Defeated!' : `Remaining: ${remaining}`}
+                </span>
+              </>
+            : <span className="gagcalc-card-hp gagcalc-card-hp--unknown">HP: —</span>
+          }
+        </div>
+
+        {/* Damage number */}
+        <div className="gagcalc-card-dmg">
+          <span className="gagcalc-card-dmg-num">{total}</span>
+          <span className="gagcalc-card-dmg-label">Damage</span>
+        </div>
       </div>
+
+      {/* Exec note */}
+      {isExec && (
+        <p className="gagcalc-card-note">
+          <span className="gagcalc-tag gagcalc-tag--exec" style={{ marginRight: 6 }}>Exec</span>
+          Trap deals <strong>+30%</strong> damage vs. this cog type
+          {breakdown.execBonus > 0 && <> (+{breakdown.execBonus} applied)</>}.
+        </p>
+      )}
     </div>
   );
 }

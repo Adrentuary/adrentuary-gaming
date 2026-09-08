@@ -28,6 +28,19 @@ export const COG_TYPES: CogTypeOption[] = [
   { key: 'manager',          label: 'Manager (.mgr)',              isExec: true,  defenseOffset:   0, hpFormula: (_x) => null },
 ];
 
+/** Min/max level range per cog type, based on wiki data */
+export const COG_TYPE_LEVEL_RANGE: Record<CogType, { min: number; max: number }> = {
+  'standard':         { min: 1,  max: 20 },
+  'executive':        { min: 1,  max: 35 }, // 33 in-game (Chainsaw Consultant), 35 event (High Roller)
+  'field-specialist': { min: 3,  max: 15 }, // Lawbot only, Tiers 2–7
+  'exec-field':       { min: 3,  max: 15 },
+  'ops-analyst':      { min: 2,  max: 15 },
+  'exec-ops':         { min: 2,  max: 15 },
+  'skelecog':         { min: 1,  max: 20 },
+  'virtual-skelecog': { min: 1,  max: 20 },
+  'manager':          { min: 1,  max: 1  }, // HP is always manual; level is cosmetic
+};
+
 export function getCogHP(cogType: CogType, level: number): number | null {
   const t = COG_TYPES.find(c => c.key === cogType);
   return t ? t.hpFormula(level) : null;
