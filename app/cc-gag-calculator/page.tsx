@@ -29,7 +29,7 @@ export default function CCGagCalculatorPage() {
           </button>
         ))}
       </nav>
-      <section className="interior-section gagcalc-section">
+      <section className="gagcalc-section">
         <div className="gagcalc-shell">
           <div className="gagcalc-tab-body">
             {tab === 'Gag Calculator' && <CalculatorTab />}
