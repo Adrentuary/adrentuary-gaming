@@ -20,7 +20,7 @@ export function CalculatorTab() {
   const [luredByPrestige, setLuredByPrestige] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
   const [debuffCount, setDebuffCount] = useState<number>(0);
-  // activeIous: track → total IOU bonus applied (selectedBonus × count, 0 = none) — fed into calc
+  // activeIous: track → per-toon IOU bonus (the single IOU's bonus value, 0 = none)
   const [activeIous, setActiveIous] = useState<Partial<Record<IouTrackKey, number>>>({});
   // activeIouCounts: track → how many toons using this IOU (1–4)
   const [activeIouCounts, setActiveIouCounts] = useState<Partial<Record<IouTrackKey, number>>>({});
@@ -39,8 +39,8 @@ export function CalculatorTab() {
   const rainBonus = rainActive ? 20 : 0;
 
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked),
-    [selectedGags, isLured, debuffCount, activeIous, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked],
+    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, activeIouCounts, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked),
+    [selectedGags, isLured, debuffCount, activeIous, activeIouCounts, rainBonus, luredByGagIdx, luredByPrestige, customKb, isSoaked],
   );
 
   // Show debuff selector only when Prestige Drop is in the combo
@@ -57,7 +57,8 @@ export function CalculatorTab() {
       setActiveIouCounts(prevCounts => {
         const currentCount = currentSelected === bonus ? (prevCounts[track] ?? 0) : 0;
         const nextCount = currentCount >= 4 ? 0 : currentCount + 1;
-        setActiveIous(prevBonus => ({ ...prevBonus, [track]: bonus * nextCount }));
+        // Store per-toon bonus (not pre-multiplied); count is stored separately in activeIouCounts
+        setActiveIous(prevBonus => ({ ...prevBonus, [track]: nextCount > 0 ? bonus : 0 }));
         return { ...prevCounts, [track]: nextCount };
       });
       return { ...prevSel, [track]: bonus };
@@ -278,10 +279,12 @@ export function CalculatorTab() {
               {IOU_GAG_TRACKS.map(trackKey => {
                 const trackData   = CC_GAG_TRACKS.find(t => t.key === trackKey)!;
                 const trackIous   = IOU_DATA.filter(i => i.track === trackKey);
-                const activeBonus   = activeIous[trackKey] ?? 0;
+                const activeBonus   = activeIous[trackKey] ?? 0;   // per-toon bonus value
                 const activeCount   = activeIouCounts[trackKey] ?? 0;
                 const selectedBonus = activeIouSelected[trackKey] ?? 0;
                 const isLureTrack   = trackKey === 'lure';
+                // Display: show per-toon bonus × count (max possible if all gags covered)
+                const displayBonus  = activeBonus * activeCount;
                 return (
                   <div key={trackKey} className="gagcalc-iou-track-group">
                     <div className="gagcalc-iou-track-header">
@@ -295,9 +298,9 @@ export function CalculatorTab() {
                       {isLureTrack && (
                         <span className="gagcalc-iou-track-sub">+KB</span>
                       )}
-                      {activeBonus > 0 && (
+                      {displayBonus > 0 && (
                         <span className="gagcalc-iou-active-badge">
-                          +{activeBonus} {isLureTrack ? 'KB' : trackKey === 'toon-up' ? 'heal' : 'dmg'}
+                          +{displayBonus} {isLureTrack ? 'KB' : trackKey === 'toon-up' ? 'heal' : 'dmg'}
                         </span>
                       )}
                     </div>

@@ -124,7 +124,8 @@ export function calcTotalDamage(
   isLured: boolean,
   cogType: CogType = 'standard',
   debuffCount: number = 0,
-  activeIous: Partial<Record<IouTrackKey, number>> = {},
+  activeIous: Partial<Record<IouTrackKey, number>> = {},       // per-toon bonus value per track
+  activeIouCounts: Partial<Record<IouTrackKey, number>> = {},  // number of toons with that IOU
   rainIouBonus: number = 0,
   luredByGagIdx: number = -1,
   luredByPrestige: boolean = false,
@@ -150,9 +151,13 @@ export function calcTotalDamage(
   const kbValue = customKb !== undefined ? customKb : getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
 
-  // IOU: Lure IOU adds flat bonus to knockback value; Rain does NOT boost KB
-  const lureIouBonus = activeIous['lure'] ?? 0;
-  const effectiveKbValue = kbValue > 0 ? kbValue + lureIouBonus : kbValue;
+  // IOU: Lure IOU adds flat bonus to knockback value; Rain does NOT boost KB.
+  // Each Lure IOU use applies to one KB-receiving gag (Throw/Squirt).
+  const lureIouPerToon  = activeIous['lure'] ?? 0;
+  const lureIouCount    = activeIouCounts['lure'] ?? 0;
+  const numKbGags       = gags.filter(g => trackGetsKnockback(g.track)).length;
+  const effectiveLureIouBonus = lureIouPerToon * Math.min(lureIouCount, numKbGags || 1);
+  const effectiveKbValue = kbValue > 0 ? kbValue + effectiveLureIouBonus : kbValue;
 
   let total = 0, totalKnockback = 0, totalExecBonus = 0,
       totalComboBonus = 0, totalDebuffBonus = 0, totalIouBonus = 0;
@@ -166,11 +171,13 @@ export function calcTotalDamage(
     const comboBonus  = CC_GAG_TRACKS.find(t => t.key === track)!.comboBonus;
     const getsKb      = hasKb && !hasSound && trackGetsKnockback(track);
 
-    // IOU flat bonus for this track — added ONCE to the track total, not per gag.
-    // activeIous[track] already stores bonus × toonCount (e.g. Barnacle Bessie ×2 = 160).
+    // IOU flat bonus for this track:
+    //   Each IOU use applies to ONE gag in the combo. With N toons' IOUs and M gags,
+    //   min(N, M) gags each get +bonus → total = bonus × min(count, numGags).
     // Rain IOU is handled separately (added once to the grand total at the end).
-    const trackIouFlat = activeIous[track as GagTrackKey] ?? 0;
-    const trackIouTotal = trackIouFlat; // Rain excluded — it's added at grand-total level
+    const trackIouPerToon = activeIous[track as GagTrackKey] ?? 0;
+    const trackIouCount   = activeIouCounts[track as GagTrackKey] ?? 0;
+    const trackIouTotal   = trackIouPerToon * Math.min(trackIouCount, group.length);
 
     let sumBase: number;
     let iouBonusThisTrack = 0;
