@@ -14,7 +14,7 @@ export default function Calculator() {
         <p className="eyebrow">Wizard101</p>
         <h1>Pet Calculator</h1>
       </div>
-      <section className="interior-section pet-calc-section">
+      <section className="pet-calc-section">
         <p className="kicker">Calculator</p>
         <h2>Enter pet stats</h2>
         <PetCalculator />
