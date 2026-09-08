@@ -411,8 +411,8 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .laff-pg-cell{display:inline-flex;align-items:center;gap:10px}
 .laff-pg-icon-wrap{flex-shrink:0}
 .laff-pg-icon{display:block;object-fit:contain;width:24px;height:24px}
-.toon-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden}
-.toon-card-header{background:#0d1218;padding:10px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+.toon-card{background:#0a100a;border:2px solid var(--tc,#4ade80);border-radius:14px;overflow:hidden}
+.toon-card-header{background:color-mix(in srgb,var(--tc,#4ade80) 18%,#080c08);padding:10px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
 .toon-card-header-btn{width:100%;border:none;font:inherit;cursor:pointer;text-align:left;transition:filter .14s}
 .toon-card-header-btn:hover{filter:brightness(1.12)}
 .toon-card-dot{width:10px;height:10px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
