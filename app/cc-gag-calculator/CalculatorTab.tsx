@@ -294,6 +294,9 @@ function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, 
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
       )}
+      {breakdown.zapNeedsSoak && (
+        <p className="gagcalc-warn">⚠ Zap requires the Cog to be Soaked — add a Squirt gag to this combo.</p>
+      )}
       {hasDmg && <DamageResult breakdown={breakdown} />}
     </>
   );

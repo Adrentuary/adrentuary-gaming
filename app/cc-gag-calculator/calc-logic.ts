@@ -104,6 +104,7 @@ export interface DamageBreakdown {
   debuffBonus: number;
   iouBonus: number;
   trapNeedsLure: boolean;
+  zapNeedsSoak: boolean;
 }
 
 export function calcTotalDamage(
@@ -125,8 +126,12 @@ export function calcTotalDamage(
   const hasLure    = gags.some(g => g.track === 'lure');
   const hasTrap    = gags.some(g => g.track === 'trap');
   const hasSound   = gags.some(g => g.track === 'sound');
+  const hasZap     = gags.some(g => g.track === 'zap');
+  const hasSquirt  = gags.some(g => g.track === 'squirt');
   const lureActive = isLured || hasLure;
   const trapNeedsLure = hasTrap && !lureActive;
+  // Zap requires the cog to be soaked (hit by Squirt this round or previously)
+  const zapNeedsSoak = hasZap && !hasSquirt;
 
   const kbValue = getKnockbackValue(gags, isLured, luredByGagIdx, luredByPrestige);
   const hasKb   = kbValue > 0;
@@ -208,5 +213,5 @@ export function calcTotalDamage(
 
   return { total, knockback: totalKnockback, execBonus: totalExecBonus,
            comboBonus: totalComboBonus, debuffBonus: totalDebuffBonus,
-           iouBonus: totalIouBonus, trapNeedsLure };
+           iouBonus: totalIouBonus, trapNeedsLure, zapNeedsSoak };
 }
