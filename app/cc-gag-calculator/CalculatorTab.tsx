@@ -62,7 +62,7 @@ export function CalculatorTab() {
   }
 
   function addGag(track: GagTrackKey, trackIdx: number, gagIdx: number) {
-    setSelectedGags(prev => [...prev, { id: nextId++, track, trackIdx, gagIdx, isPrestige: false }]);
+    setSelectedGags(prev => prev.length >= 4 ? prev : [...prev, { id: nextId++, track, trackIdx, gagIdx, isPrestige: false }]);
   }
   function removeGag(id: number) { setSelectedGags(prev => prev.filter(g => g.id !== id)); }
   function togglePrestige(id: number) {
