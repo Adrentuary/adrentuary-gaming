@@ -220,7 +220,7 @@ export function CalculatorTab() {
                 ★ Prestige Drop — Debuffs on Cog
               </label>
               <div className="gagcalc-debuff-btns">
-                {[0, 1, 2, 3].map(n => (
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
                   <button
                     key={n}
                     className={`gagcalc-debuff-btn${debuffCount === n ? ' gagcalc-debuff-btn--on' : ''}`}
@@ -232,10 +232,13 @@ export function CalculatorTab() {
               </div>
             </div>
             <p className="gagcalc-debuff-note">
-              {debuffCount === 0 && <span className="gagcalc-muted">No debuff bonus applied.</span>}
-              {debuffCount === 1 && <span>+10% damage (Dazed / Marked for Laugh / Soaked / other)</span>}
-              {debuffCount === 2 && <span>+15% damage (2 active debuffs)</span>}
-              {debuffCount === 3 && <span>+20% damage (3 active debuffs)</span>}
+              {debuffCount === 0
+                ? <span className="gagcalc-muted">No debuff bonus applied.</span>
+                : <span>
+                    +{(10 + (debuffCount - 1) * 5)}% damage on prestige drops
+                    <span className="gagcalc-muted"> · Dazed · Marked for Laugh · Soaked · Sued · Explosion Imminent! · Red Thread · Can't Dodge · Frozen · Aggrandize · Kickback</span>
+                  </span>
+              }
             </p>
           </div>
         )}

@@ -27,12 +27,23 @@ export function getGagDamage(
   return base;
 }
 
-// ── Prestige Drop debuff boost (wiki exact values, rounded DOWN) ──────────────
-// debuffs: 0 = no prestige, 1 = +10%, 2 = +15%, 3 = +20% (additive 5% per extra)
-export function applyPrestigeDropDebuff(baseDmg: number, debuffCount: number): number {
+// ── Prestige Drop debuff boost (wiki exact values) ────────────────────────────
+// debuffCount: number of active debuffs on the cog (0 = none)
+//   1 debuff  → +10% damage
+//   2 debuffs → +15% damage  (additive +5% per additional debuff)
+//   3 debuffs → +20% damage, etc.
+// Rounding: floor by default; ceil when a Drop IOU (or other external multiplier)
+// is active, per wiki — "Drop IOUs will make non-integer values round up."
+// Applied PER PRESTIGE DROP GAG individually (non-prestige drops are unaffected).
+export function applyPrestigeDropDebuff(
+  baseDmg: number,
+  debuffCount: number,
+  hasDropIou: boolean = false,
+): number {
   if (debuffCount <= 0) return baseDmg;
-  const pct = 0.10 + (debuffCount - 1) * 0.05; // 10%, 15%, 20%
-  return Math.floor(baseDmg * (1 + pct)); // rounded DOWN per wiki
+  const pct = 0.10 + (debuffCount - 1) * 0.05; // 10%, 15%, 20%, 25%, …
+  const raw = baseDmg * (1 + pct);
+  return hasDropIou ? Math.ceil(raw) : Math.floor(raw);
 }
 
 // ── Track count helper ────────────────────────────────────────────────────────
@@ -188,12 +199,26 @@ export function calcTotalDamage(
     const afterExec = track === 'trap' ? Math.ceil(sumBase * execMult) : sumBase;
     const execBonusThisTrack = afterExec - sumBase;
 
-    // Prestige Drop debuff boost (rounded DOWN per wiki)
-    // Note: Prestige Drop IOU stacks multiplicatively with debuff boost per wiki
+    // Prestige Drop debuff boost — applied PER PRESTIGE DROP GAG (not to the whole sum)
+    // Non-prestige drops in the same combo are NOT boosted.
+    // When a Drop IOU is active, non-integer results round UP instead of DOWN (per wiki).
     let afterDebuff = afterExec;
     let debuffBonusThisTrack = 0;
     if (track === 'drop' && anyPrestige && debuffCount > 0) {
-      afterDebuff = applyPrestigeDropDebuff(afterExec, debuffCount);
+      const hasDropIou = (activeIous['drop'] ?? 0) > 0 || rainIouBonus > 0;
+      // Re-calculate: prestige gags get debuff-boosted base; non-prestige gags keep plain base.
+      // IOU flat is already baked into sumBase; we need per-gag bases to split correctly.
+      let rebuiltSum = 0;
+      for (let i = 0; i < group.length; i++) {
+        const g = group[i];
+        const base = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
+        const iouFlat = trackIouFlat + (i === 0 ? rainIouBonus : 0);
+        const gagBase = base + iouFlat;
+        rebuiltSum += g.isPrestige
+          ? applyPrestigeDropDebuff(gagBase, debuffCount, hasDropIou)
+          : gagBase;
+      }
+      afterDebuff = rebuiltSum;
       debuffBonusThisTrack = afterDebuff - afterExec;
     }
 
