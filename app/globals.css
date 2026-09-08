@@ -64,7 +64,7 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gagcalc-inline-chip--active{outline:none}
 .gagcalc-inline-chip-name{font-size:9px;font-weight:700;color:var(--muted);text-align:center;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}
 .gagcalc-inline-chip--active .gagcalc-inline-chip-name{color:var(--ink)}
-.gagcalc-inline-chip-stat{font-size:10px;font-weight:900;line-height:1}
+.gagcalc-inline-chip-stat{font-size:10px;font-weight:900;line-height:1;cursor:text;border-radius:3px;padding:1px 3px;transition:background .12s}.gagcalc-inline-chip-stat:hover{background:rgba(255,255,255,.08)}.gagcalc-inline-chip-stat--custom{text-decoration:underline dotted;text-underline-offset:2px}.gagcalc-chip-kb-input{width:44px;font-size:10px;font-weight:900;line-height:1;text-align:center;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:1px 3px;font-family:inherit;-moz-appearance:textfield;outline:none}.gagcalc-chip-kb-input::-webkit-inner-spin-button,.gagcalc-chip-kb-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .gagcalc-lure-pres-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font:inherit;background:none;border:none;padding:2px 0}
 .gagcalc-lure-pres-toggle input{display:none}
 .gagcalc-lure-pres-box{width:14px;height:14px;border:1px solid #2a4a2a;border-radius:3px;background:#0d180d;flex-shrink:0;position:relative;transition:border-color .15s,background .15s}

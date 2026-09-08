@@ -32,6 +32,9 @@ export function CalculatorTab() {
   const [customKb, setCustomKb] = useState<number | undefined>(undefined);
   // Cog was soaked by Squirt last round — suppresses Zap warning without adding damage
   const [isSoaked, setIsSoaked] = useState(false);
+  // Inline KB editing on lure chips
+  const [editingChipKb, setEditingChipKb] = useState<number | null>(null);
+  const [editKbDraft, setEditKbDraft] = useState('');
 
   const rainBonus = rainActive ? 20 : 0;
 
@@ -133,20 +136,54 @@ export function CalculatorTab() {
                     {track.gags.map((gag, gi) => {
                       const lureData = LURE_GAG_DATA[gi];
                       const isSelected = luredByGagIdx === gi;
-                      const kbVal = isSelected && luredByPrestige ? lureData.knockbackPrestige : lureData.knockback;
+                      const baseKbVal = isSelected && luredByPrestige ? lureData.knockbackPrestige : lureData.knockback;
+                      const displayKbVal = isSelected && customKb !== undefined ? customKb : baseKbVal;
+                      const isEditingThis = editingChipKb === gi;
+                      function commitChipKb() {
+                        const n = Number(editKbDraft);
+                        if (!isNaN(n) && n >= 0) setCustomKb(n === baseKbVal ? undefined : n);
+                        setEditingChipKb(null);
+                      }
                       return (
                         <button
                           key={gi}
                           className={`gagcalc-inline-chip${isSelected ? ' gagcalc-inline-chip--active' : ''}`}
                           style={isSelected ? { borderColor: track.color, background: track.headerColor } : {}}
                           onClick={() => {
-                            if (isSelected) { setLuredByGagIdx(-1); setLuredByPrestige(false); }
-                            else { setLuredByGagIdx(gi); setLuredByPrestige(false); }
+                            if (isSelected) { setLuredByGagIdx(-1); setLuredByPrestige(false); setCustomKb(undefined); }
+                            else { setLuredByGagIdx(gi); setLuredByPrestige(false); setCustomKb(undefined); setEditingChipKb(null); }
                           }}
                         >
                           <Image src={`/icons/gags/small/lure/${gag.icon}`} alt={gag.name} width={28} height={28} unoptimized className="gagcalc-gag-img" />
                           <span className="gagcalc-inline-chip-name">{gag.name}</span>
-                          <span className="gagcalc-inline-chip-stat" style={{ color: track.labelColor }}>{kbVal} KB</span>
+                          {isEditingThis ? (
+                            <input
+                              className="gagcalc-chip-kb-input"
+                              type="number"
+                              min={0}
+                              value={editKbDraft}
+                              autoFocus
+                              onClick={e => e.stopPropagation()}
+                              onChange={e => setEditKbDraft(e.target.value)}
+                              onKeyDown={e => {
+                                if (e.key === 'Enter') { e.preventDefault(); commitChipKb(); }
+                                if (e.key === 'Escape') { setEditingChipKb(null); }
+                              }}
+                              onBlur={commitChipKb}
+                              style={{ color: track.labelColor }}
+                            />
+                          ) : (
+                            <span
+                              className={`gagcalc-inline-chip-stat${isSelected && customKb !== undefined ? ' gagcalc-inline-chip-stat--custom' : ''}`}
+                              style={{ color: track.labelColor }}
+                              title="Click to edit KB value"
+                              onClick={e => {
+                                e.stopPropagation();
+                                setEditingChipKb(gi);
+                                setEditKbDraft(String(displayKbVal));
+                              }}
+                            >{displayKbVal} KB</span>
+                          )}
                         </button>
                       );
                     })}
