@@ -284,3 +284,149 @@ const BB_SEAWEED: StreetShopData = {
   ],
 };
 STREET_SHOPS[`BB|Seaweed Street`] = BB_SEAWEED;
+
+/* ─── Ye Olde Toontowne shared tasks ──────────────────────────── */
+const TASK_EXECUTING_JJ = { name: `Executing The Executives`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Executing_The_Executives`, steps: [
+  { text: `Visit Al Kemical at Toon HQ (594 XP, 17 JBS)` },
+  { text: `Visit Sir Prysin at Demon Slayers on Wizard Way (594 XP, 17 JBS)` },
+  { text: `Visit Jongleur Jocelyn at Jesters and Jousters on Knight Knoll (594 XP, 17 JBS)` },
+  { text: `Return to Jongleur Jocelyn at Jesters and Jousters on Knight Knoll (594 XP, 17 JBS)`, sub: `Recover 3 Juggling Sticks from The Cogs in Ye Olde Toontowne` },
+  { text: `Visit Mad Ernage at Brain Over Bronze on Wizard Way (594 XP, 17 JBS)` },
+  { text: `Return to Jongleur Jocelyn (4157 XP, 117 JBS, Conquistador Helmet)`, sub: `Defeat 3 Level 5+ Cogs Anywhere` },
+], reward: `4157 XP - 117 JBS - Conquistador Helmet` };
+const TASK_COG_BASH = { name: `Ye Olde Cog Bash!`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Cog_Bash!`, steps: [
+  { text: `Visit Patsy at The Holy Grail & Other Useless Dinnerware on Knight Knoll (392 XP, 11 JBS)` },
+  { text: `Visit Moneyer Mason at the Half-Bean Bank on Knight Knoll (392 XP, 11 JBS)`, sub: `Defeat 5 Sellbots Anywhere` },
+  { text: `Visit Merlin Ambrice at Rayvenward School of Magical Arts on Wizard Way (392 XP, 11 JBS)`, sub: `Defeat 6 Cashbots Anywhere` },
+  { text: `Visit Marry Paston at the Platemail Post Office on Noble Nook (3918 XP, 111 JBS)`, sub: `Defeat 6 Lawbots Anywhere` },
+  { text: `Visit Steamed Bams at The Dungeon Luncheon on Noble Nook (885 XP, 25 JBS)`, sub: `Defeat 7 Bossbots Anywhere` },
+  { text: `Visit Enna Chantment at Toon HQ (4424 XP, 125 JBS)`, sub: `Defeat 7 Boardbots Anywhere` },
+], reward: `4424 XP - 125 JBS (final step)` };
+const TASK_PAGE_STUDYING = { name: `Page Studying 101`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Page_Studying_101`, steps: [
+  { text: `Visit Archduke Arthur at Arthur's Barns & Nobles on Knight Knoll` },
+  { text: `Return to Archduke Arthur at Arthur's Barns & Nobles on Knight Knoll`, sub: `Defeat 30 Level 6+ Cogs Anywhere` },
+  { text: `Return to Archduke Arthur at Arthur's Barns & Nobles on Knight Knoll`, sub: `Defeat 20 Level 7+ Cogs Anywhere` },
+], reward: `6148 XP - Knight Outfit - 300 JBS` };
+const TASK_NOT_SO_TALL = { name: `Not-So-Tall Tales`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Not-So-Tall_Tales`, steps: [
+  { text: `Visit Thea Troubadour at Troubadour's Tall Tales on Knight Knoll` },
+  { text: `Return to Thea Troubadour at Troubadour's Tall Tales on Knight Knoll`, sub: `Defeat 15 Micromanagers Anywhere` },
+], reward: `6032 XP - Small Head Cheesy Effect - 300 JBS` };
+const TASK_MIDLIFE = { name: `Midlife Crisis`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Midlife_Crisis`, steps: [
+  { text: `Visit Youthful Yannis at Middle Age Crisis Center on Wizard Way` },
+  { text: `Return to Youthful Yannis at Middle Age Crisis Center on Wizard Way`, sub: `Defeat 10 Level 5+ Cogs Anywhere` },
+  { text: `Return to Youthful Yannis at Middle Age Crisis Center on Wizard Way`, sub: `Defeat 5 Double Talkers Anywhere` },
+  { text: `Return to Youthful Yannis (Poetic Nametag Awarded)`, sub: `Deliver a Level 5 Gag to Youthful Yannis` },
+  { text: `Return to Youthful Yannis at Middle Age Crisis Center on Wizard Way`, sub: `Defeat 2 Three+ Story Cog Buildings Anywhere` },
+  { text: `Return to Youthful Yannis at Middle Age Crisis Center on Wizard Way`, sub: `Defeat 10 Level 5+ Cogs Anywhere` },
+  { text: `Return to Youthful Yannis at Middle Age Crisis Center on Wizard Way`, sub: `Defeat 5 Bloodsuckers Anywhere` },
+], reward: `6224 XP - Transparent Cheesy Effect - Poetic Nametag Font - 300 JBS` };
+const TASK_GOLDEN_PENNY = { name: `The Golden Penny`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/The_Golden_Penny`, steps: [
+  { text: `Visit Tumbles in the Ye Olde Toontowne Playground` },
+  { text: `Return to Tumbles in the YOTT Playground`, sub: `Recover A Golden Penny from a Cashbot Cog Building Anywhere` },
+  { text: `Deliver A Golden Penny to Al Bumbledorf at Elder Headquarters in the YOTT Playground` },
+  { text: `Deliver A Monocle to Al Bumbledorf at Elder Headquarters in the YOTT Playground`, sub: `Recover A Monocle from Shark Watchers Anywhere` },
+  { text: `Deliver A Gold Penny to Merlin Ambrice at Rayvenward - School of Magical Arts on Wizard Way` },
+  { text: `Return to Merlin Ambrice at Rayvenward - School of Magical Arts on Wizard Way`, sub: `Defeat 10 Cashbots in Ye Olde Toontowne` },
+  { text: `Deliver A Chocolate Coin to Tumbles in the Ye Olde Toontowne Playground` },
+], reward: `6354 XP - Casting Profile Pose - 300 JBS` };
+const TASK_ADVENTURER = { name: `Used To Be An Adventurer`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Used_To_Be_An_Adventurer`, steps: [
+  { text: `Visit Ariel Septim VII at Arrow to the Knee on Noble Nook` },
+  { text: `Return to Ariel Septim VII at Arrow to the Knee on Noble Nook`, sub: `Recover 5 Strong Wires from The Cogs in Ye Olde Toontowne` },
+  { text: `Return to Ariel Septim VII at Arrow to the Knee on Noble Nook`, sub: `Defeat 15 Level 6+ Cogs in Ye Olde Toontowne` },
+  { text: `Return to Ariel Septim VII at Arrow to the Knee on Noble Nook`, sub: `Recover A Bandage from Spin Doctors Anywhere` },
+], reward: `6176 XP - Teleport Access to Ye Olde Toontowne - 300 JBS` };
+const TASK_DUNGEON_DUTY = { name: `Dungeon Duty`, type: `Sidetask`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Dungeon_Duty`, steps: [
+  { text: `Visit Doyle N. Trouble in The Dungeon (YOTT Playground)` },
+  { text: `Return to Doyle N. Trouble in The Dungeon`, sub: `Recover 5 Money Bags from Money Bags Anywhere` },
+  { text: `Visit Steamed Bams at The Dungeon Luncheon on Noble Nook` },
+  { text: `Return to Steamed Bams at The Dungeon Luncheon on Noble Nook`, sub: `Defeat 20 Level 5+ Cogs in Ye Olde Toontowne` },
+  { text: `Deliver Some Food to Doyle N. Trouble in The Dungeon` },
+  { text: `Return to Doyle N. Trouble in The Dungeon`, sub: `Recover Some Mechanical Pieces from a Cog Building in Ye Olde Toontowne` },
+], reward: `12,128 XP - 600 JBS` };
+
+const YOTT_KNIGHT: StreetShopData = {
+  streetName: `Knight Knoll`, neighborhood: `Ye Olde Toontowne`,
+  mainMap: `/icons/streets/Ye-Olde-Toontowne/Knight-Knoll/knight-knoll-main-map.png`,
+  shopsBase: `/icons/streets/Ye-Olde-Toontowne/Knight-Knoll`,
+  shops: [
+    { name: `Weapons in a Fortnight`, owner: `Epoch James`, ownerImg: `EpochJames.png`, mapImg: `WeaponsInAFortnightMapLocation.png`, shopImg: `WeaponsInAFortnight.png`, tasks: [] },
+    { name: `Cheese Steak Jimmy's`, owner: `Jimmy Wallace`, ownerImg: `JimmyWallace.png`, mapImg: `CheeseSteakJimmy'sMapLocation.png`, shopImg: `CheeseSteakJimmy's.png`, tasks: [] },
+    { name: `Killer Hares Barber Shop`, owner: `Barber Caerbannog`, ownerImg: `BarberCaerbannog.png`, mapImg: `KillerHaresBarberShopMapLocation.png`, shopImg: `KillerHaresBarberShop.png`, tasks: [] },
+    { name: `Burn Them at the Steak!`, owner: `Steward Selina`, ownerImg: `StewardSelina.png`, mapImg: `BurnThemAtTheSteakMapLocation.png`, shopImg: `BurnThemAtTheSteak.png`, tasks: [] },
+    { name: `Witches Get Stitches`, owner: `Constable Conrad`, ownerImg: `ConstableConrad.png`, mapImg: `WitchesGetStitchesMapLocation.png`, shopImg: `WitchesGetStitches.png`, tasks: [] },
+    { name: `Crossbow Puzzles`, owner: `Little Prince`, ownerImg: `LittlePrince.png`, mapImg: `CrossbowPuzzlesMapLocation.png`, shopImg: `CrossbowPuzzles.png`, tasks: [] },
+    { name: `Jesters and Jousters`, owner: `Jongleur Jocelyn`, ownerImg: `JongleurJocelyn.png`, mapImg: `JestersAndJoustersMapLocation.png`, shopImg: `JestersAndJousters.png`, tasks: [TASK_EXECUTING_JJ] },
+    { name: `Troubadour's Tall Tales`, owner: `Thea Troubadour`, ownerImg: `TheaTroubadour.png`, mapImg: `Troubadour'sTallTalesMapLocation.png`, shopImg: `Troubadour'sTallTales.png`, tasks: [TASK_NOT_SO_TALL] },
+    { name: `Serf's Up!`, owner: `Serf Simon`, ownerImg: `SerfSimon.png`, mapImg: `Serf'sUpMapLocation.png`, shopImg: `Serf'sUp.png`, tasks: [] },
+    { name: `Dungeons, Dragons, and Donjons`, owner: `Nichola Nomad`, ownerImg: `NicholaNomad.png`, mapImg: `DungeonsDragonsAndDonjonsMapLocation.png`, shopImg: `DungeonsDragonsAndDonjons.png`, tasks: [] },
+    { name: `Frederick's Fletchings and Bows`, owner: `Fletcher Frederick`, ownerImg: `FletcherFrederick.png`, mapImg: `Frederick'sFletchingsAndBowsMapLocation.png`, shopImg: `Frederick'sFletchingsAndBows.png`, tasks: [] },
+    { name: `Kings, Queens, and Aces`, owner: `Joker Juliana`, ownerImg: `JokerJuliana.png`, mapImg: `KingsQueensAndAcesMapLocation.png`, shopImg: `KingsQueensAndAces.png`, tasks: [] },
+    { name: `Hilt and Blade Weaponry`, owner: `Blacksmith Estoc`, ownerImg: `BlacksmithEstoc.png`, mapImg: `HiltAndBladeWeaponryMapLocation.png`, shopImg: `HiltAndBladeWeaponry.png`, tasks: [{ name: `Executing The Executives (cont.)`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Executing_The_Executives`, steps: [{ text: `Visit Blacksmith Estoc at Hilt & Blade Weaponry on Knight Knoll (1790 XP, 50 JBS)` }, { text: `Return to Blacksmith Estoc at Hilt & Blade Weaponry on Knight Knoll (5371 XP, 150 JBS, Pirate Sword)`, sub: `Recover Some Sword Materials from A Cog Building in Ye Olde Toontowne` }], reward: `5371 XP - 150 JBS - Pirate Sword` }] },
+    { name: `The Holy Grail & Other Useless Dinnerware`, owner: `Patsy`, ownerImg: `Patsy.png`, mapImg: `TheHolyGrailMapLocation.png`, shopImg: `TheHolyGrail.png`, tasks: [TASK_COG_BASH] },
+    { name: `Arthur's Barns and Nobles`, owner: `Archduke Arthur`, ownerImg: `ArchdukeArthur.png`, mapImg: `Arthur'sBarnsAndNoblesMapLocation.png`, shopImg: `Arthur'sBarnsAndNobles.png`, tasks: [TASK_PAGE_STUDYING] },
+    { name: `Half-Bean Bank`, owner: `Moneyer Mason`, ownerImg: `MoneyerMason.png`, mapImg: `Half-BeanBankMapLocation.png`, shopImg: `Half-BeanBank.png`, tasks: [] },
+    { name: `Installation Wizard`, owner: `Marty Python`, ownerImg: `MartyPython.png`, mapImg: `InstallationWizardMapLocation.png`, shopImg: `InstallationWizard.png`, tasks: [] },
+    { name: `Perpetual Stew - For You to Chew`, owner: `Peasant Peter`, ownerImg: `PeasantPeter.png`, mapImg: `PerpetualStewMapLocation.png`, shopImg: `PerpetualStew.png`, tasks: [] },
+    { name: `Enchantments and Spellbinding`, owner: `Tim the Enchanter`, ownerImg: `TimTheEnchanter.png`, mapImg: `EnchantmentsAndSpellbindingMapLocation.png`, shopImg: `EnchantmentsAndSpellbinding.png`, tasks: [] },
+    { name: `Camel-lot`, owner: `King Arture`, ownerImg: `KingArture.png`, mapImg: `Camel-lotMapLocation.png`, shopImg: `Camel-lot.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`YOTT|Knight Knoll`] = YOTT_KNIGHT;
+
+const YOTT_NOBLE: StreetShopData = {
+  streetName: `Noble Nook`, neighborhood: `Ye Olde Toontowne`,
+  mainMap: `/icons/streets/Ye-Olde-Toontowne/Noble-Nook/noble-nook-main-map.png`,
+  shopsBase: `/icons/streets/Ye-Olde-Toontowne/Noble-Nook`,
+  shops: [
+    { name: `Tailor's Tales`, owner: `Allan A. Dale`, ownerImg: `AllanA.Dale.png`, mapImg: `Tailor'sTalesMapLocation.png`, shopImg: `Tailor'sTales.png`, tasks: [] },
+    { name: `Taken for Granite`, owner: `Dagger`, ownerImg: `Dagger.png`, mapImg: `TakenForGraniteMapLocation.png`, shopImg: `TakenForGranite.png`, tasks: [] },
+    { name: `The Dungeon Luncheon`, owner: `Steamed Bams`, ownerImg: `SteamedBams.png`, mapImg: `TheDungeonLuncheonMapLocation.png`, shopImg: `TheDungeonLuncheon.png`, tasks: [TASK_COG_BASH, TASK_DUNGEON_DUTY] },
+    { name: `Bites for Knights`, owner: `Chef Lambert`, ownerImg: `ChefLambert.png`, mapImg: `BitesForKnightsMapLocation.png`, shopImg: `BitesForKnights.png`, tasks: [] },
+    { name: `A-Fort-Able Housing`, owner: `Gentry Gary`, ownerImg: `GentryGary.png`, mapImg: `A-Fort-AbleHousingMapLocation.png`, shopImg: `A-Fort-AbleHousing.png`, tasks: [{ name: `Ye Olde Restoration Project`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Magus Bizzy at Witchcraft? Hobby Helpers on Wizard Way (402 XP, 11 JBS)` }, { text: `Visit Gentry Gary at A-FORT-Able Housing on Noble Nook (402 XP, 11 JBS)` }, { text: `Return to Gentry Gary (402 XP, 11 JBS)`, sub: `Defeat 5 Level 5+ Cogs Anywhere` }, { text: `Visit Cleric Cecily at Dark Ages - Sleep Studies on Noble Nook (402 XP, 11 JBS)` }, { text: `Return 8 Wiring to Gentry Gary (402 XP, 11 JBS)`, sub: `Recover 8 Wiring from The Cogs Anywhere` }], reward: `Part of Ye Olde Restoration Project mainline chain` }] },
+    { name: `Webster's Olde Dictionaries`, owner: `Webster`, ownerImg: `Webster.png`, mapImg: `Webster'sOldeDictionariesMapLocation.png`, shopImg: `Webster'sOldeDictionaries.png`, tasks: [] },
+    { name: `Round Table Eatery`, owner: `Hind Harry`, ownerImg: `HindHenry.png`, mapImg: `RoundTableEateryMapLocation.png`, shopImg: `RoundTableEatery.png`, tasks: [] },
+    { name: `Caltrops Gumdrops`, owner: `Pantler Peter`, ownerImg: `PantlerPeter.png`, mapImg: `CaltropsGumdropsMapLocation.png`, shopImg: `CaltropsGumdrops.png`, tasks: [] },
+    { name: `Trebuchet Buffet`, owner: `Friar Richard`, ownerImg: `FriarRichard.png`, mapImg: `TrebuchetBuffetMapLocation.png`, shopImg: `TrebuchetBuffet.png`, tasks: [] },
+    { name: `Draw-Bridge Art Academy`, owner: `Bailey`, ownerImg: `Bailey.png`, mapImg: `Draw-BridgeArtAcademyMapLocation.png`, shopImg: `Draw-BridgeArtAcademy.png`, tasks: [{ name: `Ye Olde Restoration Project`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Bailey at Draw-Bridge Art Academy on Noble Nook (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy at Witchcraft? Hobby Helpers on Wizard Way (402 XP, 11 JBS)`, sub: `Defeat 8 Level 4+ Cogs Anywhere` }], reward: `Part of Ye Olde Restoration Project mainline chain` }] },
+    { name: `Knight and Day`, owner: `Tielo Time`, ownerImg: `TieloTime.png`, mapImg: `KnightAndDayMapLocation.png`, shopImg: `KnightAndDay.png`, tasks: [] },
+    { name: `Bonbon Ballistae`, owner: `Frank Ferdinand`, ownerImg: `FrankFerdinand.png`, mapImg: `BonbonBallistaeMapLocation.png`, shopImg: `BonbonBallistae.png`, tasks: [] },
+    { name: `Platemail Post Office`, owner: `Marry Paston`, ownerImg: `MarryPaston.png`, mapImg: `PlatemailPostOfficeMapLocation.png`, shopImg: `PlatemailPostOffice.png`, tasks: [TASK_COG_BASH, { name: `Ye Olde Missing Postage`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Missing_Postage`, steps: [{ text: `Visit Marry Paston at the Platemail Post Office on Noble Nook (887 XP, 25 JBS)` }, { text: `Return to Marry Paston at the Platemail Post Office on Noble Nook (887 XP, 25 JBS)`, sub: `Recover A Package from Micromanagers Anywhere` }, { text: `Return to Will Lusion at Toon HQ (4434 XP, 125 JBS)`, sub: `Defeat A Cog Building Anywhere` }], reward: `4434 XP - 125 JBS (final step)` }] },
+    { name: `Crusade Charades`, owner: `Rob N. Hood`, ownerImg: `RobNHood.png`, mapImg: `CrusadeCharadesMapLocation.png`, shopImg: `CrusadeCharades.png`, tasks: [] },
+    { name: `Dark Ages Sleep Studies`, owner: `Cleric Cecily`, ownerImg: `ClericCecily.png`, mapImg: `DarkAgesSleepStudiesMapLocation.png`, shopImg: `DarkAgesSleepStudies.png`, tasks: [{ name: `Ye Olde Restoration Project`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Cleric Cecily at Dark Ages - Sleep Studies on Noble Nook (402 XP, 11 JBS)` }, { text: `Return 8 Wiring to Gentry Gary (402 XP, 11 JBS)`, sub: `Recover 8 Wiring from The Cogs Anywhere` }], reward: `Part of Ye Olde Restoration Project mainline chain` }] },
+    { name: `Pitch Blacksmith`, owner: `Blacksmith Botolf`, ownerImg: `BlacksmithBotolf.png`, mapImg: `PitchBlacksmithMapLocation.png`, shopImg: `PitchBlacksmith.png`, tasks: [] },
+    { name: `Joust Leave It to Ye!`, owner: `Younice`, ownerImg: `Younice.png`, mapImg: `JoustLeaveItToYeMapLocation.png`, shopImg: `JoustLeaveItToYe.png`, tasks: [] },
+    { name: `Re-Moat-Ly Funny Fables`, owner: `Will Rakespeare`, ownerImg: `WillRakespeare.png`, mapImg: `Re-Moat_LyFunnyFablesMapLocation.png`, shopImg: `Re-Moat_LyFunnyFables.png`, tasks: [] },
+    { name: `Followed to the Leather`, owner: `Merchant Margery`, ownerImg: `MerchantMargery.png`, mapImg: `FollowedToTheLeatherMapLocation.png`, shopImg: `FollowedToTheLeather.png`, tasks: [] },
+    { name: `Squire's Square`, owner: `Squire Simon`, ownerImg: `SquireSimon.png`, mapImg: `Squire'sSquareMapLocation.png`, shopImg: `Squire'sSquare.png`, tasks: [] },
+    { name: `Arrow to the Knee`, owner: `Ariel Septim VII`, ownerImg: `ArielSeptimVII.png`, mapImg: `ArrowToTheKneeMapLocation.png`, shopImg: `ArrowToTheKnee.png`, tasks: [TASK_ADVENTURER] },
+    { name: `Fried Earthapples`, owner: `Monsieur Fyre`, ownerImg: `MonsieurFrye.png`, mapImg: `FriedEarthapplesMapLocation.png`, shopImg: `FriedEarthapples.png`, tasks: [] },
+  ],
+};
+STREET_SHOPS[`YOTT|Noble Nook`] = YOTT_NOBLE;
+
+const YOTT_WIZARD: StreetShopData = {
+  streetName: `Wizard Way`, neighborhood: `Ye Olde Toontowne`,
+  mainMap: `/icons/streets/Ye-Olde-Toontowne/Wizard-Way/wizard-way-main-map.png`,
+  shopsBase: `/icons/streets/Ye-Olde-Toontowne/Wizard-Way`,
+  shops: [
+    { name: `Critical Roles: Job Finding`, owner: `Nat Twenny`, ownerImg: `NatTwenny.png`, mapImg: `CritcalRolesJobFindingMapLocation.png`, shopImg: `CritcalRolesJobFinding.png`, tasks: [] },
+    { name: `Brain Over Bronze`, owner: `Mad Ernage`, ownerImg: `MadErnage.png`, mapImg: `BrainOverBronzeMapLocation.png`, shopImg: `BrainOverBronze.png`, tasks: [{ name: `Executing The Executives (cont.)`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Executing_The_Executives`, steps: [{ text: `Visit Mad Ernage at Brain Over Bronze on Wizard Way (594 XP, 17 JBS)` }, { text: `Return to Jongleur Jocelyn (4157 XP, 117 JBS, Conquistador Helmet)`, sub: `Defeat 3 Level 5+ Cogs Anywhere` }], reward: `Part of Executing The Executives mainline chain` }] },
+    { name: `Plague! Plague! Go Away!`, owner: `Craig Plague`, ownerImg: `CraigPlague.png`, mapImg: `PlaguePlagueGoAwayMapLocation.png`, shopImg: `PlaguePlagueGoAway.png`, tasks: [{ name: `Cog Flu`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Cog_Flu`, steps: [{ text: `Visit Craig Plague at Plague! Plague! Go Away! on Wizard Way (1182 XP, 33 JBS)` }, { text: `Deliver Some Information to Will Lusion at Toon HQ (4727 XP, 133 JBS)`, sub: `Recover 3 Info from Cogs on Knight Knoll, 3 from Noble Nook, 3 from Wizard Way` }], reward: `4727 XP - 133 JBS (final step)` }] },
+    { name: `Middle Age Crisis Center`, owner: `Youthful Yannis`, ownerImg: `YouthfulYannis.png`, mapImg: `MiddleAgeCrisisCenterMapLocation.png`, shopImg: `MiddleAgeCrisisCenter.png`, tasks: [TASK_MIDLIFE] },
+    { name: `MacBreath Mints`, owner: `Mac Breath`, ownerImg: `MacBreath.png`, mapImg: `MacBreathMintsMapLocation.png`, shopImg: `MacBreathMints.png`, tasks: [] },
+    { name: `Gerry Gemcutter's Jewelry`, owner: `Gerry Gemcutter`, ownerImg: `GerryGemcutter.png`, mapImg: `GerryGemcutter'sJewelryMapLocation.png`, shopImg: `GerryGemcutter'sJewelry.png`, tasks: [] },
+    { name: `Release Game`, owner: `Sir Owen`, ownerImg: `SirOwen.png`, mapImg: `ReleaseGameMapLocation.png`, shopImg: `ReleaseGame.png`, tasks: [] },
+    { name: `Rayvenward School of Magical Arts`, owner: `Merlin Ambrice`, ownerImg: `MerlinAmbrice.png`, mapImg: `RayvenwardSchoolOfMagicalArtsMapLocation.png`, shopImg: `RayvenwardSchoolOfMagicalArts.png`, tasks: [TASK_COG_BASH, TASK_GOLDEN_PENNY] },
+    { name: `Potion Motion Arcade`, owner: `Dude El Dug`, ownerImg: `Dude_El_Dug.png`, mapImg: `PotionMotionArcadeMapLocation.png`, shopImg: `PotionMotionArcade.png`, tasks: [] },
+    { name: `Country Fair Maiden Funnel Cakes`, owner: `Lady Lotsalard`, ownerImg: `LadyLotsalard.png`, mapImg: `CountryFairMaidenFunnelCakesMapLocation.png`, shopImg: `CountryFairMaidenFunnelCakes.png`, tasks: [] },
+    { name: `One Potion, Two Potions`, owner: `Dr. Brewce`, ownerImg: `Dr.Brewce.png`, mapImg: `OnePotionTwoPotionsMapLocation.png`, shopImg: `OnePotionTwoPotions.png`, tasks: [] },
+    { name: `Wish Upon A Starfish - Magical Aquarium`, owner: `Sparkle N. Sea`, ownerImg: `SparkleN.Sea.png`, mapImg: `WishUponAStarfishMapLocation.png`, shopImg: `WishUponAStarfishMagicalAquarium.png`, tasks: [] },
+    { name: `Demon Slayers`, owner: `Sir Prysin`, ownerImg: `SirPrysin.png`, mapImg: `DemonSlayersMapLocation.png`, shopImg: `DemonSlayers.png`, tasks: [TASK_EXECUTING_JJ] },
+    { name: `Fool's Wool`, owner: `Mitch E.`, ownerImg: `MitchE.png`, mapImg: `Fool'sWoolMapLocation.png`, shopImg: `Fool'sWool.png`, tasks: [] },
+    { name: `Horse Drawn Karts`, owner: `Joan of Park`, ownerImg: `JoanofPark.png`, mapImg: `HorseDrawnKartsMapLocation.png`, shopImg: `HorseDrawnKarts.png`, tasks: [{ name: `Ye Olde Restoration Project`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Joan of Park at Horse-drawn Karts on Wizard Way (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy at Witchcraft? Hobby Helpers (4017 XP, 111 JBS)`, sub: `Defeat 5 Executive Cogs Anywhere` }], reward: `Part of Ye Olde Restoration Project` }] },
+    { name: `Watch for De Brie! Contractors`, owner: `Sir Reezy`, ownerImg: `SirReezy.png`, mapImg: `WatchForDeBrieMapLocation.png`, shopImg: `WatchForDeBrie.png`, tasks: [] },
+    { name: `Royal Thrones Toiletries`, owner: `Percy Lane`, ownerImg: `PercyLane.png`, mapImg: `RoyalThronesToiletriesMapLocation.png`, shopImg: `RoyalThronesToiletries.png`, tasks: [{ name: `Ye Olde Restoration Project`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Percy Lane at Royal Thrones Toiletries on Wizard Way (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy (402 XP, 11 JBS)`, sub: `Recover Some Furniture from Movers & Shakers Anywhere` }], reward: `Part of Ye Olde Restoration Project` }] },
+    { name: `Witchcraft? Hobby Helpers`, owner: `Magus Bizzy`, ownerImg: `MagusBizzy.png`, mapImg: `WitchcraftHobbyHelpersMapLocation.png`, shopImg: `WitchcraftHobbyHelpers.png`, tasks: [{ name: `Ye Olde Restoration Project (hub)`, type: `Mainline Task`, wikiUrl: `https://corporateclash.wiki.gg/wiki/Ye_Olde_Toontowne_Tasks#Ye_Olde_Restoration_Project`, steps: [{ text: `Visit Magus Bizzy at Witchcraft? Hobby Helpers on Wizard Way (402 XP, 11 JBS)` }, { text: `Investigate the Wizard Way Tunnel` }, { text: `Return to Magus Bizzy (402 XP, 11 JBS)` }, { text: `Visit Bailey at Draw-Bridge Art Academy on Noble Nook (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy (402 XP, 11 JBS)`, sub: `Defeat 8 Level 4+ Cogs Anywhere` }, { text: `Visit Joan of Park at Horse-drawn Karts on Wizard Way (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy (4017 XP, 111 JBS)`, sub: `Defeat 5 Executive Cogs Anywhere` }, { text: `Visit Percy Lane at Royal Thrones Toiletries on Wizard Way (402 XP, 11 JBS)` }, { text: `Return to Magus Bizzy (402 XP, 11 JBS)`, sub: `Recover Some Furniture from Movers & Shakers Anywhere` }], reward: `Hub for Ye Olde Restoration Project chain` }] },
+  ],
+};
+STREET_SHOPS[`YOTT|Wizard Way`] = YOTT_WIZARD;

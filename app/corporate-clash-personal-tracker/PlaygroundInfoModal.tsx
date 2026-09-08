@@ -51,6 +51,33 @@ const PG_DATA: Record<string, PlaygroundData> = {
     ],
     maxBuildingsPerStreet: 3,
   },
+  YOTT: {
+    name: 'Ye Olde Toontowne',
+    pgKey: 'YOTT',
+    emblem: '/icons/playground-emblems/YOTT.png',
+    color: '#9b70cc',
+    streetManager: 'Gatekeeper',
+    streetManagerImg: '/icons/streets/Ye-Olde-Toontowne/Gatekeeper.png',
+    streetManagerTitle: 'Ye Olde Toontowne Street Manager',
+    streetManagerDept: 'Boardbot',
+    streetManagerStats: 'Level 10.mgr · 1200 HP · Defense 30',
+    facts: [
+      "Ye Olde Toontowne's Street Manager is the Gatekeeper — a Boardbot Regional Manager.",
+      '2–4 Story Cog Buildings can be found on a street.',
+      'On Noble Nook, only 2-3 Story Cog Buildings can be found.',
+      'A maximum of 6 Cog Buildings are allowed on a street at any given time.',
+      'Cog Invasions of Cogs ranging from Tiers 1-4 will affect Ye Olde Toontowne.',
+      'Knight Knoll connects to Petunia Place in Daffodil Gardens.',
+      'Noble Nook connects to Silly Street in Toontown Central.',
+      'Wizard Way is a dead-end street with no tunnel connection.',
+    ],
+    streets: [
+      { name: 'Knight Knoll', minStory: '2 Story', maxStory: '4 Story (Tier 2)' },
+      { name: 'Noble Nook',   minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Wizard Way',   minStory: '2 Story', maxStory: '4 Story (Tier 2)' },
+    ],
+    maxBuildingsPerStreet: 6,
+  },
   BB: {
     name: 'Barnacle Boatyard',
     pgKey: 'BB',
@@ -81,7 +108,7 @@ const PG_DATA: Record<string, PlaygroundData> = {
 
 const HIGHLIGHTS = [
   // Manager names
-  'Street Manager', 'Duck Shuffler', 'Deep Diver',
+  'Street Manager', 'Duck Shuffler', 'Deep Diver', 'Gatekeeper',
   // Manager departments
   'Cashbot Regional Manager', 'Boardbot Regional Manager',
   // Building info
@@ -95,6 +122,9 @@ const HIGHLIGHTS = [
   'low-level Gags',
   // BB misc
   'Toon HQ', 'The Brrrgh', 'Acorn Acres',
+  // YOTT misc
+  'Petunia Place', 'Silly Street', 'Toontown Central', 'Noble Nook', 'Knight Knoll', 'Wizard Way',
+  'Tiers 1-4', 'Tiers 1–4', '2–4 Story', '2-4 Story',
 ];
 
 function HighlightedText({ text }: { text: string }) {
