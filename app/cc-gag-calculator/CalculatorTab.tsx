@@ -247,7 +247,7 @@ export function CalculatorTab() {
                     <div className="gagcalc-iou-track-header">
                       <Image
                         src={`/icons/gags/large/${trackKey === 'toon-up' ? 'toon-up.png' : `${trackKey}-large.png`}`}
-                        alt={trackData.name} width={14} height={14} unoptimized
+                        alt={trackData.name} width={18} height={18} unoptimized
                       />
                       <span className="gagcalc-iou-track-name" style={{ color: trackData.labelColor }}>
                         {trackData.name}
@@ -468,19 +468,31 @@ function IouCard({ iou, active, count, onToggle }: {
   count: number;
   onToggle(): void;
 }) {
+  const imgSrc = `/icons/ious/${iou.icon}`;
   return (
     <button
       className={`gagcalc-iou-card${active ? ' gagcalc-iou-card--active' : ''}`}
       onClick={onToggle}
       title={`${iou.toon}: +${iou.bonus} — click to add (up to ×4 toons)`}
     >
-      {/* Placeholder image box */}
+      {/* Portrait image / placeholder */}
       <div className="gagcalc-iou-img-placeholder">
+        <Image
+          src={imgSrc}
+          alt={iou.toon}
+          width={120}
+          height={75}
+          unoptimized
+          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
         <span className="gagcalc-iou-img-icon">👤</span>
       </div>
-      <span className="gagcalc-iou-toon">{iou.toon}</span>
-      <span className="gagcalc-iou-bonus">+{iou.bonus}</span>
-      {count > 1 && <span className="gagcalc-iou-count">×{count}</span>}
+      <div className="gagcalc-iou-card-info">
+        <span className="gagcalc-iou-toon">{iou.toon}</span>
+        <span className="gagcalc-iou-bonus">+{iou.bonus}</span>
+        {count > 1 && <span className="gagcalc-iou-count">×{count}</span>}
+      </div>
     </button>
   );
 }
