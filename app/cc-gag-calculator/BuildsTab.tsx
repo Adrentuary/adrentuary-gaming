@@ -20,8 +20,14 @@ export function BuildsTab() {
     setBuild(prev => {
       const tracks = new Set(prev.tracks);
       const prestiges = new Set(prev.prestiges);
-      if (tracks.has(key)) { tracks.delete(key); prestiges.delete(key); }
-      else tracks.add(key);
+      if (tracks.has(key)) {
+        // Must keep at least 2 tracks at all times
+        if (tracks.size <= 2) return prev;
+        tracks.delete(key);
+        prestiges.delete(key);
+      } else {
+        tracks.add(key);
+      }
       return { tracks, prestiges };
     });
     setActivePreset(null);
@@ -78,27 +84,29 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, 
         </div>
       </div>
       <p className="gagbuilds-hint">
-        Click a track to unlock it <strong>(2 TP each)</strong>. Click the
-        <Image src="/icons/gags/PrestigeStar.webp" alt="star" width={12} height={12} unoptimized className="gagbuilds-inline-star" />
-        star to prestige it <strong>(+1 TP)</strong>. A track must be unlocked before it can be prestiged.
+        Unlock a Gag Track for <strong>2 TP</strong>. Prestige an unlocked track for <strong>+1 TP</strong>.
+        You must keep at least <strong>2 Gag Tracks</strong> at all times — you cannot remove a track if only 2 are unlocked.
+        Tracks and Prestiges can be refunded for free in-game.
       </p>
       <div className="gagbuilds-tracks">
         {CC_GAG_TRACKS.map(track => {
           const isOn  = build.tracks.has(track.key);
           const isPrs = build.prestiges.has(track.key);
+          const isLocked = isOn && build.tracks.size <= 2;
           const largeIcon = track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`;
           return (
             <div key={track.key} className={`gagbuilds-track-row${isOn ? ' gagbuilds-track-row--on' : ''}`}>
               <button
                 className="gagbuilds-track-btn"
                 onClick={() => onToggleTrack(track.key)}
+                title={isLocked ? 'Cannot remove — minimum 2 tracks required' : isOn ? 'Click to remove track' : 'Click to unlock track (2 TP)'}
                 style={{ background: isOn ? track.headerColor : '#111711', borderColor: isOn ? track.color : '#293528' }}
               >
                 <Image src={`/icons/gags/large/${largeIcon}`} alt={track.name} width={28} height={28} unoptimized
                   style={{ opacity: isOn ? 1 : 0.4 }} />
                 <span style={{ color: isOn ? track.labelColor : 'var(--muted)' }}>{track.name}</span>
-                <span className="gagbuilds-cost" style={{ color: isOn ? '#4ade80' : 'var(--muted)' }}>
-                  {isOn ? 'Unlocked · 2 TP' : '+ 2 TP'}
+                <span className="gagbuilds-cost" style={{ color: isLocked ? '#e0a050' : isOn ? '#4ade80' : 'var(--muted)' }}>
+                  {isLocked ? '🔒 Min 2 tracks' : isOn ? 'Unlocked · 2 TP' : '+ 2 TP'}
                 </span>
               </button>
               <button
@@ -130,7 +138,9 @@ function BuildRight({ build, usedTP, activePreset, onApplyPreset }: {
     <div className="gagbuilds-right">
       <div className="gagcalc-panel-head"><span className="kicker">Quick Presets</span></div>
       <p className="gagbuilds-preset-note">
-        Training Points are earned at Toon Levels 4, 8, 12, 16, 20, 28, 38, 48, 58, 68, and 78 (11 TP), plus 1 bonus TP for maxing all four Department Levels — 12 TP total.
+        A Training Point is given at <strong>Toon Levels 4, 8, 12, 16, 20, 28, 38, 48, 58, 68, and 78</strong> (11 total),
+        plus 1 more for <strong>maxing all four Department Levels</strong> — <strong>12 TP total</strong>.
+        Gag setups are noted as <em>Tracks / Prestiges</em>.
       </p>
       <div className="gagbuilds-preset-groups">
         {([11, 12] as const).map(tp => (
