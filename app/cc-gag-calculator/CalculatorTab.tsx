@@ -106,7 +106,7 @@ export function CalculatorTab() {
                     {gag.damage > 0
                       ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{gag.damage}</span>
                       : gag.heal ? <span className="gagcalc-gag-stat gagcalc-gag-stat--heal">+{gag.heal}</span>
-                      : track.key === 'lure' ? <span className="gagcalc-gag-stat gagcalc-gag-stat--kb">{LURE_GAG_DATA[gi].knockback} KB</span>
+                      : track.key === 'lure' ? <span className="gagcalc-gag-stat" style={{ color: track.labelColor }}>{LURE_GAG_DATA[gi].knockback} KB</span>
                       : null}
                   </button>
                 );
