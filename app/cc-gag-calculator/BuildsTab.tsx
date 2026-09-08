@@ -1,10 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import {
   CC_GAG_TRACKS, GAG_BUILD_PRESETS, TRAINING_POINTS_MAX,
   TP_PER_TRACK, TP_PER_PRESTIGE, type GagTrackKey,
 } from './data-cc-gags';
+import { useAuth } from '../components/AuthProvider';
+import { createClient } from '../../lib/supabase/client';
 
 // Starting tracks are chosen at Make-a-Toon and cost 0 TP.
 // Any tracks beyond the 2 starting ones cost 2 TP each.
@@ -16,13 +18,51 @@ interface BuildState {
   prestiges: Set<GagTrackKey>;
 }
 
+// Serialisable form of BuildState (Sets → arrays)
+interface BuildSave {
+  tracks: GagTrackKey[];
+  startingTracks: GagTrackKey[];
+  prestiges: GagTrackKey[];
+  activePreset: string | null;
+}
+
+function buildToSave(build: BuildState, activePreset: string | null): BuildSave {
+  return {
+    tracks: [...build.tracks] as GagTrackKey[],
+    startingTracks: [...build.startingTracks] as GagTrackKey[],
+    prestiges: [...build.prestiges] as GagTrackKey[],
+    activePreset,
+  };
+}
+
+function saveToState(s: BuildSave): { build: BuildState; activePreset: string | null } {
+  return {
+    build: {
+      tracks: new Set(s.tracks),
+      startingTracks: new Set(s.startingTracks),
+      prestiges: new Set(s.prestiges),
+    },
+    activePreset: s.activePreset,
+  };
+}
+
 export function BuildsTab() {
+  const { user, loading: authLoading } = useAuth();
   const [build, setBuild] = useState<BuildState>({
     tracks: new Set(),
     startingTracks: new Set(),
     prestiges: new Set(),
   });
   const [activePreset, setActivePreset] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState('');
+  const [loadedFromDb, setLoadedFromDb] = useState(false);
+
+  // Refs to avoid stale closures in save
+  const buildRef = useRef(build);
+  const activePresetRef = useRef(activePreset);
+  useEffect(() => { buildRef.current = build; }, [build]);
+  useEffect(() => { activePresetRef.current = activePreset; }, [activePreset]);
 
   // TP is only spent on tracks beyond the 2 free starting ones
   const tpTracks = Math.max(0, build.tracks.size - STARTING_TRACKS_COUNT);
@@ -30,6 +70,46 @@ export function BuildsTab() {
   const remainingTP = TRAINING_POINTS_MAX - usedTP;
   const tpPct = Math.min(100, Math.round((usedTP / TRAINING_POINTS_MAX) * 100));
   const tpColor = usedTP > TRAINING_POINTS_MAX ? '#e05050' : usedTP === TRAINING_POINTS_MAX ? '#4ade80' : '#a4f78f';
+
+  // Load saved build from Supabase when user signs in
+  const userId = user?.id ?? null;
+  useEffect(() => {
+    if (authLoading || !userId) return;
+    const supabase = createClient();
+    supabase.from('gag_builds').select('data').eq('user_id', userId).single()
+      .then(({ data }) => {
+        if (data?.data) {
+          const saved = data.data as BuildSave;
+          const { build: loadedBuild, activePreset: loadedPreset } = saveToState(saved);
+          setBuild(loadedBuild);
+          setActivePreset(loadedPreset);
+        }
+        setLoadedFromDb(true);
+      });
+  }, [userId, authLoading]);
+
+  const saveBuild = useCallback(async (b: BuildState, preset: string | null) => {
+    if (!user) return;
+    setSaving(true);
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from('gag_builds').upsert(
+        { user_id: user.id, data: buildToSave(b, preset), updated_at: new Date().toISOString() },
+        { onConflict: 'user_id' }
+      );
+      setSaving(false);
+      if (error) {
+        setSaveMsg('Save failed');
+      } else {
+        setSaveMsg('Saved!');
+      }
+    } catch {
+      setSaving(false);
+      setSaveMsg('');
+      return;
+    }
+    setTimeout(() => setSaveMsg(''), 2000);
+  }, [user]);
 
   function toggleTrack(key: GagTrackKey) {
     setBuild(prev => {
@@ -48,7 +128,9 @@ export function BuildsTab() {
         // First 2 tracks added are free starting tracks
         if (starting.size < STARTING_TRACKS_COUNT) starting.add(key);
       }
-      return { tracks, startingTracks: starting, prestiges };
+      const next = { tracks, startingTracks: starting, prestiges };
+      if (user) saveBuild(next, null);
+      return next;
     });
     setActivePreset(null);
   }
@@ -58,26 +140,30 @@ export function BuildsTab() {
     setBuild(prev => {
       const p = new Set(prev.prestiges);
       p.has(key) ? p.delete(key) : p.add(key);
-      return { ...prev, prestiges: p };
+      const next = { ...prev, prestiges: p };
+      if (user) saveBuild(next, activePresetRef.current);
+      return next;
     });
-    setActivePreset(null);
   }
 
   function applyPreset(label: string, tracks: number, prestiges: number) {
     const tk = CC_GAG_TRACKS.map(t => t.key).slice(0, tracks) as GagTrackKey[];
-    // First 2 are always starting (free)
     const startingTk = new Set(tk.slice(0, STARTING_TRACKS_COUNT));
-    setBuild({
+    const next: BuildState = {
       tracks: new Set(tk),
       startingTracks: startingTk,
       prestiges: new Set(tk.slice(0, prestiges)),
-    });
+    };
+    setBuild(next);
     setActivePreset(label);
+    if (user) saveBuild(next, label);
   }
 
   function clearBuild() {
-    setBuild({ tracks: new Set(), startingTracks: new Set(), prestiges: new Set() });
+    const empty: BuildState = { tracks: new Set(), startingTracks: new Set(), prestiges: new Set() };
+    setBuild(empty);
     setActivePreset(null);
+    if (user) saveBuild(empty, null);
   }
 
   return (
@@ -87,7 +173,10 @@ export function BuildsTab() {
         tpPct={tpPct} tpColor={tpColor}
         onToggleTrack={toggleTrack} onTogglePrestige={togglePrestige} onClear={clearBuild}
       />
-      <BuildRight build={build} usedTP={usedTP} activePreset={activePreset} onApplyPreset={applyPreset} />
+      <BuildRight
+        build={build} usedTP={usedTP} activePreset={activePreset} onApplyPreset={applyPreset}
+        saving={saving} saveMsg={saveMsg} isLoggedIn={!!user}
+      />
     </div>
   );
 }
@@ -168,18 +257,25 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, 
   );
 }
 
-function BuildRight({ build, usedTP, activePreset, onApplyPreset }: {
+function BuildRight({ build, usedTP, activePreset, onApplyPreset, saving, saveMsg, isLoggedIn }: {
   build: BuildState; usedTP: number; activePreset: string | null;
   onApplyPreset(label: string, tracks: number, prestiges: number): void;
+  saving: boolean; saveMsg: string; isLoggedIn: boolean;
 }) {
   return (
     <div className="gagbuilds-right">
-      <div className="gagcalc-panel-head"><span className="kicker">Quick Presets</span></div>
+      <div className="gagcalc-panel-head">
+        <span className="kicker">Quick Presets</span>
+        {isLoggedIn && (
+          <span className="gagbuilds-save-status">
+            {saving ? '⏳ Saving…' : saveMsg ? saveMsg : '☁ Auto-saved'}
+          </span>
+        )}
+      </div>
       <p className="gagbuilds-preset-note">
         You start with <strong>2 free Gag Tracks</strong> from Make-a-Toon. Training Points are earned at
         Toon Levels <strong>4, 8, 12, 16, 20, 28, 38, 48, 58, 68, and 78</strong> (11 total),
         plus 1 more for <strong>maxing all four Department Levels</strong> — <strong>12 TP total</strong>.
-        Gag setups are noted as <em>Tracks / Prestiges</em> (not counting the 2 free starting tracks).
       </p>
       <div className="gagbuilds-preset-groups">
         {([11, 12] as const).map(tp => (

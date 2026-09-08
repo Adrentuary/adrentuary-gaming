@@ -122,3 +122,32 @@ create policy "Users can update own tracker progress"
   with check (auth.uid() = user_id);
 
 grant select, insert, update on public.tracker_progress to authenticated;
+
+
+-- 6. GAG BUILDS TABLE
+-- Stores the Gag Build Planner selection per user as a single JSON blob
+create table if not exists public.gag_builds (
+  user_id    uuid primary key references auth.users(id) on delete cascade,
+  data       jsonb not null default '{}',
+  updated_at timestamptz default now()
+);
+
+alter table public.gag_builds enable row level security;
+
+create policy "Users can view own gag build"
+  on public.gag_builds for select
+  to authenticated
+  using (auth.uid() = user_id);
+
+create policy "Users can insert own gag build"
+  on public.gag_builds for insert
+  to authenticated
+  with check (auth.uid() = user_id);
+
+create policy "Users can update own gag build"
+  on public.gag_builds for update
+  to authenticated
+  using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
+
+grant select, insert, update on public.gag_builds to authenticated;
