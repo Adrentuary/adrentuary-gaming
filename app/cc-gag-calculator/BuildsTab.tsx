@@ -201,12 +201,7 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, onToggleTrack, 
             : <span style={{ color: '#e05050' }}>Over by {-remainingTP} TP!</span>}
         </div>
       </div>
-      <p className="gagbuilds-hint">
-        You start with <strong>2 free Gag Tracks</strong> chosen at Make-a-Toon — these cost no TP.
-        Additional tracks cost <strong>2 TP</strong> each. Prestige an unlocked track for <strong>+1 TP</strong>.
-        You must always keep at least <strong>2 Gag Tracks</strong>.
-        Tracks and Prestiges can be refunded for free in-game.
-      </p>
+
       <div className="gagbuilds-tracks">
         {CC_GAG_TRACKS.map(track => {
           const isOn      = build.tracks.has(track.key);
