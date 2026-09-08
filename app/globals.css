@@ -267,7 +267,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .section-note-updated{margin:0;color:#4a5e4a;font-size:11px;font-style:italic;white-space:nowrap;padding-top:1px}
 .section-note-changes{margin:0;color:#5e7a5e;font-size:11px;font-style:italic;border-left:1px solid #2a3e2a;padding-left:12px;line-height:1.4;flex:1;min-width:0}
 .tracker-card{background:#0a100a;border:1px solid #1e2e1e;border-radius:14px;overflow:hidden;--dc:#1a2a1a;--da:#4ade80}
-.tracker-card-header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;height:39.2px;box-sizing:border-box;overflow:hidden}
+.tracker-card-header{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc);border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;height:41px;box-sizing:border-box;overflow:hidden}
 .tracker-card-header strong{font-size:14px;font-weight:800}
 .dc-icon{font-size:20px;line-height:1}
 .tracker-table-wrap{overflow-x:auto}
@@ -412,7 +412,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .laff-pg-icon-wrap{flex-shrink:0}
 .laff-pg-icon{display:block;object-fit:contain;width:24px;height:24px}
 .toon-card{background:#0a100a;border:2px solid var(--tc,#4ade80);border-radius:14px;overflow:hidden}
-.toon-card-header{background:color-mix(in srgb,var(--tc,#4ade80) 18%,#080c08);padding:10px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);height:39.2px;box-sizing:border-box;overflow:hidden}
+.toon-card-header{background:color-mix(in srgb,var(--tc,#4ade80) 18%,#080c08);padding:10px 20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08);height:41px;box-sizing:border-box;overflow:hidden}
 .toon-card-header-btn{width:100%;border:none;font:inherit;cursor:pointer;text-align:left;transition:filter .14s}
 .toon-card-header-btn:hover{filter:brightness(1.12)}
 .toon-card-dot{width:10px;height:10px;border-radius:50%;background:var(--tc,#4ade80);flex-shrink:0}
@@ -467,7 +467,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .col-street{min-width:130px;font-size:13px}
 .col-cog-pct{text-align:center;width:44px}
 .cog-emblem{display:block;margin:0 auto;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
-.pg-emblem{object-fit:contain;flex-shrink:0;width:19px;height:19px}
+.pg-emblem{object-fit:contain;flex-shrink:0;width:21px;height:21px}
 /* â”€â”€ Street Shop Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .ssm-street-btn{background:none;border:none;padding:0;color:inherit;font:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;text-align:left;text-decoration:underline;text-decoration-color:rgba(255,255,255,.25);text-underline-offset:3px;transition:color .12s}
 .ssm-street-btn:hover{color:#fff}
@@ -584,11 +584,11 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .gag-cards-list{display:flex;flex-direction:column;gap:16px}
 .gag-card{background:#090d09;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 25%,transparent);border-radius:14px;overflow:clip}
 /* Gag card header — full-width button matching Collections banner style */
-.gag-card-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border:none;border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;height:39.2px;box-sizing:border-box;overflow:hidden}
+.gag-card-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:color-mix(in srgb,var(--gc,#4ade80) 8%,#090d09);border:none;border-bottom:1px solid color-mix(in srgb,var(--gc,#4ade80) 15%,transparent);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;height:41px;box-sizing:border-box;overflow:hidden}
 .gag-card-header:hover{filter:brightness(1.13)}
 .gag-card-header--collapsed{border-bottom:none}
 .gag-card-header-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
-.gag-card-header-icon{width:19px;height:19px;object-fit:contain;display:block;flex-shrink:0}
+.gag-card-header-icon{width:21px;height:21px;object-fit:contain;display:block;flex-shrink:0}
 .gag-card-header-label{font-size:14px;font-weight:800;color:var(--gl,#4ade80);flex:1}
 .gag-details-collapse-btn{display:block;margin:8px auto 0;background:none;border:1px solid color-mix(in srgb,var(--gc,#4ade80) 30%,transparent);border-radius:6px;cursor:pointer;color:var(--gl,#4ade80);padding:4px 10px;line-height:1.2;transition:filter .12s;text-align:center}
 .gag-details-collapse-btn:hover{filter:brightness(1.4)}
@@ -757,13 +757,13 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 .coll-sections{display:flex;flex-direction:column;gap:16px}
 .coll-card{margin-bottom:0}
 /* Collapsible section header — matches .tracker-card-header exactly, extends it as a button */
-.coll-section-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc,#1a2a1a);border:none;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;flex-wrap:wrap;height:39.2px;box-sizing:border-box;overflow:hidden}
+.coll-section-header{width:100%;display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--dc,#1a2a1a);border:none;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;text-align:left;color:inherit;font:inherit;transition:filter .12s;flex-wrap:wrap;height:41px;box-sizing:border-box;overflow:hidden}
 .coll-section-header:hover{filter:brightness(1.13)}
 .coll-section-header strong{font-size:14px;font-weight:800}
 .coll-section-header--collapsed{border-bottom:none}
-/* Icon wrapper: fixed 19×19 box to fit inside 39.2px locked header */
-.coll-section-icon-wrap{width:19px;height:19px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.coll-section-icon{width:19px;height:19px;object-fit:contain;display:block}
+/* Icon wrapper: fixed 21×21 box to fit inside 41px locked header */
+.coll-section-icon-wrap{width:21px;height:21px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.coll-section-icon{width:21px;height:21px;object-fit:contain;display:block}
 /* Arrow at the START (rendered before title in JSX) */
 .coll-section-arrow{font-size:10px;opacity:.6;flex-shrink:0;margin-right:2px}
 /* Scrollable wrapper inside each section card */
