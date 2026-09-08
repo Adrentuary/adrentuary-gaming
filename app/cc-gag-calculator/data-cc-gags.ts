@@ -225,6 +225,64 @@ export const CC_GAG_TRACKS: CCGagTrack[] = [
   TOON_UP, TRAP, LURE, THROW, SQUIRT, ZAP, SOUND, DROP,
 ];
 
+// ── IOUs ──────────────────────────────────────────────────────────────────────
+// Flat bonus added to gag damage/heal/knockback.
+// Source: https://corporateclash.wiki.gg/wiki/IOUs
+
+export type IouTrackKey = GagTrackKey | 'rain';
+
+export interface IouOption {
+  key: string;
+  toon: string;
+  track: IouTrackKey;
+  bonus: number;   // flat bonus per buffed gag
+  uses: number;    // number of gags the IOU covers (1, 2, or 3)
+  icon: string;    // placeholder filename — images added later
+}
+
+export const IOU_DATA: IouOption[] = [
+  // Rain — +20 flat to ANY next gag (no track restriction, no cooldown)
+  { key: 'rain',            toon: 'Rain',           track: 'rain',    bonus: 20,  uses: 1, icon: 'rain.png' },
+  // Toon-Up (+heal)
+  { key: 'madam-chuckle',   toon: 'Madam Chuckle',  track: 'toon-up', bonus: 25,  uses: 3, icon: 'madam-chuckle.png' },
+  { key: 'daffy-don',       toon: 'Daffy Don',       track: 'toon-up', bonus: 40,  uses: 2, icon: 'daffy-don.png' },
+  { key: 'flippy',          toon: 'Flippy',          track: 'toon-up', bonus: 70,  uses: 1, icon: 'flippy.png' },
+  // Trap (+damage)
+  { key: 'will',            toon: 'Will',            track: 'trap',    bonus: 70,  uses: 3, icon: 'will.png' },
+  { key: 'penny',           toon: 'Penny',           track: 'trap',    bonus: 100, uses: 2, icon: 'penny.png' },
+  { key: 'clara',           toon: 'Clara',           track: 'trap',    bonus: 170, uses: 1, icon: 'clara.png' },
+  // Lure (+knockback)
+  { key: 'stinky-ned',      toon: 'Stinky Ned',      track: 'lure',    bonus: 20,  uses: 3, icon: 'stinky-ned.png' },
+  { key: 'nancy-gas',       toon: 'Nancy Gas',       track: 'lure',    bonus: 30,  uses: 2, icon: 'nancy-gas.png' },
+  { key: 'lil-oldman',      toon: "Lil' Oldman",     track: 'lure',    bonus: 40,  uses: 1, icon: 'lil-oldman.png' },
+  // Throw (+damage)
+  { key: 'cleff',           toon: 'Cleff',           track: 'throw',   bonus: 30,  uses: 3, icon: 'cleff.png' },
+  { key: 'cindy-sprinkles', toon: 'Cindy Sprinkles', track: 'throw',   bonus: 45,  uses: 2, icon: 'cindy-sprinkles.png' },
+  { key: 'pierce',          toon: 'Pierce',          track: 'throw',   bonus: 80,  uses: 1, icon: 'pierce.png' },
+  // Squirt (+damage; applies to splash too per wiki)
+  { key: 'sid-squid',       toon: 'Sid Squid',       track: 'squirt',  bonus: 15,  uses: 3, icon: 'sid-squid.png' },
+  { key: 'sanjay-splash',   toon: 'Sanjay Splash',   track: 'squirt',  bonus: 25,  uses: 2, icon: 'sanjay-splash.png' },
+  { key: 'sharky-jones',    toon: 'Sharky Jones',    track: 'squirt',  bonus: 40,  uses: 1, icon: 'sharky-jones.png' },
+  // Zap (+damage per target, including jumps)
+  { key: 'dentist-daniel',  toon: 'Dentist Daniel',  track: 'zap',     bonus: 25,  uses: 3, icon: 'dentist-daniel.png' },
+  { key: 'electra-eel',     toon: 'Electra Eel',     track: 'zap',     bonus: 40,  uses: 2, icon: 'electra-eel.png' },
+  { key: 'nat',             toon: 'Nat',             track: 'zap',     bonus: 65,  uses: 1, icon: 'nat.png' },
+  // Sound (+damage, hits all cogs)
+  { key: 'barbara-seville', toon: 'Barbara Seville', track: 'sound',   bonus: 15,  uses: 3, icon: 'barbara-seville.png' },
+  { key: 'sid-sonata',      toon: 'Sid Sonata',      track: 'sound',   bonus: 20,  uses: 2, icon: 'sid-sonata.png' },
+  { key: 'moe-zart',        toon: 'Moe Zart',        track: 'sound',   bonus: 35,  uses: 1, icon: 'moe-zart.png' },
+  // Drop (+damage)
+  { key: 'clumsy-ned',      toon: 'Clumsy Ned',      track: 'drop',    bonus: 35,  uses: 3, icon: 'clumsy-ned.png' },
+  { key: 'franz-neckvein',  toon: 'Franz Neckvein',  track: 'drop',    bonus: 45,  uses: 2, icon: 'franz-neckvein.png' },
+  { key: 'barnacle-bessie', toon: 'Barnacle Bessie', track: 'drop',    bonus: 80,  uses: 1, icon: 'barnacle-bessie.png' },
+];
+
+/** Returns the flat damage/heal IOU bonus for a track (0 if none active) */
+export function getIouBonus(track: GagTrackKey, activeIous: Partial<Record<IouTrackKey, number>>, rainBonus: number): number {
+  return (activeIous[track] ?? 0) + rainBonus;
+}
+
+// ── Training Points ───────────────────────────────────────────────────────────
 export const TRAINING_POINTS_MAX = 12;
 export const TP_PER_TRACK = 2;
 export const TP_PER_PRESTIGE = 1;

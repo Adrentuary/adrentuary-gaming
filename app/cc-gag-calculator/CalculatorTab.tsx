@@ -1,24 +1,48 @@
 'use client';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE, type GagTrackKey, type CogType } from './data-cc-gags';
+import {
+  CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE, IOU_DATA,
+  type GagTrackKey, type CogType, type IouTrackKey,
+} from './data-cc-gags';
 import { calcTotalDamage, getGagDamage, getKnockbackValue, trackGetsKnockback, trackCounts, type SelectedGag } from './calc-logic';
 
 let nextId = 1;
+
+// All gag tracks that have IOUs (for the selector panel order)
+const IOU_GAG_TRACKS: GagTrackKey[] = ['toon-up','trap','lure','throw','squirt','zap','sound','drop'];
 
 export function CalculatorTab() {
   const [selectedGags, setSelectedGags] = useState<SelectedGag[]>([]);
   const [isLured, setIsLured] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
   const [debuffCount, setDebuffCount] = useState<number>(0);
+  // activeIous: track → currently selected IOU bonus (0 = none)
+  const [activeIous, setActiveIous] = useState<Partial<Record<IouTrackKey, number>>>({});
+  const [rainActive, setRainActive] = useState(false);
+  const [showIous, setShowIous] = useState(false);
+
+  const rainBonus = rainActive ? 20 : 0;
 
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount),
-    [selectedGags, isLured, debuffCount],
+    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount, activeIous, rainBonus),
+    [selectedGags, isLured, debuffCount, activeIous, rainBonus],
   );
 
   // Show debuff selector only when Prestige Drop is in the combo
   const hasPrestigeDrop = selectedGags.some(g => g.track === 'drop' && g.isPrestige);
+
+  // Total active IOUs count for badge
+  const activeIouCount = Object.values(activeIous).filter(v => v && v > 0).length + (rainActive ? 1 : 0);
+
+  function toggleIou(track: IouTrackKey, bonus: number) {
+    if (track === 'rain') { setRainActive(p => !p); return; }
+    setActiveIous(prev => {
+      const current = prev[track] ?? 0;
+      // Clicking the same IOU again deactivates it; clicking a different one switches
+      return { ...prev, [track]: current === bonus ? 0 : bonus };
+    });
+  }
 
   function addGag(track: GagTrackKey, trackIdx: number, gagIdx: number) {
     setSelectedGags(prev => [...prev, { id: nextId++, track, trackIdx, gagIdx, isPrestige: false }]);
@@ -30,7 +54,10 @@ export function CalculatorTab() {
   function setCustomDamage(id: number, dmg: number | undefined) {
     setSelectedGags(prev => prev.map(g => g.id === id ? { ...g, customDamage: dmg } : g));
   }
-  function clearAll() { setSelectedGags([]); setIsLured(false); setDebuffCount(0); }
+  function clearAll() {
+    setSelectedGags([]); setIsLured(false); setDebuffCount(0);
+    setActiveIous({}); setRainActive(false);
+  }
 
   return (
     <div className="gagcalc-layout">
@@ -101,6 +128,82 @@ export function CalculatorTab() {
           <span className="gagcalc-toggle-box" />
           <span>Cog is Lured <span className="gagcalc-muted">(Throw/Squirt knockback · Drop misses · Trap triggers)</span></span>
         </label>
+
+        {/* IOU Panel */}
+        <div className="gagcalc-iou-section">
+          <button className="gagcalc-iou-toggle-btn" onClick={() => setShowIous(p => !p)}>
+            <span className="gagcalc-iou-toggle-icon">📋</span>
+            <span>IOUs in Effect</span>
+            {activeIouCount > 0 && (
+              <span className="gagcalc-iou-badge">{activeIouCount} active</span>
+            )}
+            <span className="gagcalc-iou-chevron">{showIous ? '▲' : '▼'}</span>
+          </button>
+
+          {showIous && (
+            <div className="gagcalc-iou-panel">
+              <p className="gagcalc-iou-note">
+                Select one IOU per track. The flat bonus applies to all matching gags in your combo.
+                Click an active IOU to deactivate it.
+              </p>
+
+              {/* Rain IOU — applies to all tracks */}
+              <div className="gagcalc-iou-track-group">
+                <div className="gagcalc-iou-track-header">
+                  <span className="gagcalc-iou-track-name" style={{ color: '#a8d8ff' }}>Rain</span>
+                  <span className="gagcalc-iou-track-sub">Boosts any next gag · no cooldown</span>
+                </div>
+                <div className="gagcalc-iou-cards">
+                  {IOU_DATA.filter(i => i.track === 'rain').map(iou => (
+                    <IouCard
+                      key={iou.key} iou={iou}
+                      active={rainActive}
+                      onToggle={() => toggleIou('rain', iou.bonus)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Per-track IOUs */}
+              {IOU_GAG_TRACKS.map(trackKey => {
+                const trackData  = CC_GAG_TRACKS.find(t => t.key === trackKey)!;
+                const trackIous  = IOU_DATA.filter(i => i.track === trackKey);
+                const activeBonus = activeIous[trackKey] ?? 0;
+                const isLureTrack = trackKey === 'lure';
+                return (
+                  <div key={trackKey} className="gagcalc-iou-track-group">
+                    <div className="gagcalc-iou-track-header">
+                      <Image
+                        src={`/icons/gags/large/${trackKey === 'toon-up' ? 'toon-up.png' : `${trackKey}-large.png`}`}
+                        alt={trackData.name} width={16} height={16} unoptimized
+                      />
+                      <span className="gagcalc-iou-track-name" style={{ color: trackData.labelColor }}>
+                        {trackData.name}
+                      </span>
+                      {isLureTrack && (
+                        <span className="gagcalc-iou-track-sub">+Knockback</span>
+                      )}
+                      {activeBonus > 0 && (
+                        <span className="gagcalc-iou-active-badge">
+                          +{activeBonus} {isLureTrack ? 'KB' : trackKey === 'toon-up' ? 'heal' : 'dmg'}
+                        </span>
+                      )}
+                    </div>
+                    <div className="gagcalc-iou-cards">
+                      {trackIous.map(iou => (
+                        <IouCard
+                          key={iou.key} iou={iou}
+                          active={activeBonus === iou.bonus}
+                          onToggle={() => toggleIou(trackKey, iou.bonus)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
       <div className="gagcalc-right">
         <ComboPanel
@@ -247,6 +350,29 @@ function EditableDmgTag({ value, isCustom, onCommit, onReset }: {
   );
 }
 
+/** IOU card — shows toon name, bonus, uses, placeholder image, toggle active state */
+function IouCard({ iou, active, onToggle }: {
+  iou: import('./data-cc-gags').IouOption;
+  active: boolean;
+  onToggle(): void;
+}) {
+  return (
+    <button
+      className={`gagcalc-iou-card${active ? ' gagcalc-iou-card--active' : ''}`}
+      onClick={onToggle}
+      title={`${iou.toon}: +${iou.bonus} to next ${iou.uses} gag${iou.uses > 1 ? 's' : ''}`}
+    >
+      {/* Placeholder image box */}
+      <div className="gagcalc-iou-img-placeholder">
+        <span className="gagcalc-iou-img-icon">👤</span>
+      </div>
+      <span className="gagcalc-iou-toon">{iou.toon}</span>
+      <span className="gagcalc-iou-bonus">+{iou.bonus}</span>
+      <span className="gagcalc-iou-uses">{iou.uses} use{iou.uses > 1 ? 's' : ''}</span>
+    </button>
+  );
+}
+
 /** For a formula-based cog type, find the highest level the combo damage can defeat. */
 function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
   const range = COG_TYPE_LEVEL_RANGE[cogType];
@@ -263,7 +389,7 @@ function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
 }
 
 function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDamage> }) {
-  const { total, knockback, execBonus, comboBonus, debuffBonus } = breakdown;
+  const { total, knockback, execBonus, comboBonus, debuffBonus, iouBonus } = breakdown;
 
   const formulaTypes: CogType[] = [
     'standard', 'executive', 'field-specialist', 'exec-field', 'ops-analyst', 'exec-ops',
@@ -279,8 +405,9 @@ function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDam
   return (
     <div className="gagcalc-result">
       {/* Bonus breakdown chips */}
-      {(knockback > 0 || execBonus > 0 || comboBonus > 0 || debuffBonus > 0) && (
+      {(knockback > 0 || execBonus > 0 || comboBonus > 0 || debuffBonus > 0 || iouBonus > 0) && (
         <div className="gagcalc-breakdown">
+          {iouBonus    > 0 && <span className="gagcalc-tag gagcalc-tag--iou">+{iouBonus} IOU</span>}
           {knockback   > 0 && <span className="gagcalc-tag gagcalc-tag--kb">+{knockback} Knockback</span>}
           {execBonus   > 0 && <span className="gagcalc-tag gagcalc-tag--exec">+{execBonus} Exec Bonus</span>}
           {debuffBonus > 0 && <span className="gagcalc-tag gagcalc-tag--debuff">+{debuffBonus} Debuff Boost</span>}

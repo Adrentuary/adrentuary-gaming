@@ -1,4 +1,4 @@
-import { CC_GAG_TRACKS, LURE_GAG_DATA, COG_TYPES, type GagTrackKey, type CogType } from './data-cc-gags';
+import { CC_GAG_TRACKS, LURE_GAG_DATA, COG_TYPES, type GagTrackKey, type CogType, type IouTrackKey } from './data-cc-gags';
 
 export interface SelectedGag {
   id: number;
@@ -85,6 +85,7 @@ export interface DamageBreakdown {
   execBonus: number;
   comboBonus: number;
   debuffBonus: number;
+  iouBonus: number;
   trapNeedsLure: boolean;
 }
 
@@ -93,6 +94,8 @@ export function calcTotalDamage(
   isLured: boolean,
   cogType: CogType = 'standard',
   debuffCount: number = 0,
+  activeIous: Partial<Record<IouTrackKey, number>> = {},
+  rainIouBonus: number = 0,
 ): DamageBreakdown {
   const groups: Partial<Record<GagTrackKey, SelectedGag[]>> = {};
   for (const g of gags) {
@@ -109,8 +112,12 @@ export function calcTotalDamage(
   const kbValue = getKnockbackValue(gags, isLured);
   const hasKb   = kbValue > 0;
 
+  // IOU: Lure IOU adds flat bonus to knockback value
+  const lureIouBonus = activeIous['lure'] ?? 0;
+  const effectiveKbValue = kbValue > 0 ? kbValue + lureIouBonus + rainIouBonus : kbValue;
+
   let total = 0, totalKnockback = 0, totalExecBonus = 0,
-      totalComboBonus = 0, totalDebuffBonus = 0;
+      totalComboBonus = 0, totalDebuffBonus = 0, totalIouBonus = 0;
 
   for (const [track, group] of Object.entries(groups) as [GagTrackKey, SelectedGag[]][]) {
     if (track === 'toon-up' || track === 'lure') continue;
@@ -121,18 +128,32 @@ export function calcTotalDamage(
     const comboBonus  = CC_GAG_TRACKS.find(t => t.key === track)!.comboBonus;
     const getsKb      = hasKb && !hasSound && trackGetsKnockback(track);
 
+    // IOU flat bonus per gag for this track (rain applies only once to first gag)
+    const trackIouFlat = activeIous[track as GagTrackKey] ?? 0;
+
     let sumBase: number;
+    let iouBonusThisTrack = 0;
+
     if (track === 'trap') {
-      // Only ONE Trap fires — the strongest one (wiki: only strongest activates)
+      // Only ONE Trap fires — the strongest one
       const strongest = group.reduce((best, g) => {
         const dG    = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
         const dBest = getGagDamage(best.track, best.gagIdx, best.isPrestige, best.customDamage);
         return dG > dBest ? g : best;
       }, group[0]);
-      sumBase = getGagDamage(strongest.track, strongest.gagIdx, strongest.isPrestige, strongest.customDamage);
+      const baseDmg = getGagDamage(strongest.track, strongest.gagIdx, strongest.isPrestige, strongest.customDamage);
+      // IOU adds flat bonus to the single trap gag; Rain adds once too
+      const iouFlat = trackIouFlat + rainIouBonus;
+      sumBase = baseDmg + iouFlat;
+      iouBonusThisTrack = iouFlat;
     } else {
-      sumBase = group.reduce(
-        (acc, g) => acc + getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage), 0);
+      // Each gag in the group gets the track IOU bonus; Rain only applies once (to first gag)
+      sumBase = group.reduce((acc, g, idx) => {
+        const base = getGagDamage(g.track, g.gagIdx, g.isPrestige, g.customDamage);
+        const rain = idx === 0 ? rainIouBonus : 0;
+        return acc + base + trackIouFlat + rain;
+      }, 0);
+      iouBonusThisTrack = trackIouFlat * group.length + rainIouBonus;
     }
 
     // Executive bonus (Trap only)
@@ -141,6 +162,7 @@ export function calcTotalDamage(
     const execBonusThisTrack = afterExec - sumBase;
 
     // Prestige Drop debuff boost (rounded DOWN per wiki)
+    // Note: Prestige Drop IOU stacks multiplicatively with debuff boost per wiki
     let afterDebuff = afterExec;
     let debuffBonusThisTrack = 0;
     if (track === 'drop' && anyPrestige && debuffCount > 0) {
@@ -148,8 +170,8 @@ export function calcTotalDamage(
       debuffBonusThisTrack = afterDebuff - afterExec;
     }
 
-    // Knockback flat add (Throw/Squirt when lured)
-    const kbThisTrack = getsKb ? kbValue : 0;
+    // Knockback flat add (Throw/Squirt when lured) — uses IOU-boosted KB value
+    const kbThisTrack = getsKb ? effectiveKbValue : 0;
 
     // Combo: Trap never combos; others use comboBonus
     const trackMulti   = track === 'trap' ? false : group.length >= 2;
@@ -157,13 +179,15 @@ export function calcTotalDamage(
     const comboThisTrack = (trackMulti && comboBonus > 0)
       ? Math.ceil(baseForCombo * comboBonus) : 0;
 
-    total           += afterDebuff + kbThisTrack + comboThisTrack;
-    totalKnockback  += kbThisTrack;
-    totalExecBonus  += execBonusThisTrack;
+    total            += afterDebuff + kbThisTrack + comboThisTrack;
+    totalKnockback   += kbThisTrack;
+    totalExecBonus   += execBonusThisTrack;
     totalDebuffBonus += debuffBonusThisTrack;
-    totalComboBonus += comboThisTrack;
+    totalComboBonus  += comboThisTrack;
+    totalIouBonus    += iouBonusThisTrack;
   }
 
   return { total, knockback: totalKnockback, execBonus: totalExecBonus,
-           comboBonus: totalComboBonus, debuffBonus: totalDebuffBonus, trapNeedsLure };
+           comboBonus: totalComboBonus, debuffBonus: totalDebuffBonus,
+           iouBonus: totalIouBonus, trapNeedsLure };
 }
