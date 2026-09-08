@@ -330,16 +330,43 @@ function EditableDmgTag({ value, isCustom, onCommit, onReset }: {
   );
 }
 
+/** For a formula-based cog type, find the highest level the combo damage can defeat. */
+function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
+  const range = COG_TYPE_LEVEL_RANGE[cogType];
+  const typeData = COG_TYPES.find(c => c.key === cogType)!;
+  // Only works for formula-based types (not skelecog, virtual-skelecog, manager)
+  if (typeData.hpFormula(range.min) === null) return null;
+
+  let maxDefeated: number | null = null;
+  for (let lv = range.min; lv <= range.max; lv++) {
+    const hp = typeData.hpFormula(lv);
+    if (hp !== null && damage >= hp) maxDefeated = lv;
+  }
+  return maxDefeated;
+}
+
 function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
   breakdown: ReturnType<typeof calcTotalDamage>;
   cogType: CogType; cogLevel: number; resolvedHP: number | null;
 }) {
   const { total, knockback, execBonus, comboBonus, debuffBonus } = breakdown;
   const cogTypeData = COG_TYPES.find(c => c.key === cogType)!;
-  const isExec = cogTypeData.isExec;
+  const isExec      = cogTypeData.isExec;
   const needsManualHP = resolvedHP === null;
-  const remaining = resolvedHP !== null ? resolvedHP - total : null;
-  const kills = resolvedHP !== null && total >= resolvedHP;
+  const remaining   = resolvedHP !== null ? resolvedHP - total : null;
+  const kills       = resolvedHP !== null && total >= resolvedHP;
+
+  // Highest level this combo defeats for every formula-based cog type
+  const formulaTypes: CogType[] = [
+    'standard', 'executive', 'field-specialist', 'exec-field', 'ops-analyst', 'exec-ops',
+  ];
+  const maxDefeats = formulaTypes.map(ct => ({
+    key: ct,
+    label: COG_TYPES.find(c => c.key === ct)!.label,
+    isExec: COG_TYPES.find(c => c.key === ct)!.isExec,
+    maxLv: getMaxDefeatedLevel(ct, total),
+    range: COG_TYPE_LEVEL_RANGE[ct],
+  }));
 
   return (
     <div className="gagcalc-result">
@@ -353,16 +380,13 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
         </div>
       )}
 
-      {/* Card — matches reference screenshot style */}
+      {/* Main card — selected cog */}
       <div className={`gagcalc-card${kills ? ' gagcalc-card--kill' : needsManualHP ? ' gagcalc-card--unknown' : ''}`}>
-        {/* Cog portrait placeholder */}
         <div className="gagcalc-card-img">
           <div className="gagcalc-card-img-placeholder">
             {isExec && <span className="gagcalc-card-exec-badge">.exe</span>}
           </div>
         </div>
-
-        {/* Level / HP / Remaining info box */}
         <div className="gagcalc-card-info">
           {cogType === 'manager'
             ? <span className="gagcalc-card-level">.mgr</span>
@@ -378,11 +402,34 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
             : <span className="gagcalc-card-hp gagcalc-card-hp--unknown">HP: —</span>
           }
         </div>
-
-        {/* Damage number */}
         <div className="gagcalc-card-dmg">
           <span className="gagcalc-card-dmg-num">{total}</span>
           <span className="gagcalc-card-dmg-label">Damage</span>
+        </div>
+      </div>
+
+      {/* Max defeat table — one row per formula-based cog type */}
+      <div className="gagcalc-maxdef">
+        <p className="gagcalc-maxdef-heading">Highest level defeated</p>
+        <div className="gagcalc-maxdef-grid">
+          {maxDefeats.map(({ key, label, isExec: ie, maxLv, range }) => {
+            const defeated = maxLv !== null;
+            const atMax    = maxLv === range.max;
+            return (
+              <div key={key} className={`gagcalc-maxdef-row${defeated ? ' gagcalc-maxdef-row--hit' : ''}`}>
+                <span className="gagcalc-maxdef-type">
+                  {label}
+                  {ie && <span className="gagcalc-maxdef-exec-dot" title="Executive type" />}
+                </span>
+                <span className={`gagcalc-maxdef-val${atMax ? ' gagcalc-maxdef-val--max' : ''}`}>
+                  {defeated
+                    ? <>Lv {maxLv}{atMax && <span className="gagcalc-maxdef-max-badge">MAX</span>}</>
+                    : <span className="gagcalc-maxdef-none">—</span>
+                  }
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
