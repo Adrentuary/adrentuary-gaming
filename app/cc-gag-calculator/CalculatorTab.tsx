@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import {
@@ -409,15 +409,24 @@ function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb,
                 )}
                 {selfHeal && <span className="gagcalc-tag gagcalc-tag--heal">+{selfHeal} self</span>}
                 {multi && <span className="gagcalc-tag gagcalc-tag--multi">+{Math.round(track.comboBonus * 100)}% combo</span>}
-                {/* Editable knockback tag */}
+                {/* Editable knockback tag -- on throw/squirt rows */}
                 {showKb && (
                   <EditableDmgTag
                     value={kbValue} isCustom={isCustomKb} label="KB" plusSign tagClass="gagcalc-tag--kb"
+                    prestige={luredByPrestige}
                     onCommit={val => onSetCustomKb(val === calcKb ? undefined : val)}
                     onReset={() => onSetCustomKb(undefined)}
                   />
                 )}
-                {sg.isPrestige && <span className="gagcalc-tag gagcalc-tag--pres">★ Prestige</span>}
+                {/* Editable knockback tag -- on lure row (KB source) */}
+                {sg.track === "lure" && kbValue > 0 && !hasSound && (
+                  <EditableDmgTag
+                    value={kbValue} isCustom={isCustomKb} label="KB" plusSign tagClass="gagcalc-tag--kb"
+                    prestige={luredByPrestige}
+                    onCommit={val => onSetCustomKb(val === calcKb ? undefined : val)}
+                    onReset={() => onSetCustomKb(undefined)}
+                  />
+                )}
               </div>
             </div>
             <div className="gagcalc-sel-btns">
@@ -438,13 +447,14 @@ function SelectedList({ gags, isLured, luredByGagIdx, luredByPrestige, customKb,
 
 /** Inline editable chip — click to edit, Enter or blur to confirm.
  *  label: text shown after value (default "dmg"). plusSign: prefix "+". tagClass: extra CSS class. */
-function EditableDmgTag({ value, isCustom, onCommit, onReset, label = 'dmg', plusSign = false, tagClass }: {
+function EditableDmgTag({ value, isCustom, onCommit, onReset, label = 'dmg', plusSign = false, tagClass, prestige = false }: {
   value: number; isCustom: boolean;
   onCommit(val: number): void;
   onReset(): void;
   label?: string;
   plusSign?: boolean;
   tagClass?: string;
+  prestige?: boolean;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
@@ -493,6 +503,7 @@ function EditableDmgTag({ value, isCustom, onCommit, onReset, label = 'dmg', plu
       title={isCustom ? `Custom ${label} — click to edit, right-click to reset` : `Click to set custom ${label}`}
       onContextMenu={e => { e.preventDefault(); onReset(); }}
     >
+      {prestige && <Image src="/icons/gags/PrestigeStar.webp" alt="★" width={10} height={10} unoptimized style={{ marginRight: 2, verticalAlign: 'middle', display: 'inline' }} />}
       {plusSign ? '+' : ''}{value} {label}
     </button>
   );
