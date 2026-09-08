@@ -15,6 +15,7 @@ export const STATUS_META:{[K in ToolStatus]:{label:string;desc:string}}={
 
 export const TOOLS:{status:ToolStatus;title:string;body:string;href:string;game:string}[]=[
   {status:'wip', title:'Corporate Clash Personal Tracker',body:'Navigate Toontown streets with helpful tips, locations, tasks, progression tracking, and everything you need along the way.',href:'/corporate-clash-personal-tracker',game:'Toontown: Corporate Clash'},
+  {status:'live',title:'CC Gag Calculator',body:'Calculate gag damage combos against any cog level, toggle prestige and lure bonuses, and plan your perfect gag track build.',href:'/cc-gag-calculator',game:'Toontown: Corporate Clash'},
   {status:'live',title:'Wizard101 Pet Calculator',body:'Optimize your pet hatching and training cycles with a dedicated stat-calculation workspace.',href:'/w101-pet-stat-calculator',game:'Wizard101'},
 ];
 
