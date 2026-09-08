@@ -17,8 +17,12 @@ export function CalculatorTab() {
   const [isLured, setIsLured] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
   const [debuffCount, setDebuffCount] = useState<number>(0);
-  // activeIous: track → currently selected IOU bonus (0 = none)
+  // activeIous: track → total IOU bonus applied (selectedBonus × count, 0 = none) — fed into calc
   const [activeIous, setActiveIous] = useState<Partial<Record<IouTrackKey, number>>>({});
+  // activeIouCounts: track → how many toons using this IOU (1–4)
+  const [activeIouCounts, setActiveIouCounts] = useState<Partial<Record<IouTrackKey, number>>>({});
+  // activeIouSelected: track → which IOU's bonus value is selected (for UI highlight)
+  const [activeIouSelected, setActiveIouSelected] = useState<Partial<Record<IouTrackKey, number>>>({});
   const [rainActive, setRainActive] = useState(false);
   const [showIous, setShowIous] = useState(false);
 
@@ -32,15 +36,21 @@ export function CalculatorTab() {
   // Show debuff selector only when Prestige Drop is in the combo
   const hasPrestigeDrop = selectedGags.some(g => g.track === 'drop' && g.isPrestige);
 
-  // Total active IOUs count for badge
-  const activeIouCount = Object.values(activeIous).filter(v => v && v > 0).length + (rainActive ? 1 : 0);
+  // Total active IOUs: number of distinct tracks with an IOU selected + rain
+  const activeIouCount = Object.values(activeIouCounts).filter(v => (v ?? 0) > 0).length + (rainActive ? 1 : 0);
 
   function toggleIou(track: IouTrackKey, bonus: number) {
     if (track === 'rain') { setRainActive(p => !p); return; }
-    setActiveIous(prev => {
-      const current = prev[track] ?? 0;
-      // Clicking the same IOU again deactivates it; clicking a different one switches
-      return { ...prev, [track]: current === bonus ? 0 : bonus };
+    setActiveIouSelected(prevSel => {
+      const currentSelected = prevSel[track] ?? 0;
+      // If clicking a different IOU, reset count to 1 with new bonus; else cycle count up
+      setActiveIouCounts(prevCounts => {
+        const currentCount = currentSelected === bonus ? (prevCounts[track] ?? 0) : 0;
+        const nextCount = currentCount >= 4 ? 0 : currentCount + 1;
+        setActiveIous(prevBonus => ({ ...prevBonus, [track]: bonus * nextCount }));
+        return { ...prevCounts, [track]: nextCount };
+      });
+      return { ...prevSel, [track]: bonus };
     });
   }
 
@@ -56,7 +66,7 @@ export function CalculatorTab() {
   }
   function clearAll() {
     setSelectedGags([]); setIsLured(false); setDebuffCount(0);
-    setActiveIous({}); setRainActive(false);
+    setActiveIous({}); setActiveIouCounts({}); setActiveIouSelected({}); setRainActive(false);
   }
 
   return (
@@ -142,22 +152,18 @@ export function CalculatorTab() {
 
           {showIous && (
             <div className="gagcalc-iou-panel">
-              <p className="gagcalc-iou-note">
-                Select one IOU per track. The flat bonus applies to all matching gags in your combo.
-                Click an active IOU to deactivate it.
-              </p>
-
               {/* Rain IOU — applies to all tracks */}
               <div className="gagcalc-iou-track-group">
                 <div className="gagcalc-iou-track-header">
                   <span className="gagcalc-iou-track-name" style={{ color: '#a8d8ff' }}>Rain</span>
-                  <span className="gagcalc-iou-track-sub">Boosts any next gag · no cooldown</span>
+                  <span className="gagcalc-iou-track-sub">+20 to any gag</span>
                 </div>
                 <div className="gagcalc-iou-cards">
                   {IOU_DATA.filter(i => i.track === 'rain').map(iou => (
                     <IouCard
                       key={iou.key} iou={iou}
                       active={rainActive}
+                      count={rainActive ? 1 : 0}
                       onToggle={() => toggleIou('rain', iou.bonus)}
                     />
                   ))}
@@ -166,22 +172,24 @@ export function CalculatorTab() {
 
               {/* Per-track IOUs */}
               {IOU_GAG_TRACKS.map(trackKey => {
-                const trackData  = CC_GAG_TRACKS.find(t => t.key === trackKey)!;
-                const trackIous  = IOU_DATA.filter(i => i.track === trackKey);
-                const activeBonus = activeIous[trackKey] ?? 0;
-                const isLureTrack = trackKey === 'lure';
+                const trackData   = CC_GAG_TRACKS.find(t => t.key === trackKey)!;
+                const trackIous   = IOU_DATA.filter(i => i.track === trackKey);
+                const activeBonus   = activeIous[trackKey] ?? 0;
+                const activeCount   = activeIouCounts[trackKey] ?? 0;
+                const selectedBonus = activeIouSelected[trackKey] ?? 0;
+                const isLureTrack   = trackKey === 'lure';
                 return (
                   <div key={trackKey} className="gagcalc-iou-track-group">
                     <div className="gagcalc-iou-track-header">
                       <Image
                         src={`/icons/gags/large/${trackKey === 'toon-up' ? 'toon-up.png' : `${trackKey}-large.png`}`}
-                        alt={trackData.name} width={16} height={16} unoptimized
+                        alt={trackData.name} width={14} height={14} unoptimized
                       />
                       <span className="gagcalc-iou-track-name" style={{ color: trackData.labelColor }}>
                         {trackData.name}
                       </span>
                       {isLureTrack && (
-                        <span className="gagcalc-iou-track-sub">+Knockback</span>
+                        <span className="gagcalc-iou-track-sub">+KB</span>
                       )}
                       {activeBonus > 0 && (
                         <span className="gagcalc-iou-active-badge">
@@ -193,7 +201,8 @@ export function CalculatorTab() {
                       {trackIous.map(iou => (
                         <IouCard
                           key={iou.key} iou={iou}
-                          active={activeBonus === iou.bonus}
+                          active={selectedBonus === iou.bonus && activeCount > 0}
+                          count={selectedBonus === iou.bonus ? activeCount : 0}
                           onToggle={() => toggleIou(trackKey, iou.bonus)}
                         />
                       ))}
@@ -351,16 +360,17 @@ function EditableDmgTag({ value, isCustom, onCommit, onReset }: {
 }
 
 /** IOU card — shows toon name, bonus, uses, placeholder image, toggle active state */
-function IouCard({ iou, active, onToggle }: {
+function IouCard({ iou, active, count, onToggle }: {
   iou: import('./data-cc-gags').IouOption;
   active: boolean;
+  count: number;
   onToggle(): void;
 }) {
   return (
     <button
       className={`gagcalc-iou-card${active ? ' gagcalc-iou-card--active' : ''}`}
       onClick={onToggle}
-      title={`${iou.toon}: +${iou.bonus} to next ${iou.uses} gag${iou.uses > 1 ? 's' : ''}`}
+      title={`${iou.toon}: +${iou.bonus} — click to add (up to ×4 toons)`}
     >
       {/* Placeholder image box */}
       <div className="gagcalc-iou-img-placeholder">
@@ -368,7 +378,7 @@ function IouCard({ iou, active, onToggle }: {
       </div>
       <span className="gagcalc-iou-toon">{iou.toon}</span>
       <span className="gagcalc-iou-bonus">+{iou.bonus}</span>
-      <span className="gagcalc-iou-uses">{iou.uses} use{iou.uses > 1 ? 's' : ''}</span>
+      {count > 1 && <span className="gagcalc-iou-count">×{count}</span>}
     </button>
   );
 }
