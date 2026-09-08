@@ -90,8 +90,8 @@ body{margin:0;background:transparent;color:var(--ink);font-family:var(--font-gei
 .gagcalc-iou-card{display:flex;flex-direction:column;align-items:stretch;gap:0;flex:1;min-width:0;max-width:calc(33.333% - 4px);background:#0d130d;border:1px solid #1e2e1e;border-radius:10px;cursor:pointer;font:inherit;transition:border-color .15s,background .15s;position:relative;overflow:hidden}
 .gagcalc-iou-card:hover{border-color:#60b8ff;background:#0a1a24}
 .gagcalc-iou-card--active{border-color:#60b8ff;background:#0a1e2e}
-.gagcalc-iou-img-placeholder{width:100%;aspect-ratio:4/5;background:#1a2a38;border-bottom:1px dashed #2a4a5a;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative}
-.gagcalc-iou-img-placeholder img{width:100%;height:100%;object-fit:contain;border-radius:0;position:relative;z-index:1}
+.gagcalc-iou-img-placeholder{width:100%;aspect-ratio:16/11;background:#1a2a38;border-bottom:1px dashed #2a4a5a;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;position:relative}
+.gagcalc-iou-img-placeholder img{width:60%;height:60%;object-fit:contain;border-radius:0;position:relative;z-index:1}
 .gagcalc-iou-img-icon{font-size:24px;opacity:.35;position:absolute;z-index:0}
 .gagcalc-iou-card-info{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 6px 6px}
 .gagcalc-iou-toon{font-size:10px;font-weight:700;color:var(--ink);text-align:center;line-height:1.2;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
