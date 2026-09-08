@@ -1,10 +1,7 @@
 'use client';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import {
-  CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE,
-  getCogHP, standardCogHP, type GagTrackKey, type CogType,
-} from './data-cc-gags';
+import { CC_GAG_TRACKS, COG_TYPES, COG_TYPE_LEVEL_RANGE, type GagTrackKey, type CogType } from './data-cc-gags';
 import { calcTotalDamage, getGagDamage, getKnockbackValue, trackGetsKnockback, trackCounts, type SelectedGag } from './calc-logic';
 
 let nextId = 1;
@@ -13,55 +10,15 @@ export function CalculatorTab() {
   const [selectedGags, setSelectedGags] = useState<SelectedGag[]>([]);
   const [isLured, setIsLured] = useState(false);
   const [hoveredCell, setHoveredCell] = useState<string | null>(null);
-  const [cogType, setCogType] = useState<CogType>('standard');
-  const [cogLevel, setCogLevel] = useState<number>(12);
-  const [manualHP, setManualHP] = useState<string>('');
   const [debuffCount, setDebuffCount] = useState<number>(0);
 
-  // Level range for the currently selected cog type
-  const levelRange = COG_TYPE_LEVEL_RANGE[cogType];
-  // Clamp cogLevel to the valid range whenever it would be out of bounds
-  const clampedLevel = Math.max(levelRange.min, Math.min(levelRange.max, cogLevel));
-
   const breakdown = useMemo(
-    () => calcTotalDamage(selectedGags, isLured, cogType, debuffCount),
-    [selectedGags, isLured, cogType, debuffCount],
+    () => calcTotalDamage(selectedGags, isLured, 'standard', debuffCount),
+    [selectedGags, isLured, debuffCount],
   );
 
   // Show debuff selector only when Prestige Drop is in the combo
   const hasPrestigeDrop = selectedGags.some(g => g.track === 'drop' && g.isPrestige);
-
-  const needsManualHP = getCogHP(cogType, clampedLevel) === null;
-
-  // Resolved HP: formula or manual entry
-  const resolvedHP = useMemo(() => {
-    const computed = getCogHP(cogType, clampedLevel);
-    if (computed !== null) return computed;
-    const manual = parseInt(manualHP, 10);
-    return isNaN(manual) || manual <= 0 ? null : manual;
-  }, [cogType, clampedLevel, manualHP]);
-
-  // Skelecog HP range hint shown next to manual input
-  const skelecogRange = useMemo(() => {
-    if (cogType !== 'skelecog' && cogType !== 'virtual-skelecog') return null;
-    const base = standardCogHP(clampedLevel);
-    if (cogType === 'skelecog') return { min: Math.ceil(base * 0.90), max: Math.ceil(base * 1.25) };
-    return { min: Math.ceil(base * 0.70), max: Math.ceil(base * 1.10) };
-  }, [cogType, clampedLevel]);
-
-  function handleCogTypeChange(newType: CogType) {
-    const range = COG_TYPE_LEVEL_RANGE[newType];
-    setCogType(newType);
-    setManualHP('');
-    // Clamp level into the new type's range
-    setCogLevel(prev => Math.max(range.min, Math.min(range.max, prev)));
-  }
-
-  function handleLevelChange(raw: string) {
-    const parsed = parseInt(raw, 10);
-    if (isNaN(parsed)) return;
-    setCogLevel(Math.max(levelRange.min, Math.min(levelRange.max, parsed)));
-  }
 
   function addGag(track: GagTrackKey, trackIdx: number, gagIdx: number) {
     setSelectedGags(prev => [...prev, { id: nextId++, track, trackIdx, gagIdx, isPrestige: false }]);
@@ -112,42 +69,6 @@ export function CalculatorTab() {
           ))}
         </div>
 
-        <div className="gagcalc-cog-controls">
-          <div className="gagcalc-cog-row">
-            <label className="gagcalc-cog-label">Cog Type</label>
-            <select className="gagcalc-cog-select" value={cogType}
-              onChange={e => handleCogTypeChange(e.target.value as CogType)}>
-              {COG_TYPES.map(ct => <option key={ct.key} value={ct.key}>{ct.label}</option>)}
-            </select>
-          </div>
-          <div className="gagcalc-cog-row">
-            <label className="gagcalc-cog-label">
-              Level
-              <span className="gagcalc-muted"> ({levelRange.min}–{levelRange.max})</span>
-            </label>
-            {cogType === 'manager'
-              ? <span className="gagcalc-cog-input gagcalc-cog-input--static">—</span>
-              : <input type="number"
-                  min={levelRange.min} max={levelRange.max}
-                  className="gagcalc-cog-input"
-                  value={clampedLevel}
-                  onChange={e => handleLevelChange(e.target.value)} />
-            }
-          </div>
-          {needsManualHP && (
-            <div className="gagcalc-cog-row">
-              <label className="gagcalc-cog-label">
-                {cogType === 'manager' ? 'HP' : 'Actual HP'}
-                {skelecogRange && (
-                  <span className="gagcalc-muted"> ({skelecogRange.min}–{skelecogRange.max})</span>
-                )}
-              </label>
-              <input type="number" min={1} className="gagcalc-cog-input" placeholder="Enter HP…"
-                value={manualHP} onChange={e => setManualHP(e.target.value)} />
-            </div>
-          )}
-        </div>
-
         {hasPrestigeDrop && (
           <div className="gagcalc-cog-controls" style={{ borderColor: '#107878' }}>
             <div className="gagcalc-cog-row">
@@ -184,7 +105,6 @@ export function CalculatorTab() {
       <div className="gagcalc-right">
         <ComboPanel
           gags={selectedGags} isLured={isLured} breakdown={breakdown}
-          cogType={cogType} cogLevel={clampedLevel} resolvedHP={resolvedHP}
           onRemove={removeGag} onTogglePrestige={togglePrestige}
           onSetCustomDamage={setCustomDamage} onClear={clearAll}
         />
@@ -192,10 +112,9 @@ export function CalculatorTab() {
     </div>
   );
 }
-function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, onRemove, onTogglePrestige, onSetCustomDamage, onClear }: {
+function ComboPanel({ gags, isLured, breakdown, onRemove, onTogglePrestige, onSetCustomDamage, onClear }: {
   gags: SelectedGag[]; isLured: boolean;
   breakdown: ReturnType<typeof calcTotalDamage>;
-  cogType: CogType; cogLevel: number; resolvedHP: number | null;
   onRemove(id: number): void; onTogglePrestige(id: number): void;
   onSetCustomDamage(id: number, dmg: number | undefined): void; onClear(): void;
 }) {
@@ -213,9 +132,7 @@ function ComboPanel({ gags, isLured, breakdown, cogType, cogLevel, resolvedHP, o
       {breakdown.trapNeedsLure && (
         <p className="gagcalc-warn">⚠ Trap requires Lure to trigger — add a Lure gag or enable &ldquo;Cog is Lured&rdquo;.</p>
       )}
-      {hasDmg && (
-        <DamageResult breakdown={breakdown} cogType={cogType} cogLevel={cogLevel} resolvedHP={resolvedHP} />
-      )}
+      {hasDmg && <DamageResult breakdown={breakdown} />}
     </>
   );
 }
@@ -345,18 +262,9 @@ function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
   return maxDefeated;
 }
 
-function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
-  breakdown: ReturnType<typeof calcTotalDamage>;
-  cogType: CogType; cogLevel: number; resolvedHP: number | null;
-}) {
+function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDamage> }) {
   const { total, knockback, execBonus, comboBonus, debuffBonus } = breakdown;
-  const cogTypeData = COG_TYPES.find(c => c.key === cogType)!;
-  const isExec      = cogTypeData.isExec;
-  const needsManualHP = resolvedHP === null;
-  const remaining   = resolvedHP !== null ? resolvedHP - total : null;
-  const kills       = resolvedHP !== null && total >= resolvedHP;
 
-  // Highest level this combo defeats for every formula-based cog type
   const formulaTypes: CogType[] = [
     'standard', 'executive', 'field-specialist', 'exec-field', 'ops-analyst', 'exec-ops',
   ];
@@ -380,27 +288,14 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
         </div>
       )}
 
-      {/* Main card — selected cog */}
-      <div className={`gagcalc-card${kills ? ' gagcalc-card--kill' : needsManualHP ? ' gagcalc-card--unknown' : ''}`}>
+      {/* Damage card */}
+      <div className="gagcalc-card">
         <div className="gagcalc-card-img">
-          <div className="gagcalc-card-img-placeholder">
-            {isExec && <span className="gagcalc-card-exec-badge">.exe</span>}
-          </div>
+          <div className="gagcalc-card-img-placeholder" />
         </div>
         <div className="gagcalc-card-info">
-          {cogType === 'manager'
-            ? <span className="gagcalc-card-level">.mgr</span>
-            : <span className="gagcalc-card-level">Level: {cogLevel}</span>
-          }
-          {resolvedHP !== null
-            ? <>
-                <span className="gagcalc-card-hp">HP: {resolvedHP}</span>
-                <span className={`gagcalc-card-remaining${kills ? ' gagcalc-card-remaining--kill' : remaining! < 0 ? ' gagcalc-card-remaining--over' : ''}`}>
-                  {kills ? 'Defeated!' : `Remaining: ${remaining}`}
-                </span>
-              </>
-            : <span className="gagcalc-card-hp gagcalc-card-hp--unknown">HP: —</span>
-          }
+          <span className="gagcalc-card-level">Total Damage</span>
+          <span className="gagcalc-card-hp">See breakdown below</span>
         </div>
         <div className="gagcalc-card-dmg">
           <span className="gagcalc-card-dmg-num">{total}</span>
@@ -408,7 +303,7 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
         </div>
       </div>
 
-      {/* Max defeat table — one row per formula-based cog type */}
+      {/* Max defeat table */}
       <div className="gagcalc-maxdef">
         <p className="gagcalc-maxdef-heading">Highest level defeated</p>
         <div className="gagcalc-maxdef-grid">
@@ -419,7 +314,7 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
               <div key={key} className={`gagcalc-maxdef-row${defeated ? ' gagcalc-maxdef-row--hit' : ''}`}>
                 <span className="gagcalc-maxdef-type">
                   {label}
-                  {ie && <span className="gagcalc-maxdef-exec-dot" title="Executive type" />}
+                  {ie && <span className="gagcalc-maxdef-exec-dot" title="Executive — Trap +30%" />}
                 </span>
                 <span className={`gagcalc-maxdef-val${atMax ? ' gagcalc-maxdef-val--max' : ''}`}>
                   {defeated
@@ -432,15 +327,6 @@ function DamageResult({ breakdown, cogType, cogLevel, resolvedHP }: {
           })}
         </div>
       </div>
-
-      {/* Exec note */}
-      {isExec && (
-        <p className="gagcalc-card-note">
-          <span className="gagcalc-tag gagcalc-tag--exec" style={{ marginRight: 6 }}>Exec</span>
-          Trap deals <strong>+30%</strong> damage vs. this cog type
-          {breakdown.execBonus > 0 && <> (+{breakdown.execBonus} applied)</>}.
-        </p>
-      )}
     </div>
   );
 }
