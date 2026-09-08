@@ -86,13 +86,14 @@ export function CalculatorTab() {
   }
 
   return (
-    <div className="gagcalc-layout">
+    <>
       <SectionNote
         description="Calculate total gag combo damage for Corporate Clash. Select gags, toggle lure/prestige, add IOUs, and see the highest cog level your combo can defeat."
         status="Everything in this section is currently up to date."
         lastUpdated={CALC_LAST_UPDATED.calculator}
         lastChanges="Added IOU support with per-track flat bonuses, prestige drop debuff calc, live cog portrait on damage result card, and debuff boost selector (0–10)."
       />
+    <div className="gagcalc-layout">
       <div className="gagcalc-left">
         <div className="gagcalc-grid">
           {CC_GAG_TRACKS.map((track, ti) => (
@@ -340,6 +341,7 @@ export function CalculatorTab() {
         />
       </div>
     </div>
+    </>
   );
 }
 function ComboPanel({ gags, isLured, luredByGagIdx, luredByPrestige, breakdown, customKb, onRemove, onTogglePrestige, onSetCustomDamage, onSetCustomHeal, onSetCustomKb, onClear }: {
