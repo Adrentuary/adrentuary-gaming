@@ -4,24 +4,25 @@ import {InteriorHero,InteriorPage} from '../components/Interior';
 import {AnimateIn} from '../components/AnimateIn';
 export const metadata:Metadata={title:'Tools',description:'Custom-built calculators and interactive resources from Adrentuary Gaming.'};
 
-export type ToolStatus='coming-soon'|'wip'|'live'|'update-in-progress';
+export type ToolStatus='coming-soon'|'wip'|'live'|'update-in-progress'|'hidden';
 
 export const STATUS_META:{[K in ToolStatus]:{label:string;desc:string}}={
   'coming-soon':  {label:'Coming Soon',         desc:'Design and general idea in the works, launching soon.'},
   'wip':          {label:'Work In Progress',    desc:'Work is actively underway.'},
   'live':         {label:'Live',                desc:'Completed and ready to use.'},
   'update-in-progress':{label:'Update In Progress',desc:'An update is currently underway.'},
+  'hidden':            {label:'Hidden',             desc:'Not publicly listed.'},
 };
 
 export const TOOLS:{status:ToolStatus;title:string;body:string;href:string;game:string}[]=[
   {status:'wip', title:'Corporate Clash Personal Tracker',body:'Navigate Toontown streets with helpful tips, locations, tasks, progression tracking, and everything you need along the way.',href:'/corporate-clash-personal-tracker',game:'Toontown: Corporate Clash'},
-  {status:'live',title:'CC Gag Calculator',body:'Calculate gag damage combos against any cog level, toggle prestige and lure bonuses, and plan your perfect gag track build.',href:'/cc-gag-calculator',game:'Toontown: Corporate Clash'},
+  {status:'hidden',title:'Corporate Clash Gag Calculator',body:'Calculate gag damage combos against any cog level, toggle prestige and lure bonuses, and plan your perfect gag track build.',href:'/cc-gag-calculator',game:'Toontown: Corporate Clash'},
   {status:'live',title:'Wizard101 Pet Calculator',body:'Optimize your pet hatching and training cycles with a dedicated stat-calculation workspace.',href:'/w101-pet-stat-calculator',game:'Wizard101'},
 ];
 
 export function ToolCard({tool,i}:{tool:(typeof TOOLS)[number];i:number}){
   const meta=STATUS_META[tool.status];
-  const isLaunchable=tool.status!=='coming-soon';
+  const isLaunchable=tool.status!=='coming-soon'&&tool.status!=='hidden';
   return(
     <article key={`${tool.title}-${i}`}>
       <div className={`tool-status tool-status--${tool.status}`}>
@@ -42,7 +43,7 @@ export function ToolCard({tool,i}:{tool:(typeof TOOLS)[number];i:number}){
 const MAX_HOME=4;
 
 export default function Tools(){
-  const visible=TOOLS.slice(0,MAX_HOME);
+  const visible=TOOLS.filter(t=>t.status!=='hidden').slice(0,MAX_HOME);
   const hasMore=TOOLS.length>MAX_HOME;
   return(
 <InteriorPage>

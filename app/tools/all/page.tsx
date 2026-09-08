@@ -6,7 +6,8 @@ import {TOOLS,ToolCard} from '../page';
 export const metadata:Metadata={title:'All Tools',description:'Every custom-built calculator and interactive resource from Adrentuary Gaming.'};
 
 // Derive unique games in order of first appearance
-const games=[...new Set(TOOLS.map(t=>t.game))];
+const visibleTools=TOOLS.filter(t=>t.status!=='hidden');
+const games=[...new Set(visibleTools.map(t=>t.game))];
 
 export default function AllTools(){return(
 <InteriorPage>
@@ -20,7 +21,7 @@ export default function AllTools(){return(
     </AnimateIn>
 
     {games.map(game=>{
-      const gameTools=TOOLS.filter(t=>t.game===game);
+      const gameTools=visibleTools.filter(t=>t.game===game);
       return(
         <AnimateIn key={game}>
           <div className="tools-all-game-group">
