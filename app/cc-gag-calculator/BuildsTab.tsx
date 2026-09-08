@@ -58,7 +58,7 @@ export function BuildsTab() {
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
   const [loadedFromDb, setLoadedFromDb] = useState(false);
-  const [toonLevel, setToonLevel] = useState<number | ''>(78);
+  const [toonLevel, setToonLevel] = useState<number | ''>(85);
   const [maxedDepts, setMaxedDepts] = useState(false);
 
   // Refs to avoid stale closures in save
@@ -72,7 +72,7 @@ export function BuildsTab() {
   const usedTP = tpTracks * TP_PER_TRACK + build.prestiges.size * TP_PER_PRESTIGE;
 
   // Available TP based on toon level + optional dept bonus
-  const levelNum = typeof toonLevel === 'number' ? Math.max(1, Math.min(78, toonLevel)) : 1;
+  const levelNum = typeof toonLevel === 'number' ? Math.max(1, Math.min(85, toonLevel)) : 1;
   const availableTP = getTpFromLevel(levelNum) + (maxedDepts ? 1 : 0);
   const nextMilestone = TP_LEVEL_MILESTONES.find(l => l > levelNum) ?? null;
 
@@ -219,10 +219,10 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, availableTP,
             className="gagbuilds-level-input"
             type="number"
             min={1}
-            max={78}
+            max={85}
             value={toonLevel}
             onChange={e => {
-              const v = e.target.value === '' ? '' : Math.max(1, Math.min(78, Number(e.target.value)));
+              const v = e.target.value === '' ? '' : Math.max(1, Math.min(85, Number(e.target.value)));
               setToonLevel(v as number | '');
             }}
           />
