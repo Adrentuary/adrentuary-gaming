@@ -68,7 +68,7 @@ export default function Home() {
           <div className="info-grid">
             <article><p className="kicker">Stream info</p><h3>Coming soon</h3></article>
             <article><p className="kicker">Platforms</p><h3>PC and Switch &middot; Switch 2</h3></article>
-            <article className="gear-card"><p className="kicker">PC &amp; peripherals</p>{gear.map(item => <p key={item}>{item}</p>)}<hr />
+            <article className="gear-card"><p className="kicker">PC &amp; peripherals</p><div className="gear-specs">{gear.map(item => <p key={item}>{item}</p>)}</div><hr />
               <p>Crusher&reg; 1080 ANC &middot; ModMic Wireless &middot; Logitech G502 Lightspeed &middot; Powerplay Charging Pad &middot; Logitech G915 TKL</p>
             </article>
           </div>
