@@ -33,6 +33,7 @@ function TrackerInner() {
 
   return (
     <div className="site-page">
+      <video className="home-video-bg" src="/brand/twinkling-stars.mp4" autoPlay loop muted playsInline aria-hidden="true" />
       <SiteHeader />
       <main className="tracker-page">
         <header className="tracker-header">
