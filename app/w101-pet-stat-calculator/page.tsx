@@ -15,7 +15,6 @@ export default function Calculator() {
         <h1>Pet Calculator</h1>
       </div>
       <section className="pet-calc-section">
-        <p className="kicker">Calculator</p>
         <h2>Enter pet stats</h2>
         <PetCalculator />
       </section>
