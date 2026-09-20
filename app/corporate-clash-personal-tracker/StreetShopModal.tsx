@@ -163,12 +163,23 @@ export function StreetShopModal({ data, onClose }: Props) {
             {/* Story Appearances */}
             {selected.storyAppearances && selected.storyAppearances.length > 0 && (
               <div className="ssm-story-appearances">
-                <p className="ssm-story-label">📖 Story Appearances:</p>
-                <ul className="ssm-story-list">
-                  {selected.storyAppearances.map((sa, i) => (
-                    <li key={i} className="ssm-story-item">{sa}</li>
-                  ))}
-                </ul>
+                <p className="ssm-story-label">📖 <strong>Story Appearances:</strong></p>
+                <div className="ssm-story-list">
+                  {selected.storyAppearances.map((sa, i) => {
+                    // Parse "Task Name (Type)" → name + type badge
+                    const match = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+                    const taskName = match ? match[1] : sa;
+                    const taskType = match ? match[2] : null;
+                    return (
+                      <div key={i} className="ssm-task-block">
+                        <div className="ssm-task-header ssm-story-row">
+                          <span className="ssm-task-name">{taskName}</span>
+                          {taskType && <span className="ssm-task-type">{taskType}</span>}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 

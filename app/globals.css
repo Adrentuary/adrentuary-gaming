@@ -512,7 +512,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 /* info panel — spans full width below the two columns */
 .ssm-info-panel{border-top:1px solid #1e2e1e;padding:16px 20px;display:flex;flex-direction:column;gap:10px;background:#0a100a;flex-shrink:0;overflow-y:auto;max-height:260px}
 .ssm-info-desc{margin:0;font-size:13px;color:var(--ink);line-height:1.6}
-.ssm-info-trivia{margin:0;font-size:12px;color:var(--muted);background:rgba(255,255,255,.04);border-left:3px solid #4ade80;padding:8px 12px;border-radius:0 6px 6px 0}.ssm-info-appearance{margin:0;font-size:12px;color:var(--muted);padding:6px 0;line-height:1.5}.ssm-story-appearances{margin:4px 0 0}.ssm-story-label{margin:0 0 4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.7)}.ssm-story-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:3px}.ssm-story-item{font-size:11px;color:rgba(255,255,255,.65);padding:3px 8px;background:rgba(255,255,255,.05);border-radius:4px;border-left:2px solid rgba(255,255,255,.2)}
+.ssm-info-trivia{margin:0;font-size:12px;color:var(--muted);background:rgba(255,255,255,.04);border-left:3px solid #4ade80;padding:8px 12px;border-radius:0 6px 6px 0}.ssm-info-appearance{margin:0;font-size:12px;color:var(--muted);padding:6px 0;line-height:1.5}.ssm-story-appearances{margin:4px 0 0}.ssm-story-label{margin:0 0 6px;font-size:12px;color:var(--muted)}.ssm-story-list{display:flex;flex-direction:column;gap:8px}.ssm-story-row{cursor:default}
 .ssm-info-notasks{margin:0;font-size:12px;color:var(--muted);font-style:italic}
 .ssm-tasks{display:flex;flex-direction:column;gap:8px}
 .ssm-tasks-label{margin:0 0 4px;font-size:12px;color:var(--muted)}
