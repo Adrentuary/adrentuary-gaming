@@ -155,6 +155,23 @@ export function StreetShopModal({ data, onClose }: Props) {
                 : <>This shop has no shopkeeper.</>}
             </p>
 
+            {/* Appearance */}
+            {selected.appearance && (
+              <p className="ssm-info-appearance">🎨 <strong>Appearance:</strong> {selected.appearance}</p>
+            )}
+
+            {/* Story Appearances */}
+            {selected.storyAppearances && selected.storyAppearances.length > 0 && (
+              <div className="ssm-story-appearances">
+                <p className="ssm-story-label">📖 Story Appearances:</p>
+                <ul className="ssm-story-list">
+                  {selected.storyAppearances.map((sa, i) => (
+                    <li key={i} className="ssm-story-item">{sa}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Trivia */}
             {selected.trivia && (
               <p className="ssm-info-trivia">💡 {selected.trivia}</p>
