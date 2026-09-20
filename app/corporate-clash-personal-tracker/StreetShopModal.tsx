@@ -154,7 +154,7 @@ export function StreetShopModal({ data, onClose }: Props) {
                 ? <>This shop is owned by <strong>{selected.owner}</strong>.</>
                 : <>This shop has no shopkeeper.</>}
               {selected.appearance && (
-                <>{' '}<strong>Appearance:</strong> {selected.appearance}</>
+                <><br /><strong>Appearance:</strong> {selected.appearance}</>
               )}
             </p>
 
@@ -174,7 +174,7 @@ export function StreetShopModal({ data, onClose }: Props) {
                       const match = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
                       const taskName = match ? match[1] : sa;
                       const taskType = match ? match[2] : null;
-                      return <StoryBlock key={i} taskName={taskName} taskType={taskType} ownerName={selected.owner} />;
+                      return <StoryBlock key={i} taskName={taskName} taskType={taskType} />;
                     })}
                   </div>
                 </div>
@@ -236,24 +236,13 @@ function TaskBlock({ task }: { task: ShopTask }) {
   );
 }
 
-function StoryBlock({ taskName, taskType, ownerName }: { taskName: string; taskType: string | null; ownerName: string | null | undefined }) {
-  const [open, setOpen] = useState(false);
+function StoryBlock({ taskName, taskType }: { taskName: string; taskType: string | null }) {
   return (
     <div className="ssm-task-block">
-      <button className="ssm-task-header" onClick={() => setOpen(o => !o)}>
+      <div className="ssm-task-header ssm-story-row">
         <span className="ssm-task-name">{taskName}</span>
         {taskType && <span className="ssm-task-type">{taskType}</span>}
-        <span className="ssm-task-toggle">{open ? '▲' : '▼'}</span>
-      </button>
-      {open && (
-        <div className="ssm-task-body">
-          <p className="ssm-task-step">
-            {ownerName
-              ? <><strong>{ownerName}</strong> appears in this task, but this shop is not required to complete it.</>
-              : <>This NPC appears in this task, but this shop is not required to complete it.</>}
-          </p>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
