@@ -10,7 +10,7 @@ import { StreetShopModal } from './StreetShopModal';
 import { PlaygroundInfoModal } from './PlaygroundInfoModal';
 
 // Playgrounds that have an info popup available
-const PG_HAS_INFO = new Set(['TTC', 'BB', 'YOTT']);
+const PG_HAS_INFO = new Set(['TTC', 'BB', 'YOTT', 'DG']);
 
 // cog emblem images — order matches cogs[] array: SB, CB, LB, BB, BSB
 const COG_EMBLEMS = [
@@ -122,9 +122,9 @@ export function SectionStreets() {
     <div className="tracker-section">
       <SectionNote
         description="Corporate Clash cog spread per street. HQ tunnels are highlighted. Highest % per column is marked. Click a street name to explore its shops, owners, and tasks. Click a neighborhood title to view playground info."
-        status="Interactive sections are currently being developed for Daffodil Gardens, Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
+        status="Interactive sections are currently being developed for Mezzo Melodyland, The Brrrgh, Acorn Acres, and Drowsy Dreamland."
         lastUpdated={LAST_UPDATED.streets}
-        lastChanges="Added full YOTT street shop data (60 shops across 3 streets) with all mainline and sidetask info. Added YOTT Playground Info modal with Gatekeeper stats, Cog building tiers, invasion info, and neighborhood connections."
+        lastChanges="Added full Daffodil Gardens street shop data (82 shops across 4 streets) with all mainline and sidetask info. Added DG Playground Info modal with Bellringer stats, Cog building tiers, invasion info, and Sellbot HQ tunnel details."
       />
       {PAIRS.map((pair, pi) => (
         <div key={pi} className="streets-pair">

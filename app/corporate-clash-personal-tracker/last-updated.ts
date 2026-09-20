@@ -10,6 +10,6 @@ export const LAST_UPDATED = {
   quests:      'September 5th, 2026 · 12:41 PM',  // SectionQuests.tsx
   collections: 'September 5th, 2026 · 1:05 PM',   // SectionCollections.tsx
   promotions:  'September 7th, 2026 · 7:53 PM',   // SectionPromotions.tsx
-  streets:     'September 7th, 2026 · 8:20 PM',   // data-street-shops.ts
+  streets:     'September 20th, 2026 · 1:45 PM',  // data-street-shops.ts + Daffodil Gardens
   toons:       'September 5th, 2026 · 6:08 PM',   // SectionToons.tsx
 };

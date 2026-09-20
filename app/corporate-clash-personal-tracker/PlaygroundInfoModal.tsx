@@ -70,6 +70,30 @@ const PG_DATA: Record<string, PlaygroundData> = {
     ],
     maxBuildingsPerStreet: 6,
   },
+  DG: {
+    name: 'Daffodil Gardens',
+    pgKey: 'DG',
+    emblem: '/icons/playground-emblems/DG.webp',
+    color: '#9bd31a',
+    streetManager: 'Bellringer',
+    streetManagerImg: '/icons/streets/Daffodil-Gardens/Bellringer.webp',
+    streetManagerTitle: 'Daffodil Gardens Street Manager',
+    streetManagerDept: 'Sellbot',
+    streetManagerStats: 'Level 13.mgr · 1800 HP · Defense 40',
+    facts: [
+      'Tulip Terrace connects to Sellbot HQ, flooding it with Sellbots.',
+      '3–4 Story Cog Buildings per street (max 6).',
+      'Affected by Cog Invasions (Tiers 1–5).',
+      'Tunnels: TTC (Wacky Way) · YOTT (Knight Knoll) · AA (Legume Lane)',
+    ],
+    streets: [
+      { name: 'Daisy Drive',      minStory: '3 Story', maxStory: '4 Story (Tier 1)' },
+      { name: 'Petunia Place',    minStory: '3 Story', maxStory: '4 Story (Tier 1)' },
+      { name: 'Sunflower Street', minStory: '3 Story', maxStory: '4 Story (Tier 1)' },
+      { name: 'Tulip Terrace',    minStory: '3 Story', maxStory: '4 Story (Tier 1)' },
+    ],
+    maxBuildingsPerStreet: 6,
+  },
   BB: {
     name: 'Barnacle Boatyard',
     pgKey: 'BB',
@@ -98,23 +122,27 @@ const PG_DATA: Record<string, PlaygroundData> = {
 
 const HIGHLIGHTS = [
   // Manager names
-  'Street Manager', 'Duck Shuffler', 'Deep Diver', 'Gatekeeper',
+  'Street Manager', 'Duck Shuffler', 'Deep Diver', 'Gatekeeper', 'Bellringer',
   // Manager departments
-  'Cashbot Regional Manager', 'Boardbot Regional Manager',
+  'Cashbot Regional Manager', 'Boardbot Regional Manager', 'Sellbot',
   // Building info
   'Cog Buildings', 'Cog Invasions',
-  '1–3 Story', '1–2 Story', '2–3 Story', '2-3 Story', 'Tiers 1-3', 'Tiers 1–3',
+  '1–3 Story', '1–2 Story', '2–3 Story', '2-3 Story', '3–4 Story', '3-4 Story',
+  'Tiers 1-3', 'Tiers 1–3', 'Tiers 1-4', 'Tiers 1–4', 'Tiers 1-5', 'Tiers 1–5',
   // Immunity
   'fully immune',
-  // TTC connections
+  // Neighborhood connections
   'Barnacle Boatyard', 'Ye Olde Toontowne', 'Daffodil Gardens', 'Mezzo Melodyland',
+  'Sellbot HQ', 'Sellbots',
   // TTC misc
   'low-level Gags',
   // BB misc
   'Toon HQ', 'The Brrrgh', 'Acorn Acres',
   // YOTT misc
-  'Petunia Place', 'Silly Street', 'Toontown Central', 'Noble Nook', 'Knight Knoll', 'Wizard Way',
-  'Tiers 1-4', 'Tiers 1–4', '2–4 Story', '2-4 Story',
+  'Silly Street', 'Toontown Central', 'Noble Nook', 'Knight Knoll', 'Wizard Way',
+  '2–4 Story', '2-4 Story',
+  // DG misc
+  'Tulip Terrace', 'Daisy Drive', 'Petunia Place', 'Sunflower Street', 'Wacky Way', 'Legume Lane',
 ];
 
 function HighlightedText({ text }: { text: string }) {
