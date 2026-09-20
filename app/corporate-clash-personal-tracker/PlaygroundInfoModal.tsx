@@ -133,7 +133,7 @@ const HIGHLIGHTS = [
   'fully immune',
   // Neighborhood connections
   'Barnacle Boatyard', 'Ye Olde Toontowne', 'Daffodil Gardens', 'Mezzo Melodyland',
-  'Sellbot HQ', 'Sellbots',
+  'Sellbot HQ', 'Sellbot',
   // TTC misc
   'low-level Gags',
   // BB misc
