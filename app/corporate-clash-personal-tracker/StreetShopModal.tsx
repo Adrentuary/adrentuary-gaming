@@ -153,35 +153,33 @@ export function StreetShopModal({ data, onClose }: Props) {
               {selected.owner
                 ? <>This shop is owned by <strong>{selected.owner}</strong>.</>
                 : <>This shop has no shopkeeper.</>}
+              {selected.appearance && (
+                <>{' '}<strong>Appearance:</strong> {selected.appearance}</>
+              )}
             </p>
 
-            {/* Appearance */}
-            {selected.appearance && (
-              <p className="ssm-info-appearance">🎨 <strong>Appearance:</strong> {selected.appearance}</p>
-            )}
-
-            {/* Story Appearances */}
-            {selected.storyAppearances && selected.storyAppearances.length > 0 && (
-              <div className="ssm-story-appearances">
-                <p className="ssm-story-label">📖 <strong>Story Appearances:</strong></p>
-                <div className="ssm-story-list">
-                  {selected.storyAppearances.map((sa, i) => {
-                    // Parse "Task Name (Type)" → name + type badge
-                    const match = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
-                    const taskName = match ? match[1] : sa;
-                    const taskType = match ? match[2] : null;
-                    return (
-                      <div key={i} className="ssm-task-block">
-                        <div className="ssm-task-header ssm-story-row">
-                          <span className="ssm-task-name">{taskName}</span>
-                          {taskType && <span className="ssm-task-type">{taskType}</span>}
-                        </div>
-                      </div>
-                    );
-                  })}
+            {/* Story Appearances — skip any that already appear in tasks[] */}
+            {(() => {
+              const taskNames = new Set(selected.tasks.map(t => t.name));
+              const storyOnly = (selected.storyAppearances ?? []).filter(sa => {
+                const m = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+                return !taskNames.has(m ? m[1] : sa);
+              });
+              if (storyOnly.length === 0) return null;
+              return (
+                <div className="ssm-story-appearances">
+                  <p className="ssm-story-label">📖 <strong>Story Appearances:</strong></p>
+                  <div className="ssm-story-list">
+                    {storyOnly.map((sa, i) => {
+                      const match = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+                      const taskName = match ? match[1] : sa;
+                      const taskType = match ? match[2] : null;
+                      return <StoryBlock key={i} taskName={taskName} taskType={taskType} ownerName={selected.owner} />;
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Trivia */}
             {selected.trivia && (
@@ -232,6 +230,28 @@ function TaskBlock({ task }: { task: ShopTask }) {
           <a href={task.wikiUrl} target="_blank" rel="noopener noreferrer" className="ssm-task-wiki">
             View on Wiki ↗
           </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StoryBlock({ taskName, taskType, ownerName }: { taskName: string; taskType: string | null; ownerName: string | null | undefined }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="ssm-task-block">
+      <button className="ssm-task-header" onClick={() => setOpen(o => !o)}>
+        <span className="ssm-task-name">{taskName}</span>
+        {taskType && <span className="ssm-task-type">{taskType}</span>}
+        <span className="ssm-task-toggle">{open ? '▲' : '▼'}</span>
+      </button>
+      {open && (
+        <div className="ssm-task-body">
+          <p className="ssm-task-step">
+            {ownerName
+              ? <><strong>{ownerName}</strong> appears in this task, but this shop is not required to complete it.</>
+              : <>This NPC appears in this task, but this shop is not required to complete it.</>}
+          </p>
         </div>
       )}
     </div>
