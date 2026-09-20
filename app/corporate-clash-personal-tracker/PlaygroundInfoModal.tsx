@@ -18,11 +18,9 @@ interface PlaygroundData {
   streetManagerTitle: string;
   streetManagerDept: string;
   streetManagerStats: string;
-  streetManagerTrivia: string[];
   facts: string[];
   streets: StreetBuildingInfo[];
   maxBuildingsPerStreet: number;
-  storyAppearances: string[];
 }
 
 const PG_DATA: Record<string, PlaygroundData> = {
@@ -35,12 +33,7 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerImg: '/icons/streets/Toontown-Central/DuckShuffler.webp',
     streetManagerTitle: 'Toontown Central Street Manager',
     streetManagerDept: 'Cashbot',
-    streetManagerStats: 'Level 5.mgr · 200 HP · Defense 10',
-    streetManagerTrivia: [
-      'Real Name: Buck Ruffler · ID: 77777 · He/Him',
-      'Likes: Jackpots, Raising the Stakes, Chips',
-      'Dislikes: Poor Odds, Bank Statements, Trouble Hands',
-    ],
+    streetManagerStats: 'Level 5 · 200 HP',
     facts: [
       'Streets are fully immune to Cog Invasions.',
       '1–3 Story Cog Buildings per street (max 3). Silly Street is capped at 2 Story.',
@@ -54,16 +47,6 @@ const PG_DATA: Record<string, PlaygroundData> = {
       { name: 'Wacky Way',       minStory: '1 Story', maxStory: '3 Story (Tier 1)' },
     ],
     maxBuildingsPerStreet: 3,
-    storyAppearances: [
-      'Hires & Heroes Update (introduced)',
-      'cogs.ink ARG (first revealed)',
-      'MAYpril Toons 2023',
-      'Valentoon\'s Day 2024',
-      'High Roller\'s fight (appears alongside Major Player)',
-      'Duck Shuffler Plush promo (2024)',
-      'Roulette Rigamarole',
-      'Halloween (recurring seasonal appearance)',
-    ],
   },
   YOTT: {
     name: 'Ye Olde Toontowne',
@@ -75,15 +58,10 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerTitle: 'Ye Olde Toontowne Street Manager',
     streetManagerDept: 'Boardbot',
     streetManagerStats: 'Level 10.mgr · 1200 HP · Defense 30',
-    streetManagerTrivia: [
-      'Real Name: Holly Grayelle · ID: 10107 · She/Her',
-      'Likes: Key Workers, Restrictions, Judging Others',
-      'Dislikes: Public Parks, Low Standards, Open Houses',
-    ],
     facts: [
       '2–4 Story Cog Buildings per street (max 6). Noble Nook capped at 3 Story.',
       'Affected by Cog Invasions (Tiers 1–4).',
-      'Tunnels: DG (Knight Knoll) · TTC (Noble Nook) · Wizard Way is a dead end.',
+      'Tunnels: DG (Knight Knoll) · TTC (Noble Nook) · Wizard Way is a dead end.'
     ],
     streets: [
       { name: 'Knight Knoll', minStory: '2 Story', maxStory: '4 Story (Tier 2)' },
@@ -91,16 +69,6 @@ const PG_DATA: Record<string, PlaygroundData> = {
       { name: 'Wizard Way',   minStory: '2 Story', maxStory: '4 Story (Tier 2)' },
     ],
     maxBuildingsPerStreet: 6,
-    storyAppearances: [
-      'Hires & Heroes Update (introduced)',
-      'cogs.ink ARG (first revealed)',
-      '2023 Summer Update (teaser)',
-      'Valentoon\'s Day 2024',
-      'The April Toons 2025 Comic',
-      'Vainglorious Vanguard',
-      'Halloween 2025 (brand art)',
-      'Pax East 2026 (concept art reveal)',
-    ],
   },
   DG: {
     name: 'Daffodil Gardens',
@@ -112,11 +80,6 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerTitle: 'Daffodil Gardens Street Manager',
     streetManagerDept: 'Sellbot',
     streetManagerStats: 'Level 13.mgr · 1800 HP · Defense 40',
-    streetManagerTrivia: [
-      'Real Name: Benjamin Biggs · ID: 91843 · He/They',
-      'Likes: Chiming In, Reverberation, Boxing',
-      'Dislikes: Buzzers, Messy Hands, Silence',
-    ],
     facts: [
       'Tulip Terrace connects to Sellbot HQ, flooding it with Sellbots.',
       '3–4 Story Cog Buildings per street (max 6).',
@@ -130,17 +93,6 @@ const PG_DATA: Record<string, PlaygroundData> = {
       { name: 'Tulip Terrace',    minStory: '3 Story', maxStory: '4 Story (Tier 1)' },
     ],
     maxBuildingsPerStreet: 6,
-    storyAppearances: [
-      'Hires & Heroes Update (introduced)',
-      'cogs.ink ARG (first revealed)',
-      '2023 Summer Update (teaser)',
-      'Valentoon\'s Day 2024',
-      'Official social media comics (multiple)',
-      'Eavesdropping Earpopper',
-      'Halloween (recurring seasonal appearance)',
-      'Toonsmas 2025 (head stolen social media post)',
-      'Pax East 2026 (concept art reveal)',
-    ],
   },
   BB: {
     name: 'Barnacle Boatyard',
@@ -151,38 +103,20 @@ const PG_DATA: Record<string, PlaygroundData> = {
     streetManagerImg: '/icons/streets/Barnacle-Boatyard/DeepDiver.webp',
     streetManagerTitle: 'Barnacle Boatyard Street Manager',
     streetManagerDept: 'Boardbot',
-    streetManagerStats: 'Level 7.mgr · 400 HP · Defense 20',
-    streetManagerTrivia: [
-      'Real Name: Mary Anna · ID: 11034 · He/She',
-      'Likes: Exposure, Trenches, Deep Conversations',
-      'Dislikes: Open Water, External Pressure, Superficiality',
-    ],
+    streetManagerStats: 'Level 7 · 400 HP',
     facts: [
       '2–3 Story Cog Buildings per street (max 5).',
       'Affected by Cog Invasions (Tiers 1–3).',
       'Anchor Avenue is the only street with a Toon HQ — required for the BB taskline.',
-      'Tunnels: TTC (Punchline Place) · TB (Walrus Way) · AA (Peanut Place)',
+      'Tunnels: TTC (Punchline Place) · TB (Walrus Way) · AA (Peanut Place)'
     ],
     streets: [
-      { name: 'Anchor Avenue',       minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Anchor Avenue',      minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
       { name: 'Buccaneer Boulevard', minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
-      { name: 'Lighthouse Lane',     minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
-      { name: 'Seaweed Street',      minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Lighthouse Lane',    minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
+      { name: 'Seaweed Street',     minStory: '2 Story', maxStory: '3 Story (Tier 2)' },
     ],
     maxBuildingsPerStreet: 5,
-    storyAppearances: [
-      'Hires & Heroes Update (introduced)',
-      'cogs.ink ARG (first revealed)',
-      'Valentoon\'s Day 2024',
-      'The April Toons 2025 Comic',
-      'National Beach Day 2024 (brand art)',
-      'World Pollution Prevention Day 2024 (brand art)',
-      'Geek Pride Day 2025 (brand art)',
-      'Halloween 2025 (brand art)',
-      'Deep Diver Keychain campaign',
-      'Sidewalk Swimmer',
-      'Pax East 2026 (concept art reveal)',
-    ],
   },
 };
 
@@ -327,18 +261,8 @@ export function PlaygroundInfoModal({ pgKey, onClose }: Props) {
                 <span className="pgm-manager-title">{data.streetManagerTitle}</span>
                 <span className="pgm-manager-dept">{data.streetManagerDept}</span>
                 <span className="pgm-manager-stats">{data.streetManagerStats}</span>
-                {data.streetManagerTrivia.map((t, i) => (
-                  <span key={i} className="pgm-manager-trivia">{t}</span>
-                ))}
               </div>
             </div>
-
-            <p className="pgm-manager-label" style={{ marginTop: '1rem' }}>Story Appearances</p>
-            <ul className="pgm-appearances">
-              {data.storyAppearances.map((a, i) => (
-                <li key={i} className="pgm-appearance-item">{a}</li>
-              ))}
-            </ul>
           </div>
 
         </div>
