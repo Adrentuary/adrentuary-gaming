@@ -159,7 +159,7 @@ export function SectionQuests() {
       <nav className="sub-tabs">
         {QUESTS.map((q,i) => (
           <button key={q.name} className={`sub-tab${tab===i?' sub-tab--active':''}`} onClick={() => handleTabChange(i)}>
-            <Image src={`/icons/playground-emblems/${q.pgKey}.png`} alt={q.name} width={16} height={16} className="sub-tab-emblem" />
+            <Image src={`/icons/playground-emblems/${q.pgKey}.webp`} alt={q.name} width={16} height={16} className="sub-tab-emblem" />
             {q.name}
           </button>
         ))}
@@ -168,7 +168,7 @@ export function SectionQuests() {
         style={{'--dc':pg.color,'--da':pg.accent} as React.CSSProperties}>
         <div className="tracker-card-header">
           <Image
-            src={`/icons/playground-emblems/${pg.pgKey}.png`}
+            src={`/icons/playground-emblems/${pg.pgKey}.webp`}
             alt={pg.name}
             width={28}
             height={28}

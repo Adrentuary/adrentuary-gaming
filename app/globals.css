@@ -819,7 +819,7 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 /* Wider box for the info-heavy promotions modal */
 .pim-box{width:min(960px,100%);max-height:calc(100vh - 48px)}
 /* Sellbot background */
-.pim-box--sb{background-image:url(/icons/promotions/Sellbot/wallpapers/SBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
+.pim-box--sb{background-image:url(/icons/promotions/Sellbot/wallpapers/SBHQLoadScreen.webp);background-size:cover;background-position:center;position:relative}
 /* Dark overlay on top of BG so content is readable */
 .pim-bg-overlay{position:absolute;inset:0;background:rgba(8,6,18,.91);pointer-events:none;z-index:0}
 /* HQ guide section — wallpaper background scoped to just that tab's content */
@@ -915,11 +915,11 @@ button.gagcalc-tag--heal,button.gagcalc-tag--kb{cursor:pointer;border:1px solid 
 /* Attack cards */
 .pim-attack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-items:start}
 /* Cashbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
-.pim-box--cb{background-image:url(/icons/promotions/Cashbot/wallpapers/CBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
+.pim-box--cb{background-image:url(/icons/promotions/Cashbot/wallpapers/CBHQLoadScreen.webp);background-size:cover;background-position:center;position:relative}
 /* Lawbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
-.pim-box--lb{background-image:url(/icons/promotions/Lawbot/wallpapers/LbhqLoadScreen.png);background-size:cover;background-position:center;position:relative}
+.pim-box--lb{background-image:url(/icons/promotions/Lawbot/wallpapers/LbhqLoadScreen.webp);background-size:cover;background-position:center;position:relative}
 /* Bossbot background — load screen as subtle outer box texture, HQ tab uses full screenshot */
-.pim-box--bb{background-image:url(/icons/promotions/Bossbot/wallpapers/BBHQLoadScreen.png);background-size:cover;background-position:center;position:relative}
+.pim-box--bb{background-image:url(/icons/promotions/Bossbot/wallpapers/BBHQLoadScreen.webp);background-size:cover;background-position:center;position:relative}
 /* Executive promotions table — wider with overflow scroll */
 .pim-exec-table-wrap{overflow-x:auto}
 .pim-exec-table{min-width:700px;font-size:12px}

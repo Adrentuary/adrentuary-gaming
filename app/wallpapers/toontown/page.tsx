@@ -10,12 +10,12 @@ const sizes=[
 ];
 
 const wallpapers=[
-  {title:'Corporate Clash',image:'/brand/pages/toontown-bg.png',file:'toontown-corporate-clash'},
+  {title:'Corporate Clash',image:'/brand/pages/toontown-bg.webp',file:'toontown-corporate-clash'},
 ];
 
 export default function ToontownWallpapers(){return(
 <InteriorPage>
-  <InteriorHero eyebrow="Toontown wallpapers" title="Toontown" description="Download free Toontown: Corporate Clash desktop wallpapers. Choose your resolution below." image="/brand/pages/toontown-bg.png"/>
+  <InteriorHero eyebrow="Toontown wallpapers" title="Toontown" description="Download free Toontown: Corporate Clash desktop wallpapers. Choose your resolution below." image="/brand/pages/toontown-bg.webp"/>
   <section className="interior-section wp-recent">
     <p className="kicker">All wallpapers</p>
     <h2 className="wp-section-title">Toontown: Corporate Clash</h2>

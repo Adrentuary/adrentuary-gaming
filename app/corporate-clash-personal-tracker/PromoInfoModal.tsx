@@ -57,26 +57,26 @@ function SBHighlight({ text }: { text: string }) {
 
 /* Cog data */
 const SB_REGULAR = [
-  { name:'Cold Caller',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Coldcaller_CG.gif' },
-  { name:'Telemarketer',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Telemarketer_CG.gif' },
-  { name:'Name Dropper',   tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Namedropper_CG.gif' },
-  { name:'Glad Hander',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'1-20',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Gladhander_CG.gif' },
-  { name:'Mover & Shaker', tier:'Tier 5 Employee', levels:'5-10', dmg:'5-23',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mover&shaker_CG.gif' },
-  { name:'Two-Face',       tier:'Tier 6 Employee', levels:'6-12', dmg:'5-22',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Twoface_CG.gif' },
-  { name:'Mingler',        tier:'Tier 7 Employee', levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mingler_CG.gif' },
-  { name:'Mr. Hollywood',  tier:'Tier 8 Employee', levels:'8-50', dmg:'8-60',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mrbollywood_CG.gif' },
+  { name:'Cold Caller',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Coldcaller_CG.webp' },
+  { name:'Telemarketer',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Telemarketer_CG.webp' },
+  { name:'Name Dropper',   tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-14',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Namedropper_CG.webp' },
+  { name:'Glad Hander',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'1-20',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Gladhander_CG.webp' },
+  { name:'Mover & Shaker', tier:'Tier 5 Employee', levels:'5-10', dmg:'5-23',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mover&shaker_CG.webp' },
+  { name:'Two-Face',       tier:'Tier 6 Employee', levels:'6-12', dmg:'5-22',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Twoface_CG.webp' },
+  { name:'Mingler',        tier:'Tier 7 Employee', levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mingler_CG.webp' },
+  { name:'Mr. Hollywood',  tier:'Tier 8 Employee', levels:'8-50', dmg:'8-60',  img:'/icons/promotions/Sellbot/corporate-ladder/regular/300px-Mrbollywood_CG.webp' },
 ];
 const SB_SPECIAL = [
-  { name:'Factory Foreman',                 tier:'Manager',          level:'11 (mgr)', dmg:'16-28',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-FactFore.gif' },
-  { name:'Public Relations Representative', tier:'Manager',          level:'10 (mgr)', dmg:'13-24',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-PRR_CG.gif' },
-  { name:'Director of Public Affairs',      tier:'Manager',          level:'30 (mgr)', dmg:'26-40',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-DOPA_CG.gif' },
-  { name:'Bellringer',                      tier:'Regional Manager', level:'13 (mgr)', dmg:'10-15',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Bellringer_CG.gif' },
-  { name:'Prethinker',                      tier:'Regional Manager', level:'12 (mgr)', dmg:'10-19',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Prethinker_CG.gif' },
-  { name:'Multislacker',                    tier:'Regional Manager', level:'24 (mgr)', dmg:'18-25',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Multislacker_CG.gif' },
-  { name:'Senior Vice President',           tier:'Boss',             level:'VP',       dmg:'Varies', img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-VPGif.gif' },
+  { name:'Factory Foreman',                 tier:'Manager',          level:'11 (mgr)', dmg:'16-28',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-FactFore.webp' },
+  { name:'Public Relations Representative', tier:'Manager',          level:'10 (mgr)', dmg:'13-24',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-PRR_CG.webp' },
+  { name:'Director of Public Affairs',      tier:'Manager',          level:'30 (mgr)', dmg:'26-40',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-DOPA_CG.webp' },
+  { name:'Bellringer',                      tier:'Regional Manager', level:'13 (mgr)', dmg:'10-15',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Bellringer_CG.webp' },
+  { name:'Prethinker',                      tier:'Regional Manager', level:'12 (mgr)', dmg:'10-19',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Prethinker_CG.webp' },
+  { name:'Multislacker',                    tier:'Regional Manager', level:'24 (mgr)', dmg:'18-25',  img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-Multislacker_CG.webp' },
+  { name:'Senior Vice President',           tier:'Boss',             level:'VP',       dmg:'Varies', img:'/icons/promotions/Sellbot/corporate-ladder/special/300px-VPGif.webp' },
 ];
 const SB_REMOVED = [
-  { name:'Director of Public Relations', tier:'Manager', level:'Removed', dmg:'N/A', img:'/icons/promotions/Sellbot/corporate-ladder/removed/300px-DOPRGal.gif' },
+  { name:'Director of Public Relations', tier:'Manager', level:'Removed', dmg:'N/A', img:'/icons/promotions/Sellbot/corporate-ladder/removed/300px-DOPRGal.webp' },
 ];
 
 /* Detailed cog data: attacks, locations, invasions */
@@ -530,7 +530,7 @@ function CogDetailPanel({ detail, accent, dept = 'Sellbot' }: { detail: CogDetai
 /* --- Sellbot HQ guide section --- */
 function SellbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Sellbot/wallpapers/Sellbot_HQ.png)'} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Sellbot/wallpapers/Sellbot_HQ.webp)'} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
 
@@ -643,7 +643,7 @@ function SellbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color: accent}}>Suit Acquisition</h3>
             <div className="pim-info-block">
               <div className="pim-suit-header">
-                <Image src="/icons/cog-emblems/SellbotEmblem.png" alt="Sellbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <Image src="/icons/cog-emblems/SellbotEmblem.webp" alt="Sellbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
                 <span className="pim-suit-name" style={{fontWeight:800}}>Sellbot Cog Suit</span>
               </div>
               <ul className="pim-list">
@@ -710,13 +710,13 @@ function SellbotContent({ accent }: { accent: string }) {
                       <tbody>
                         <tr>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerShirt.png" alt="Sellbot Seeker Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerShirt.webp" alt="Sellbot Seeker Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerShorts.png" alt="Sellbot Seeker Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerShorts.webp" alt="Sellbot Seeker Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerSkirt.png" alt="Sellbot Seeker Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Sellbot/level-rewards/SellbotSeekerSkirt.webp" alt="Sellbot Seeker Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                         </tr>
                       </tbody>
@@ -865,29 +865,29 @@ function SellbotContent({ accent }: { accent: string }) {
 
 /* ─── Cashbot data ──────────────────────────────────────────────────────────── */
 const CB_REGULAR = [
-  { name:'Short Change',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-11',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Shortchange_CG.gif' },
-  { name:'Penny Pincher',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Pennypincher_CG.gif' },
-  { name:'Tightwad',        tier:'Tier 3 Employee', levels:'3-7',  dmg:'3-18',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Tightwad_CG.gif' },
-  { name:'Bean Counter',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'4-24',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Beancounter_CG.gif' },
-  { name:'Number Cruncher', tier:'Tier 5 Employee', levels:'5-9',  dmg:'4-28',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Numbercruncher_CG.gif' },
-  { name:'Money Bags',      tier:'Tier 6 Employee', levels:'6-10', dmg:'5-30',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Moneybags_CG.gif' },
-  { name:'Loan Shark',      tier:'Tier 7 Employee', levels:'7-15', dmg:'9-32',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Loanshark_CG.gif' },
-  { name:'Robber Baron',    tier:'Tier 8 Employee', levels:'8-50', dmg:'8-59',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Robberbaron_CG.gif' },
+  { name:'Short Change',    tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-11',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Shortchange_CG.webp' },
+  { name:'Penny Pincher',   tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Pennypincher_CG.webp' },
+  { name:'Tightwad',        tier:'Tier 3 Employee', levels:'3-7',  dmg:'3-18',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Tightwad_CG.webp' },
+  { name:'Bean Counter',    tier:'Tier 4 Employee', levels:'4-8',  dmg:'4-24',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Beancounter_CG.webp' },
+  { name:'Number Cruncher', tier:'Tier 5 Employee', levels:'5-9',  dmg:'4-28',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Numbercruncher_CG.webp' },
+  { name:'Money Bags',      tier:'Tier 6 Employee', levels:'6-10', dmg:'5-30',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Moneybags_CG.webp' },
+  { name:'Loan Shark',      tier:'Tier 7 Employee', levels:'7-15', dmg:'9-32',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Loanshark_CG.webp' },
+  { name:'Robber Baron',    tier:'Tier 8 Employee', levels:'8-50', dmg:'8-59',  img:'/icons/promotions/Cashbot/corporate-ladder/regular/300px-Robberbaron_CG.webp' },
 ];
 
 const CB_SPECIAL = [
-  { name:'Mint Supervisor',      tier:'Manager',          level:'13 (mgr)', dmg:'21-31',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-MintSuper2.gif' },
-  { name:'Duck Shuffler',        tier:'Regional Manager', level:'5 (mgr)',  dmg:'3-6',    img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Duckshuffler_CG.gif' },
-  { name:'Treekiller',           tier:'Regional Manager', level:'24 (mgr)', dmg:'8-32',   img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Treekiller_CG.gif' },
-  { name:'Plutocrat',            tier:'Regional Manager', level:'38 (mgr)', dmg:'27-36',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Plutocrat_CG.gif' },
-  { name:'Satellite Investors',  tier:'Regional Managers',level:'20-35 (mgr)', dmg:'25-36', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Satelliteinvestors_CG.gif' },
-  { name:'High Roller',          tier:'Regional Manager', level:'100 (mgr)',dmg:'150-225',img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-HighRoller_CG.gif' },
-  { name:'Count Erfit',          tier:'Third Cousin Twice Removed', level:'20 (mgr) v2.0', dmg:'12-25', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CountErfit_CG.gif' },
-  { name:'Chief Financial Officer', tier:'Boss',          level:'[CLASSIFIED]', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CFOGif.gif' },
+  { name:'Mint Supervisor',      tier:'Manager',          level:'13 (mgr)', dmg:'21-31',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-MintSuper2.webp' },
+  { name:'Duck Shuffler',        tier:'Regional Manager', level:'5 (mgr)',  dmg:'3-6',    img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Duckshuffler_CG.webp' },
+  { name:'Treekiller',           tier:'Regional Manager', level:'24 (mgr)', dmg:'8-32',   img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Treekiller_CG.webp' },
+  { name:'Plutocrat',            tier:'Regional Manager', level:'38 (mgr)', dmg:'27-36',  img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Plutocrat_CG.webp' },
+  { name:'Satellite Investors',  tier:'Regional Managers',level:'20-35 (mgr)', dmg:'25-36', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-Satelliteinvestors_CG.webp' },
+  { name:'High Roller',          tier:'Regional Manager', level:'100 (mgr)',dmg:'150-225',img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-HighRoller_CG.webp' },
+  { name:'Count Erfit',          tier:'Third Cousin Twice Removed', level:'20 (mgr) v2.0', dmg:'12-25', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CountErfit_CG.webp' },
+  { name:'Chief Financial Officer', tier:'Boss',          level:'[CLASSIFIED]', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/special/300px-CFOGif.webp' },
 ];
 
 const CB_REMOVED = [
-  { name:'Chief of Dollars', tier:'Boss', level:'Removed', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/removed/300px-CODCogGalleryNOTREAL.gif' },
+  { name:'Chief of Dollars', tier:'Boss', level:'Removed', dmg:'???', img:'/icons/promotions/Cashbot/corporate-ladder/removed/300px-CODCogGalleryNOTREAL.webp' },
 ];
 
 const CB_COG_DETAILS: CogDetail[] = [
@@ -1168,7 +1168,7 @@ function CBHighlight({ text }: { text: string }) {
 /* --- Cashbot HQ guide section --- */
 function CashbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Cashbot/wallpapers/Cashbot_HQ.png)'} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{'--hq-bg': 'url(/icons/promotions/Cashbot/wallpapers/Cashbot_HQ.webp)'} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
 
@@ -1370,7 +1370,7 @@ function CashbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color: accent}}>Suit Acquisition</h3>
             <div className="pim-info-block">
               <div className="pim-suit-header">
-                <Image src="/icons/cog-emblems/CashbotEmblem.png" alt="Cashbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <Image src="/icons/cog-emblems/CashbotEmblem.webp" alt="Cashbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
                 <span className="pim-suit-name" style={{fontWeight:800}}>Cashbot Suit</span>
               </div>
               <p className="pim-para" style={{marginBottom:6}}>
@@ -1436,13 +1436,13 @@ function CashbotContent({ accent }: { accent: string }) {
                       <tbody>
                         <tr>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShirt.png" alt="Cashbot Catcher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShirt.webp" alt="Cashbot Catcher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShorts.png" alt="Cashbot Catcher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherShorts.webp" alt="Cashbot Catcher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                           <td className="pim-outfit-img-cell">
-                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherSkirt.png" alt="Cashbot Catcher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
+                            <Image src="/icons/promotions/Cashbot/level-rewards/CashbotCatcherSkirt.webp" alt="Cashbot Catcher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized />
                           </td>
                         </tr>
                       </tbody>
@@ -1505,40 +1505,40 @@ function LBHighlight({ text }: { text: string }) {
   return (<>{parts.map((part, i) => LB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
 }
 const LB_REGULAR = [
-  { name:'Bottom Feeder',    tier:'Tier 1 Employee',              levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BottomFeederGalv2.gif' },
-  { name:'Bloodsucker',      tier:'Tier 2 Employee',              levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BloodsuckerGalv2.gif' },
-  { name:'Pettifogger',      tier:'Tiers 2-3 Operations Analyst', levels:'2-7',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Pettifogger_CG.gif' },
-  { name:'Double Talker',    tier:'Tier 3 Employee',              levels:'3-7',  dmg:'1-18',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-DoubleTalkerGal.gif' },
-  { name:'Needlenose',       tier:'Tiers 3-5 Field Specialist',   levels:'3-10', dmg:'3-31',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-NeedlenoseGal.gif' },
-  { name:'Ambulance Chaser', tier:'Tier 4 Employee',              levels:'4-8',  dmg:'2-19',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AmbulanceChaserGal.gif' },
-  { name:'Conveyancer',      tier:'Tier 4 Operations Analyst',    levels:'4-8',  dmg:'2-15',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ConveyancerGal.gif' },
-  { name:'Back Stabber',     tier:'Tier 5 Employee',              levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BackstabberGal.gif' },
-  { name:'Advocate',         tier:'Tiers 5-7 Operations Analyst', levels:'5-15', dmg:'4-20',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AdvocateGal.gif' },
-  { name:'Spin Doctor',      tier:'Tier 6 Employee',              levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-SpindoctorGal.gif' },
-  { name:'Shyster',          tier:'Tier 6 Field Specialist',      levels:'6-12', dmg:'10-32', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ShysterGal.gif' },
-  { name:'Legal Eagle',      tier:'Tier 7 Employee',              levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Legal_Eagle_Gal.gif' },
-  { name:'Barrister',        tier:'Tier 7 Field Specialist',      levels:'7-15', dmg:'11-38', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BarristerGal.gif' },
-  { name:'Big Wig',          tier:'Tier 8 Employee',              levels:'8-50', dmg:'10-60', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BigwigGal.gif' },
+  { name:'Bottom Feeder',    tier:'Tier 1 Employee',              levels:'1-5',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BottomFeederGalv2.webp' },
+  { name:'Bloodsucker',      tier:'Tier 2 Employee',              levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BloodsuckerGalv2.webp' },
+  { name:'Pettifogger',      tier:'Tiers 2-3 Operations Analyst', levels:'2-7',  dmg:'1-10',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Pettifogger_CG.webp' },
+  { name:'Double Talker',    tier:'Tier 3 Employee',              levels:'3-7',  dmg:'1-18',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-DoubleTalkerGal.webp' },
+  { name:'Needlenose',       tier:'Tiers 3-5 Field Specialist',   levels:'3-10', dmg:'3-31',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-NeedlenoseGal.webp' },
+  { name:'Ambulance Chaser', tier:'Tier 4 Employee',              levels:'4-8',  dmg:'2-19',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AmbulanceChaserGal.webp' },
+  { name:'Conveyancer',      tier:'Tier 4 Operations Analyst',    levels:'4-8',  dmg:'2-15',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ConveyancerGal.webp' },
+  { name:'Back Stabber',     tier:'Tier 5 Employee',              levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BackstabberGal.webp' },
+  { name:'Advocate',         tier:'Tiers 5-7 Operations Analyst', levels:'5-15', dmg:'4-20',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-AdvocateGal.webp' },
+  { name:'Spin Doctor',      tier:'Tier 6 Employee',              levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-SpindoctorGal.webp' },
+  { name:'Shyster',          tier:'Tier 6 Field Specialist',      levels:'6-12', dmg:'10-32', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-ShysterGal.webp' },
+  { name:'Legal Eagle',      tier:'Tier 7 Employee',              levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-Legal_Eagle_Gal.webp' },
+  { name:'Barrister',        tier:'Tier 7 Field Specialist',      levels:'7-15', dmg:'11-38', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BarristerGal.webp' },
+  { name:'Big Wig',          tier:'Tier 8 Employee',              levels:'8-50', dmg:'10-60', img:'/icons/promotions/Lawbot/corporate-ladder/regular/300px-BigwigGal.webp' },
 ];
 const LB_SPECIAL = [
-  { name:'Head Attorney',       tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-HeadAttorneyGal.gif' },
-  { name:'Litigator',           tier:'Manager',          level:'8 (mgr)',  dmg:'12-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-LitigatorGal.gif' },
-  { name:'Stenographer',        tier:'Manager',          level:'7 (mgr)',  dmg:'6-16',   img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-StenographerGal.gif' },
-  { name:'Case Manager',        tier:'Regional Manager', level:'11 (mgr)', dmg:'12-22',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Case_Manager_Gal.gif' },
-  { name:'Scapegoat',           tier:'Regional Manager', level:'13 (mgr)', dmg:'10-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-ScapegoatGal.gif' },
-  { name:'Counterclaim',        tier:'Regional Manager', level:'28 (mgr)', dmg:'20-32',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CountErclaimGal.gif' },
-  { name:'Judy',                tier:'Secretary',        level:'28 (mgr)', dmg:'N/A',    img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-JudyGal.gif' },
-  { name:'Mouthpiece',          tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Mouthpiece_CG.gif' },
-  { name:'Rainmaker',           tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Rainmaker_CG.gif' },
-  { name:'Witch Hunter',        tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Witchhunter_CG.gif' },
-  { name:'Chief Legal Officer', tier:'Boss',             level:'C.L.O.',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CLOGal.gif' },
+  { name:'Head Attorney',       tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-HeadAttorneyGal.webp' },
+  { name:'Litigator',           tier:'Manager',          level:'8 (mgr)',  dmg:'12-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-LitigatorGal.webp' },
+  { name:'Stenographer',        tier:'Manager',          level:'7 (mgr)',  dmg:'6-16',   img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-StenographerGal.webp' },
+  { name:'Case Manager',        tier:'Regional Manager', level:'11 (mgr)', dmg:'12-22',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Case_Manager_Gal.webp' },
+  { name:'Scapegoat',           tier:'Regional Manager', level:'13 (mgr)', dmg:'10-20',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-ScapegoatGal.webp' },
+  { name:'Counterclaim',        tier:'Regional Manager', level:'28 (mgr)', dmg:'20-32',  img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CountErclaimGal.webp' },
+  { name:'Judy',                tier:'Secretary',        level:'28 (mgr)', dmg:'N/A',    img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-JudyGal.webp' },
+  { name:'Mouthpiece',          tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Mouthpiece_CG.webp' },
+  { name:'Rainmaker',           tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Rainmaker_CG.webp' },
+  { name:'Witch Hunter',        tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-Witchhunter_CG.webp' },
+  { name:'Chief Legal Officer', tier:'Boss',             level:'C.L.O.',   dmg:'Varies', img:'/icons/promotions/Lawbot/corporate-ladder/special/300px-CLOGal.webp' },
 ];
 const LB_REMOVED = [
-  { name:'Chief Justice', tier:'Removed Boss',    level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-CJCogGalleryNOTREAL.gif' },
-  { name:'Clerk',         tier:'Removed NPC',     level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ClerkCogGalleryNOTREAL.gif' },
-  { name:'Redd',          tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ReddCogGalleryNOTREAL.gif' },
-  { name:'S.A.D.S.',      tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-SadsGal.gif' },
-  { name:'W.S.I.',        tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-WSICogGalleryNOTREAL.gif' },
+  { name:'Chief Justice', tier:'Removed Boss',    level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-CJCogGalleryNOTREAL.webp' },
+  { name:'Clerk',         tier:'Removed NPC',     level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ClerkCogGalleryNOTREAL.webp' },
+  { name:'Redd',          tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-ReddCogGalleryNOTREAL.webp' },
+  { name:'S.A.D.S.',      tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-SadsGal.webp' },
+  { name:'W.S.I.',        tier:'Removed Special', level:'Removed', dmg:'N/A', img:'/icons/promotions/Lawbot/corporate-ladder/removed/300px-WSICogGalleryNOTREAL.webp' },
 ];
 const LB_XP_ROWS = [
   { source:'Destroying a level 1-5 Cog (Cannon Round)',       base:'+12 XP' },
@@ -1996,7 +1996,7 @@ const LB_EXEC_ROWS = [
 ﻿/* --- Lawbot HQ guide section --- */
 function LawbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{"--hq-bg": "url(/icons/promotions/Lawbot/wallpapers/LawbotHQ.png)"} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{"--hq-bg": "url(/icons/promotions/Lawbot/wallpapers/LawbotHQ.webp)"} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
         <div className="pim-section">
@@ -2161,7 +2161,7 @@ function LawbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
             <div className="pim-info-block">
               <div className="pim-suit-header">
-                <Image src="/icons/cog-emblems/LawbotEmblem.png" alt="Lawbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <Image src="/icons/cog-emblems/LawbotEmblem.webp" alt="Lawbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
                 <span className="pim-suit-name" style={{fontWeight:800}}>Lawbot Suit</span>
               </div>
               <p className="pim-para" style={{marginBottom:6}}>Defeat the <span className="pim-hl">Head Attorney</span> to gain 1 Lawbot Suit part. Each <span className="pim-hl">Lawfice</span> rewards different Suit parts. 5 parts are needed to complete the disguise.</p>
@@ -2239,7 +2239,7 @@ function LawbotContent({ accent }: { accent: string }) {
                 <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 40%,#0a0a1a)`}}>Level 10 &mdash; Lawbot Liberator</div>
                 <div className="pim-dept-level-body">
                   <ul className="pim-list"><li>Reward: Exclusive Lawbot Liberator outfit (shirt, shorts, and skirt options)</li></ul>
-                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShirt.png" alt="Lawbot Liberator Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShorts.png" alt="Lawbot Liberator Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorSkirt.png" alt="Lawbot Liberator Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
+                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShirt.webp" alt="Lawbot Liberator Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorShorts.webp" alt="Lawbot Liberator Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Lawbot/level-rewards/LawbotLiberatorSkirt.webp" alt="Lawbot Liberator Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
                 </div>
               </div>
               <div className="pim-dept-level-card">
@@ -2274,25 +2274,25 @@ function BBHighlight({ text }: { text: string }) {
   return (<>{parts.map((part, i) => BB_HIGHLIGHTS.includes(part) ? <span key={i} className="pim-hl">{part}</span> : <span key={i}>{part}</span>)}</>);
 }
 const BB_REGULAR = [
-  { name:'Flunky',           tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-7',   img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Flunky_CG.gif' },
-  { name:'Pencil Pusher',    tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Pencilpusher_CG.gif' },
-  { name:'Yesman',           tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-15',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Yesman_CG.gif' },
-  { name:'Micromanager',     tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Micromanager_CG.gif' },
-  { name:'Downsizer',        tier:'Tier 5 Employee', levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Downsizer_CG.gif' },
-  { name:'Head Hunter',      tier:'Tier 6 Employee', levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Headhunter_CG.gif' },
-  { name:'Corporate Raider', tier:'Tier 7 Employee', levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Corporateraider_CG.gif' },
-  { name:'Big Cheese',       tier:'Tier 8 Employee', levels:'8-50', dmg:'8-61',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Bigcheese_CG.gif' },
+  { name:'Flunky',           tier:'Tier 1 Employee', levels:'1-5',  dmg:'1-7',   img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Flunky_CG.webp' },
+  { name:'Pencil Pusher',    tier:'Tier 2 Employee', levels:'2-6',  dmg:'1-12',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Pencilpusher_CG.webp' },
+  { name:'Yesman',           tier:'Tier 3 Employee', levels:'3-7',  dmg:'2-15',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Yesman_CG.webp' },
+  { name:'Micromanager',     tier:'Tier 4 Employee', levels:'4-8',  dmg:'3-18',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Micromanager_CG.webp' },
+  { name:'Downsizer',        tier:'Tier 5 Employee', levels:'5-10', dmg:'5-22',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Downsizer_CG.webp' },
+  { name:'Head Hunter',      tier:'Tier 6 Employee', levels:'6-12', dmg:'5-24',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Headhunter_CG.webp' },
+  { name:'Corporate Raider', tier:'Tier 7 Employee', levels:'7-15', dmg:'7-32',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Corporateraider_CG.webp' },
+  { name:'Big Cheese',       tier:'Tier 8 Employee', levels:'8-50', dmg:'8-61',  img:'/icons/promotions/Bossbot/corporate-ladder/regular/300px-Bigcheese_CG.webp' },
 ];
 const BB_SPECIAL = [
-  { name:'Club President',          tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-ClubPresident2.gif' },
-  { name:'Autocaddie',              tier:'Regional Manager', level:'6 (mgr)',  dmg:'4-10',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Autocaddie_CG.gif' },
-  { name:'Featherbedder',           tier:'Regional Manager', level:'8 (mgr)',  dmg:'6-14',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Featherbedder_CG.gif' },
-  { name:'Major Player',            tier:'Regional Manager', level:'32 (mgr)', dmg:'24-38',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Majorplayer_CG.gif' },
-  { name:'Derrick Man',             tier:'Regional Manager', level:'16 (mgr)', dmg:'14-24',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickman_CG.gif' },
-  { name:'Derrick Hand',            tier:'Regional Manager', level:'20 (mgr)', dmg:'16-28',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickhand_CG.gif' },
-  { name:'Firestarter',             tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Firestarter_CG.gif' },
-  { name:'Chainsaw Consultant',     tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Chainsawconsultant_CG.gif' },
-  { name:'Chief Executive Officer', tier:'Boss',             level:'C.E.O.',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-CEOGif.gif' },
+  { name:'Club President',          tier:'Manager',          level:'14 (mgr)', dmg:'18-30',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-ClubPresident2.webp' },
+  { name:'Autocaddie',              tier:'Regional Manager', level:'6 (mgr)',  dmg:'4-10',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Autocaddie_CG.webp' },
+  { name:'Featherbedder',           tier:'Regional Manager', level:'8 (mgr)',  dmg:'6-14',   img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Featherbedder_CG.webp' },
+  { name:'Major Player',            tier:'Regional Manager', level:'32 (mgr)', dmg:'24-38',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Majorplayer_CG.webp' },
+  { name:'Derrick Man',             tier:'Regional Manager', level:'16 (mgr)', dmg:'14-24',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickman_CG.webp' },
+  { name:'Derrick Hand',            tier:'Regional Manager', level:'20 (mgr)', dmg:'16-28',  img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Derrickhand_CG.webp' },
+  { name:'Firestarter',             tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Firestarter_CG.webp' },
+  { name:'Chainsaw Consultant',     tier:'Special',          level:'Varies',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-Chainsawconsultant_CG.webp' },
+  { name:'Chief Executive Officer', tier:'Boss',             level:'C.E.O.',   dmg:'Varies', img:'/icons/promotions/Bossbot/corporate-ladder/special/300px-CEOGif.webp' },
 ];
 const BB_XP_ROWS = [
   { source:'Cog explodes in Feeding Round',             base:'+20 XP' },
@@ -2530,7 +2530,7 @@ const BB_COG_DETAILS: CogDetail[] = [
 ﻿/* --- Bossbot HQ guide section --- */
 function BossbotHQSection({ accent }: { accent: string }) {
   return (
-    <div className="pim-hq-section" style={{"--hq-bg":"url(/icons/promotions/Bossbot/wallpapers/BossbotHQ.png)"} as React.CSSProperties}>
+    <div className="pim-hq-section" style={{"--hq-bg":"url(/icons/promotions/Bossbot/wallpapers/BossbotHQ.webp)"} as React.CSSProperties}>
       <div className="pim-hq-overlay" />
       <div className="pim-scroll pim-hq-content">
         <div className="pim-section">
@@ -2674,7 +2674,7 @@ function BossbotContent({ accent }: { accent: string }) {
             <h3 className="pim-section-title" style={{color:accent}}>Suit Acquisition</h3>
             <div className="pim-info-block">
               <div className="pim-suit-header">
-                <Image src="/icons/cog-emblems/BossbotEmblem.png" alt="Bossbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
+                <Image src="/icons/cog-emblems/BossbotEmblem.webp" alt="Bossbot" width={32} height={32} className="pim-suit-emblem" unoptimized />
                 <span className="pim-suit-name" style={{fontWeight:800}}>Bossbot Suit</span>
               </div>
               <p className="pim-para" style={{marginBottom:6}}>Defeat the <span className="pim-hl">Club President</span> to gain 1 Bossbot Suit part. Each <span className="pim-hl">Cog Golf Courses</span> rewards different Suit parts. 5 parts are needed.</p>
@@ -2708,7 +2708,7 @@ function BossbotContent({ accent }: { accent: string }) {
                 <div className="pim-dept-level-badge" style={{background:`color-mix(in srgb,${accent} 40%,#100a04)`}}>Level 10 &mdash; Bossbot Basher</div>
                 <div className="pim-dept-level-body">
                   <ul className="pim-list"><li>Reward: Exclusive Bossbot Basher outfit (shirt, shorts, and skirt options)</li></ul>
-                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShirt.png" alt="Bossbot Basher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShorts.png" alt="Bossbot Basher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherSkirt.png" alt="Bossbot Basher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
+                  <div className="pim-outfit-table-wrap"><table className="pim-outfit-table"><thead><tr><th className="pim-outfit-th" style={{color:accent}}>Shirt</th><th className="pim-outfit-th" style={{color:accent}}>Shorts</th><th className="pim-outfit-th" style={{color:accent}}>Skirt</th></tr></thead><tbody><tr><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShirt.webp" alt="Bossbot Basher Shirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherShorts.webp" alt="Bossbot Basher Shorts" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td><td className="pim-outfit-img-cell"><Image src="/icons/promotions/Bossbot/level-rewards/BossbotBasherSkirt.webp" alt="Bossbot Basher Skirt" width={80} height={80} style={{objectFit:'contain'}} unoptimized /></td></tr></tbody></table></div>
                 </div>
               </div>
               <div className="pim-dept-level-card">
@@ -2761,7 +2761,7 @@ export function PromoInfoModal({ suitName, accent, onClose }: Props) {
 
         <div className="pgm-header pim-header-raised">
           <Image
-            src={`/icons/cog-emblems/${suitName}Emblem.png`}
+            src={`/icons/cog-emblems/${suitName}Emblem.webp`}
             alt={suitName}
             width={36}
             height={36}

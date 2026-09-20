@@ -10,10 +10,10 @@ type Target = ToonIndex | 'all';
 interface ArmedState { suit: string | 'ALL'; toon: Target }
 
 const SUIT_ICONS: Record<string, string> = {
-  'Sellbot': '/icons/cog-emblems/SellbotEmblem.png',
-  'Cashbot': '/icons/cog-emblems/CashbotEmblem.png',
-  'Lawbot':  '/icons/cog-emblems/LawbotEmblem.png',
-  'Bossbot': '/icons/cog-emblems/BossbotEmblem.png',
+  'Sellbot': '/icons/cog-emblems/SellbotEmblem.webp',
+  'Cashbot': '/icons/cog-emblems/CashbotEmblem.webp',
+  'Lawbot':  '/icons/cog-emblems/LawbotEmblem.webp',
+  'Bossbot': '/icons/cog-emblems/BossbotEmblem.webp',
 };
 
 export function PromoResetDrawer() {

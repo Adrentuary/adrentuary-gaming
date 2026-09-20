@@ -6,22 +6,22 @@ import type { ToonIndex } from './TrackerContext';
 import { COLLECTIONS } from './data-collections';
 
 const SECTION_ICON_IMG: Record<string, string> = {
-  'Start of Game':                 '/icons/misc/TTCC_Icon.png',
-  'Activities':                    '/icons/misc/TTCC_Icon.png',
-  'Misc.':                         '/icons/misc/DiceSticker.png',
-  'Cattlelog Purchases':           '/icons/misc/DiceSticker.png',
-  'G.U.M.B.A.L.L. Machine':       '/icons/misc/Gumballs.png',
-  'Promotions & Directives':       '/icons/misc/TTCC_Icon.png',
-  'Halloween':                     '/icons/misc/TTCC_Halloween.png',
-  'Toonsmas':                      '/icons/misc/TTCC_Toonsmas.png',
-  'Toontown Central':              '/icons/playground-emblems/TTC.png',
-  'Barnacle Boatyard':             '/icons/playground-emblems/BB.png',
-  'Ye Olde Toontowne':             '/icons/playground-emblems/YOTT.png',
-  'Daffodil Gardens':              '/icons/playground-emblems/DG.png',
-  'Mezzo Melodyland':              '/icons/playground-emblems/MML.png',
-  'The Brrrgh':                    '/icons/playground-emblems/TB.png',
-  'Acorn Acres':                   '/icons/playground-emblems/AA.png',
-  'Drowsy Dreamland':              '/icons/playground-emblems/DDL.png',
+  'Start of Game':                 '/icons/misc/TTCC_Icon.webp',
+  'Activities':                    '/icons/misc/TTCC_Icon.webp',
+  'Misc.':                         '/icons/misc/DiceSticker.webp',
+  'Cattlelog Purchases':           '/icons/misc/DiceSticker.webp',
+  'G.U.M.B.A.L.L. Machine':       '/icons/misc/Gumballs.webp',
+  'Promotions & Directives':       '/icons/misc/TTCC_Icon.webp',
+  'Halloween':                     '/icons/misc/TTCC_Halloween.webp',
+  'Toonsmas':                      '/icons/misc/TTCC_Toonsmas.webp',
+  'Toontown Central':              '/icons/playground-emblems/TTC.webp',
+  'Barnacle Boatyard':             '/icons/playground-emblems/BB.webp',
+  'Ye Olde Toontowne':             '/icons/playground-emblems/YOTT.webp',
+  'Daffodil Gardens':              '/icons/playground-emblems/DG.webp',
+  'Mezzo Melodyland':              '/icons/playground-emblems/MML.webp',
+  'The Brrrgh':                    '/icons/playground-emblems/TB.webp',
+  'Acorn Acres':                   '/icons/playground-emblems/AA.webp',
+  'Drowsy Dreamland':              '/icons/playground-emblems/DDL.webp',
 };
 
 const CONFIRM_WORD = 'RESET';

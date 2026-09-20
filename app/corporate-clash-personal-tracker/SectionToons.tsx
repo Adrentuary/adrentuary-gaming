@@ -15,14 +15,14 @@ import { ToonAllResetDrawer } from './ToonAllResetDrawer';
 const QUESTS: QuestPlayground[] = [TTC, BB, YOTT, DG, MML, TB, AA, DDL];
 
 const PG_ICON: Record<string, string> = {
-  'Toontown Central': '/icons/playground-emblems/TTC.png',
-  'Barnacle Boatyard': '/icons/playground-emblems/BB.png',
-  'Ye Olde Toontowne': '/icons/playground-emblems/YOTT.png',
-  'Daffodil Gardens':  '/icons/playground-emblems/DG.png',
-  'Mezzo Melodyland':  '/icons/playground-emblems/MML.png',
-  'The Brrrgh':        '/icons/playground-emblems/TB.png',
-  'Acorn Acres':       '/icons/playground-emblems/AA.png',
-  'Drowsy Dreamland':  '/icons/playground-emblems/DDL.png',
+  'Toontown Central': '/icons/playground-emblems/TTC.webp',
+  'Barnacle Boatyard': '/icons/playground-emblems/BB.webp',
+  'Ye Olde Toontowne': '/icons/playground-emblems/YOTT.webp',
+  'Daffodil Gardens':  '/icons/playground-emblems/DG.webp',
+  'Mezzo Melodyland':  '/icons/playground-emblems/MML.webp',
+  'The Brrrgh':        '/icons/playground-emblems/TB.webp',
+  'Acorn Acres':       '/icons/playground-emblems/AA.webp',
+  'Drowsy Dreamland':  '/icons/playground-emblems/DDL.webp',
 };
 
 const LAFF_TOTALS: Record<string, number> = {
@@ -141,7 +141,7 @@ export function SectionToons() {
                   void mainRows; void sideRows; void kudosRows;
                   return (
                     <div key={pg.name} className={`toon-pg-quest-row${allDone?' toon-pg-quest-done':''}`}>
-                      <Image src={PG_ICON[pg.name]??`/icons/playground-emblems/${pg.pgKey}.png`} alt={pg.name} width={18} height={18} className="toon-pg-icon" unoptimized />
+                      <Image src={PG_ICON[pg.name]??`/icons/playground-emblems/${pg.pgKey}.webp`} alt={pg.name} width={18} height={18} className="toon-pg-icon" unoptimized />
                       <div className="toon-pg-quest-detail">
                         <span className="toon-pg-name">{pg.name}</span>
                         {allDone
@@ -166,7 +166,7 @@ export function SectionToons() {
                     const imgGag   = complete ? tr.gags[tr.gags.length-1] : highGag !== '—' ? highGag : tr.gags[0];
                     return (
                       <div key={tr.name} className={`toon-gag-cell${complete?' toon-gag-complete':''}`} style={{'--gcolor':tr.color} as React.CSSProperties}>
-                        <Image src={`/icons/gags/small/${tr.trackKey}/${imgGag}.png`} alt={tr.name} width={24} height={24} className="toon-gag-icon" unoptimized />
+                        <Image src={`/icons/gags/small/${tr.trackKey}/${imgGag}.webp`} alt={tr.name} width={24} height={24} className="toon-gag-icon" unoptimized />
                         <div className="toon-gag-cell-text">
                           <span className="toon-gag-track">{tr.name}</span>
                           <span className="toon-gag-val">{complete ? <>{'✔'} Completed</> : highGag}</span>

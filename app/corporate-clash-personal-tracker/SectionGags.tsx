@@ -478,7 +478,7 @@ export function SectionGags() {
                     <td key={zi} colSpan={(z as {span?:number}).span ?? 1}
                       className="gag-ss-zone-cell"
                       style={{background: z.color, color: z.accent}}>
-                      <Image src={`/icons/playground-emblems/${z.pgKey}.png`}
+                      <Image src={`/icons/playground-emblems/${z.pgKey}.webp`}
                         alt={z.name} width={28} height={28} className="gag-ss-zone-emblem" unoptimized />
                       <span className="gag-ss-zone-name">{z.name}</span>
                     </td>
@@ -489,7 +489,7 @@ export function SectionGags() {
                   {track.gags.map((g, gi) => (
                     <td key={gi} className="gag-ss-gag-cell"
                       colSpan={gi === track.gags.length - 1 ? 2 : 1}>
-                      <Image src={`/icons/gags/small/${track.trackKey}/${g}.png`}
+                      <Image src={`/icons/gags/small/${track.trackKey}/${g}.webp`}
                         alt={g} width={44} height={44} className="gag-ss-small-icon" />
                       <div className="gag-ss-gag-name">{g}</div>
                     </td>

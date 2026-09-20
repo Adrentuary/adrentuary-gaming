@@ -277,7 +277,7 @@ function BuildLeft({ build, usedTP, remainingTP, tpPct, tpColor, availableTP,
           const isPrs     = build.prestiges.has(track.key);
           const isStarting = build.startingTracks.has(track.key);
           const isLocked  = isOn && build.tracks.size <= 2;
-          const largeIcon = track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`;
+          const largeIcon = track.key === 'toon-up' ? 'toon-up.webp' : `${track.key}-large.webp`;
 
           // Cost label
           let costLabel: string;
@@ -365,7 +365,7 @@ function BuildRight({ build, usedTP, availableTP, activePreset, onApplyPreset, s
             {CC_GAG_TRACKS.filter(t => build.tracks.has(t.key)).map(t => {
               const isPrs      = build.prestiges.has(t.key);
               const isStarting = build.startingTracks.has(t.key);
-              const largeIcon  = t.key === 'toon-up' ? 'toon-up.png' : `${t.key}-large.png`;
+              const largeIcon  = t.key === 'toon-up' ? 'toon-up.webp' : `${t.key}-large.webp`;
               // TP cost: starting track = 0, TP track = 2, +1 if prestiged
               const tpCost = isStarting ? (isPrs ? 1 : 0) : (isPrs ? 3 : 2);
               const tpLabel = isStarting

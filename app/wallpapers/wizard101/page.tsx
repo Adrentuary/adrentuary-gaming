@@ -10,12 +10,12 @@ const sizes=[
 ];
 
 const wallpapers=[
-  {title:'School of Magic',image:'/brand/pages/wizard101-bg.png',file:'wizard101-school-of-magic'},
+  {title:'School of Magic',image:'/brand/pages/wizard101-bg.webp',file:'wizard101-school-of-magic'},
 ];
 
 export default function Wizard101Wallpapers(){return(
 <InteriorPage>
-  <InteriorHero eyebrow="Wizard101 wallpapers" title="Wizard101" description="Download free Wizard101 desktop wallpapers. Choose your resolution below." image="/brand/pages/wizard101-bg.png"/>
+  <InteriorHero eyebrow="Wizard101 wallpapers" title="Wizard101" description="Download free Wizard101 desktop wallpapers. Choose your resolution below." image="/brand/pages/wizard101-bg.webp"/>
   <section className="interior-section wp-recent">
     <p className="kicker">All wallpapers</p>
     <h2 className="wp-section-title">Wizard101</h2>

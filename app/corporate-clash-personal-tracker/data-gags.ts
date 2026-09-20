@@ -38,7 +38,7 @@ export const RECOMMENDED_ZONES = [
 // --- Track definitions
 
 const TOONUP: GagTrack = {
-  name: 'Toon-Up', trackKey: 'toon-up', largeIcon: 'toon-up.png',
+  name: 'Toon-Up', trackKey: 'toon-up', largeIcon: 'toon-up.webp',
   color: '#6b2880', headerColor: '#4a1858', labelColor: '#d080ff',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Feather','Megaphone','Lipstick','Bamboo Cane','Pixie Dust','Juggling Cubes','Confetti Cannon','High Dive'],
@@ -51,7 +51,7 @@ const TOONUP: GagTrack = {
 };
 
 const TRAP: GagTrack = {
-  name: 'Trap', trackKey: 'trap', largeIcon: 'trap-large.png',
+  name: 'Trap', trackKey: 'trap', largeIcon: 'trap-large.webp',
   color: '#8a1010', headerColor: '#5a0808', labelColor: '#ff7070',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Banana Peel','Rake','Springboard','Marbles','Quicksand','Trapdoor','Wrecking Ball','TNT'],
@@ -65,7 +65,7 @@ const TRAP: GagTrack = {
 };
 
 const LURE: GagTrack = {
-  name: 'Lure', trackKey: 'lure', largeIcon: 'lure-large.png',
+  name: 'Lure', trackKey: 'lure', largeIcon: 'lure-large.webp',
   color: '#1a5430', headerColor: '#0e3520', labelColor: '#60e080',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['$1 Bill','Small Magnet','$5 Bill','Big Magnet','$10 Bill','Hypno-goggles','$50 Bill','Presentation'],
@@ -78,7 +78,7 @@ const LURE: GagTrack = {
 };
 
 const THROW: GagTrack = {
-  name: 'Throw', trackKey: 'throw', largeIcon: 'throw-large.png',
+  name: 'Throw', trackKey: 'throw', largeIcon: 'throw-large.webp',
   color: '#8a3a08', headerColor: '#5a2404', labelColor: '#e08040',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Cupcake','Fruit Pie Slice','Cream Pie Slice','Birthday Cake Slice','Whole Fruit Pie','Whole Cream Pie','Birthday Cake','Wedding Cake'],
@@ -90,7 +90,7 @@ const THROW: GagTrack = {
 };
 
 const SQUIRT: GagTrack = {
-  name: 'Squirt', trackKey: 'squirt', largeIcon: 'squirt-large.png',
+  name: 'Squirt', trackKey: 'squirt', largeIcon: 'squirt-large.webp',
   color: '#8020a0', headerColor: '#550e70', labelColor: '#d060ff',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Squirting Flower','Glass of Water','Squirt Gun','Water Balloon','Seltzer Bottle','Fire Hose','Storm Cloud','Geyser'],
@@ -104,7 +104,7 @@ const SQUIRT: GagTrack = {
 };
 
 const ZAP: GagTrack = {
-  name: 'Zap', trackKey: 'zap', largeIcon: 'zap-large.png',
+  name: 'Zap', trackKey: 'zap', largeIcon: 'zap-large.webp',
   color: '#7a6a00', headerColor: '#504500', labelColor: '#d4b800',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Joybuzzer','Lightbulb','Broken Radio','Kart Battery','Broken Television','Stagelight','Tesla Coil','Lightning'],
@@ -117,7 +117,7 @@ const ZAP: GagTrack = {
 };
 
 const SOUND: GagTrack = {
-  name: 'Sound', trackKey: 'sound', largeIcon: 'sound-large.png',
+  name: 'Sound', trackKey: 'sound', largeIcon: 'sound-large.webp',
   color: '#1a3070', headerColor: '#101e4a', labelColor: '#6090e0',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Kazoo','Bike Horn','Whistle','Bugle','Aoogah','Elephant Trunk','Foghorn','Opera Singer'],
@@ -131,7 +131,7 @@ const SOUND: GagTrack = {
 };
 
 const DROP: GagTrack = {
-  name: 'Drop', trackKey: 'drop', largeIcon: 'drop-large.png',
+  name: 'Drop', trackKey: 'drop', largeIcon: 'drop-large.webp',
   color: '#107878', headerColor: '#065050', labelColor: '#40d0d0',
   xpMin: GAG_XP_MIN, xpMax: GAG_XP_MAX,
   gags: ['Flower Pot','Sandbag','Bowling Ball','Anvil','Big Weight','Safe','Boulder','Grand Piano'],

@@ -76,7 +76,7 @@ export function StreetShopModal({ data, onClose }: Props) {
                   </div>
                 ) : (
                   <div className="ssm-owner-img-wrap">
-                    <Image src="/icons/misc/vacant-shop.png" alt="Vacant Shop"
+                    <Image src="/icons/misc/vacant-shop.webp" alt="Vacant Shop"
                       fill
                       className="ssm-vacant-img"
                       unoptimized />

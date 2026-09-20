@@ -72,7 +72,7 @@ export function QuestResetDrawer() {
             <div key={pg.name} className="quest-reset-row">
               <span className="quest-reset-row-label">
                 <Image
-                  src={`/icons/playground-emblems/${pg.pgKey}.png`}
+                  src={`/icons/playground-emblems/${pg.pgKey}.webp`}
                   alt={pg.name}
                   width={20}
                   height={20}

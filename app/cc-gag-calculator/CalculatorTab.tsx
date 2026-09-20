@@ -101,7 +101,7 @@ export function CalculatorTab() {
               <div className="gagcalc-track-row" style={{ background: track.headerColor }}>
                 <div className="gagcalc-track-label" style={{ color: track.labelColor }}>
                   <Image
-                    src={`/icons/gags/large/${track.key === 'toon-up' ? 'toon-up.png' : `${track.key}-large.png`}`}
+                    src={`/icons/gags/large/${track.key === 'toon-up' ? 'toon-up.webp' : `${track.key}-large.webp`}`}
                     alt={track.name} width={28} height={28} unoptimized className="gagcalc-track-icon"
                   />
                   {track.name}
@@ -298,7 +298,7 @@ export function CalculatorTab() {
                   <div key={trackKey} className="gagcalc-iou-track-group">
                     <div className="gagcalc-iou-track-header">
                       <Image
-                        src={`/icons/gags/large/${trackKey === 'toon-up' ? 'toon-up.png' : `${trackKey}-large.png`}`}
+                        src={`/icons/gags/large/${trackKey === 'toon-up' ? 'toon-up.webp' : `${trackKey}-large.webp`}`}
                         alt={trackData.name} width={18} height={18} unoptimized
                       />
                       <span className="gagcalc-iou-track-name" style={{ color: trackData.labelColor }}>
@@ -581,14 +581,14 @@ function getMaxDefeatedLevel(cogType: CogType, damage: number): number | null {
 /** Maps standard cog level 1–8 to a portrait image. Level 1 uses the Lv1 cog,
  *  and each step up shows the next cog portrait as damage increases. */
 const COG_PORTRAITS: { maxStandardLv: number; src: string; name: string }[] = [
-  { maxStandardLv: 1, src: '/icons/cogs/cog-lv1.png', name: 'Flunky'        },
-  { maxStandardLv: 2, src: '/icons/cogs/cog-lv2.png', name: 'Paper Hands'   },
-  { maxStandardLv: 3, src: '/icons/cogs/cog-lv3.png', name: 'Tightwad'      },
-  { maxStandardLv: 4, src: '/icons/cogs/cog-lv4.png', name: 'Glad Hander'   },
-  { maxStandardLv: 5, src: '/icons/cogs/cog-lv5.png', name: 'Downsizer'     },
-  { maxStandardLv: 6, src: '/icons/cogs/cog-lv6.png', name: 'Shark Watcher' },
-  { maxStandardLv: 7, src: '/icons/cogs/cog-lv7.png', name: 'Legal Eagle'   },
-  { maxStandardLv: 8, src: '/icons/cogs/cog-lv8.png', name: 'Mr. Hollywood' },
+  { maxStandardLv: 1, src: '/icons/cogs/cog-lv1.webp', name: 'Flunky'        },
+  { maxStandardLv: 2, src: '/icons/cogs/cog-lv2.webp', name: 'Paper Hands'   },
+  { maxStandardLv: 3, src: '/icons/cogs/cog-lv3.webp', name: 'Tightwad'      },
+  { maxStandardLv: 4, src: '/icons/cogs/cog-lv4.webp', name: 'Glad Hander'   },
+  { maxStandardLv: 5, src: '/icons/cogs/cog-lv5.webp', name: 'Downsizer'     },
+  { maxStandardLv: 6, src: '/icons/cogs/cog-lv6.webp', name: 'Shark Watcher' },
+  { maxStandardLv: 7, src: '/icons/cogs/cog-lv7.webp', name: 'Legal Eagle'   },
+  { maxStandardLv: 8, src: '/icons/cogs/cog-lv8.webp', name: 'Mr. Hollywood' },
 ];
 
 function DamageResult({ breakdown }: { breakdown: ReturnType<typeof calcTotalDamage> }) {

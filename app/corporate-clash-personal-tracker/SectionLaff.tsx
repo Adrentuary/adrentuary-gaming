@@ -11,14 +11,14 @@ import { LAST_UPDATED } from './last-updated';
 
 // ── Constants ──────────────────────────────────────────────────────────────
 const PG_ICON_MAP: Record<string, string> = {
-  'Toontown Central': '/icons/playground-emblems/TTC.png',
-  'Barnacle Boatyard': '/icons/playground-emblems/BB.png',
-  'Ye Olde Toontowne': '/icons/playground-emblems/YOTT.png',
-  'Daffodil Gardens':  '/icons/playground-emblems/DG.png',
-  'Mezzo Melodyland':  '/icons/playground-emblems/MML.png',
-  'The Brrrgh':        '/icons/playground-emblems/TB.png',
-  'Acorn Acres':       '/icons/playground-emblems/AA.png',
-  'Drowsy Dreamland':  '/icons/playground-emblems/DDL.png',
+  'Toontown Central': '/icons/playground-emblems/TTC.webp',
+  'Barnacle Boatyard': '/icons/playground-emblems/BB.webp',
+  'Ye Olde Toontowne': '/icons/playground-emblems/YOTT.webp',
+  'Daffodil Gardens':  '/icons/playground-emblems/DG.webp',
+  'Mezzo Melodyland':  '/icons/playground-emblems/MML.webp',
+  'The Brrrgh':        '/icons/playground-emblems/TB.webp',
+  'Acorn Acres':       '/icons/playground-emblems/AA.webp',
+  'Drowsy Dreamland':  '/icons/playground-emblems/DDL.webp',
 };
 
 const LAFF_DA  = '#5ab0e0';

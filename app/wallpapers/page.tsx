@@ -12,7 +12,7 @@ const sizes=[
 ];
 
 const recent=[
-  {title:'Wizard101 — School of Magic',image:'/brand/pages/wizard101-bg.png',file:'wizard101-school-of-magic'},
+  {title:'Wizard101 — School of Magic',image:'/brand/pages/wizard101-bg.webp',file:'wizard101-school-of-magic'},
 ];
 
 export default function Wallpapers(){return(
@@ -49,7 +49,7 @@ export default function Wallpapers(){return(
       <AnimateIn delay={80}>
         <div className="game-tiles">
           <Link href="/wallpapers/wizard101">
-            <img className="tile-bg" src="/brand/pages/wizard101-bg.png" alt=""/>
+            <img className="tile-bg" src="/brand/pages/wizard101-bg.webp" alt=""/>
             <div className="tile-shade"/>
             <span>Wizard101</span>
           </Link>

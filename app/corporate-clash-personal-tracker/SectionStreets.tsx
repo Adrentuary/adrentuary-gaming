@@ -14,11 +14,11 @@ const PG_HAS_INFO = new Set(['TTC', 'BB', 'YOTT']);
 
 // cog emblem images — order matches cogs[] array: SB, CB, LB, BB, BSB
 const COG_EMBLEMS = [
-  { src: '/icons/cog-emblems/SellbotEmblem.png',  alt: 'Sellbot'  },
-  { src: '/icons/cog-emblems/CashbotEmblem.png',  alt: 'Cashbot'  },
-  { src: '/icons/cog-emblems/LawbotEmblem.png',   alt: 'Lawbot'   },
-  { src: '/icons/cog-emblems/BossbotEmblem.png',  alt: 'Bossbot'  },
-  { src: '/icons/cog-emblems/BoardbotEmblem.png', alt: 'Boardbot' },
+  { src: '/icons/cog-emblems/SellbotEmblem.webp',  alt: 'Sellbot'  },
+  { src: '/icons/cog-emblems/CashbotEmblem.webp',  alt: 'Cashbot'  },
+  { src: '/icons/cog-emblems/LawbotEmblem.webp',   alt: 'Lawbot'   },
+  { src: '/icons/cog-emblems/BossbotEmblem.webp',  alt: 'Bossbot'  },
+  { src: '/icons/cog-emblems/BoardbotEmblem.webp', alt: 'Boardbot' },
 ];
 
 // pair the 8 districts into 4 side-by-side rows
@@ -46,7 +46,7 @@ function DistrictCard({ district, onShopClick, onTitleClick }: {
     >
       <div className="tracker-card-header">
         <Image
-          src={`/icons/playground-emblems/${district.pgKey}.png`}
+          src={`/icons/playground-emblems/${district.pgKey}.webp`}
           alt={district.name}
           width={28}
           height={28}
