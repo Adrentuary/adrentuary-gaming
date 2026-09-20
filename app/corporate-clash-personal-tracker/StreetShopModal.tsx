@@ -158,11 +158,19 @@ export function StreetShopModal({ data, onClose }: Props) {
               )}
             </p>
 
-            {/* Story Appearances — skip any that already appear in tasks[] */}
+            {/* Story Appearances — skip duplicates of tasks[] and non-quest entries */}
             {(() => {
+              const NON_QUEST_TYPES = /^(YouTube|social media|comic|Issue #\d+|blog post|ARG Task)/i;
+              const NON_QUEST_BARE = /blog post|plushie trailer|\(YouTube\)|\(social media\)|comic \(issue/i;
               const taskNames = new Set(selected.tasks.map(t => t.name));
               const storyOnly = (selected.storyAppearances ?? []).filter(sa => {
+                // Drop if it matches a non-quest pattern anywhere in the string
+                if (NON_QUEST_BARE.test(sa)) return false;
                 const m = sa.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+                const type = m ? m[2] : null;
+                // Drop if the type is a non-quest category
+                if (type && NON_QUEST_TYPES.test(type)) return false;
+                // Drop if already covered by a full task block below
                 return !taskNames.has(m ? m[1] : sa);
               });
               if (storyOnly.length === 0) return null;
